@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ThIA Sports - MLB Hoy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+            color: #eef2ff;
+            padding: 1rem;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(135deg, #f97316, #facc15);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 1rem 0;
+        }
+        .game-card {
+            background: rgba(18, 25, 45, 0.9);
+            border-radius: 24px;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            margin-bottom: 1rem;
+            padding: 1rem;
+        }
+        .teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            gap: 0.5rem;
+        }
+        .team-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .vs {
+            background: #facc15;
+            color: #0f172a;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .prediction {
+            background: #0f172a;
+            border-left: 4px solid #10b981;
+            border-radius: 16px;
+            padding: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5b6e8c;
+            margin-top: 2rem;
+        }
+        @media (max-width: 640px) {
+            .teams { flex-direction: column; gap: 0.3rem; }
+            .vs { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">ThIA Sports ⚾</div>
+    <div id="gamesContainer"></div>
+    <div class="footer">Predicciones MLB - 02/04/2026</div>
+
+    <script>
+        // Datos de MLB (los mismos del PDF)
+        const games = [
+            { away: "Athletics", home: "Atlanta", time: "12:15 PM", spAway: "L. Severino (4.54)", spHome: "C. Sale (3.41)", prediction: "ATL ML -155 • UNDER 8.5 (NRFI 65%) • Sale 7K+" },
+            { away: "Texas", home: "Baltimore", time: "12:35 PM", spAway: "K. Rocker (5.74)", spHome: "T. Rogers (1.81)", prediction: "BAL ML -118 • UNDER 8.0 • Henderson HR" },
+            { away: "Pittsburgh", home: "Cincinnati", time: "12:40 PM", spAway: "P. Skenes (1.69)", spHome: "A. Abbott (2.87)", prediction: "PIT ML -122 • UNDER 7.5 • Skenes 8K+" },
+            { away: "Washington", home: "Philadelphia", time: "1:05 PM", spAway: "C. Cavalli (4.25)", spHome: "C. Sanchez (2.95)", prediction: "PHI ML -118 • UNDER 8.5 • Harper HR" },
+            { away: "Colorado", home: "Toronto", time: "1:07 PM", spAway: "K. Freeland (5.08)", spHome: "K. Gausman (3.34)", prediction: "OVER 9.0 • Freeland ERA>5 → OVER automático" },
+            { away: "White Sox", home: "Miami", time: "1:10 PM", spAway: "S. Smith (3.81)", spHome: "S. Alcantara (3.74)", prediction: "MIA ML -118 • UNDER 8.5 • Alcantara 7K+" },
+            { away: "NY Mets", home: "St. Louis", time: "1:15 PM", spAway: "F. Peralta (2.96)", spHome: "M. Liberatore (4.21)", prediction: "NYM ML -122 • UNDER 8.5 • Peralta 7K+" },
+            { away: "Tampa Bay", home: "Milwaukee", time: "1:40 PM", spAway: "D. Rasmussen (2.76)", spHome: "J. Misiorowski (3.95)", prediction: "MIL ML -132 • UNDER 7.5 • Chourio H+" },
+            { away: "Boston", home: "Houston", time: "2:10 PM", spAway: "G. Crochet (3.58)", spHome: "M. Burrows (4.85)", prediction: "BOS ML -118 • UNDER 9.0 • Crochet 7K+" },
+            { away: "LA Angels", home: "Chicago Cubs", time: "2:20 PM", spAway: "Y. Kikuchi (3.86)", spHome: "M. Boyd (3.21)", prediction: "CHC ML -118 • UNDER 8.5 • Bregman HR" },
+            { away: "Detroit", home: "Arizona", time: "3:40 PM", spAway: "T. Skubal (1.86)", spHome: "Z. Gallen (3.06)", prediction: "DET ML -155 • UNDER 8.0 • Skubal 9K+ (ACE)" },
+            { away: "NY Yankees", home: "Seattle", time: "4:10 PM", spAway: "C. Schittler (2.76)", spHome: "G. Kirby (2.85)", prediction: "SEA ML -118 • UNDER 8.0 • Rodriguez H+" },
+            { away: "San Francisco", home: "San Diego", time: "4:10 PM", spAway: "A. Houser (4.86)", spHome: "N. Pivetta (3.42)", prediction: "SD ML -118 • UNDER 9.0 • Tatis H+" },
+            { away: "Minnesota", home: "Kansas City", time: "7:40 PM", spAway: "J. Ryan (3.42)", spHome: "N. Cameron (4.08)", prediction: "KC ML -108 • UNDER 8.5 • Ryan 7K+" },
+            { away: "Cleveland", home: "LA Dodgers", time: "8:20 PM", spAway: "G. Williams (3.05)", spHome: "Y. Yamamoto (3.41)", prediction: "LAD ML -158 • UNDER 8.5 • Ohtani HR (ACE)" }
+        ];
+
+        const container = document.getElementById('gamesContainer');
+        let html = '';
+        for (let g of games) {
+            html += `
+                <div class="game-card">
+                    <div class="teams">
+                        <div class="team"><div class="team-name">${g.away}</div><div style="font-size:0.7rem;">Visitante</div></div>
+                        <div class="vs">VS</div>
+                        <div class="team"><div class="team-name">${g.home}</div><div style="font-size:0.7rem;">Local</div></div>
+                    </div>
+                    <div class="game-info">
+                        <span>⏰ ${g.time}</span>
+                        <span>⚾ ${g.spAway} @ ${g.spHome}</span>
+                    </div>
+                    <div class="prediction">
+                        🔮 <strong>Predicción:</strong> ${g.prediction}
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    </script>
+</body>
+</html>
