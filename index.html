@@ -532,3 +532,23 @@
 </script>
 </body>
 </html>
+CREATE TABLE IF NOT EXISTS usuarios (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  nombre TEXT,
+  foto TEXT,
+  creado_en TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS suscripciones (
+  id SERIAL PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  plan TEXT NOT NULL,
+  deportes TEXT[],
+  activo BOOLEAN DEFAULT TRUE,
+  fecha_compra TIMESTAMP DEFAULT NOW(),
+  fecha_expiracion TIMESTAMP
+);
+
+ALTER TABLE usuarios DISABLE ROW LEVEL SECURITY;
+ALTER TABLE suscripciones DISABLE ROW LEVEL SECURITY;
