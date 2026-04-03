@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | MLB + NBA + NHL Predicciones</title>
+    <title>ThIA Sports | MLB + NBA + NHL + Fútbol Predicciones</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -86,11 +86,11 @@
         .team-name { font-weight: bold; font-size: 0.9rem; }
         .team-record { font-size: 0.65rem; color: #9ca3af; }
         .vs { background: #facc15; color: #0f172a; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .game-info { display: flex; justify-content: space-between; padding: 0 1rem 0.4rem; font-size: 0.7rem; color: #9ca3af; }
+        .game-info { display: flex; justify-content: space-between; padding: 0 1rem 0.4rem; font-size: 0.7rem; color: #9ca3af; flex-wrap: wrap; gap: 0.3rem; }
         .injury-note { font-size: 0.65rem; background: rgba(220, 38, 38, 0.2); padding: 0.3rem; margin: 0 1rem 0.5rem; border-radius: 10px; color: #fca5a5; }
         .locked-overlay { background: #1e293b; border-radius: 16px; padding: 0.8rem; text-align: center; margin: 0.5rem 1rem 1rem; }
         .prediction-block { padding: 0.7rem 1rem 1rem; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05); }
-        .prediction-text { background: #0f172a; border-left: 4px solid #10b981; border-radius: 14px; padding: 0.7rem; font-size: 0.8rem; }
+        .prediction-text { background: #0f172a; border-left: 4px solid #10b981; border-radius: 14px; padding: 0.7rem; font-size: 0.8rem; line-height: 1.4; }
         .star-badge { background: #facc15; color: #0f172a; font-size: 0.65rem; font-weight: bold; padding: 0.15rem 0.5rem; border-radius: 20px; display: inline-block; margin-bottom: 0.3rem; }
         
         .admin-panel {
@@ -194,6 +194,7 @@
     <button class="tab active" data-sport="mlb">⚾ MLB</button>
     <button class="tab" data-sport="nba">🏀 NBA</button>
     <button class="tab" data-sport="nhl">🏒 NHL</button>
+    <button class="tab" data-sport="soccer">⚽ Fútbol</button>
 </div>
 
 <div id="gamesContainer" class="games-grid"></div>
@@ -204,6 +205,7 @@
         <button class="admin-tab active" data-admin="mlb">⚾ MLB</button>
         <button class="admin-tab" data-admin="nba">🏀 NBA</button>
         <button class="admin-tab" data-admin="nhl">🏒 NHL</button>
+        <button class="admin-tab" data-admin="soccer">⚽ Fútbol</button>
     </div>
     <textarea id="adminJsonData" class="admin-textarea" rows="8" placeholder="Pega aquí el JSON de los juegos..."></textarea>
     <div class="admin-buttons">
@@ -213,10 +215,10 @@
     <p style="font-size:0.7rem; margin-top:0.5rem; color:#9ca3af;">📌 Los datos se guardan automáticamente en tu navegador.</p>
 </div>
 
-<div class="footer">Predicciones ThIA Sports | Los datos se guardan localmente</div>
+<div class="footer">Predicciones ThIA Sports | Datos actualizados 03/04/2026</div>
 
 <script>
-    // ==================== DATOS POR DEFECTO ====================
+    // ==================== DATOS POR DEFECTO MLB ====================
     const DEFAULT_MLB = [
         { away: "Athletics", home: "Atlanta", time: "12:15 PM", spAway: "L. Severino (4.54)", spHome: "C. Sale (3.41)", prediction: "ATL ML -155 • UNDER 8.5 • Sale 7K+", star: false },
         { away: "Texas", home: "Baltimore", time: "12:35 PM", spAway: "K. Rocker (5.74)", spHome: "T. Rogers (1.81)", prediction: "BAL ML -118 • UNDER 8.0 • Henderson HR", star: false },
@@ -235,6 +237,7 @@
         { away: "Cleveland", home: "LA Dodgers", time: "8:20 PM", spAway: "G. Williams (3.05)", spHome: "Y. Yamamoto (3.41)", prediction: "LAD ML -158 • UNDER 8.5 • Ohtani HR", star: false }
     ];
     
+    // ==================== DATOS POR DEFECTO NBA ====================
     const DEFAULT_NBA = [
         { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true },
         { away: "Charlotte Hornets", away_rec: "36-33", home: "Phoenix Suns", home_rec: "41-34", time: "7:00 PM", spread: "CHA -5.5", total: "226.5", prediction: "UNDER 226.5 • CHA ML -220", injuries: "PHX: Williams/Highsmith OUT", star: false },
@@ -244,6 +247,7 @@
         { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true }
     ];
     
+    // ==================== DATOS POR DEFECTO NHL ====================
     const DEFAULT_NHL = [
         { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true },
         { away: "Pittsburgh Penguins", away_rec: "37-30-8", home: "Tampa Bay Lightning", home_rec: "46-22-6", time: "7:00 PM", spread: "TB -1.5", total: "6.5", prediction: "TB ML -176 • UNDER 6.5", injuries: "Hagel doubtful", star: false },
@@ -251,6 +255,17 @@
         { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108) • Favorito de visita", injuries: "NYR L10: 1-9", star: true },
         { away: "Nashville Predators", away_rec: "34-31-9", home: "Los Angeles Kings", home_rec: "30-26-18", time: "10:30 PM", spread: "LA -1.5", total: "5.5", prediction: "⭐ UNDER 5.5 • LA Kings ML", injuries: "Fiala OUT", star: true },
         { away: "Toronto Maple Leafs", away_rec: "41-25-9", home: "San Jose Sharks", home_rec: "32-33-11", time: "10:00 PM", spread: "TOR -1.5", total: "6.5", prediction: "⭐ Celebrini Puntos OV 0.5", injuries: "Celebrini 🔥", star: true }
+    ];
+    
+    // ==================== DATOS POR DEFECTO FÚTBOL (03/04/2026) ====================
+    const DEFAULT_SOCCER = [
+        { away: "Gil Vicente", away_rec: "11º", home: "AFS (Académico Viseu)", home_rec: "17º", time: "12:30 VEN", spread: "GV -0.75", total: "2.5", prediction: "⚠ Over 1.5 goles • AFS frágil visitante • Cuota ~1.55", injuries: "AFS sin referentes ofensivos", star: false },
+        { away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º", time: "14:30 VEN", spread: "VSC -1.25", total: "2.5", prediction: "⭐ Vitória Guimarães 1X • 65% • 1.55 EV+11%", injuries: "Tondela recién ascendido, sin bajas clave", star: true },
+        { away: "Santa Clara", away_rec: "9º", home: "Sporting CP", home_rec: "2º", time: "17:00 VEN", spread: "SPO -2.0", total: "3.0", prediction: "⭐ Over 2.5 goles • Sporting 55 goles/temp • 1.52", injuries: "Santa Clara sin bajas importantes", star: true },
+        { away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º", time: "15:00 VEN", spread: "RAY -0.5", total: "2.5", prediction: "⭐ UNDER 2.5 goles • xG 2.4 • Elche sin gol visitante • 1.80", injuries: "Elche recién ascendido, sin gol visitante 3P", star: true },
+        { away: "FC Juárez", away_rec: "8º", home: "Puebla", home_rec: "12º", time: "20:00 VEN", spread: "PUE +0.25", total: "2.5", prediction: "⚠ Over 3.5 tarjetas • duelo físico • 1.70", injuries: "Puebla local 36% trampa", star: false },
+        { away: "Mazatlán FC", away_rec: "15º", home: "Necaxa", home_rec: "10º", time: "22:00 VEN", spread: "NEC -0.75", total: "2.5", prediction: "⭐ Necaxa 1X • 60% • 1.67 EV+11% • Under 2.5", injuries: "Mazatlán 0.83 goles/partido (peor ataque)", star: true },
+        { away: "Tigres UANL", away_rec: "3º", home: "Club Tijuana", home_rec: "13º", time: "22:06 VEN", spread: "TIG -0.5", total: "2.5", prediction: "⭐ Over 2.5 goles • Tigres 27G/12J • Gignac en forma • 1.80", injuries: "Tijuana local 26% trampa • Under bloqueado", star: true }
     ];
     
     // ==================== SISTEMA DE USUARIOS ====================
@@ -261,6 +276,7 @@
     let mlbGames = [...DEFAULT_MLB];
     let nbaGames = [...DEFAULT_NBA];
     let nhlGames = [...DEFAULT_NHL];
+    let soccerGames = [...DEFAULT_SOCCER];
     
     function loadUsers() {
         const saved = localStorage.getItem('thia_users');
@@ -311,19 +327,26 @@
                 if (data.mlb) mlbGames = data.mlb;
                 if (data.nba) nbaGames = data.nba;
                 if (data.nhl) nhlGames = data.nhl;
+                if (data.soccer) soccerGames = data.soccer;
             } catch(e) {}
         }
     }
     
     function saveLocalData() {
-        localStorage.setItem('thia_games_data', JSON.stringify({ mlb: mlbGames, nba: nbaGames, nhl: nhlGames }));
+        localStorage.setItem('thia_games_data', JSON.stringify({ 
+            mlb: mlbGames, 
+            nba: nbaGames, 
+            nhl: nhlGames,
+            soccer: soccerGames 
+        }));
     }
     
     function resetToDefault() {
-        if (confirm("¿Restaurar datos por defecto?")) {
+        if (confirm("¿Restaurar datos por defecto? Perderás los cambios personalizados.")) {
             mlbGames = [...DEFAULT_MLB];
             nbaGames = [...DEFAULT_NBA];
             nhlGames = [...DEFAULT_NHL];
+            soccerGames = [...DEFAULT_SOCCER];
             saveLocalData();
             renderGames();
             alert("Datos restaurados");
@@ -337,7 +360,8 @@
             if (!Array.isArray(newGames)) throw new Error("Debe ser un array");
             if (sport === 'mlb') mlbGames = newGames;
             else if (sport === 'nba') nbaGames = newGames;
-            else nhlGames = newGames;
+            else if (sport === 'nhl') nhlGames = newGames;
+            else if (sport === 'soccer') soccerGames = newGames;
             saveLocalData();
             renderGames();
             alert(`Datos de ${sport.toUpperCase()} actualizados`);
@@ -348,7 +372,12 @@
     function hasAccess() { return currentUser !== null; }
     
     function renderGames() {
-        let games = currentSport === 'mlb' ? mlbGames : (currentSport === 'nba' ? nbaGames : nhlGames);
+        let games = [];
+        if (currentSport === 'mlb') games = mlbGames;
+        else if (currentSport === 'nba') games = nbaGames;
+        else if (currentSport === 'nhl') games = nhlGames;
+        else games = soccerGames;
+        
         const container = document.getElementById('gamesContainer');
         const acceso = hasAccess();
         let html = '';
@@ -365,9 +394,11 @@
                 }
             } else {
                 if (!acceso) {
-                    html += `<div class="game-card"><div class="teams"><div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.away}</div></div><div class="vs">VS</div><div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.home}</div></div></div><div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div></div>`;
+                    const sportEmoji = currentSport === 'nba' ? '🏀' : (currentSport === 'nhl' ? '🏒' : '⚽');
+                    html += `<div class="game-card"><div class="teams"><div class="team"><div class="team-logo">${sportEmoji}</div><div class="team-name">${g.away}</div></div><div class="vs">VS</div><div class="team"><div class="team-logo">${sportEmoji}</div><div class="team-name">${g.home}</div></div></div><div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div></div>`;
                 } else {
-                    html += `<div class="game-card ${starClass}"><div class="teams"><div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.away}</div><div class="team-record">${g.away_rec || ''}</div></div><div class="vs">VS</div><div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.home}</div><div class="team-record">${g.home_rec || ''}</div></div></div><div class="game-info"><span>⏰ ${g.time}</span><span>📊 ${g.spread || ''} | Total: ${g.total || ''}</span></div>${g.injuries ? `<div class="injury-note">⚠️ ${g.injuries}</div>` : ''}<div class="prediction-block"><div class="prediction-text">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div></div>`;
+                    const sportEmoji = currentSport === 'nba' ? '🏀' : (currentSport === 'nhl' ? '🏒' : '⚽');
+                    html += `<div class="game-card ${starClass}"><div class="teams"><div class="team"><div class="team-logo">${sportEmoji}</div><div class="team-name">${g.away}</div><div class="team-record">${g.away_rec || ''}</div></div><div class="vs">VS</div><div class="team"><div class="team-logo">${sportEmoji}</div><div class="team-name">${g.home}</div><div class="team-record">${g.home_rec || ''}</div></div></div><div class="game-info"><span>⏰ ${g.time}</span><span>📊 ${g.spread || ''} | Total: ${g.total || ''}</span></div>${g.injuries ? `<div class="injury-note">⚠️ ${g.injuries}</div>` : ''}<div class="prediction-block"><div class="prediction-text">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div></div>`;
                 }
             }
         }
@@ -438,7 +469,11 @@
                 document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentAdminSport = tab.getAttribute('data-admin');
-                const data = currentAdminSport === 'mlb' ? mlbGames : (currentAdminSport === 'nba' ? nbaGames : nhlGames);
+                let data = [];
+                if (currentAdminSport === 'mlb') data = mlbGames;
+                else if (currentAdminSport === 'nba') data = nbaGames;
+                else if (currentAdminSport === 'nhl') data = nhlGames;
+                else data = soccerGames;
                 document.getElementById('adminJsonData').value = JSON.stringify(data, null, 2);
             });
         });
