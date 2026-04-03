@@ -56,6 +56,8 @@
             font-size: 0.8rem;
         }
         .btn:hover { background: #facc15; color: #0f172a; }
+        .btn-danger { border-color: #ef4444; color: #ef4444; }
+        .btn-danger:hover { background: #ef4444; color: #0f172a; }
         .sport-tabs {
             display: flex;
             justify-content: center;
@@ -90,6 +92,40 @@
         .prediction-block { padding: 0.7rem 1rem 1rem; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05); }
         .prediction-text { background: #0f172a; border-left: 4px solid #10b981; border-radius: 14px; padding: 0.7rem; font-size: 0.8rem; }
         .star-badge { background: #facc15; color: #0f172a; font-size: 0.65rem; font-weight: bold; padding: 0.15rem 0.5rem; border-radius: 20px; display: inline-block; margin-bottom: 0.3rem; }
+        
+        /* Panel Admin */
+        .admin-panel {
+            margin-top: 2rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: 24px;
+            padding: 1rem;
+            border: 1px solid #334155;
+        }
+        .admin-panel h3 { margin-bottom: 1rem; color: #facc15; }
+        .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .admin-tab {
+            background: #1e293b;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            color: #cbd5e6;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .admin-tab.active { background: #facc15; color: #0f172a; }
+        .admin-textarea {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 0.8rem;
+            color: #eef2ff;
+            font-family: monospace;
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+        }
+        .admin-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
@@ -100,18 +136,20 @@
         .plan-card { background: #1e293b; margin: 1rem 0; padding: 1rem; border-radius: 20px; cursor: pointer; }
         .hidden { display: none; }
         .footer { text-align: center; font-size: 0.65rem; color: #5b6e8c; margin-top: 2rem; }
+        
         @media (max-width: 640px) {
             .teams { flex-direction: column; }
             .vs { margin: 0 auto; }
             .team-logo { font-size: 1.6rem; }
             .top-bar { flex-direction: column; text-align: center; }
+            .admin-textarea { font-size: 0.6rem; }
         }
     </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<!-- Modal de Login -->
+<!-- Modales -->
 <div id="authModal" class="modal hidden">
     <div class="modal-content">
         <h2>ThIA Sports</h2>
@@ -121,7 +159,6 @@
     </div>
 </div>
 
-<!-- Modal de Planes -->
 <div id="plansModal" class="modal hidden">
     <div class="modal-content">
         <h2>Planes ThIA Sports</h2>
@@ -146,11 +183,28 @@
 </div>
 
 <div id="gamesContainer" class="games-grid"></div>
-<div class="footer">Predicciones ThIA Sports | 02/04/2026</div>
+
+<!-- Panel de Administración (solo visible para admin) -->
+<div id="adminPanel" class="admin-panel hidden">
+    <h3>🔧 Panel de Administración</h3>
+    <div class="admin-tabs">
+        <button class="admin-tab active" data-admin="mlb">⚾ MLB</button>
+        <button class="admin-tab" data-admin="nba">🏀 NBA</button>
+        <button class="admin-tab" data-admin="nhl">🏒 NHL</button>
+    </div>
+    <textarea id="adminJsonData" class="admin-textarea" rows="8" placeholder="Pega aquí el JSON de los juegos..."></textarea>
+    <div class="admin-buttons">
+        <button id="saveDataBtn" class="btn">💾 Guardar datos</button>
+        <button id="resetDataBtn" class="btn btn-danger">🔄 Restaurar datos por defecto</button>
+    </div>
+    <p style="font-size:0.7rem; margin-top:0.5rem; color:#9ca3af;">📌 Los datos se guardan automáticamente en tu navegador.</p>
+</div>
+
+<div class="footer">Predicciones ThIA Sports | Los datos se guardan localmente</div>
 
 <script>
-    // ==================== DATOS MLB (15 juegos) ====================
-    const mlbGames = [
+    // ==================== DATOS POR DEFECTO ====================
+    const DEFAULT_MLB = [
         { away: "Athletics", home: "Atlanta", time: "12:15 PM", spAway: "L. Severino (4.54)", spHome: "C. Sale (3.41)", prediction: "ATL ML -155 • UNDER 8.5 • Sale 7K+", star: false },
         { away: "Texas", home: "Baltimore", time: "12:35 PM", spAway: "K. Rocker (5.74)", spHome: "T. Rogers (1.81)", prediction: "BAL ML -118 • UNDER 8.0 • Henderson HR", star: false },
         { away: "Pittsburgh", home: "Cincinnati", time: "12:40 PM", spAway: "P. Skenes (1.69)", spHome: "A. Abbott (2.87)", prediction: "PIT ML -122 • UNDER 7.5 • Skenes 8K+", star: false },
@@ -168,8 +222,7 @@
         { away: "Cleveland", home: "LA Dodgers", time: "8:20 PM", spAway: "G. Williams (3.05)", spHome: "Y. Yamamoto (3.41)", prediction: "LAD ML -158 • UNDER 8.5 • Ohtani HR", star: false }
     ];
     
-    // ==================== DATOS NBA (6 juegos) ====================
-    const nbaGames = [
+    const DEFAULT_NBA = [
         { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true },
         { away: "Charlotte Hornets", away_rec: "36-33", home: "Phoenix Suns", home_rec: "41-34", time: "7:00 PM", spread: "CHA -5.5", total: "226.5", prediction: "UNDER 226.5 • CHA ML -220", injuries: "PHX: Williams/Highsmith OUT", star: false },
         { away: "OKC Thunder", away_rec: "58-17", home: "LA Lakers", home_rec: "48-27", time: "9:30 PM", spread: "OKC -9.5", total: "227.5", prediction: "OVER 227.5 • OKC -9.5", injuries: "LeBron Q • Ayton OUT", star: false },
@@ -178,8 +231,7 @@
         { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true }
     ];
     
-    // ==================== DATOS NHL (6 juegos) ====================
-    const nhlGames = [
+    const DEFAULT_NHL = [
         { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true },
         { away: "Pittsburgh Penguins", away_rec: "37-30-8", home: "Tampa Bay Lightning", home_rec: "46-22-6", time: "7:00 PM", spread: "TB -1.5", total: "6.5", prediction: "TB ML -176 • UNDER 6.5", injuries: "Hagel doubtful", star: false },
         { away: "New Jersey Devils", away_rec: "36-29-10", home: "Washington Capitals", home_rec: "32-33-11", time: "7:00 PM", spread: "NJ -1.5", total: "6.0", prediction: "⭐ OVER 6.0 • M3 automático", star: true },
@@ -188,14 +240,62 @@
         { away: "Toronto Maple Leafs", away_rec: "41-25-9", home: "San Jose Sharks", home_rec: "32-33-11", time: "10:00 PM", spread: "TOR -1.5", total: "6.5", prediction: "⭐ Celebrini Puntos OV 0.5", injuries: "Celebrini 🔥", star: true }
     ];
     
-    // ==================== ESTADO ====================
+    // ==================== CARGA Y GUARDADO DE DATOS ====================
+    let mlbGames = [...DEFAULT_MLB];
+    let nbaGames = [...DEFAULT_NBA];
+    let nhlGames = [...DEFAULT_NHL];
+    
+    function loadSavedData() {
+        const saved = localStorage.getItem('thia_games_data');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                if (data.mlb) mlbGames = data.mlb;
+                if (data.nba) nbaGames = data.nba;
+                if (data.nhl) nhlGames = data.nhl;
+            } catch(e) { console.error("Error cargando datos", e); }
+        }
+    }
+    
+    function saveGamesData() {
+        const data = { mlb: mlbGames, nba: nbaGames, nhl: nhlGames };
+        localStorage.setItem('thia_games_data', JSON.stringify(data));
+    }
+    
+    function resetToDefault() {
+        if (confirm("¿Restaurar datos por defecto? Perderás los cambios personalizados.")) {
+            mlbGames = [...DEFAULT_MLB];
+            nbaGames = [...DEFAULT_NBA];
+            nhlGames = [...DEFAULT_NHL];
+            saveGamesData();
+            renderGames();
+            alert("Datos restaurados");
+        }
+    }
+    
+    function updateGamesFromAdmin() {
+        const sport = currentAdminSport;
+        const jsonText = document.getElementById('adminJsonData').value;
+        try {
+            const newGames = JSON.parse(jsonText);
+            if (!Array.isArray(newGames)) throw new Error("Debe ser un array");
+            if (sport === 'mlb') mlbGames = newGames;
+            else if (sport === 'nba') nbaGames = newGames;
+            else nhlGames = newGames;
+            saveGamesData();
+            renderGames();
+            alert(`Datos de ${sport.toUpperCase()} actualizados`);
+        } catch(e) {
+            alert("JSON inválido: " + e.message);
+        }
+    }
+    
+    // ==================== RENDERIZADO ====================
     let currentUser = null;
     let currentSport = 'mlb';
+    let currentAdminSport = 'mlb';
     
-    // ==================== FUNCIONES ====================
-    function hasAccess() {
-        return currentUser !== null;
-    }
+    function hasAccess() { return currentUser !== null; }
     
     function renderGames() {
         let games = currentSport === 'mlb' ? mlbGames : (currentSport === 'nba' ? nbaGames : nhlGames);
@@ -249,7 +349,7 @@
         container.innerHTML = html;
     }
     
-    // ==================== GOOGLE LOGIN (sin Supabase) ====================
+    // ==================== GOOGLE LOGIN ====================
     function handleGoogleCredential(response) {
         const idToken = response.credential;
         const base64Url = idToken.split('.')[1];
@@ -257,7 +357,7 @@
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
         const userInfo = JSON.parse(jsonPayload);
         
-        currentUser = { email: userInfo.email, name: userInfo.name };
+        currentUser = { email: userInfo.email, name: userInfo.name, isAdmin: userInfo.email === 'admin@thiasports.com' };
         localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
         updateUserUI();
         renderGames();
@@ -276,7 +376,10 @@
     
     function updateUserUI() {
         const userArea = document.getElementById('userArea');
+        const adminPanel = document.getElementById('adminPanel');
+        
         if (currentUser) {
+            const isAdmin = currentUser.isAdmin || currentUser.email === 'admin@thiasports.com';
             userArea.innerHTML = `<div class="user-info">👤 ${currentUser.email} <button id="logoutBtn" class="btn">Salir</button></div>`;
             document.getElementById('logoutBtn')?.addEventListener('click', () => {
                 currentUser = null;
@@ -284,33 +387,60 @@
                 updateUserUI();
                 renderGames();
             });
+            if (isAdmin) adminPanel.classList.remove('hidden');
+            else adminPanel.classList.add('hidden');
         } else {
             userArea.innerHTML = `<button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>`;
             document.getElementById('showAuthBtn')?.addEventListener('click', () => document.getElementById('authModal').classList.remove('hidden'));
+            adminPanel.classList.add('hidden');
         }
     }
     
     // ==================== EVENTOS ====================
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            currentSport = tab.getAttribute('data-sport');
-            renderGames();
+    function initEvents() {
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentSport = tab.getAttribute('data-sport');
+                renderGames();
+            });
         });
-    });
-    
-    document.getElementById('plan20Btn')?.addEventListener('click', () => alert("Plan $20: Envía comprobante a soporte@thiasports.com"));
-    document.getElementById('plan30Btn')?.addEventListener('click', () => alert("Plan $30: Envía comprobante a soporte@thiasports.com"));
+        
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentAdminSport = tab.getAttribute('data-admin');
+                document.getElementById('adminJsonData').value = JSON.stringify(
+                    currentAdminSport === 'mlb' ? mlbGames : (currentAdminSport === 'nba' ? nbaGames : nhlGames)
+                , null, 2);
+            });
+        });
+        
+        document.getElementById('plan20Btn')?.addEventListener('click', () => alert("Plan $20: Envía comprobante a soporte@thiasports.com"));
+        document.getElementById('plan30Btn')?.addEventListener('click', () => alert("Plan $30: Envía comprobante a soporte@thiasports.com"));
+        document.getElementById('saveDataBtn')?.addEventListener('click', updateGamesFromAdmin);
+        document.getElementById('resetDataBtn')?.addEventListener('click', resetToDefault);
+    }
     
     // ==================== INICIO ====================
+    loadSavedData();
     const savedUser = localStorage.getItem('thia_current_user');
     if (savedUser) {
         try { currentUser = JSON.parse(savedUser); } catch(e) {}
     }
+    initEvents();
+    initGoogleSignIn();
     updateUserUI();
     renderGames();
-    initGoogleSignIn();
+    
+    // Cargar JSON inicial en admin si está visible
+    setTimeout(() => {
+        if (document.getElementById('adminJsonData')) {
+            document.getElementById('adminJsonData').value = JSON.stringify(mlbGames, null, 2);
+        }
+    }, 100);
 </script>
 </body>
 </html>
