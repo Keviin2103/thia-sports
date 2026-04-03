@@ -197,6 +197,33 @@
             margin-top: 0.5rem;
         }
         
+        .pick-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+        }
+        .pick-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 0.3rem 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+        }
+        .pick-type {
+            font-weight: bold;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.6rem;
+        }
+        .pick-type.ancla { background: #22c55e; color: #000; }
+        .pick-type.over { background: #f97316; color: #000; }
+        .pick-type.under { background: #06b6d4; color: #000; }
+        .pick-type.trampa { background: #ef4444; color: #fff; }
+        .pick-type.cau { background: #facc15; color: #000; }
+        
         /* Modal */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -312,30 +339,125 @@
 <div class="footer">Predicciones ThIA Sports | Datos actualizados 03/04/2026</div>
 
 <script>
-    // ==================== DATOS POR DEFECTO MLB (con métricas) ====================
+    // ==================== DATOS MLB ====================
     const DEFAULT_MLB = [
         { id: "min_kc", away: "MIN", home: "KC", time: "2:10 PM", spAway: "J.Ryan (3.42)", spHome: "K.Bubic (2.55)", tier: "SOLIDO", ml: "KC -118", ou: "UNDER 8.5", ou_odds: "-112", prob_h: 55, prob_d: 5, prob_a: 40, carreras_a: 2.6, carreras_h: 2.9, hits_a: 7.0, hits_h: 7.5, tb_a: 10.5, tb_h: 11.5, k_a: 7.5, k_h: 7.8, hr: 1.2, nrfi_pct: 60, over_pct: 42, prediction: "KC ML -118 • UNDER 8.5 • Bubic 2.55 ERA en casa", star: false, props: [{jugador:"K.Bubic",tipo:"K 6+",odds:"-112"},{jugador:"S.Perez",tipo:"HR",odds:"+295"}] },
         { id: "tor_cws", away: "TOR", home: "CWS", time: "4:10 PM", spAway: "D.Cease (3.48)", spHome: "S.Smith (3.81)", tier: "ML", ml: "TOR -145", ou: "OVER 9.0", ou_odds: "-108", prob_h: 35, prob_d: 5, prob_a: 60, carreras_a: 3.5, carreras_h: 2.0, hits_a: 8.5, hits_h: 5.5, tb_a: 14.0, tb_h: 8.5, k_a: 8.5, k_h: 7.0, hr: 1.4, nrfi_pct: 52, over_pct: 55, prediction: "TOR ML -145 • OVER 9.0 • Cease vs CWS 0-7", star: false, props: [{jugador:"V.Guerrero Jr",tipo:"HR",odds:"+255"},{jugador:"D.Cease",tipo:"K 7+",odds:"-108"}] }
     ];
     
-    // ==================== DATOS NBA (con métricas simplificadas) ====================
+    // ==================== DATOS NBA ====================
     const DEFAULT_NBA = [
-        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true, prob_h: 45, prob_a: 55, pts_a: 114, pts_h: 109 },
-        { away: "Golden State Warriors", away_rec: "36-37", home: "Cleveland Cavaliers", home_rec: "47-28", time: "10:00 PM", spread: "GSW +11.5", total: "222.5", prediction: "⭐ OVER 220.5 • GSW +11.5", injuries: "9 LESIONADOS", star: true, prob_h: 80, prob_a: 20, pts_a: 108, pts_h: 116 },
-        { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true, prob_h: 59, prob_a: 41, pts_a: 112, pts_h: 115 }
+        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true, prob_h: 45, prob_a: 55 },
+        { away: "Golden State Warriors", away_rec: "36-37", home: "Cleveland Cavaliers", home_rec: "47-28", time: "10:00 PM", spread: "GSW +11.5", total: "222.5", prediction: "⭐ OVER 220.5 • GSW +11.5", injuries: "9 LESIONADOS", star: true, prob_h: 80, prob_a: 20 },
+        { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true, prob_h: 59, prob_a: 41 }
     ];
     
     // ==================== DATOS NHL ====================
     const DEFAULT_NHL = [
-        { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true, prob_h: 38, prob_a: 62, goals_a: 3.5, goals_h: 2.8 },
-        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108)", injuries: "NYR L10: 1-9", star: true, prob_h: 35, prob_a: 65, goals_a: 3.2, goals_h: 2.5 }
+        { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true, prob_h: 38, prob_a: 62 },
+        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108)", injuries: "NYR L10: 1-9", star: true, prob_h: 35, prob_a: 65 }
     ];
     
-    // ==================== DATOS FÚTBOL ====================
+    // ==================== DATOS FÚTBOL (03/04/2026) ====================
     const DEFAULT_SOCCER = [
-        { away: "Gil Vicente", away_rec: "11º", home: "AFS Viseu", home_rec: "17º", time: "12:30 VEN", spread: "GV -0.75", total: "2.5", prediction: "Over 1.5 goles • 1.55", injuries: "AFS frágil visitante", star: false, prob_h: 58, prob_d: 24, prob_a: 18, goals_a: 0.8, goals_h: 1.2 },
-        { away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º", time: "14:30 VEN", spread: "VSC -1.25", total: "2.5", prediction: "⭐ Vitória Guimarães 1X • 1.55", injuries: "Tondela recién ascendido", star: true, prob_h: 65, prob_d: 21, prob_a: 14, goals_a: 0.6, goals_h: 1.8 },
-        { away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º", time: "15:00 VEN", spread: "RAY -0.5", total: "2.5", prediction: "⭐ UNDER 2.5 • 1.80", injuries: "Elche sin gol visitante", star: true, prob_h: 53, prob_d: 26, prob_a: 21, goals_a: 0.5, goals_h: 1.3 }
+        { 
+            id: "gil_afs", away: "Gil Vicente", away_rec: "11º", home: "AFS (Académico Viseu)", home_rec: "17º",
+            time: "12:30 VEN", league: "PRT", prob_h: 58, prob_d: 24, prob_a: 18,
+            odds_h: 1.70, odds_d: 3.40, odds_a: 4.80,
+            prediction: "⚠ Over 1.5 goles • AFS frágil visitante • 1.55 EV+8%",
+            picks: [
+                { type: "⚠ CAU", market: "Gil Vicente 1X", prob: 58, odds: 1.70, ev: "+6%", stake: "0.5%" },
+                { type: "OVER", market: "Over 1.5 goles", odds: 1.55, ev: "+8%", stake: "1%" }
+            ],
+            analysis: "AFS ha concedido 2+ goles en 4/5 últimos como visitante. Gil Vicente en casa es más ofensivo.",
+            star: false,
+            key_players: { home: "Bruma, Samu", away: "Sin referentes" }
+        },
+        { 
+            id: "vitoria_tondela", away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º",
+            time: "14:30 VEN", league: "PRT", prob_h: 65, prob_d: 21, prob_a: 14,
+            odds_h: 1.55, odds_d: 3.60, odds_a: 5.80,
+            prediction: "⭐ Vitória Guimarães 1X • 65% • 1.55 EV+11%",
+            picks: [
+                { type: "■ ANCLA", market: "Vitória Guimarães 1X", prob: 65, odds: 1.55, ev: "+11%", stake: "2%" },
+                { type: "OVER", market: "Over 1.5 goles", odds: 1.48, ev: "+9%", stake: "1%" },
+                { type: "BTTS", market: "BTTS Sí", odds: 1.85, ev: "+5%", stake: "0.5%" }
+            ],
+            analysis: "Vitória Guimarães con ambiciones europeas. Tondela recién ascendido, ha perdido 3 de sus últimos 5.",
+            star: true,
+            key_players: { home: "Tomás Händel+", away: "Sin referentes top" }
+        },
+        { 
+            id: "sporting_santaclara", away: "Santa Clara", away_rec: "9º", home: "Sporting CP", home_rec: "2º",
+            time: "17:00 VEN", league: "PRT", prob_h: 82, prob_d: 11, prob_a: 7,
+            odds_h: 1.20, odds_d: 6.50, odds_a: 12.0,
+            prediction: "⭐ Over 2.5 goles • Sporting 55 goles/temp • 1.52 EV+9%",
+            picks: [
+                { type: "TRAMP", market: "Sporting 1.20 SIN VALOR", odds: 1.20, ev: "BLOQUEADO", stake: "0%" },
+                { type: "OVER", market: "Over 2.5 goles ★", odds: 1.52, ev: "+9%", stake: "1.5%" },
+                { type: "OVER", market: "Over 3.5 goles AGRESIVO", odds: 2.20, ev: "+6%", stake: "0.5%" }
+            ],
+            analysis: "Sporting CP es el Sporting más goleador de la liga. Sin valor en moneyline. El pick real es el Over 2.5.",
+            star: true,
+            key_players: { home: "Gyokeres, Paulinho, Morita", away: "Pedrão" }
+        },
+        { 
+            id: "rayo_elche", away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º",
+            time: "15:00 VEN", league: "ESP", prob_h: 53, prob_d: 26, prob_a: 21,
+            odds_h: 1.85, odds_d: 3.40, odds_a: 4.50,
+            prediction: "⭐ UNDER 2.5 goles • xG 2.4 • Elche sin gol visitante • 1.80 EV+12%",
+            picks: [
+                { type: "⚠ CAU", market: "Rayo 1X", prob: 53, odds: 1.85, ev: "+4%", stake: "0.5%" },
+                { type: "UNDER", market: "Under 2.5 goles ★", odds: 1.80, ev: "+12%", stake: "2%" },
+                { type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.65, ev: "+8%", stake: "1%" }
+            ],
+            analysis: "Rayo en Vallecas es combativo pero irregular. Elche recién ascendido, no tiene gol en los últimos 3 como visitante. xG combinado bajo (~2.46).",
+            star: true,
+            key_players: { home: "Trejo, Isi Palazón, De Tomás", away: "Fidel, Josan" }
+        },
+        { 
+            id: "puebla_juarez", away: "FC Juárez", away_rec: "8º", home: "Puebla", home_rec: "12º",
+            time: "20:00 VEN", league: "MEX", prob_h: 36, prob_d: 30, prob_a: 34,
+            odds_h: 2.76, odds_d: 3.35, odds_a: 2.48,
+            prediction: "⚠ Over 3.5 tarjetas • duelo físico • 1.70 EV+8%",
+            picks: [
+                { type: "TRAMP", market: "Puebla 36% TRAMPA", prob: 36, ev: "BLOQUEADO", stake: "0%" },
+                { type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },
+                { type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.70, ev: "+8%", stake: "1%" },
+                { type: "BTTS", market: "BTTS Sí", odds: 1.80, ev: "+6%", stake: "0.5%" }
+            ],
+            analysis: "Partido muy equilibrado — los momios dan al visitante como ligero fav. v3.9 bloquea el Under.",
+            star: false,
+            key_players: { home: "Canales, Gularte", away: "Pizarro, Caicedo" }
+        },
+        { 
+            id: "necaxa_mazatlan", away: "Mazatlán FC", away_rec: "15º", home: "Necaxa", home_rec: "10º",
+            time: "22:00 VEN", league: "MEX", prob_h: 60, prob_d: 20, prob_a: 20,
+            odds_h: 1.67, odds_d: 3.95, odds_a: 4.80,
+            prediction: "⭐ Necaxa 1X • 60% • 1.67 EV+11% • Cañoneros 11pts col",
+            picks: [
+                { type: "■ ANCLA", market: "Necaxa 1X ★", prob: 60, odds: 1.67, ev: "+11%", stake: "2%" },
+                { type: "UNDER", market: "Under 2.5 goles", odds: 1.75, ev: "+8%", stake: "1.5%" }
+            ],
+            analysis: "Necaxa home vs el peor ataque del torneo. Mazatlán marcó solo 10 goles en 12 jornadas — 0.83 goles/partido.",
+            star: true,
+            key_players: { home: "Jairo Torres, Alexis", away: "Sin goleador claro" }
+        },
+        { 
+            id: "tijuana_tigres", away: "Tigres UANL", away_rec: "3º", home: "Club Tijuana", home_rec: "13º",
+            time: "22:06 VEN", league: "MEX", prob_h: 26, prob_d: 32, prob_a: 42,
+            odds_h: 3.85, odds_d: 3.20, odds_a: 1.91,
+            prediction: "⭐ Over 2.5 goles • Tigres 27G/12J • Gignac en forma • 1.80 EV+10%",
+            picks: [
+                { type: "TRAMP", market: "Tijuana 26% TRAMPA", prob: 26, ev: "BLOQUEADO", stake: "0%" },
+                { type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },
+                { type: "OVER", market: "Over 2.5 goles ★", odds: 1.80, ev: "+10%", stake: "1.5%" },
+                { type: "OVER", market: "Over 1.5 goles Tigres", odds: 1.55, ev: "+8%", stake: "1%" }
+            ],
+            analysis: "Tigres es el equipo más goleador del torneo junto con Chivas. Gignac+Thauvin+Quiñones son la mejor línea ofensiva.",
+            star: true,
+            key_players: { home: "Meza, Flores", away: "Gignac, Thauvin, Quinones" }
+        }
     ];
     
     // ==================== SISTEMA DE USUARIOS ====================
@@ -422,15 +544,43 @@
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
             const starBadge = g.star ? '<span style="background:#facc15; color:#000; font-size:0.6rem; padding:0.1rem 0.5rem; border-radius:20px; margin-bottom:0.3rem; display:inline-block;">⭐ PICK ESTRELLA ⭐</span>' : '';
-            const sportEmoji = currentSport === 'mlb' ? '⚾' : (currentSport === 'nba' ? '🏀' : (currentSport === 'nhl' ? '🏒' : '⚽'));
             
             if (!acceso) {
-                html += `<div class="game-card"><div class="teams" style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;"><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div>${g.away}</div></div><div style="background:#facc15; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000;">VS</div><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div>${g.home}</div></div></div><div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div></div>`;
+                html += `<div class="game-card"><div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;"><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div>${g.away}</div></div><div style="background:#facc15; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000;">VS</div><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div>${g.home}</div></div></div><div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div></div>`;
                 continue;
             }
             
-            // MLB con métricas completas
-            if (currentSport === 'mlb' && g.prob_h !== undefined) {
+            // Fútbol
+            if (currentSport === 'soccer') {
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:0.5rem;">
+                        <div style="display:flex; gap:0.5rem;"><span style="background:#0f766e; font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:4px;">${g.league}</span><span style="color:#93c5fd; font-size:0.65rem;">${g.time}</span></div>
+                        ${starBadge}
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.5rem; margin:0.5rem 0;">
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.1rem; font-weight:900;">${g.away}</div><div style="font-size:0.6rem; color:#9ca3af;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a}%</div></div>
+                        <div style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000;">VS</div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.1rem; font-weight:900;">${g.home}</div><div style="font-size:0.6rem; color:#9ca3af;">${g.home_rec}</div><div style="font-size:0.65rem; color:#22c55e;">${g.prob_h}%</div></div>
+                    </div>
+                    <div class="prob-bar">
+                        <div style="width:${g.prob_h}%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.55rem;">${g.prob_h}%</div>
+                        <div style="width:${g.prob_d}%; background:#facc15;"></div>
+                        <div style="width:${g.prob_a}%; background:#ef4444;"></div>
+                    </div>
+                    <div class="metrics-table">
+                        <div class="metric-row" style="font-weight:bold;"><div>${g.away}</div><div>MÉTRICA</div><div>${g.home}</div></div>
+                        <div class="metric-row"><div>${g.away_rec}</div><div>Posición</div><div>${g.home_rec}</div></div>
+                        <div class="metric-row"><div>${g.key_players?.away || 'Sin referentes'}</div><div>Jugadores clave</div><div>${g.key_players?.home || 'N/A'}</div></div>
+                    </div>
+                    <div class="pick-list">
+                        ${g.picks.map(p => `<div class="pick-item"><span><span class="pick-type ${p.type.toLowerCase().includes('ancla')?'ancla':p.type.toLowerCase().includes('over')?'over':p.type.toLowerCase().includes('under')?'under':p.type.toLowerCase().includes('trampa')?'trampa':'cau'}">${p.type}</span> ${p.market}</span><span style="color:#facc15; font-weight:bold;">${p.odds} ${p.ev && p.ev !== 'BLOQUEADO' ? p.ev : ''}</span><span style="color:#9ca3af;"> ${p.stake !== '0%' ? p.stake : ''}</span></div>`).join('')}
+                    </div>
+                    <p style="color:#9ca3af; font-size:0.65rem; margin-top:0.5rem; line-height:1.3;">${g.analysis}</p>
+                    <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center; margin-top:0.5rem;"><span style="color:#facc15; font-weight:bold;">🎯 PRED: ${g.prediction}</span></div>
+                </div>`;
+            }
+            // MLB
+            else if (currentSport === 'mlb' && g.prob_h !== undefined) {
                 html += `<div class="game-card ${starClass}">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
                         <div style="display:flex; gap:0.5rem;"><span style="background:#0f766e; font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:4px;">AL</span><span style="color:#93c5fd; font-size:0.65rem;">${g.time}</span></div>
@@ -441,71 +591,37 @@
                         <div style="flex:1; text-align:center;"><span style="color:#6b7280;">VS</span><div style="font-size:0.55rem;">${g.spAway} / ${g.spHome}</div></div>
                         <div style="text-align:center; flex:1;"><div style="font-size:1.3rem; font-weight:900;">${g.home}</div><div style="font-size:0.6rem; color:#22c55e;">${g.prob_h}%</div></div>
                     </div>
-                    <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.55rem;">${g.prob_h}%</div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
+                    <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e;"></div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
                     <div class="metrics-table">
-                        <div class="metric-row" style="font-weight:bold; border-bottom:1px solid rgba(255,255,255,0.1);"><div style="color:#60a5fa;">${g.away}</div><div style="color:#facc15;">PARTIDO</div><div style="color:#f87171;">${g.home}</div></div>
+                        <div class="metric-row" style="font-weight:bold;"><div>${g.away}</div><div>PARTIDO</div><div>${g.home}</div></div>
                         <div class="metric-row"><div>${g.carreras_a}</div><div>Carreras</div><div>${g.carreras_h}</div></div>
                         <div class="metric-row"><div>${g.hits_a}</div><div>Hits</div><div>${g.hits_h}</div></div>
                         <div class="metric-row"><div>${g.tb_a}</div><div>Tot.Bases</div><div>${g.tb_h}</div></div>
                         <div class="metric-row"><div>${g.k_a}</div><div>K (SP)</div><div>${g.k_h}</div></div>
-                        <div class="metric-row"><div>${(g.hr/2).toFixed(1)}</div><div>HR pred</div><div>${(g.hr/2).toFixed(1)}</div></div>
-                        <div class="metric-row"><div>${g.nrfi_pct}%</div><div>NRFI %</div><div>${g.nrfi_pct}%</div></div>
                         <div class="metric-row highlight"><div>${g.over_pct}%</div><div>Over ${g.ou}%</div><div>${100-g.over_pct}%</div></div>
                     </div>
-                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; margin:0.5rem 0;">
+                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem;">
                         <div style="background:rgba(234,179,8,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">ML</div><div style="font-weight:bold; font-size:0.7rem;">${g.ml}</div></div>
-                        <div style="background:${g.ou.includes('UNDER')?'rgba(20,184,166,0.2)':'rgba(249,115,22,0.2)'}; border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">O/U</div><div style="font-weight:bold; font-size:0.7rem;">${g.ou}</div><div style="font-size:0.55rem;">${g.ou_odds}</div></div>
-                        <div style="background:rgba(249,115,22,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">RL</div><div style="font-weight:bold; font-size:0.7rem;">RL +1.5</div></div>
-                        <div style="background:rgba(6,182,212,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">NRFI</div><div style="font-weight:bold; font-size:0.7rem;">NRFI</div><div style="font-size:0.55rem;">-138</div></div>
+                        <div style="background:rgba(249,115,22,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">O/U</div><div style="font-weight:bold; font-size:0.7rem;">${g.ou}</div></div>
+                        <div style="background:rgba(6,182,212,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">NRFI</div><div style="font-weight:bold; font-size:0.7rem;">NRFI</div></div>
+                        <div style="background:rgba(168,85,247,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">PROP</div><div style="font-weight:bold; font-size:0.7rem;">${g.props?.[0]?.tipo || 'K'}</div></div>
                     </div>
-                    ${g.props ? `<div style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem; margin:0.5rem 0;">${g.props.map(p => `<div style="background:rgba(168,85,247,0.2); border-radius:8px; padding:0.2rem 0.4rem; display:flex; justify-content:space-between;"><span style="font-size:0.6rem;"><strong>${p.jugador}</strong><br>${p.tipo}</span><span style="color:#facc15; font-weight:bold;">${p.odds}</span></div>`).join('')}</div>` : ''}
                     <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center; margin-top:0.5rem;"><span style="color:#facc15; font-weight:bold;">PRED: ${g.prediction}</span></div>
                 </div>`;
             }
-            // NBA
-            else if (currentSport === 'nba') {
+            // NBA y NHL (simplificado)
+            else {
+                const sportEmoji = currentSport === 'nba' ? '🏀' : '🏒';
                 html += `<div class="game-card ${starClass}">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span><span class="star-badge">${starBadge}</span></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span>${starBadge}</div>
                     <div style="display:flex; align-items:center; gap:0.5rem;">
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏀</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a || 50}%</div></div>
-                        <div class="vs" style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">VS</div>
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏀</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
-                    </div>
-                    <div class="game-info" style="display:flex; justify-content:space-between; margin:0.5rem 0; font-size:0.65rem;"><span>📊 ${g.spread || ''}</span><span>Total: ${g.total || ''}</span></div>
-                    ${g.injuries ? `<div class="injury-note" style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem;">⚠️ ${g.injuries}</div>` : ''}
-                    <div class="prediction-block" style="margin-top:0.5rem;"><div class="prediction-text" style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
-                </div>`;
-            }
-            // NHL
-            else if (currentSport === 'nhl') {
-                html += `<div class="game-card ${starClass}">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span><span class="star-badge">${starBadge}</span></div>
-                    <div style="display:flex; align-items:center; gap:0.5rem;">
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏒</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a || 50}%</div></div>
-                        <div class="vs" style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;">VS</div>
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏒</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a || 50}%</div></div>
+                        <div style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">VS</div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
                     </div>
                     <div style="display:flex; justify-content:space-between; margin:0.5rem 0; font-size:0.65rem;"><span>📊 ${g.spread || ''}</span><span>Total: ${g.total || ''}</span></div>
                     ${g.injuries ? `<div style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem;">⚠️ ${g.injuries}</div>` : ''}
-                    <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
-                </div>`;
-            }
-            // Fútbol
-            else {
-                html += `<div class="game-card ${starClass}">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span><span class="star-badge">${starBadge}</span></div>
-                    <div style="display:flex; align-items:center; gap:0.5rem;">
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a}%</div></div>
-                        <div class="vs" style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;">VS</div>
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h}%</div></div>
-                    </div>
-                    <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e;"></div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
-                    <div class="metrics-table">
-                        <div class="metric-row" style="font-weight:bold;"><div>${g.away}</div><div>MÉTRICA</div><div>${g.home}</div></div>
-                        <div class="metric-row"><div>${g.goals_a || '0.8'}</div><div>Goles/temp</div><div>${g.goals_h || '1.2'}</div></div>
-                    </div>
-                    <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
-                    ${g.injuries ? `<div style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem; margin-top:0.3rem;">⚠️ ${g.injuries}</div>` : ''}
+                    <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 <strong>Predicción:</strong> ${g.prediction}</div></div>
                 </div>`;
             }
         }
