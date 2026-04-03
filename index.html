@@ -44,8 +44,6 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .user-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-        .plan-badge { background: #facc15; color: #0f172a; font-size: 0.65rem; font-weight: bold; padding: 0.2rem 0.5rem; border-radius: 20px; }
         .btn {
             background: transparent;
             border: 1px solid #facc15;
@@ -110,11 +108,10 @@
         }
     </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-<!-- Modales -->
+<!-- Modal de Login -->
 <div id="authModal" class="modal hidden">
     <div class="modal-content">
         <h2>ThIA Sports</h2>
@@ -124,6 +121,7 @@
     </div>
 </div>
 
+<!-- Modal de Planes -->
 <div id="plansModal" class="modal hidden">
     <div class="modal-content">
         <h2>Planes ThIA Sports</h2>
@@ -148,19 +146,10 @@
 </div>
 
 <div id="gamesContainer" class="games-grid"></div>
-<div class="footer">Predicciones con inteligencia | 02/04/2026</div>
+<div class="footer">Predicciones ThIA Sports | 02/04/2026</div>
 
 <script>
-    // ==================== CONFIGURACIÓN ====================
-    const SUPABASE_URL = "https://brouoeirvjdcpelddnma.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publisible_BLARVSH2wAT46D5Td-D90g_HWvctDKB";
-    const GOOGLE_CLIENT_ID = "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com";
-    
-    let currentUser = null;
-    let userSubscription = null;
-    let currentSport = 'mlb';
-    
-    // ==================== DATOS ====================
+    // ==================== DATOS MLB (15 juegos) ====================
     const mlbGames = [
         { away: "Athletics", home: "Atlanta", time: "12:15 PM", spAway: "L. Severino (4.54)", spHome: "C. Sale (3.41)", prediction: "ATL ML -155 • UNDER 8.5 • Sale 7K+", star: false },
         { away: "Texas", home: "Baltimore", time: "12:35 PM", spAway: "K. Rocker (5.74)", spHome: "T. Rogers (1.81)", prediction: "BAL ML -118 • UNDER 8.0 • Henderson HR", star: false },
@@ -179,8 +168,9 @@
         { away: "Cleveland", home: "LA Dodgers", time: "8:20 PM", spAway: "G. Williams (3.05)", spHome: "Y. Yamamoto (3.41)", prediction: "LAD ML -158 • UNDER 8.5 • Ohtani HR", star: false }
     ];
     
+    // ==================== DATOS NBA (6 juegos) ====================
     const nbaGames = [
-        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: false },
+        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true },
         { away: "Charlotte Hornets", away_rec: "36-33", home: "Phoenix Suns", home_rec: "41-34", time: "7:00 PM", spread: "CHA -5.5", total: "226.5", prediction: "UNDER 226.5 • CHA ML -220", injuries: "PHX: Williams/Highsmith OUT", star: false },
         { away: "OKC Thunder", away_rec: "58-17", home: "LA Lakers", home_rec: "48-27", time: "9:30 PM", spread: "OKC -9.5", total: "227.5", prediction: "OVER 227.5 • OKC -9.5", injuries: "LeBron Q • Ayton OUT", star: false },
         { away: "Golden State Warriors", away_rec: "36-37", home: "Cleveland Cavaliers", home_rec: "47-28", time: "10:00 PM", spread: "GSW +11.5", total: "222.5", prediction: "⭐ OVER 220.5 • GSW +11.5", injuries: "9 LESIONADOS: Curry, Durant, Klay OUT", star: true },
@@ -188,80 +178,100 @@
         { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true }
     ];
     
+    // ==================== DATOS NHL (6 juegos) ====================
     const nhlGames = [
         { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true },
         { away: "Pittsburgh Penguins", away_rec: "37-30-8", home: "Tampa Bay Lightning", home_rec: "46-22-6", time: "7:00 PM", spread: "TB -1.5", total: "6.5", prediction: "TB ML -176 • UNDER 6.5", injuries: "Hagel doubtful", star: false },
         { away: "New Jersey Devils", away_rec: "36-29-10", home: "Washington Capitals", home_rec: "32-33-11", time: "7:00 PM", spread: "NJ -1.5", total: "6.0", prediction: "⭐ OVER 6.0 • M3 automático", star: true },
-        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108) • 53.7% favorito", injuries: "NYR L10: 1-9", star: true },
+        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108) • Favorito de visita", injuries: "NYR L10: 1-9", star: true },
         { away: "Nashville Predators", away_rec: "34-31-9", home: "Los Angeles Kings", home_rec: "30-26-18", time: "10:30 PM", spread: "LA -1.5", total: "5.5", prediction: "⭐ UNDER 5.5 • LA Kings ML", injuries: "Fiala OUT", star: true },
         { away: "Toronto Maple Leafs", away_rec: "41-25-9", home: "San Jose Sharks", home_rec: "32-33-11", time: "10:00 PM", spread: "TOR -1.5", total: "6.5", prediction: "⭐ Celebrini Puntos OV 0.5", injuries: "Celebrini 🔥", star: true }
     ];
     
-    function hasAccess(sport) {
-        if (!currentUser) return false;
-        if (currentUser.email === 'admin@thiasports.com') return true;
-        if (!userSubscription || !userSubscription.activo) return false;
-        if (userSubscription.plan === 'premium_30') return true;
-        if (userSubscription.plan === 'premium_20') return userSubscription.deportes?.includes(sport);
-        return false;
+    // ==================== ESTADO ====================
+    let currentUser = null;
+    let currentSport = 'mlb';
+    
+    // ==================== FUNCIONES ====================
+    function hasAccess() {
+        return currentUser !== null;
     }
     
     function renderGames() {
         let games = currentSport === 'mlb' ? mlbGames : (currentSport === 'nba' ? nbaGames : nhlGames);
         const container = document.getElementById('gamesContainer');
-        const acceso = hasAccess(currentSport);
+        const acceso = hasAccess();
         let html = '';
         
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
             const starBadge = g.star ? '<div class="star-badge">⭐ PICK ESTRELLA ⭐</div>' : '';
             
-            if (!acceso) {
-                html += `<div class="game-card">
-                    <div class="teams"><div class="team"><div class="team-logo">🏀</div><div class="team-name">${g.away}</div></div>
-                    <div class="vs">VS</div><div class="team"><div class="team-logo">🏀</div><div class="team-name">${g.home}</div></div></div>
-                    <div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div>
-                </div>`;
-                continue;
+            if (currentSport === 'mlb') {
+                if (!acceso) {
+                    html += `<div class="game-card">
+                        <div class="teams"><div class="team"><div class="team-logo">⚾</div><div class="team-name">${g.away}</div></div>
+                        <div class="vs">VS</div><div class="team"><div class="team-logo">⚾</div><div class="team-name">${g.home}</div></div></div>
+                        <div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div>
+                    </div>`;
+                } else {
+                    html += `<div class="game-card ${starClass}">
+                        <div class="teams">
+                            <div class="team"><div class="team-logo">⚾</div><div class="team-name">${g.away}</div><div class="team-record">Visitante</div></div>
+                            <div class="vs">VS</div>
+                            <div class="team"><div class="team-logo">⚾</div><div class="team-name">${g.home}</div><div class="team-record">Local</div></div>
+                        </div>
+                        <div class="game-info"><span>⏰ ${g.time}</span><span>⚾ ${g.spAway} @ ${g.spHome}</span></div>
+                        <div class="prediction-block"><div class="prediction-text">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
+                    </div>`;
+                }
+            } else {
+                if (!acceso) {
+                    html += `<div class="game-card">
+                        <div class="teams"><div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.away}</div></div>
+                        <div class="vs">VS</div><div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.home}</div></div></div>
+                        <div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div>
+                    </div>`;
+                } else {
+                    html += `<div class="game-card ${starClass}">
+                        <div class="teams">
+                            <div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.away}</div><div class="team-record">${g.away_rec || ''}</div></div>
+                            <div class="vs">VS</div>
+                            <div class="team"><div class="team-logo">${currentSport === 'nba' ? '🏀' : '🏒'}</div><div class="team-name">${g.home}</div><div class="team-record">${g.home_rec || ''}</div></div>
+                        </div>
+                        <div class="game-info"><span>⏰ ${g.time}</span><span>📊 ${g.spread || ''} | Total: ${g.total || ''}</span></div>
+                        ${g.injuries ? `<div class="injury-note">⚠️ ${g.injuries}</div>` : ''}
+                        <div class="prediction-block"><div class="prediction-text">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
+                    </div>`;
+                }
             }
-            
-            html += `<div class="game-card ${starClass}">
-                <div class="teams">
-                    <div class="team"><div class="team-logo">${currentSport === 'mlb' ? '⚾' : (currentSport === 'nba' ? '🏀' : '🏒')}</div><div class="team-name">${g.away}</div><div class="team-record">${g.away_rec || ''}</div></div>
-                    <div class="vs">VS</div>
-                    <div class="team"><div class="team-logo">${currentSport === 'mlb' ? '⚾' : (currentSport === 'nba' ? '🏀' : '🏒')}</div><div class="team-name">${g.home}</div><div class="team-record">${g.home_rec || ''}</div></div>
-                </div>
-                <div class="game-info"><span>⏰ ${g.time}</span><span>${g.spread ? 'Spread: ' + g.spread : ''} ${g.total ? '| Total: ' + g.total : ''}</span></div>
-                ${g.injuries ? `<div class="injury-note">⚠️ ${g.injuries}</div>` : ''}
-                <div class="prediction-block"><div class="prediction-text">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
-            </div>`;
         }
         container.innerHTML = html;
     }
     
-    // ==================== GOOGLE LOGIN ====================
-    window.initGoogleSignIn = function() {
-        if (typeof google === 'undefined') { setTimeout(window.initGoogleSignIn, 500); return; }
-        google.accounts.id.initialize({
-            client_id: GOOGLE_CLIENT_ID,
-            callback: handleGoogleCredential,
-            auto_select: false
-        });
-        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
-    }
-    
-    window.handleGoogleCredential = async function(response) {
+    // ==================== GOOGLE LOGIN (sin Supabase) ====================
+    function handleGoogleCredential(response) {
         const idToken = response.credential;
         const base64Url = idToken.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
         const userInfo = JSON.parse(jsonPayload);
         
-        currentUser = { email: userInfo.email, name: userInfo.name, isAdmin: userInfo.email === 'admin@thiasports.com' };
+        currentUser = { email: userInfo.email, name: userInfo.name };
         localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
         updateUserUI();
         renderGames();
         document.getElementById('authModal').classList.add('hidden');
+    }
+    
+    function initGoogleSignIn() {
+        if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
+        google.accounts.id.initialize({
+            client_id: "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com",
+            callback: handleGoogleCredential,
+            auto_select: false
+        });
+        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
     }
     
     function updateUserUI() {
@@ -269,8 +279,10 @@
         if (currentUser) {
             userArea.innerHTML = `<div class="user-info">👤 ${currentUser.email} <button id="logoutBtn" class="btn">Salir</button></div>`;
             document.getElementById('logoutBtn')?.addEventListener('click', () => {
-                currentUser = null; localStorage.removeItem('thia_current_user');
-                updateUserUI(); renderGames();
+                currentUser = null;
+                localStorage.removeItem('thia_current_user');
+                updateUserUI();
+                renderGames();
             });
         } else {
             userArea.innerHTML = `<button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>`;
@@ -288,12 +300,14 @@
         });
     });
     
-    document.getElementById('plan20Btn')?.addEventListener('click', () => alert("Plan $20: Envía comprobante"));
-    document.getElementById('plan30Btn')?.addEventListener('click', () => alert("Plan $30: Envía comprobante"));
+    document.getElementById('plan20Btn')?.addEventListener('click', () => alert("Plan $20: Envía comprobante a soporte@thiasports.com"));
+    document.getElementById('plan30Btn')?.addEventListener('click', () => alert("Plan $30: Envía comprobante a soporte@thiasports.com"));
     
     // ==================== INICIO ====================
     const savedUser = localStorage.getItem('thia_current_user');
-    if (savedUser) { currentUser = JSON.parse(savedUser); }
+    if (savedUser) {
+        try { currentUser = JSON.parse(savedUser); } catch(e) {}
+    }
     updateUserUI();
     renderGames();
     initGoogleSignIn();
