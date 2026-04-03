@@ -461,4 +461,74 @@
     
     // ==================== EVENTOS ====================
     function initEvents() {
-        document.querySelectorAll('.tab').forEach(t
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentSport = tab.getAttribute('data-sport');
+                renderGames();
+            });
+        });
+        
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentAdminSport = tab.getAttribute('data-admin');
+                const data = currentAdminSport === 'mlb' ? mlbGames : (currentAdminSport === 'nba' ? nbaGames : nhlGames);
+                document.getElementById('adminJsonData').value = JSON.stringify(data, null, 2);
+            });
+        });
+        
+        document.getElementById('plan20Btn')?.addEventListener('click', () => alert("Plan $20: Envía comprobante a soporte@thiasports.com"));
+        document.getElementById('plan30Btn')?.addEventListener('click', () => alert("Plan $30: Envía comprobante a soporte@thiasports.com"));
+        document.getElementById('saveDataBtn')?.addEventListener('click', updateGamesFromAdmin);
+        document.getElementById('saveToCloudBtn')?.addEventListener('click', saveToCloud);
+        document.getElementById('resetDataBtn')?.addEventListener('click', () => {
+            if (confirm("¿Restaurar datos por defecto?")) {
+                mlbGames = [...DEFAULT_MLB];
+                nbaGames = [...DEFAULT_NBA];
+                nhlGames = [...DEFAULT_NHL];
+                saveLocalData();
+                renderGames();
+                alert("Datos restaurados");
+            }
+        });
+        
+        document.getElementById('doLoginBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            loginWithEmail(email, pass);
+        });
+        
+        document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            if (!email || !pass) { alert("Completa email y contraseña"); return; }
+            registerWithEmail(email, pass);
+        });
+    }
+    
+    // ==================== INICIO ====================
+    loadLocalData();
+    
+    const savedUser = localStorage.getItem('thia_current_user');
+    if (savedUser) {
+        try { currentUser = JSON.parse(savedUser); updateUserUI(); } catch(e) {}
+    }
+    
+    loadGamesFromCloud().then(() => { renderGames(); });
+    
+    initEvents();
+    initGoogleSignIn();
+    updateUserUI();
+    renderGames();
+    
+    setTimeout(() => {
+        if (document.getElementById('adminJsonData')) {
+            document.getElementById('adminJsonData').value = JSON.stringify(mlbGames, null, 2);
+        }
+    }, 100);
+</script>
+</body>
+</html>
