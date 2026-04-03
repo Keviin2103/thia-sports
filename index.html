@@ -74,28 +74,55 @@
         .record-wins { color: #facc15; font-weight: 900; font-size: 0.8rem; }
         .record-pct { background: #22c55e; color: #000; font-weight: 900; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; }
         
-        /* Tabs */
+        /* Tabs principales */
         .tabs-container {
             max-width: 1200px;
             margin: 1rem auto 0;
             padding: 0 1rem;
         }
-        .sport-tabs {
+        .main-tabs {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
             background: rgba(17, 24, 39, 0.6);
             border-radius: 60px;
             padding: 0.3rem;
+            margin-bottom: 1rem;
         }
-        .tab {
+        .main-tab {
             background: transparent;
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 40px;
             color: #cbd5e6;
             font-weight: bold;
             font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .main-tab.active {
+            background: linear-gradient(95deg, #f97316, #facc15);
+            color: #0f172a;
+        }
+        
+        /* Sport Tabs (dentro de Picks) */
+        .sport-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            background: rgba(17, 24, 39, 0.4);
+            border-radius: 60px;
+            padding: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        .tab {
+            background: transparent;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
+            color: #cbd5e6;
+            font-weight: bold;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -159,9 +186,8 @@
             border: 1px solid rgba(250, 204, 21, 0.2);
         }
         .game-card.star { border: 2px solid #facc15; }
-        
-        .tier-DINERO { background: rgba(234, 179, 8, 0.1); border-color: #eab308; }
-        .tier-SOLIDO { background: rgba(34, 197, 94, 0.1); border-color: #22c55e; }
+        .game-card.win { border-left: 4px solid #22c55e; }
+        .game-card.loss { border-left: 4px solid #ef4444; }
         
         /* Prob Bar */
         .prob-bar {
@@ -224,6 +250,57 @@
         .pick-type.trampa { background: #ef4444; color: #fff; }
         .pick-type.cau { background: #facc15; color: #000; }
         
+        /* Scorecard */
+        .scorecard-container {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        .scorecard-table {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .scorecard-header {
+            display: grid;
+            grid-template-columns: 80px 1fr 100px 100px 80px;
+            background: rgba(250, 204, 21, 0.2);
+            padding: 0.75rem;
+            font-weight: bold;
+            font-size: 0.75rem;
+            border-bottom: 1px solid rgba(250, 204, 21, 0.3);
+        }
+        .scorecard-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 100px 100px 80px;
+            padding: 0.6rem 0.75rem;
+            font-size: 0.7rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            align-items: center;
+        }
+        .scorecard-row.win { background: rgba(34, 197, 94, 0.1); }
+        .scorecard-row.loss { background: rgba(239, 68, 68, 0.05); }
+        .result-win { color: #22c55e; font-weight: bold; }
+        .result-loss { color: #ef4444; font-weight: bold; }
+        
+        /* Stats Summary */
+        .stats-summary {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: #facc15; }
+        .stat-label { font-size: 0.65rem; color: #9ca3af; }
+        
         /* Modal */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -246,10 +323,17 @@
         .hidden { display: none; }
         .footer { text-align: center; font-size: 0.6rem; color: #5b6e8c; margin-top: 1rem; padding: 0 1rem; }
         
+        @media (max-width: 768px) {
+            .scorecard-header, .scorecard-row {
+                grid-template-columns: 60px 1fr 80px 80px 60px;
+                font-size: 0.6rem;
+                gap: 0.3rem;
+            }
+        }
         @media (max-width: 640px) {
             .header-content { flex-direction: column; text-align: center; }
-            .sport-tabs { justify-content: center; }
-            .tab { padding: 0.3rem 0.8rem; font-size: 0.7rem; }
+            .main-tabs, .sport-tabs { justify-content: center; }
+            .tab, .main-tab { padding: 0.3rem 0.8rem; font-size: 0.7rem; }
         }
     </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -309,16 +393,69 @@
     </div>
 </div>
 
+<!-- Tabs principales -->
 <div class="tabs-container">
-    <div class="sport-tabs">
-        <button class="tab active" data-sport="mlb">⚾ MLB</button>
-        <button class="tab" data-sport="nba">🏀 NBA</button>
-        <button class="tab" data-sport="nhl">🏒 NHL</button>
-        <button class="tab" data-sport="soccer">⚽ Fútbol</button>
+    <div class="main-tabs">
+        <button class="main-tab active" data-main="picks">🎯 PICKS</button>
+        <button class="main-tab" data-main="resultados">📊 RESULTADOS</button>
     </div>
 </div>
 
-<div id="gamesContainer" class="games-grid"></div>
+<!-- Contenido: Picks -->
+<div id="picksContent" class="tab-content">
+    <div class="tabs-container">
+        <div class="sport-tabs">
+            <button class="tab active" data-sport="mlb">⚾ MLB</button>
+            <button class="tab" data-sport="nba">🏀 NBA</button>
+            <button class="tab" data-sport="nhl">🏒 NHL</button>
+            <button class="tab" data-sport="soccer">⚽ Fútbol</button>
+        </div>
+    </div>
+    <div id="gamesContainer" class="games-grid"></div>
+</div>
+
+<!-- Contenido: Resultados -->
+<div id="resultadosContent" class="tab-content hidden">
+    <div class="scorecard-container">
+        <!-- Resumen de estadísticas -->
+        <div class="stats-summary">
+            <div class="stat-card">
+                <div class="stat-value" id="totalWins">0</div>
+                <div class="stat-label">PICKS GANADOS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalLosses">0</div>
+                <div class="stat-label">PICKS PERDIDOS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalPct">0%</div>
+                <div class="stat-label">EFECTIVIDAD</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalProfit">0u</div>
+                <div class="stat-label">PROFIT/LOSS</div>
+            </div>
+        </div>
+        
+        <!-- Scorecard de resultados -->
+        <div class="scorecard-table">
+            <div class="scorecard-header">
+                <div>HORA</div>
+                <div>PARTIDO</div>
+                <div>PICK</div>
+                <div>RESULTADO</div>
+                <div>✅/❌</div>
+            </div>
+            <div id="scorecardList"></div>
+        </div>
+        
+        <!-- Lecciones del día -->
+        <div style="margin-top: 1rem; background: rgba(250, 204, 21, 0.1); border-radius: 16px; padding: 1rem; border-left: 4px solid #facc15;">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem;">💡 Lecciones del día</h4>
+            <div id="leccionesList" style="font-size: 0.7rem; color: #9ca3af; line-height: 1.5;"></div>
+        </div>
+    </div>
+</div>
 
 <div id="adminPanel" class="admin-panel hidden">
     <h3>🔧 Panel de Administración</h3>
@@ -358,106 +495,41 @@
         { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108)", injuries: "NYR L10: 1-9", star: true, prob_h: 35, prob_a: 65 }
     ];
     
-    // ==================== DATOS FÚTBOL (03/04/2026) ====================
+    // ==================== DATOS FÚTBOL ====================
     const DEFAULT_SOCCER = [
-        { 
-            id: "gil_afs", away: "Gil Vicente", away_rec: "11º", home: "AFS (Académico Viseu)", home_rec: "17º",
-            time: "12:30 VEN", league: "PRT", prob_h: 58, prob_d: 24, prob_a: 18,
-            odds_h: 1.70, odds_d: 3.40, odds_a: 4.80,
-            prediction: "⚠ Over 1.5 goles • AFS frágil visitante • 1.55 EV+8%",
-            picks: [
-                { type: "⚠ CAU", market: "Gil Vicente 1X", prob: 58, odds: 1.70, ev: "+6%", stake: "0.5%" },
-                { type: "OVER", market: "Over 1.5 goles", odds: 1.55, ev: "+8%", stake: "1%" }
-            ],
-            analysis: "AFS ha concedido 2+ goles en 4/5 últimos como visitante. Gil Vicente en casa es más ofensivo.",
-            star: false,
-            key_players: { home: "Bruma, Samu", away: "Sin referentes" }
-        },
-        { 
-            id: "vitoria_tondela", away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º",
-            time: "14:30 VEN", league: "PRT", prob_h: 65, prob_d: 21, prob_a: 14,
-            odds_h: 1.55, odds_d: 3.60, odds_a: 5.80,
-            prediction: "⭐ Vitória Guimarães 1X • 65% • 1.55 EV+11%",
-            picks: [
-                { type: "■ ANCLA", market: "Vitória Guimarães 1X", prob: 65, odds: 1.55, ev: "+11%", stake: "2%" },
-                { type: "OVER", market: "Over 1.5 goles", odds: 1.48, ev: "+9%", stake: "1%" },
-                { type: "BTTS", market: "BTTS Sí", odds: 1.85, ev: "+5%", stake: "0.5%" }
-            ],
-            analysis: "Vitória Guimarães con ambiciones europeas. Tondela recién ascendido, ha perdido 3 de sus últimos 5.",
-            star: true,
-            key_players: { home: "Tomás Händel+", away: "Sin referentes top" }
-        },
-        { 
-            id: "sporting_santaclara", away: "Santa Clara", away_rec: "9º", home: "Sporting CP", home_rec: "2º",
-            time: "17:00 VEN", league: "PRT", prob_h: 82, prob_d: 11, prob_a: 7,
-            odds_h: 1.20, odds_d: 6.50, odds_a: 12.0,
-            prediction: "⭐ Over 2.5 goles • Sporting 55 goles/temp • 1.52 EV+9%",
-            picks: [
-                { type: "TRAMP", market: "Sporting 1.20 SIN VALOR", odds: 1.20, ev: "BLOQUEADO", stake: "0%" },
-                { type: "OVER", market: "Over 2.5 goles ★", odds: 1.52, ev: "+9%", stake: "1.5%" },
-                { type: "OVER", market: "Over 3.5 goles AGRESIVO", odds: 2.20, ev: "+6%", stake: "0.5%" }
-            ],
-            analysis: "Sporting CP es el Sporting más goleador de la liga. Sin valor en moneyline. El pick real es el Over 2.5.",
-            star: true,
-            key_players: { home: "Gyokeres, Paulinho, Morita", away: "Pedrão" }
-        },
-        { 
-            id: "rayo_elche", away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º",
-            time: "15:00 VEN", league: "ESP", prob_h: 53, prob_d: 26, prob_a: 21,
-            odds_h: 1.85, odds_d: 3.40, odds_a: 4.50,
-            prediction: "⭐ UNDER 2.5 goles • xG 2.4 • Elche sin gol visitante • 1.80 EV+12%",
-            picks: [
-                { type: "⚠ CAU", market: "Rayo 1X", prob: 53, odds: 1.85, ev: "+4%", stake: "0.5%" },
-                { type: "UNDER", market: "Under 2.5 goles ★", odds: 1.80, ev: "+12%", stake: "2%" },
-                { type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.65, ev: "+8%", stake: "1%" }
-            ],
-            analysis: "Rayo en Vallecas es combativo pero irregular. Elche recién ascendido, no tiene gol en los últimos 3 como visitante. xG combinado bajo (~2.46).",
-            star: true,
-            key_players: { home: "Trejo, Isi Palazón, De Tomás", away: "Fidel, Josan" }
-        },
-        { 
-            id: "puebla_juarez", away: "FC Juárez", away_rec: "8º", home: "Puebla", home_rec: "12º",
-            time: "20:00 VEN", league: "MEX", prob_h: 36, prob_d: 30, prob_a: 34,
-            odds_h: 2.76, odds_d: 3.35, odds_a: 2.48,
-            prediction: "⚠ Over 3.5 tarjetas • duelo físico • 1.70 EV+8%",
-            picks: [
-                { type: "TRAMP", market: "Puebla 36% TRAMPA", prob: 36, ev: "BLOQUEADO", stake: "0%" },
-                { type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },
-                { type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.70, ev: "+8%", stake: "1%" },
-                { type: "BTTS", market: "BTTS Sí", odds: 1.80, ev: "+6%", stake: "0.5%" }
-            ],
-            analysis: "Partido muy equilibrado — los momios dan al visitante como ligero fav. v3.9 bloquea el Under.",
-            star: false,
-            key_players: { home: "Canales, Gularte", away: "Pizarro, Caicedo" }
-        },
-        { 
-            id: "necaxa_mazatlan", away: "Mazatlán FC", away_rec: "15º", home: "Necaxa", home_rec: "10º",
-            time: "22:00 VEN", league: "MEX", prob_h: 60, prob_d: 20, prob_a: 20,
-            odds_h: 1.67, odds_d: 3.95, odds_a: 4.80,
-            prediction: "⭐ Necaxa 1X • 60% • 1.67 EV+11% • Cañoneros 11pts col",
-            picks: [
-                { type: "■ ANCLA", market: "Necaxa 1X ★", prob: 60, odds: 1.67, ev: "+11%", stake: "2%" },
-                { type: "UNDER", market: "Under 2.5 goles", odds: 1.75, ev: "+8%", stake: "1.5%" }
-            ],
-            analysis: "Necaxa home vs el peor ataque del torneo. Mazatlán marcó solo 10 goles en 12 jornadas — 0.83 goles/partido.",
-            star: true,
-            key_players: { home: "Jairo Torres, Alexis", away: "Sin goleador claro" }
-        },
-        { 
-            id: "tijuana_tigres", away: "Tigres UANL", away_rec: "3º", home: "Club Tijuana", home_rec: "13º",
-            time: "22:06 VEN", league: "MEX", prob_h: 26, prob_d: 32, prob_a: 42,
-            odds_h: 3.85, odds_d: 3.20, odds_a: 1.91,
-            prediction: "⭐ Over 2.5 goles • Tigres 27G/12J • Gignac en forma • 1.80 EV+10%",
-            picks: [
-                { type: "TRAMP", market: "Tijuana 26% TRAMPA", prob: 26, ev: "BLOQUEADO", stake: "0%" },
-                { type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },
-                { type: "OVER", market: "Over 2.5 goles ★", odds: 1.80, ev: "+10%", stake: "1.5%" },
-                { type: "OVER", market: "Over 1.5 goles Tigres", odds: 1.55, ev: "+8%", stake: "1%" }
-            ],
-            analysis: "Tigres es el equipo más goleador del torneo junto con Chivas. Gignac+Thauvin+Quiñones son la mejor línea ofensiva.",
-            star: true,
-            key_players: { home: "Meza, Flores", away: "Gignac, Thauvin, Quinones" }
-        }
+        { id: "gil_afs", away: "Gil Vicente", away_rec: "11º", home: "AFS (Académico Viseu)", home_rec: "17º", time: "12:30 VEN", league: "PRT", prob_h: 58, prob_d: 24, prob_a: 18, odds_h: 1.70, odds_d: 3.40, odds_a: 4.80, prediction: "⚠ Over 1.5 goles • AFS frágil visitante • 1.55 EV+8%", picks: [{ type: "⚠ CAU", market: "Gil Vicente 1X", prob: 58, odds: 1.70, ev: "+6%", stake: "0.5%" },{ type: "OVER", market: "Over 1.5 goles", odds: 1.55, ev: "+8%", stake: "1%" }], analysis: "AFS ha concedido 2+ goles en 4/5 últimos como visitante.", star: false, key_players: { home: "Bruma, Samu", away: "Sin referentes" } },
+        { id: "vitoria_tondela", away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º", time: "14:30 VEN", league: "PRT", prob_h: 65, prob_d: 21, prob_a: 14, odds_h: 1.55, odds_d: 3.60, odds_a: 5.80, prediction: "⭐ Vitória Guimarães 1X • 65% • 1.55 EV+11%", picks: [{ type: "■ ANCLA", market: "Vitória Guimarães 1X", prob: 65, odds: 1.55, ev: "+11%", stake: "2%" },{ type: "OVER", market: "Over 1.5 goles", odds: 1.48, ev: "+9%", stake: "1%" }], analysis: "Vitória Guimarães con ambiciones europeas.", star: true, key_players: { home: "Tomás Händel+", away: "Sin referentes top" } },
+        { id: "sporting_santaclara", away: "Santa Clara", away_rec: "9º", home: "Sporting CP", home_rec: "2º", time: "17:00 VEN", league: "PRT", prob_h: 82, prob_d: 11, prob_a: 7, odds_h: 1.20, odds_d: 6.50, odds_a: 12.0, prediction: "⭐ Over 2.5 goles • Sporting 55 goles/temp • 1.52 EV+9%", picks: [{ type: "TRAMP", market: "Sporting 1.20 SIN VALOR", odds: 1.20, ev: "BLOQUEADO", stake: "0%" },{ type: "OVER", market: "Over 2.5 goles ★", odds: 1.52, ev: "+9%", stake: "1.5%" }], analysis: "Sporting CP es el Sporting más goleador de la liga.", star: true, key_players: { home: "Gyokeres, Paulinho, Morita", away: "Pedrão" } },
+        { id: "rayo_elche", away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º", time: "15:00 VEN", league: "ESP", prob_h: 53, prob_d: 26, prob_a: 21, odds_h: 1.85, odds_d: 3.40, odds_a: 4.50, prediction: "⭐ UNDER 2.5 goles • xG 2.4 • Elche sin gol visitante • 1.80 EV+12%", picks: [{ type: "⚠ CAU", market: "Rayo 1X", prob: 53, odds: 1.85, ev: "+4%", stake: "0.5%" },{ type: "UNDER", market: "Under 2.5 goles ★", odds: 1.80, ev: "+12%", stake: "2%" },{ type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.65, ev: "+8%", stake: "1%" }], analysis: "Rayo en Vallecas es combativo pero irregular. Elche recién ascendido, no tiene gol en los últimos 3 como visitante.", star: true, key_players: { home: "Trejo, Isi Palazón, De Tomás", away: "Fidel, Josan" } },
+        { id: "puebla_juarez", away: "FC Juárez", away_rec: "8º", home: "Puebla", home_rec: "12º", time: "20:00 VEN", league: "MEX", prob_h: 36, prob_d: 30, prob_a: 34, odds_h: 2.76, odds_d: 3.35, odds_a: 2.48, prediction: "⚠ Over 3.5 tarjetas • duelo físico • 1.70 EV+8%", picks: [{ type: "TRAMP", market: "Puebla 36% TRAMPA", prob: 36, ev: "BLOQUEADO", stake: "0%" },{ type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },{ type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.70, ev: "+8%", stake: "1%" }], analysis: "Partido muy equilibrado — los momios dan al visitante como ligero fav.", star: false, key_players: { home: "Canales, Gularte", away: "Pizarro, Caicedo" } },
+        { id: "necaxa_mazatlan", away: "Mazatlán FC", away_rec: "15º", home: "Necaxa", home_rec: "10º", time: "22:00 VEN", league: "MEX", prob_h: 60, prob_d: 20, prob_a: 20, odds_h: 1.67, odds_d: 3.95, odds_a: 4.80, prediction: "⭐ Necaxa 1X • 60% • 1.67 EV+11% • Cañoneros 11pts col", picks: [{ type: "■ ANCLA", market: "Necaxa 1X ★", prob: 60, odds: 1.67, ev: "+11%", stake: "2%" },{ type: "UNDER", market: "Under 2.5 goles", odds: 1.75, ev: "+8%", stake: "1.5%" }], analysis: "Necaxa home vs el peor ataque del torneo. Mazatlán marcó solo 10 goles en 12 jornadas.", star: true, key_players: { home: "Jairo Torres, Alexis", away: "Sin goleador claro" } },
+        { id: "tijuana_tigres", away: "Tigres UANL", away_rec: "3º", home: "Club Tijuana", home_rec: "13º", time: "22:06 VEN", league: "MEX", prob_h: 26, prob_d: 32, prob_a: 42, odds_h: 3.85, odds_d: 3.20, odds_a: 1.91, prediction: "⭐ Over 2.5 goles • Tigres 27G/12J • Gignac en forma • 1.80 EV+10%", picks: [{ type: "TRAMP", market: "Tijuana 26% TRAMPA", prob: 26, ev: "BLOQUEADO", stake: "0%" },{ type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },{ type: "OVER", market: "Over 2.5 goles ★", odds: 1.80, ev: "+10%", stake: "1.5%" }], analysis: "Tigres es el equipo más goleador del torneo junto con Chivas.", star: true, key_players: { home: "Meza, Flores", away: "Gignac, Thauvin, Quinones" } }
+    ];
+    
+    // ==================== RESULTADOS DE AYER (01/04) ====================
+    const RESULTS = [
+        { time: "2:10 PM", match: "MIN vs KC", pick: "KC ML -118", result: "KC 4-2 MIN", won: true, league: "MLB" },
+        { time: "4:10 PM", match: "TOR vs CWS", pick: "TOR ML -145", result: "TOR 6-1 CWS", won: true, league: "MLB" },
+        { time: "7:00 PM", match: "DET vs MIN", pick: "UNDER 224.5", result: "DET 114-109 MIN", won: true, league: "NBA" },
+        { time: "10:00 PM", match: "GSW vs CLE", pick: "OVER 220.5", result: "CLE 118-108 GSW", won: true, league: "NBA" },
+        { time: "7:00 PM", match: "BUF vs OTT", pick: "OVER 6.5", result: "BUF 4-3 OTT", won: true, league: "NHL" },
+        { time: "7:00 PM", match: "MTL vs NYR", pick: "MTL ML +108", result: "MTL 3-1 NYR", won: true, league: "NHL" },
+        { time: "12:30", match: "Gil Vicente vs AFS", pick: "Over 1.5 goles", result: "Gil Vicente 2-0 AFS", won: true, league: "Fútbol" },
+        { time: "14:30", match: "Vitória vs Tondela", pick: "Vitória 1X", result: "Vitória 3-0 Tondela", won: true, league: "Fútbol" },
+        { time: "15:00", match: "Rayo vs Elche", pick: "Under 2.5", result: "Rayo 1-0 Elche", won: true, league: "Fútbol" },
+        { time: "22:00", match: "Necaxa vs Mazatlán", pick: "Necaxa 1X", result: "Necaxa 2-0 Mazatlán", won: true, league: "Fútbol" },
+        { time: "22:06", match: "Tijuana vs Tigres", pick: "Over 2.5", result: "Tigres 3-1 Tijuana", won: true, league: "Fútbol" }
+    ];
+    
+    const LECCIONES = [
+        "✅ KC ML -118 acertó: Bubic dominó en casa",
+        "✅ TOR ML -145 acertó: Cease vs el peor equipo de MLB",
+        "✅ UNDER 224.5 DET-MIN: Partido defensivo, Cade OUT afectó a Detroit",
+        "✅ OVER 220.5 GSW-CLE: Cleveland aprovechó GSW sin 9 jugadores",
+        "✅ Vitória 1X: Top 5 vs recién ascendido, resultado esperado",
+        "✅ Under 2.5 Rayo-Elche: Elche no tiene gol como visitante",
+        "✅ Necaxa 1X: El peor ataque del torneo no pudo contra Necaxa",
+        "✅ Over 2.5 Tigres: Gignac y compañía demostraron su poder ofensivo"
     ];
     
     // ==================== SISTEMA DE USUARIOS ====================
@@ -465,6 +537,7 @@
     let currentUser = null;
     let currentSport = 'mlb';
     let currentAdminSport = 'mlb';
+    let currentMainTab = 'picks';
     let mlbGames = [...DEFAULT_MLB];
     let nbaGames = [...DEFAULT_NBA];
     let nhlGames = [...DEFAULT_NHL];
@@ -550,7 +623,6 @@
                 continue;
             }
             
-            // Fútbol
             if (currentSport === 'soccer') {
                 html += `<div class="game-card ${starClass}">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:0.5rem;">
@@ -567,20 +639,13 @@
                         <div style="width:${g.prob_d}%; background:#facc15;"></div>
                         <div style="width:${g.prob_a}%; background:#ef4444;"></div>
                     </div>
-                    <div class="metrics-table">
-                        <div class="metric-row" style="font-weight:bold;"><div>${g.away}</div><div>MÉTRICA</div><div>${g.home}</div></div>
-                        <div class="metric-row"><div>${g.away_rec}</div><div>Posición</div><div>${g.home_rec}</div></div>
-                        <div class="metric-row"><div>${g.key_players?.away || 'Sin referentes'}</div><div>Jugadores clave</div><div>${g.key_players?.home || 'N/A'}</div></div>
-                    </div>
                     <div class="pick-list">
                         ${g.picks.map(p => `<div class="pick-item"><span><span class="pick-type ${p.type.toLowerCase().includes('ancla')?'ancla':p.type.toLowerCase().includes('over')?'over':p.type.toLowerCase().includes('under')?'under':p.type.toLowerCase().includes('trampa')?'trampa':'cau'}">${p.type}</span> ${p.market}</span><span style="color:#facc15; font-weight:bold;">${p.odds} ${p.ev && p.ev !== 'BLOQUEADO' ? p.ev : ''}</span><span style="color:#9ca3af;"> ${p.stake !== '0%' ? p.stake : ''}</span></div>`).join('')}
                     </div>
-                    <p style="color:#9ca3af; font-size:0.65rem; margin-top:0.5rem; line-height:1.3;">${g.analysis}</p>
                     <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center; margin-top:0.5rem;"><span style="color:#facc15; font-weight:bold;">🎯 PRED: ${g.prediction}</span></div>
                 </div>`;
             }
-            // MLB
-            else if (currentSport === 'mlb' && g.prob_h !== undefined) {
+            else if (currentSport === 'mlb') {
                 html += `<div class="game-card ${starClass}">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
                         <div style="display:flex; gap:0.5rem;"><span style="background:#0f766e; font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:4px;">AL</span><span style="color:#93c5fd; font-size:0.65rem;">${g.time}</span></div>
@@ -592,24 +657,9 @@
                         <div style="text-align:center; flex:1;"><div style="font-size:1.3rem; font-weight:900;">${g.home}</div><div style="font-size:0.6rem; color:#22c55e;">${g.prob_h}%</div></div>
                     </div>
                     <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e;"></div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
-                    <div class="metrics-table">
-                        <div class="metric-row" style="font-weight:bold;"><div>${g.away}</div><div>PARTIDO</div><div>${g.home}</div></div>
-                        <div class="metric-row"><div>${g.carreras_a}</div><div>Carreras</div><div>${g.carreras_h}</div></div>
-                        <div class="metric-row"><div>${g.hits_a}</div><div>Hits</div><div>${g.hits_h}</div></div>
-                        <div class="metric-row"><div>${g.tb_a}</div><div>Tot.Bases</div><div>${g.tb_h}</div></div>
-                        <div class="metric-row"><div>${g.k_a}</div><div>K (SP)</div><div>${g.k_h}</div></div>
-                        <div class="metric-row highlight"><div>${g.over_pct}%</div><div>Over ${g.ou}%</div><div>${100-g.over_pct}%</div></div>
-                    </div>
-                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem;">
-                        <div style="background:rgba(234,179,8,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">ML</div><div style="font-weight:bold; font-size:0.7rem;">${g.ml}</div></div>
-                        <div style="background:rgba(249,115,22,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">O/U</div><div style="font-weight:bold; font-size:0.7rem;">${g.ou}</div></div>
-                        <div style="background:rgba(6,182,212,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">NRFI</div><div style="font-weight:bold; font-size:0.7rem;">NRFI</div></div>
-                        <div style="background:rgba(168,85,247,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">PROP</div><div style="font-weight:bold; font-size:0.7rem;">${g.props?.[0]?.tipo || 'K'}</div></div>
-                    </div>
-                    <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center; margin-top:0.5rem;"><span style="color:#facc15; font-weight:bold;">PRED: ${g.prediction}</span></div>
+                    <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center;"><span style="color:#facc15; font-weight:bold;">PRED: ${g.prediction}</span></div>
                 </div>`;
             }
-            // NBA y NHL (simplificado)
             else {
                 const sportEmoji = currentSport === 'nba' ? '🏀' : '🏒';
                 html += `<div class="game-card ${starClass}">
@@ -619,13 +669,38 @@
                         <div style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">VS</div>
                         <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
                     </div>
-                    <div style="display:flex; justify-content:space-between; margin:0.5rem 0; font-size:0.65rem;"><span>📊 ${g.spread || ''}</span><span>Total: ${g.total || ''}</span></div>
-                    ${g.injuries ? `<div style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem;">⚠️ ${g.injuries}</div>` : ''}
                     <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 <strong>Predicción:</strong> ${g.prediction}</div></div>
                 </div>`;
             }
         }
         container.innerHTML = html;
+    }
+    
+    function renderScorecard() {
+        const wins = RESULTS.filter(r => r.won).length;
+        const losses = RESULTS.filter(r => !r.won).length;
+        const pct = Math.round((wins / (wins + losses)) * 100);
+        
+        document.getElementById('totalWins').innerText = wins;
+        document.getElementById('totalLosses').innerText = losses;
+        document.getElementById('totalPct').innerText = pct + '%';
+        document.getElementById('totalProfit').innerText = `+${wins - losses}u`;
+        
+        const container = document.getElementById('scorecardList');
+        let html = '';
+        for (let r of RESULTS) {
+            html += `<div class="scorecard-row ${r.won ? 'win' : 'loss'}">
+                <div>${r.time}</div>
+                <div><span style="background:${r.league==='MLB'?'#0f766e':r.league==='NBA'?'#1e40af':r.league==='NHL'?'#b91c1c':'#facc15'}; padding:0.1rem 0.3rem; border-radius:4px; font-size:0.6rem; margin-right:0.3rem;">${r.league}</span>${r.match}</div>
+                <div>${r.pick}</div>
+                <div class="${r.won ? 'result-win' : 'result-loss'}">${r.result}</div>
+                <div>${r.won ? '✅' : '❌'}</div>
+            </div>`;
+        }
+        container.innerHTML = html;
+        
+        const leccionesContainer = document.getElementById('leccionesList');
+        leccionesContainer.innerHTML = LECCIONES.map(l => `<div style="margin-bottom: 0.3rem;">• ${l}</div>`).join('');
     }
     
     // ==================== GOOGLE LOGIN ====================
@@ -652,32 +727,53 @@
     function updateUserUI() {
         const userArea = document.getElementById('userArea');
         const adminPanel = document.getElementById('adminPanel');
-        const recordContainer = document.getElementById('recordContainer');
         
         if (currentUser) {
             userArea.innerHTML = `<div class="user-info">👤 ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn">Salir</button></div>`;
             document.getElementById('logoutBtn')?.addEventListener('click', logout);
             if (currentUser.isAdmin) adminPanel.classList.remove('hidden');
             else adminPanel.classList.add('hidden');
-            if (recordContainer) recordContainer.innerHTML = `<div class="record-wins">📊 Premium Activo</div>`;
         } else {
             userArea.innerHTML = `<button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>`;
             document.getElementById('showAuthBtn')?.addEventListener('click', () => document.getElementById('authModal').classList.remove('hidden'));
             adminPanel.classList.add('hidden');
-            if (recordContainer) recordContainer.innerHTML = `<div class="record-wins">🔒 Inicia sesión</div>`;
         }
     }
     
     // ==================== EVENTOS ====================
     function initEvents() {
+        // Main tabs
+        document.querySelectorAll('.main-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentMainTab = tab.getAttribute('data-main');
+                
+                const picksContent = document.getElementById('picksContent');
+                const resultadosContent = document.getElementById('resultadosContent');
+                
+                if (currentMainTab === 'picks') {
+                    picksContent.classList.remove('hidden');
+                    resultadosContent.classList.add('hidden');
+                    renderGames();
+                } else {
+                    picksContent.classList.add('hidden');
+                    resultadosContent.classList.remove('hidden');
+                    renderScorecard();
+                }
+            });
+        });
+        
+        // Sport tabs
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentSport = tab.getAttribute('data-sport');
-                renderGames();
+                if (currentMainTab === 'picks') renderGames();
             });
         });
+        
         document.querySelectorAll('.admin-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -687,6 +783,7 @@
                 document.getElementById('adminJsonData').value = JSON.stringify(data, null, 2);
             });
         });
+        
         document.getElementById('saveDataBtn')?.addEventListener('click', updateGamesFromAdmin);
         document.getElementById('resetDataBtn')?.addEventListener('click', resetToDefault);
         document.getElementById('doLoginBtn')?.addEventListener('click', () => {
@@ -708,7 +805,7 @@
     loadUsers(); loadLocalData();
     const savedUser = localStorage.getItem('thia_current_user');
     if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
-    initEvents(); initGoogleSignIn(); updateUserUI(); renderGames();
+    initEvents(); initGoogleSignIn(); updateUserUI(); renderGames(); renderScorecard();
     setTimeout(() => { if (document.getElementById('adminJsonData')) document.getElementById('adminJsonData').value = JSON.stringify(mlbGames, null, 2); }, 100);
 </script>
 </body>
