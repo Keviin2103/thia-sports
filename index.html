@@ -3,140 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | MLB + NBA + NHL + Fútbol</title>
+    <title>ThIA Sports | Predicciones Deportivas</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0a0f2c 0%, #01030d 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
             color: #eef2ff;
             min-height: 100vh;
             padding-bottom: 2rem;
         }
-        
-        /* Header */
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(10, 15, 44, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(250, 204, 21, 0.3);
-            padding: 0.75rem 1rem;
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        /* Header / Navbar estilo MizuStats */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             flex-wrap: wrap;
             gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .logo-container {
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f97316, #facc15);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
             display: flex;
+            gap: 2rem;
             align-items: center;
-            gap: 0.75rem;
+            flex-wrap: wrap;
         }
-        .dot-red, .dot-yellow, .dot-green {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+
+        .nav-links a {
+            color: #cbd5e6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            cursor: pointer;
         }
-        .dot-red { background: #ef4444; }
-        .dot-yellow { background: #facc15; }
-        .dot-green { background: #22c55e; }
-        .logo-text h1 { color: #facc15; font-weight: 900; font-size: 1.1rem; }
-        .logo-text p { color: #9ca3af; font-size: 0.65rem; }
-        .user-area { display: flex; align-items: center; gap: 0.8rem; }
-        .user-info {
-            font-size: 0.7rem;
-            background: rgba(30, 41, 59, 0.8);
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #facc15;
         }
-        .btn {
+
+        .btn-outline {
             background: transparent;
             border: 1px solid #facc15;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1.2rem;
             border-radius: 40px;
             color: #facc15;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
         }
-        .btn:hover { background: #facc15; color: #0f172a; }
-        .record-container { text-align: right; }
-        .record-wins { color: #facc15; font-weight: 900; font-size: 0.8rem; }
-        .record-pct { background: #22c55e; color: #000; font-weight: 900; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; }
-        
-        /* Tabs principales */
-        .tabs-container {
-            max-width: 1200px;
-            margin: 1rem auto 0;
-            padding: 0 1rem;
+
+        .btn-outline:hover {
+            background: #facc15;
+            color: #0f172a;
         }
-        .main-tabs {
+
+        .user-greeting {
+            font-size: 0.85rem;
+            background: #1e293b;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Menú de deportes (similar a MizuStats) */
+        .sports-menu {
+            max-width: 1300px;
+            margin: 1.5rem auto 0;
+            padding: 0 1.5rem;
+        }
+
+        .sports-tabs {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
-            background: rgba(17, 24, 39, 0.6);
-            border-radius: 60px;
-            padding: 0.3rem;
-            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
         }
-        .main-tab {
+
+        .sport-tab {
             background: transparent;
             border: none;
-            padding: 0.5rem 1.2rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 40px;
             color: #cbd5e6;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sport-tab.active {
+            background: rgba(250, 204, 21, 0.15);
+            color: #facc15;
+            border-bottom: 2px solid #facc15;
+            border-radius: 0;
+        }
+
+        .sport-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        /* Contenedor de juegos */
+        .games-container {
+            max-width: 1300px;
+            margin: 1.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Tarjeta de juego estilo MizuStats */
+        .game-card {
+            background: rgba(18, 25, 45, 0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            border-color: rgba(250, 204, 21, 0.4);
+        }
+
+        .game-card.star {
+            border: 2px solid #facc15;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.2);
+        }
+
+        /* Header de la tarjeta (liga y hora) */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.7rem;
+            color: #9ca3af;
+        }
+
+        .league-badge {
+            background: #0f766e;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* Equipos con logos */
+        .teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .team-record {
+            font-size: 0.65rem;
+            color: #9ca3af;
+        }
+
+        .vs {
+            background: #facc15;
+            color: #0f172a;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
             font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
         }
-        .main-tab.active {
-            background: linear-gradient(95deg, #f97316, #facc15);
-            color: #0f172a;
-        }
-        
-        /* Sport Tabs (dentro de Picks) */
-        .sport-tabs {
+
+        /* Información adicional */
+        .game-info {
+            padding: 0 1rem 0.5rem;
+            font-size: 0.7rem;
+            color: #9ca3af;
             display: flex;
-            gap: 0.5rem;
+            justify-content: space-between;
             flex-wrap: wrap;
-            background: rgba(17, 24, 39, 0.4);
-            border-radius: 60px;
+            gap: 0.3rem;
+        }
+
+        .injury-note {
+            font-size: 0.65rem;
+            background: rgba(220, 38, 38, 0.2);
             padding: 0.3rem;
-            margin-bottom: 1rem;
+            margin: 0 1rem 0.5rem;
+            border-radius: 8px;
+            color: #fca5a5;
         }
-        .tab {
-            background: transparent;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 40px;
-            color: #cbd5e6;
-            font-weight: bold;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.2s;
+
+        /* Bloque de predicción */
+        .prediction-block {
+            padding: 0.8rem 1rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .tab.active {
-            background: linear-gradient(95deg, #f97316, #facc15);
+
+        .premium-locked {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 0.8rem;
+            text-align: center;
+            border-left: 4px solid #facc15;
+        }
+
+        .premium-unlocked {
+            background: #0f172a;
+            border-radius: 16px;
+            padding: 0.8rem;
+            border-left: 4px solid #10b981;
+        }
+
+        .prediction-text {
+            margin-top: 0.5rem;
+            font-weight: 500;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .star-badge {
+            background: #facc15;
             color: #0f172a;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 0.3rem;
         }
-        
-        /* Admin Panel */
+
+        /* Admin panel y modales (estilos previos) */
         .admin-panel {
-            max-width: 1200px;
-            margin: 1rem auto;
+            max-width: 1300px;
+            margin: 2rem auto;
             padding: 1rem;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 20px;
             border: 1px solid #334155;
         }
@@ -164,144 +325,7 @@
             margin-bottom: 0.5rem;
         }
         .admin-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        
-        /* Games Grid */
-        .games-grid {
-            max-width: 1200px;
-            margin: 1rem auto;
-            padding: 0 1rem;
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: 1fr;
-        }
-        @media (min-width: 768px) {
-            .games-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        /* Game Card */
-        .game-card {
-            border-radius: 16px;
-            padding: 1rem;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(250, 204, 21, 0.2);
-        }
-        .game-card.star { border: 2px solid #facc15; }
-        .game-card.win { border-left: 4px solid #22c55e; }
-        .game-card.loss { border-left: 4px solid #ef4444; }
-        
-        /* Prob Bar */
-        .prob-bar {
-            display: flex;
-            border-radius: 999px;
-            overflow: hidden;
-            height: 20px;
-            margin: 0.5rem 0;
-        }
-        
-        /* Metrics Table */
-        .metrics-table {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-        }
-        .metric-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-            padding: 0.25rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.7rem;
-        }
-        .metric-row.highlight { background: rgba(250, 204, 21, 0.15); color: #facc15; font-weight: bold; }
-        
-        .locked-overlay {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 0.8rem;
-            text-align: center;
-            margin-top: 0.5rem;
-        }
-        
-        .pick-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            margin-top: 0.5rem;
-        }
-        .pick-item {
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            padding: 0.3rem 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-        }
-        .pick-type {
-            font-weight: bold;
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.6rem;
-        }
-        .pick-type.ancla { background: #22c55e; color: #000; }
-        .pick-type.over { background: #f97316; color: #000; }
-        .pick-type.under { background: #06b6d4; color: #000; }
-        .pick-type.trampa { background: #ef4444; color: #fff; }
-        .pick-type.cau { background: #facc15; color: #000; }
-        
-        /* Scorecard */
-        .scorecard-container {
-            max-width: 1200px;
-            margin: 1rem auto;
-            padding: 0 1rem;
-        }
-        .scorecard-table {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .scorecard-header {
-            display: grid;
-            grid-template-columns: 80px 1fr 100px 100px 80px;
-            background: rgba(250, 204, 21, 0.2);
-            padding: 0.75rem;
-            font-weight: bold;
-            font-size: 0.75rem;
-            border-bottom: 1px solid rgba(250, 204, 21, 0.3);
-        }
-        .scorecard-row {
-            display: grid;
-            grid-template-columns: 80px 1fr 100px 100px 80px;
-            padding: 0.6rem 0.75rem;
-            font-size: 0.7rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            align-items: center;
-        }
-        .scorecard-row.win { background: rgba(34, 197, 94, 0.1); }
-        .scorecard-row.loss { background: rgba(239, 68, 68, 0.05); }
-        .result-win { color: #22c55e; font-weight: bold; }
-        .result-loss { color: #ef4444; font-weight: bold; }
-        
-        /* Stats Summary */
-        .stats-summary {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-        .stat-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-        }
-        .stat-value { font-size: 1.5rem; font-weight: bold; color: #facc15; }
-        .stat-label { font-size: 0.65rem; color: #9ca3af; }
-        
-        /* Modal */
+
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
@@ -319,21 +343,22 @@
         }
         .google-btn-container { display: flex; justify-content: center; margin: 0.5rem 0; }
         .separator { margin: 0.5rem 0; color: #5b6e8c; font-size: 0.7rem; }
-        
+
         .hidden { display: none; }
-        .footer { text-align: center; font-size: 0.6rem; color: #5b6e8c; margin-top: 1rem; padding: 0 1rem; }
-        
-        @media (max-width: 768px) {
-            .scorecard-header, .scorecard-row {
-                grid-template-columns: 60px 1fr 80px 80px 60px;
-                font-size: 0.6rem;
-                gap: 0.3rem;
-            }
+        .footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5b6e8c;
+            margin-top: 2rem;
+            padding: 1rem;
         }
+
         @media (max-width: 640px) {
-            .header-content { flex-direction: column; text-align: center; }
-            .main-tabs, .sport-tabs { justify-content: center; }
-            .tab, .main-tab { padding: 0.3rem 0.8rem; font-size: 0.7rem; }
+            .navbar { flex-direction: column; text-align: center; }
+            .nav-links { justify-content: center; }
+            .teams { flex-direction: column; }
+            .vs { margin: 0 auto; }
+            .team-logo { width: 40px; height: 40px; }
         }
     </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -347,11 +372,11 @@
         <p style="font-size:0.8rem;">Inicia sesión para acceder a predicciones premium</p>
         <input type="email" id="loginEmail" placeholder="Correo electrónico">
         <input type="password" id="loginPassword" placeholder="Contraseña">
-        <button id="doLoginBtn" class="btn" style="width:100%; background:#facc15; color:#000;">Iniciar sesión</button>
-        <button id="doRegisterBtn" class="btn" style="width:100%; margin-top:0.5rem;">Registrarse</button>
+        <button id="doLoginBtn" class="btn-outline" style="width:100%; background:#facc15; color:#000; border:none;">Iniciar sesión</button>
+        <button id="doRegisterBtn" class="btn-outline" style="width:100%; margin-top:0.5rem;">Registrarse</button>
         <div class="separator">━━━━━ o ━━━━━</div>
         <div id="googleBtnContainer" class="google-btn-container"></div>
-        <button class="btn" style="margin-top:0.5rem;" onclick="document.getElementById('authModal').classList.add('hidden')">Cerrar</button>
+        <button class="btn-outline" style="margin-top:0.5rem;" onclick="document.getElementById('authModal').classList.add('hidden')">Cerrar</button>
     </div>
 </div>
 
@@ -366,97 +391,38 @@
             <h3>🏆 Plan Total - $30/mes</h3>
             <p style="font-size:0.7rem;">Todos los deportes</p>
         </div>
-        <button class="btn" onclick="document.getElementById('plansModal').classList.add('hidden')">Cerrar</button>
+        <button class="btn-outline" onclick="document.getElementById('plansModal').classList.add('hidden')">Cerrar</button>
     </div>
 </div>
 
-<!-- Header -->
-<div class="sticky-header">
-    <div class="header-content">
-        <div class="logo-container">
-            <div style="display: flex; gap: 4px;">
-                <div class="dot-red"></div>
-                <div class="dot-yellow"></div>
-                <div class="dot-green"></div>
-            </div>
-            <div class="logo-text">
-                <h1>ThIA Sports</h1>
-                <p>MLB · NBA · NHL · Fútbol · V4.5</p>
-            </div>
-        </div>
-        <div id="userArea" class="user-area">
-            <button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>
-        </div>
-        <div class="record-container" id="recordContainer">
-            <div class="record-wins">Cargando...</div>
-        </div>
+<!-- Header / Navbar -->
+<div class="navbar">
+    <div class="logo">ThIA <span style="color:#facc15;">Sports</span></div>
+    <div class="nav-links">
+        <a id="homeLink">INICIO</a>
+        <a id="subscriptionLink">SUSCRIPCIÓN</a>
+    </div>
+    <div id="authArea">
+        <button id="showAuthBtn" class="btn-outline"><i class="fas fa-user"></i> Acceder</button>
     </div>
 </div>
 
-<!-- Tabs principales -->
-<div class="tabs-container">
-    <div class="main-tabs">
-        <button class="main-tab active" data-main="picks">🎯 PICKS</button>
-        <button class="main-tab" data-main="resultados">📊 RESULTADOS</button>
+<!-- Menú de deportes (estilo MizuStats) -->
+<div class="sports-menu">
+    <div class="sports-tabs">
+        <button class="sport-tab active" data-sport="mlb">⚾ MLB</button>
+        <button class="sport-tab" data-sport="nba">🏀 NBA</button>
+        <button class="sport-tab" data-sport="nhl">🏒 NHL</button>
+        <button class="sport-tab" data-sport="soccer">⚽ Fútbol</button>
     </div>
 </div>
 
-<!-- Contenido: Picks -->
-<div id="picksContent" class="tab-content">
-    <div class="tabs-container">
-        <div class="sport-tabs">
-            <button class="tab active" data-sport="mlb">⚾ MLB</button>
-            <button class="tab" data-sport="nba">🏀 NBA</button>
-            <button class="tab" data-sport="nhl">🏒 NHL</button>
-            <button class="tab" data-sport="soccer">⚽ Fútbol</button>
-        </div>
-    </div>
+<!-- Contenedor de juegos -->
+<div class="games-container">
     <div id="gamesContainer" class="games-grid"></div>
 </div>
 
-<!-- Contenido: Resultados -->
-<div id="resultadosContent" class="tab-content hidden">
-    <div class="scorecard-container">
-        <!-- Resumen de estadísticas -->
-        <div class="stats-summary">
-            <div class="stat-card">
-                <div class="stat-value" id="totalWins">0</div>
-                <div class="stat-label">PICKS GANADOS</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="totalLosses">0</div>
-                <div class="stat-label">PICKS PERDIDOS</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="totalPct">0%</div>
-                <div class="stat-label">EFECTIVIDAD</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="totalProfit">0u</div>
-                <div class="stat-label">PROFIT/LOSS</div>
-            </div>
-        </div>
-        
-        <!-- Scorecard de resultados -->
-        <div class="scorecard-table">
-            <div class="scorecard-header">
-                <div>HORA</div>
-                <div>PARTIDO</div>
-                <div>PICK</div>
-                <div>RESULTADO</div>
-                <div>✅/❌</div>
-            </div>
-            <div id="scorecardList"></div>
-        </div>
-        
-        <!-- Lecciones del día -->
-        <div style="margin-top: 1rem; background: rgba(250, 204, 21, 0.1); border-radius: 16px; padding: 1rem; border-left: 4px solid #facc15;">
-            <h4 style="color: #facc15; margin-bottom: 0.5rem;">💡 Lecciones del día</h4>
-            <div id="leccionesList" style="font-size: 0.7rem; color: #9ca3af; line-height: 1.5;"></div>
-        </div>
-    </div>
-</div>
-
+<!-- Panel de Administración -->
 <div id="adminPanel" class="admin-panel hidden">
     <h3>🔧 Panel de Administración</h3>
     <div class="admin-tabs">
@@ -467,69 +433,80 @@
     </div>
     <textarea id="adminJsonData" class="admin-textarea" rows="6" placeholder="Pega aquí el JSON de los juegos..."></textarea>
     <div class="admin-buttons">
-        <button id="saveDataBtn" class="btn">💾 Guardar datos</button>
-        <button id="resetDataBtn" class="btn">🔄 Restaurar datos por defecto</button>
+        <button id="saveDataBtn" class="btn-outline">💾 Guardar datos</button>
+        <button id="resetDataBtn" class="btn-outline">🔄 Restaurar datos por defecto</button>
     </div>
-    <p style="font-size:0.6rem; margin-top:0.3rem;">📌 Los datos se guardan automáticamente en tu navegador.</p>
 </div>
 
-<div class="footer">Predicciones ThIA Sports | Datos actualizados 03/04/2026</div>
+<div class="footer">ThIA Sports · Predicciones deportivas con inteligencia · Datos actualizados</div>
 
 <script>
-    // ==================== DATOS MLB ====================
+    // ==================== MAPA DE LOGOS (URLs de imágenes reales) ====================
+    // Usamos una API gratuita de logos (puedes reemplazar con tus propias URLs)
+    const logoBase = "https://cdn.sportmonks.com/images/soccer/team_logos/";
+    // Para MLB, NBA, NHL usamos emojis como fallback, pero también podemos usar imágenes
+    // Como es más sencillo y rápido, usaremos emojis + imágenes para equipos populares.
+    // Para este ejemplo, usamos emojios y algunas imágenes de prueba.
+    // Tú puedes reemplazar con URLs reales de logos.
+    
+    function getTeamLogo(teamName, sport) {
+        // Mapeo básico para equipos conocidos (puedes ampliarlo)
+        const logos = {
+            // MLB
+            "Athletics": "⚾", "Atlanta": "🪶", "Baltimore": "🦩", "Boston": "🧦",
+            "Chicago Cubs": "🐻", "Chicago White Sox": "⚪", "Cincinnati": "🔴",
+            "Cleveland": "⚾", "Colorado": "⛰️", "Detroit": "🐯", "Houston": "🚀",
+            "Kansas City": "👑", "LA Angels": "👼", "LA Dodgers": "💙", "Miami": "🐬",
+            "Milwaukee": "🍺", "Minnesota": "❄️", "NY Mets": "🗽", "NY Yankees": "👑",
+            "Philadelphia": "🦅", "Pittsburgh": "⛏️", "San Diego": "🌊", "San Francisco": "🌉",
+            "Seattle": "🌊", "St. Louis": "🔴", "Tampa Bay": "⚡", "Texas": "⭐",
+            "Toronto": "🍁", "Washington": "🏛️", "Arizona": "🌵",
+            // NBA
+            "Detroit Pistons": "🏀", "Minnesota T-Wolves": "🐺", "Charlotte Hornets": "🐝",
+            "Phoenix Suns": "☀️", "OKC Thunder": "⚡", "LA Lakers": "💜",
+            "Golden State Warriors": "🌉", "Cleveland Cavaliers": "👑", "Portland Blazers": "🌲",
+            "New Orleans Pelicans": "🐦", "LA Clippers": "⛵", "San Antonio Spurs": "🤠",
+            // NHL
+            "Buffalo Sabres": "🦬", "Ottawa Senators": "🏛️", "Pittsburgh Penguins": "🐧",
+            "Tampa Bay Lightning": "⚡", "Detroit Red Wings": "🐙", "Philadelphia Flyers": "🦅",
+            "Utah Mammoth": "🦣", "Seattle Kraken": "🐙", "Nashville Predators": "🎸",
+            "Los Angeles Kings": "👑", "Toronto Maple Leafs": "🍁", "San Jose Sharks": "🦈",
+            "Calgary Flames": "🔥", "Vegas Golden Knights": "⚔️", "Chicago Blackhawks": "🪶",
+            "Edmonton Oilers": "🛢️", "New Jersey Devils": "😈", "Washington Capitals": "🏛️",
+            "Montreal Canadiens": "🏒", "NY Rangers": "🗽",
+            // Fútbol (ejemplo)
+            "Gil Vicente": "⚽", "AFS (Académico Viseu)": "⚽", "Tondela": "⚽",
+            "Vitória Guimarães": "⚽", "Santa Clara": "⚽", "Sporting CP": "🦁",
+            "Elche CF": "⚽", "Rayo Vallecano": "⚽", "FC Juárez": "⚽", "Puebla": "⚽",
+            "Mazatlán FC": "⚽", "Necaxa": "⚽", "Tigres UANL": "🐯", "Club Tijuana": "⚽"
+        };
+        return logos[teamName] || (sport === 'mlb' ? '⚾' : (sport === 'nba' ? '🏀' : (sport === 'nhl' ? '🏒' : '⚽')));
+    }
+
+    // ==================== DATOS POR DEFECTO (simplificados) ====================
     const DEFAULT_MLB = [
-        { id: "min_kc", away: "MIN", home: "KC", time: "2:10 PM", spAway: "J.Ryan (3.42)", spHome: "K.Bubic (2.55)", tier: "SOLIDO", ml: "KC -118", ou: "UNDER 8.5", ou_odds: "-112", prob_h: 55, prob_d: 5, prob_a: 40, carreras_a: 2.6, carreras_h: 2.9, hits_a: 7.0, hits_h: 7.5, tb_a: 10.5, tb_h: 11.5, k_a: 7.5, k_h: 7.8, hr: 1.2, nrfi_pct: 60, over_pct: 42, prediction: "KC ML -118 • UNDER 8.5 • Bubic 2.55 ERA en casa", star: false, props: [{jugador:"K.Bubic",tipo:"K 6+",odds:"-112"},{jugador:"S.Perez",tipo:"HR",odds:"+295"}] },
-        { id: "tor_cws", away: "TOR", home: "CWS", time: "4:10 PM", spAway: "D.Cease (3.48)", spHome: "S.Smith (3.81)", tier: "ML", ml: "TOR -145", ou: "OVER 9.0", ou_odds: "-108", prob_h: 35, prob_d: 5, prob_a: 60, carreras_a: 3.5, carreras_h: 2.0, hits_a: 8.5, hits_h: 5.5, tb_a: 14.0, tb_h: 8.5, k_a: 8.5, k_h: 7.0, hr: 1.4, nrfi_pct: 52, over_pct: 55, prediction: "TOR ML -145 • OVER 9.0 • Cease vs CWS 0-7", star: false, props: [{jugador:"V.Guerrero Jr",tipo:"HR",odds:"+255"},{jugador:"D.Cease",tipo:"K 7+",odds:"-108"}] }
+        { id: "min_kc", away: "Minnesota", home: "Kansas City", time: "2:10 PM", spAway: "J.Ryan", spHome: "K.Bubic", prediction: "KC ML -118 • UNDER 8.5 • Bubic 2.55 ERA", star: false, league: "MLB" },
+        { id: "tor_cws", away: "Toronto", home: "Chicago White Sox", time: "4:10 PM", spAway: "D.Cease", spHome: "S.Smith", prediction: "TOR ML -145 • OVER 9.0 • Cease vs CWS 0-7", star: false, league: "MLB" }
     ];
     
-    // ==================== DATOS NBA ====================
     const DEFAULT_NBA = [
-        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true, prob_h: 45, prob_a: 55 },
-        { away: "Golden State Warriors", away_rec: "36-37", home: "Cleveland Cavaliers", home_rec: "47-28", time: "10:00 PM", spread: "GSW +11.5", total: "222.5", prediction: "⭐ OVER 220.5 • GSW +11.5", injuries: "9 LESIONADOS", star: true, prob_h: 80, prob_a: 20 },
-        { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true, prob_h: 59, prob_a: 41 }
+        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true, league: "NBA" },
+        { away: "Golden State Warriors", away_rec: "36-37", home: "Cleveland Cavaliers", home_rec: "47-28", time: "10:00 PM", spread: "GSW +11.5", total: "222.5", prediction: "⭐ OVER 220.5 • GSW +11.5", injuries: "9 LESIONADOS", star: true, league: "NBA" },
+        { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true, league: "NBA" }
     ];
     
-    // ==================== DATOS NHL ====================
     const DEFAULT_NHL = [
-        { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true, prob_h: 38, prob_a: 62 },
-        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108)", injuries: "NYR L10: 1-9", star: true, prob_h: 35, prob_a: 65 }
+        { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true, league: "NHL" },
+        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108)", injuries: "NYR L10: 1-9", star: true, league: "NHL" }
     ];
     
-    // ==================== DATOS FÚTBOL ====================
     const DEFAULT_SOCCER = [
-        { id: "gil_afs", away: "Gil Vicente", away_rec: "11º", home: "AFS (Académico Viseu)", home_rec: "17º", time: "12:30 VEN", league: "PRT", prob_h: 58, prob_d: 24, prob_a: 18, odds_h: 1.70, odds_d: 3.40, odds_a: 4.80, prediction: "⚠ Over 1.5 goles • AFS frágil visitante • 1.55 EV+8%", picks: [{ type: "⚠ CAU", market: "Gil Vicente 1X", prob: 58, odds: 1.70, ev: "+6%", stake: "0.5%" },{ type: "OVER", market: "Over 1.5 goles", odds: 1.55, ev: "+8%", stake: "1%" }], analysis: "AFS ha concedido 2+ goles en 4/5 últimos como visitante.", star: false, key_players: { home: "Bruma, Samu", away: "Sin referentes" } },
-        { id: "vitoria_tondela", away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º", time: "14:30 VEN", league: "PRT", prob_h: 65, prob_d: 21, prob_a: 14, odds_h: 1.55, odds_d: 3.60, odds_a: 5.80, prediction: "⭐ Vitória Guimarães 1X • 65% • 1.55 EV+11%", picks: [{ type: "■ ANCLA", market: "Vitória Guimarães 1X", prob: 65, odds: 1.55, ev: "+11%", stake: "2%" },{ type: "OVER", market: "Over 1.5 goles", odds: 1.48, ev: "+9%", stake: "1%" }], analysis: "Vitória Guimarães con ambiciones europeas.", star: true, key_players: { home: "Tomás Händel+", away: "Sin referentes top" } },
-        { id: "sporting_santaclara", away: "Santa Clara", away_rec: "9º", home: "Sporting CP", home_rec: "2º", time: "17:00 VEN", league: "PRT", prob_h: 82, prob_d: 11, prob_a: 7, odds_h: 1.20, odds_d: 6.50, odds_a: 12.0, prediction: "⭐ Over 2.5 goles • Sporting 55 goles/temp • 1.52 EV+9%", picks: [{ type: "TRAMP", market: "Sporting 1.20 SIN VALOR", odds: 1.20, ev: "BLOQUEADO", stake: "0%" },{ type: "OVER", market: "Over 2.5 goles ★", odds: 1.52, ev: "+9%", stake: "1.5%" }], analysis: "Sporting CP es el Sporting más goleador de la liga.", star: true, key_players: { home: "Gyokeres, Paulinho, Morita", away: "Pedrão" } },
-        { id: "rayo_elche", away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º", time: "15:00 VEN", league: "ESP", prob_h: 53, prob_d: 26, prob_a: 21, odds_h: 1.85, odds_d: 3.40, odds_a: 4.50, prediction: "⭐ UNDER 2.5 goles • xG 2.4 • Elche sin gol visitante • 1.80 EV+12%", picks: [{ type: "⚠ CAU", market: "Rayo 1X", prob: 53, odds: 1.85, ev: "+4%", stake: "0.5%" },{ type: "UNDER", market: "Under 2.5 goles ★", odds: 1.80, ev: "+12%", stake: "2%" },{ type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.65, ev: "+8%", stake: "1%" }], analysis: "Rayo en Vallecas es combativo pero irregular. Elche recién ascendido, no tiene gol en los últimos 3 como visitante.", star: true, key_players: { home: "Trejo, Isi Palazón, De Tomás", away: "Fidel, Josan" } },
-        { id: "puebla_juarez", away: "FC Juárez", away_rec: "8º", home: "Puebla", home_rec: "12º", time: "20:00 VEN", league: "MEX", prob_h: 36, prob_d: 30, prob_a: 34, odds_h: 2.76, odds_d: 3.35, odds_a: 2.48, prediction: "⚠ Over 3.5 tarjetas • duelo físico • 1.70 EV+8%", picks: [{ type: "TRAMP", market: "Puebla 36% TRAMPA", prob: 36, ev: "BLOQUEADO", stake: "0%" },{ type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },{ type: "TARJ", market: "Over 3.5 tarjetas", odds: 1.70, ev: "+8%", stake: "1%" }], analysis: "Partido muy equilibrado — los momios dan al visitante como ligero fav.", star: false, key_players: { home: "Canales, Gularte", away: "Pizarro, Caicedo" } },
-        { id: "necaxa_mazatlan", away: "Mazatlán FC", away_rec: "15º", home: "Necaxa", home_rec: "10º", time: "22:00 VEN", league: "MEX", prob_h: 60, prob_d: 20, prob_a: 20, odds_h: 1.67, odds_d: 3.95, odds_a: 4.80, prediction: "⭐ Necaxa 1X • 60% • 1.67 EV+11% • Cañoneros 11pts col", picks: [{ type: "■ ANCLA", market: "Necaxa 1X ★", prob: 60, odds: 1.67, ev: "+11%", stake: "2%" },{ type: "UNDER", market: "Under 2.5 goles", odds: 1.75, ev: "+8%", stake: "1.5%" }], analysis: "Necaxa home vs el peor ataque del torneo. Mazatlán marcó solo 10 goles en 12 jornadas.", star: true, key_players: { home: "Jairo Torres, Alexis", away: "Sin goleador claro" } },
-        { id: "tijuana_tigres", away: "Tigres UANL", away_rec: "3º", home: "Club Tijuana", home_rec: "13º", time: "22:06 VEN", league: "MEX", prob_h: 26, prob_d: 32, prob_a: 42, odds_h: 3.85, odds_d: 3.20, odds_a: 1.91, prediction: "⭐ Over 2.5 goles • Tigres 27G/12J • Gignac en forma • 1.80 EV+10%", picks: [{ type: "TRAMP", market: "Tijuana 26% TRAMPA", prob: 26, ev: "BLOQUEADO", stake: "0%" },{ type: "BLOQ", market: "Under 2.5 — v3.9 (loc<50%)", ev: "BLOQUEADO", stake: "0%" },{ type: "OVER", market: "Over 2.5 goles ★", odds: 1.80, ev: "+10%", stake: "1.5%" }], analysis: "Tigres es el equipo más goleador del torneo junto con Chivas.", star: true, key_players: { home: "Meza, Flores", away: "Gignac, Thauvin, Quinones" } }
-    ];
-    
-    // ==================== RESULTADOS DE AYER (01/04) ====================
-    const RESULTS = [
-        { time: "2:10 PM", match: "MIN vs KC", pick: "KC ML -118", result: "KC 4-2 MIN", won: true, league: "MLB" },
-        { time: "4:10 PM", match: "TOR vs CWS", pick: "TOR ML -145", result: "TOR 6-1 CWS", won: true, league: "MLB" },
-        { time: "7:00 PM", match: "DET vs MIN", pick: "UNDER 224.5", result: "DET 114-109 MIN", won: true, league: "NBA" },
-        { time: "10:00 PM", match: "GSW vs CLE", pick: "OVER 220.5", result: "CLE 118-108 GSW", won: true, league: "NBA" },
-        { time: "7:00 PM", match: "BUF vs OTT", pick: "OVER 6.5", result: "BUF 4-3 OTT", won: true, league: "NHL" },
-        { time: "7:00 PM", match: "MTL vs NYR", pick: "MTL ML +108", result: "MTL 3-1 NYR", won: true, league: "NHL" },
-        { time: "12:30", match: "Gil Vicente vs AFS", pick: "Over 1.5 goles", result: "Gil Vicente 2-0 AFS", won: true, league: "Fútbol" },
-        { time: "14:30", match: "Vitória vs Tondela", pick: "Vitória 1X", result: "Vitória 3-0 Tondela", won: true, league: "Fútbol" },
-        { time: "15:00", match: "Rayo vs Elche", pick: "Under 2.5", result: "Rayo 1-0 Elche", won: true, league: "Fútbol" },
-        { time: "22:00", match: "Necaxa vs Mazatlán", pick: "Necaxa 1X", result: "Necaxa 2-0 Mazatlán", won: true, league: "Fútbol" },
-        { time: "22:06", match: "Tijuana vs Tigres", pick: "Over 2.5", result: "Tigres 3-1 Tijuana", won: true, league: "Fútbol" }
-    ];
-    
-    const LECCIONES = [
-        "✅ KC ML -118 acertó: Bubic dominó en casa",
-        "✅ TOR ML -145 acertó: Cease vs el peor equipo de MLB",
-        "✅ UNDER 224.5 DET-MIN: Partido defensivo, Cade OUT afectó a Detroit",
-        "✅ OVER 220.5 GSW-CLE: Cleveland aprovechó GSW sin 9 jugadores",
-        "✅ Vitória 1X: Top 5 vs recién ascendido, resultado esperado",
-        "✅ Under 2.5 Rayo-Elche: Elche no tiene gol como visitante",
-        "✅ Necaxa 1X: El peor ataque del torneo no pudo contra Necaxa",
-        "✅ Over 2.5 Tigres: Gignac y compañía demostraron su poder ofensivo"
+        { away: "Gil Vicente", away_rec: "11º", home: "AFS (Académico Viseu)", home_rec: "17º", time: "12:30", league: "PRT", prediction: "⚠ Over 1.5 goles • AFS frágil", star: false, league: "Fútbol" },
+        { away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º", time: "14:30", league: "PRT", prediction: "⭐ Vitória Guimarães 1X • 1.55", star: true, league: "Fútbol" },
+        { away: "Santa Clara", away_rec: "9º", home: "Sporting CP", home_rec: "2º", time: "17:00", league: "PRT", prediction: "⭐ Over 2.5 goles • Sporting 55G", star: true, league: "Fútbol" },
+        { away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º", time: "15:00", league: "ESP", prediction: "⭐ UNDER 2.5 • 1.80", star: true, league: "Fútbol" },
+        { away: "Mazatlán FC", away_rec: "15º", home: "Necaxa", home_rec: "10º", time: "22:00", league: "MEX", prediction: "⭐ Necaxa 1X • 1.67", star: true, league: "Fútbol" },
+        { away: "Tigres UANL", away_rec: "3º", home: "Club Tijuana", home_rec: "13º", time: "22:06", league: "MEX", prediction: "⭐ Over 2.5 • Tigres 27G", star: true, league: "Fútbol" }
     ];
     
     // ==================== SISTEMA DE USUARIOS ====================
@@ -537,7 +514,6 @@
     let currentUser = null;
     let currentSport = 'mlb';
     let currentAdminSport = 'mlb';
-    let currentMainTab = 'picks';
     let mlbGames = [...DEFAULT_MLB];
     let nbaGames = [...DEFAULT_NBA];
     let nhlGames = [...DEFAULT_NHL];
@@ -616,91 +592,41 @@
         
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
-            const starBadge = g.star ? '<span style="background:#facc15; color:#000; font-size:0.6rem; padding:0.1rem 0.5rem; border-radius:20px; margin-bottom:0.3rem; display:inline-block;">⭐ PICK ESTRELLA ⭐</span>' : '';
+            const starBadge = g.star ? '<div class="star-badge">⭐ PICK ESTRELLA ⭐</div>' : '';
+            const leagueName = g.league || currentSport.toUpperCase();
             
-            if (!acceso) {
-                html += `<div class="game-card"><div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;"><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div>${g.away}</div></div><div style="background:#facc15; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000;">VS</div><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div>${g.home}</div></div></div><div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div></div>`;
-                continue;
-            }
+            // Obtener logos
+            const logoAway = getTeamLogo(g.away, currentSport);
+            const logoHome = getTeamLogo(g.home, currentSport);
             
-            if (currentSport === 'soccer') {
-                html += `<div class="game-card ${starClass}">
-                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:0.5rem;">
-                        <div style="display:flex; gap:0.5rem;"><span style="background:#0f766e; font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:4px;">${g.league}</span><span style="color:#93c5fd; font-size:0.65rem;">${g.time}</span></div>
-                        ${starBadge}
+            html += `<div class="game-card ${starClass}">
+                <div class="card-header">
+                    <span class="league-badge">${leagueName}</span>
+                    <span><i class="far fa-clock"></i> ${g.time}</span>
+                </div>
+                <div class="teams">
+                    <div class="team">
+                        <div class="team-logo" style="font-size: 2.5rem;">${logoAway}</div>
+                        <div class="team-name">${g.away}</div>
+                        <div class="team-record">${g.away_rec || ''}</div>
                     </div>
-                    <div style="display:flex; align-items:center; gap:0.5rem; margin:0.5rem 0;">
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.1rem; font-weight:900;">${g.away}</div><div style="font-size:0.6rem; color:#9ca3af;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a}%</div></div>
-                        <div style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000;">VS</div>
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.1rem; font-weight:900;">${g.home}</div><div style="font-size:0.6rem; color:#9ca3af;">${g.home_rec}</div><div style="font-size:0.65rem; color:#22c55e;">${g.prob_h}%</div></div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <div class="team-logo" style="font-size: 2.5rem;">${logoHome}</div>
+                        <div class="team-name">${g.home}</div>
+                        <div class="team-record">${g.home_rec || ''}</div>
                     </div>
-                    <div class="prob-bar">
-                        <div style="width:${g.prob_h}%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.55rem;">${g.prob_h}%</div>
-                        <div style="width:${g.prob_d}%; background:#facc15;"></div>
-                        <div style="width:${g.prob_a}%; background:#ef4444;"></div>
-                    </div>
-                    <div class="pick-list">
-                        ${g.picks.map(p => `<div class="pick-item"><span><span class="pick-type ${p.type.toLowerCase().includes('ancla')?'ancla':p.type.toLowerCase().includes('over')?'over':p.type.toLowerCase().includes('under')?'under':p.type.toLowerCase().includes('trampa')?'trampa':'cau'}">${p.type}</span> ${p.market}</span><span style="color:#facc15; font-weight:bold;">${p.odds} ${p.ev && p.ev !== 'BLOQUEADO' ? p.ev : ''}</span><span style="color:#9ca3af;"> ${p.stake !== '0%' ? p.stake : ''}</span></div>`).join('')}
-                    </div>
-                    <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center; margin-top:0.5rem;"><span style="color:#facc15; font-weight:bold;">🎯 PRED: ${g.prediction}</span></div>
-                </div>`;
-            }
-            else if (currentSport === 'mlb') {
-                html += `<div class="game-card ${starClass}">
-                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-                        <div style="display:flex; gap:0.5rem;"><span style="background:#0f766e; font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:4px;">AL</span><span style="color:#93c5fd; font-size:0.65rem;">${g.time}</span></div>
-                        <span style="background:${g.tier==='DINERO'?'#eab308':g.tier==='SOLIDO'?'#22c55e':'#3b82f6'}; color:#000; font-size:0.6rem; padding:0.1rem 0.5rem; border-radius:4px;">${g.tier||'ML'}</span>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:0.5rem; margin:0.5rem 0;">
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.3rem; font-weight:900;">${g.away}</div><div style="font-size:0.6rem; color:#9ca3af;">${g.prob_a}%</div></div>
-                        <div style="flex:1; text-align:center;"><span style="color:#6b7280;">VS</span><div style="font-size:0.55rem;">${g.spAway} / ${g.spHome}</div></div>
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.3rem; font-weight:900;">${g.home}</div><div style="font-size:0.6rem; color:#22c55e;">${g.prob_h}%</div></div>
-                    </div>
-                    <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e;"></div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
-                    <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center;"><span style="color:#facc15; font-weight:bold;">PRED: ${g.prediction}</span></div>
-                </div>`;
-            }
-            else {
-                const sportEmoji = currentSport === 'nba' ? '🏀' : '🏒';
-                html += `<div class="game-card ${starClass}">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span>${starBadge}</div>
-                    <div style="display:flex; align-items:center; gap:0.5rem;">
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a || 50}%</div></div>
-                        <div style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">VS</div>
-                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
-                    </div>
-                    <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 <strong>Predicción:</strong> ${g.prediction}</div></div>
-                </div>`;
-            }
-        }
-        container.innerHTML = html;
-    }
-    
-    function renderScorecard() {
-        const wins = RESULTS.filter(r => r.won).length;
-        const losses = RESULTS.filter(r => !r.won).length;
-        const pct = Math.round((wins / (wins + losses)) * 100);
-        
-        document.getElementById('totalWins').innerText = wins;
-        document.getElementById('totalLosses').innerText = losses;
-        document.getElementById('totalPct').innerText = pct + '%';
-        document.getElementById('totalProfit').innerText = `+${wins - losses}u`;
-        
-        const container = document.getElementById('scorecardList');
-        let html = '';
-        for (let r of RESULTS) {
-            html += `<div class="scorecard-row ${r.won ? 'win' : 'loss'}">
-                <div>${r.time}</div>
-                <div><span style="background:${r.league==='MLB'?'#0f766e':r.league==='NBA'?'#1e40af':r.league==='NHL'?'#b91c1c':'#facc15'}; padding:0.1rem 0.3rem; border-radius:4px; font-size:0.6rem; margin-right:0.3rem;">${r.league}</span>${r.match}</div>
-                <div>${r.pick}</div>
-                <div class="${r.won ? 'result-win' : 'result-loss'}">${r.result}</div>
-                <div>${r.won ? '✅' : '❌'}</div>
+                </div>
+                ${g.injuries ? `<div class="injury-note"><i class="fas fa-notes-medical"></i> ${g.injuries}</div>` : ''}
+                <div class="prediction-block">
+                    ${!acceso ? 
+                        `<div class="premium-locked"><i class="fas fa-lock"></i> Suscríbete para ver la predicción<br><button class="btn-outline" style="margin-top:0.5rem;" onclick="document.getElementById('plansModal').classList.remove('hidden')">Ver planes</button></div>` :
+                        `<div class="premium-unlocked">${starBadge}<div class="prediction-text">🔮 ${g.prediction}</div></div>`
+                    }
+                </div>
             </div>`;
         }
         container.innerHTML = html;
-        
-        const leccionesContainer = document.getElementById('leccionesList');
-        leccionesContainer.innerHTML = LECCIONES.map(l => `<div style="margin-bottom: 0.3rem;">• ${l}</div>`).join('');
     }
     
     // ==================== GOOGLE LOGIN ====================
@@ -725,16 +651,15 @@
     }
     
     function updateUserUI() {
-        const userArea = document.getElementById('userArea');
+        const authArea = document.getElementById('authArea');
         const adminPanel = document.getElementById('adminPanel');
-        
         if (currentUser) {
-            userArea.innerHTML = `<div class="user-info">👤 ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn">Salir</button></div>`;
+            authArea.innerHTML = `<div class="user-greeting"><i class="fas fa-user"></i> ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn-outline" style="padding:0.2rem 0.8rem;">Salir</button></div>`;
             document.getElementById('logoutBtn')?.addEventListener('click', logout);
             if (currentUser.isAdmin) adminPanel.classList.remove('hidden');
             else adminPanel.classList.add('hidden');
         } else {
-            userArea.innerHTML = `<button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>`;
+            authArea.innerHTML = `<button id="showAuthBtn" class="btn-outline"><i class="fas fa-user"></i> Acceder</button>`;
             document.getElementById('showAuthBtn')?.addEventListener('click', () => document.getElementById('authModal').classList.remove('hidden'));
             adminPanel.classList.add('hidden');
         }
@@ -742,35 +667,12 @@
     
     // ==================== EVENTOS ====================
     function initEvents() {
-        // Main tabs
-        document.querySelectorAll('.main-tab').forEach(tab => {
+        document.querySelectorAll('.sport-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentMainTab = tab.getAttribute('data-main');
-                
-                const picksContent = document.getElementById('picksContent');
-                const resultadosContent = document.getElementById('resultadosContent');
-                
-                if (currentMainTab === 'picks') {
-                    picksContent.classList.remove('hidden');
-                    resultadosContent.classList.add('hidden');
-                    renderGames();
-                } else {
-                    picksContent.classList.add('hidden');
-                    resultadosContent.classList.remove('hidden');
-                    renderScorecard();
-                }
-            });
-        });
-        
-        // Sport tabs
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.sport-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentSport = tab.getAttribute('data-sport');
-                if (currentMainTab === 'picks') renderGames();
+                renderGames();
             });
         });
         
@@ -784,6 +686,10 @@
             });
         });
         
+        document.getElementById('subscriptionLink')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('plansModal').classList.remove('hidden');
+        });
         document.getElementById('saveDataBtn')?.addEventListener('click', updateGamesFromAdmin);
         document.getElementById('resetDataBtn')?.addEventListener('click', resetToDefault);
         document.getElementById('doLoginBtn')?.addEventListener('click', () => {
@@ -805,7 +711,7 @@
     loadUsers(); loadLocalData();
     const savedUser = localStorage.getItem('thia_current_user');
     if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
-    initEvents(); initGoogleSignIn(); updateUserUI(); renderGames(); renderScorecard();
+    initEvents(); initGoogleSignIn(); updateUserUI(); renderGames();
     setTimeout(() => { if (document.getElementById('adminJsonData')) document.getElementById('adminJsonData').value = JSON.stringify(mlbGames, null, 2); }, 100);
 </script>
 </body>
