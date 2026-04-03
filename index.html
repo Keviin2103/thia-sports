@@ -103,7 +103,7 @@
             color: #0f172a;
         }
         
-        /* Pestañas de deportes (para picks y resultados) */
+        /* Pestañas de deportes */
         .sport-tabs, .result-sport-tabs {
             display: flex;
             gap: 0.5rem;
@@ -194,8 +194,6 @@
         .result-vs { margin: 0 0.3rem; color: #facc15; }
         .result-score { font-weight: bold; font-family: monospace; font-size: 1rem; min-width: 80px; text-align: right; }
         .result-edit { background: #1e293b; border: none; color: #facc15; cursor: pointer; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; }
-        .edit-result-modal .modal-content { max-width: 500px; }
-        .edit-result-modal input { width: 100%; padding: 0.5rem; margin: 0.3rem 0; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: white; }
         
         /* Admin panel */
         .admin-panel {
@@ -206,30 +204,9 @@
             border: 1px solid #334155;
         }
         .admin-panel h3 { color: #facc15; margin-bottom: 0.5rem; font-size: 0.9rem; }
-        .admin-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
-        .admin-tab {
-            background: #1e293b;
-            border: none;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            color: #cbd5e6;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-        .admin-tab.active { background: #facc15; color: #0f172a; }
-        .admin-textarea {
-            width: 100%;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 0.5rem;
-            color: #eef2ff;
-            font-family: monospace;
-            font-size: 0.65rem;
-            margin-bottom: 0.5rem;
-        }
         .admin-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         
+        /* Modal */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
@@ -245,7 +222,7 @@
             border-radius: 40px;
             color: white;
         }
-        .google-btn-container { display: flex; justify-content: center; margin: 0.5rem 0; }
+        .edit-result-modal .modal-content { max-width: 500px; }
         .hidden { display: none; }
         .footer { text-align: center; font-size: 0.7rem; color: #5b6e8c; margin-top: 2rem; }
         
@@ -256,11 +233,10 @@
             .result-score { text-align: center; }
         }
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<!-- Modales de login y planes (igual que antes) -->
+<!-- Modal de Login (sin Google por simplicidad, solo admin local) -->
 <div id="authModal" class="modal hidden">
     <div class="modal-content">
         <h2>ThIA Sports</h2>
@@ -269,8 +245,6 @@
         <input type="password" id="loginPassword" placeholder="Contraseña">
         <button id="doLoginBtn" class="btn-outline" style="width:100%; background:#facc15; color:#000;">Iniciar sesión</button>
         <button id="doRegisterBtn" class="btn-outline" style="width:100%; margin-top:0.5rem;">Registrarse</button>
-        <div class="separator">━━━━━ o ━━━━━</div>
-        <div id="googleBtnContainer" class="google-btn-container"></div>
         <button class="btn-outline" style="margin-top:0.5rem;" onclick="document.getElementById('authModal').classList.add('hidden')">Cerrar</button>
     </div>
 </div>
@@ -303,9 +277,9 @@
 <div class="navbar">
     <div class="logo">ThIA <span style="color:#facc15;">Sports</span></div>
     <div class="nav-links">
-        <a id="homeLink" data-main="picks">INICIO</a>
+        <a id="homeLink">INICIO</a>
         <a id="subscriptionLink">SUSCRIPCIÓN</a>
-        <a id="resultsLink" data-main="resultados">📊 RESULTADOS</a>
+        <a id="resultsLink">📊 RESULTADOS</a>
     </div>
     <div id="authArea">
         <button id="showAuthBtn" class="btn-outline"><i class="fas fa-user"></i> Acceder</button>
@@ -313,13 +287,13 @@
 </div>
 
 <div class="container">
-    <!-- Pestañas principales (INICIO / RESULTADOS) -->
+    <!-- Pestañas principales -->
     <div class="main-tabs">
         <button class="main-tab active" data-main="picks">🎯 PICKS</button>
         <button class="main-tab" data-main="resultados">📊 RESULTADOS</button>
     </div>
 
-    <!-- Sección PICKS (la misma de antes) -->
+    <!-- Sección PICKS -->
     <div id="picksSection">
         <div class="sport-tabs">
             <button class="tab active" data-sport="mlb">⚾ MLB</button>
@@ -349,46 +323,53 @@
     <!-- Panel de Administración (solo visible para admin) -->
     <div id="adminPanel" class="admin-panel hidden">
         <h3>🔧 Panel de Administración</h3>
-        <div class="admin-tabs">
-            <button class="admin-tab active" data-admin="mlb">⚾ MLB</button>
-            <button class="admin-tab" data-admin="nba">🏀 NBA</button>
-            <button class="admin-tab" data-admin="nhl">🏒 NHL</button>
-            <button class="admin-tab" data-admin="soccer">⚽ Fútbol</button>
-        </div>
-        <textarea id="adminJsonData" class="admin-textarea" rows="6" placeholder="Pega aquí el JSON de los juegos..."></textarea>
+        <p style="font-size:0.7rem;">Los resultados se editan manualmente desde la pestaña RESULTADOS (solo admin).</p>
         <div class="admin-buttons">
-            <button id="saveDataBtn" class="btn-outline">💾 Guardar datos (picks)</button>
-            <button id="resetDataBtn" class="btn-outline">🔄 Restaurar picks por defecto</button>
+            <button id="resetPicksBtn" class="btn-outline">🔄 Restaurar picks por defecto</button>
         </div>
-        <p style="font-size:0.6rem; margin-top:0.3rem;">📌 Los resultados se editan manualmente desde la pestaña RESULTADOS (solo admin).</p>
     </div>
 </div>
 
 <div class="footer">ThIA Sports · Predicciones y resultados reales · Datos editables manualmente</div>
 
 <script>
-    // ==================== CONFIGURACIÓN SUPABASE (para login) ====================
-    const SUPABASE_URL = "https://brouoeirvjdcpelddnma.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publisible_BLARVSH2wAT46D5Td-D90g_HWvctDKB";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const GOOGLE_CLIENT_ID = "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com";
-
-    // ==================== DATOS DE PICKS (ejemplo mínimo) ====================
+    // ==================== DATOS DE PICKS (ejemplo con más juegos) ====================
     const DEFAULT_MLB = [
         { id: "lad_wsh", away: "LAD", home: "WSH", time: "1:05 PM", spAway: "E.Sheehan (10.80)", spHome: "M.Mikolas (7.71)", prediction: "LAD ML -145 • UNDER 8.5", star: false },
-        { id: "stl_det", away: "STL", home: "DET", time: "1:10 PM", spAway: "M.McGreevy (0.00)", spHome: "F.Valdez (1.50)", prediction: "DET ML -184 • UNDER 7.5", star: true }
+        { id: "stl_det", away: "STL", home: "DET", time: "1:10 PM", spAway: "M.McGreevy (0.00)", spHome: "F.Valdez (1.50)", prediction: "DET ML -184 • UNDER 7.5", star: true },
+        { id: "mia_nyy", away: "MIA", home: "NYY", time: "1:35 PM", spAway: "E.Perez (3.86)", spHome: "W.Warren (2.08)", prediction: "NYY ML -145 • OVER 8.5", star: false },
+        { id: "sd_bos", away: "SD", home: "BOS", time: "2:10 PM", spAway: "M.King (0.00)", spHome: "S.Gray (6.75)", prediction: "BOS ML -118 • UNDER 8.5", star: true },
+        { id: "tor_cws", away: "TOR", home: "CWS", time: "2:10 PM", spAway: "D.Cease (1.69)", spHome: "G.Taylor (4.50)", prediction: "TOR ML -210 • OVER 7.5", star: true },
+        { id: "cin_tex", away: "CIN", home: "TEX", time: "4:05 PM", spAway: "B.Singer (6.75)", spHome: "M.Gore (3.38)", prediction: "TEX ML -118 • UNDER 8.5", star: false },
+        { id: "tb_min", away: "TB", home: "MIN", time: "4:10 PM", spAway: "J.Boyle (3.00)", spHome: "B.Ober (6.75)", prediction: "TB ML -112 • UNDER 7.5", star: false },
+        { id: "phi_col", away: "PHI", home: "COL", time: "4:10 PM", spAway: "A.Nola (5.40)", spHome: "M.Lorenzen (6.23)", prediction: "OVER 9.5 • COORS", star: true },
+        { id: "chc_cle", away: "CHC", home: "CLE", time: "4:10 PM", spAway: "C.Horton (2.84)", spHome: "J.Cantillo (4.91)", prediction: "CLE ML +100 • UNDER 7.5", star: false },
+        { id: "bal_pit", away: "BAL", home: "PIT", time: "4:12 PM", spAway: "K.Bradish (0.69)", spHome: "M.Keller (0.69)", prediction: "⭐ NRFI • UNDER 8.5", star: true },
+        { id: "mil_kc", away: "MIL", home: "KC", time: "7:45 PM", spAway: "C.Patrick (2.08)", spHome: "M.Wacha (N/A)", prediction: "MIL ML -132 • UNDER 8.0", star: true },
+        { id: "sea_laa", away: "SEA", home: "LAA", time: "9:38 PM", spAway: "B.Woo (3.00)", spHome: "R.Detmers (5.79)", prediction: "SEA ML -132 • UNDER 8.0", star: true },
+        { id: "hou_ath", away: "HOU", home: "ATH", time: "9:40 PM", spAway: "C.Javier (11.57)", spHome: "J.Springs (3.38)", prediction: "HOU ML -132 • UNDER 8.5", star: false },
+        { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM", spAway: "R.Lopez (1.50)", spHome: "R.Nelson (7.71)", prediction: "ATL ML -118 • UNDER 8.5", star: false },
+        { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM", spAway: "N.McLean (3.60)", spHome: "T.Mahle (4.50)", prediction: "SF ML -118 • UNDER 8.0", star: false }
     ];
     const DEFAULT_NBA = [
-        { away: "Detroit Pistons", home: "Minnesota T-Wolves", time: "7:00 PM", prediction: "UNDER 224.5", star: true }
+        { away: "Detroit Pistons", home: "Minnesota T-Wolves", time: "7:00 PM", prediction: "⭐ UNDER 224.5 • DET ML -155", star: true },
+        { away: "Golden State Warriors", home: "Cleveland Cavaliers", time: "10:00 PM", prediction: "⭐ OVER 220.5 • GSW +11.5", star: true },
+        { away: "LA Clippers", home: "San Antonio Spurs", time: "10:30 PM", prediction: "⭐ UNDER 229.5 • SAS ML -105", star: true }
     ];
     const DEFAULT_NHL = [
-        { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "OVER 6.5", star: true }
+        { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
+        { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM", prediction: "⭐ MTL ML (+108)", star: true }
     ];
     const DEFAULT_SOCCER = [
-        { away: "Gil Vicente", home: "AFS Viseu", time: "12:30", prediction: "Over 1.5 goles", star: false }
+        { away: "Gil Vicente", home: "AFS Viseu", time: "12:30", prediction: "⚠ Over 1.5 goles", star: false },
+        { away: "Tondela", home: "Vitória Guimarães", time: "14:30", prediction: "⭐ Vitória 1X", star: true },
+        { away: "Santa Clara", home: "Sporting CP", time: "17:00", prediction: "⭐ Over 2.5 goles", star: true },
+        { away: "Elche CF", home: "Rayo Vallecano", time: "15:00", prediction: "⭐ UNDER 2.5", star: true },
+        { away: "Mazatlán FC", home: "Necaxa", time: "22:00", prediction: "⭐ Necaxa 1X", star: true },
+        { away: "Tigres UANL", home: "Club Tijuana", time: "22:06", prediction: "⭐ Over 2.5", star: true }
     ];
 
-    // ==================== DATOS DE RESULTADOS (almacenados en localStorage) ====================
+    // ==================== DATOS DE RESULTADOS (ejemplo) ====================
     let resultsData = {};
 
     function loadResultsFromLocal() {
@@ -398,23 +379,23 @@
             catch(e) { resultsData = {}; }
         }
         if (Object.keys(resultsData).length === 0) {
-            // Datos de ejemplo (para que veas cómo se ven)
-            resultsData = {
-                "2026-04-03": {
-                    mlb: [
-                        { id: "r1", time: "1:05 PM", away: "LAD", home: "WSH", scoreAway: 4, scoreHome: 2, result: "LAD 4-2 WSH" },
-                        { id: "r2", time: "1:10 PM", away: "STL", home: "DET", scoreAway: 1, scoreHome: 5, result: "DET 5-1 STL" }
-                    ],
-                    nba: [
-                        { id: "r3", time: "7:00 PM", away: "Detroit Pistons", home: "Minnesota T-Wolves", scoreAway: 114, scoreHome: 109, result: "DET 114-109 MIN" }
-                    ],
-                    nhl: [
-                        { id: "r4", time: "7:00 PM", away: "Buffalo Sabres", home: "Ottawa Senators", scoreAway: 4, scoreHome: 3, result: "BUF 4-3 OTT" }
-                    ],
-                    soccer: [
-                        { id: "r5", time: "12:30", away: "Gil Vicente", home: "AFS Viseu", scoreAway: 2, scoreHome: 0, result: "Gil Vicente 2-0 AFS" }
-                    ]
-                }
+            // Datos de ejemplo para hoy
+            const today = new Date().toISOString().split('T')[0];
+            resultsData[today] = {
+                mlb: [
+                    { id: "r1", time: "1:05 PM", away: "LAD", home: "WSH", scoreAway: 4, scoreHome: 2, result: "LAD 4-2 WSH" },
+                    { id: "r2", time: "1:10 PM", away: "STL", home: "DET", scoreAway: 1, scoreHome: 5, result: "DET 5-1 STL" },
+                    { id: "r3", time: "4:10 PM", away: "PHI", home: "COL", scoreAway: 8, scoreHome: 6, result: "PHI 8-6 COL" }
+                ],
+                nba: [
+                    { id: "r4", time: "7:00 PM", away: "Detroit Pistons", home: "Minnesota T-Wolves", scoreAway: 114, scoreHome: 109, result: "DET 114-109 MIN" }
+                ],
+                nhl: [
+                    { id: "r5", time: "7:00 PM", away: "Buffalo Sabres", home: "Ottawa Senators", scoreAway: 4, scoreHome: 3, result: "BUF 4-3 OTT" }
+                ],
+                soccer: [
+                    { id: "r6", time: "14:30", away: "Tondela", home: "Vitória Guimarães", scoreAway: 0, scoreHome: 3, result: "Vitória 3-0 Tondela" }
+                ]
             };
             saveResultsToLocal();
         }
@@ -422,6 +403,59 @@
 
     function saveResultsToLocal() {
         localStorage.setItem('thia_results_data', JSON.stringify(resultsData));
+    }
+
+    // ==================== SISTEMA DE USUARIOS (solo local) ====================
+    let users = [];
+    let currentUser = null;
+
+    function loadUsers() {
+        const saved = localStorage.getItem('thia_users');
+        if (saved) { try { users = JSON.parse(saved); } catch(e) { users = []; } }
+        if (!users.length) { users = [{ email: "admin@thiasports.com", password: "admin123", isAdmin: true }]; saveUsers(); }
+    }
+    function saveUsers() { localStorage.setItem('thia_users', JSON.stringify(users)); }
+    function login(email, password) {
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) { currentUser = { email: user.email, isAdmin: user.isAdmin || false }; localStorage.setItem('thia_current_user', JSON.stringify(currentUser)); return true; }
+        return false;
+    }
+    function register(email, password) {
+        if (users.find(u => u.email === email)) return false;
+        const isAdmin = (email === "admin@thiasports.com");
+        users.push({ email, password, isAdmin });
+        saveUsers();
+        currentUser = { email, isAdmin };
+        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
+        return true;
+    }
+    function logout() { currentUser = null; localStorage.removeItem('thia_current_user'); updateUserUI(); renderGames(); }
+
+    // ==================== RENDERIZAR PICKS ====================
+    let currentSport = 'mlb';
+    let mlbGames = [...DEFAULT_MLB];
+    let nbaGames = [...DEFAULT_NBA];
+    let nhlGames = [...DEFAULT_NHL];
+    let soccerGames = [...DEFAULT_SOCCER];
+
+    function renderGames() {
+        let games = [];
+        if (currentSport === 'mlb') games = mlbGames;
+        else if (currentSport === 'nba') games = nbaGames;
+        else if (currentSport === 'nhl') games = nhlGames;
+        else games = soccerGames;
+        const container = document.getElementById('gamesContainer');
+        const acceso = currentUser !== null;
+        let html = '';
+        for (let g of games) {
+            const starClass = g.star ? 'star' : '';
+            html += `<div class="game-card ${starClass}">
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>⏰ ${g.time}</span><span>${g.spAway ? g.spAway + ' @ ' + g.spHome : ''}</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;"><strong style="font-size:1.1rem;">${g.away}</strong> <span style="background:#facc15; width:30px; height:30px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#000;">VS</span> <strong style="font-size:1.1rem;">${g.home}</strong></div>
+                <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${g.prediction}` : '🔒 Inicia sesión para ver la predicción'}</div>
+            </div>`;
+        }
+        container.innerHTML = html;
     }
 
     // ==================== RENDERIZAR RESULTADOS ====================
@@ -447,7 +481,6 @@
             `;
         }
         container.innerHTML = html;
-        // Agregar eventos de edición si es admin
         if (currentUser?.isAdmin) {
             document.querySelectorAll('.result-edit').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -462,9 +495,8 @@
                         document.getElementById('editScoreAway').value = resultItem.scoreAway;
                         document.getElementById('editScoreHome').value = resultItem.scoreHome;
                         document.getElementById('editTime').value = resultItem.time || '';
-                        document.getElementById('editResultModal').classList.remove('hidden');
-                        // Guardar temporalmente la info para actualizar después
                         window.editContext = { id, sport, date };
+                        document.getElementById('editResultModal').classList.remove('hidden');
                     }
                 });
             });
@@ -494,57 +526,7 @@
         renderResults();
     }
 
-    // ==================== RENDERIZAR PICKS (simplificado) ====================
-    let currentSport = 'mlb';
-    let mlbGames = [...DEFAULT_MLB];
-    let nbaGames = [...DEFAULT_NBA];
-    let nhlGames = [...DEFAULT_NHL];
-    let soccerGames = [...DEFAULT_SOCCER];
-    let currentUser = null;
-
-    function renderGames() {
-        let games = [];
-        if (currentSport === 'mlb') games = mlbGames;
-        else if (currentSport === 'nba') games = nbaGames;
-        else if (currentSport === 'nhl') games = nhlGames;
-        else games = soccerGames;
-        const container = document.getElementById('gamesContainer');
-        const acceso = currentUser !== null;
-        let html = '';
-        for (let g of games) {
-            const starClass = g.star ? 'star' : '';
-            html += `<div class="game-card ${starClass}">
-                <div style="display:flex; justify-content:space-between;"><span>${g.time}</span><span>${g.spAway ? g.spAway + ' @ ' + g.spHome : ''}</span></div>
-                <div style="display:flex; justify-content:space-between; margin:0.5rem 0;"><strong>${g.away}</strong> vs <strong>${g.home}</strong></div>
-                <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? g.prediction : '🔒 Inicia sesión para ver la predicción'}</div>
-            </div>`;
-        }
-        container.innerHTML = html;
-    }
-
-    // ==================== SISTEMA DE USUARIOS ====================
-    let users = [];
-    function loadUsers() {
-        const saved = localStorage.getItem('thia_users');
-        if (saved) { try { users = JSON.parse(saved); } catch(e) { users = []; } }
-        if (!users.length) { users = [{ email: "admin@thiasports.com", password: "admin123", isAdmin: true }]; saveUsers(); }
-    }
-    function saveUsers() { localStorage.setItem('thia_users', JSON.stringify(users)); }
-    function login(email, password) {
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) { currentUser = { email: user.email, isAdmin: user.isAdmin || false }; localStorage.setItem('thia_current_user', JSON.stringify(currentUser)); return true; }
-        return false;
-    }
-    function register(email, password) {
-        if (users.find(u => u.email === email)) return false;
-        const isAdmin = (email === "admin@thiasports.com");
-        users.push({ email, password, isAdmin });
-        saveUsers();
-        currentUser = { email, isAdmin };
-        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
-        return true;
-    }
-    function logout() { currentUser = null; localStorage.removeItem('thia_current_user'); updateUserUI(); renderGames(); }
+    // ==================== UI Y EVENTOS ====================
     function updateUserUI() {
         const authArea = document.getElementById('authArea');
         const adminPanel = document.getElementById('adminPanel');
@@ -560,29 +542,8 @@
         }
     }
 
-    // ==================== GOOGLE LOGIN ====================
-    function handleGoogleCredential(response) {
-        const idToken = response.credential;
-        const base64Url = idToken.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-        const userInfo = JSON.parse(jsonPayload);
-        let user = users.find(u => u.email === userInfo.email);
-        if (!user) { user = { email: userInfo.email, password: "google_" + userInfo.sub, isAdmin: userInfo.email === "admin@thiasports.com" }; users.push(user); saveUsers(); }
-        currentUser = { email: user.email, isAdmin: user.isAdmin };
-        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
-        updateUserUI(); renderGames();
-        document.getElementById('authModal').classList.add('hidden');
-    }
-    function initGoogleSignIn() {
-        if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
-        google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCredential, auto_select: false });
-        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
-    }
-
-    // ==================== EVENTOS Y CAMBIO DE PESTAÑAS ====================
     function initEvents() {
-        // Cambio entre pestañas principales (INICIO / RESULTADOS)
+        // Cambio entre pestañas principales
         document.querySelectorAll('.main-tab').forEach(btn => {
             btn.addEventListener('click', () => {
                 const target = btn.getAttribute('data-main');
@@ -623,10 +584,10 @@
             currentResultDate = e.target.value;
             renderResults();
         });
-        // Botón de guardar edición
+        // Guardar edición
         document.getElementById('saveResultBtn')?.addEventListener('click', saveEditedResult);
-        // Admin (restaurar datos de picks, etc.)
-        document.getElementById('resetDataBtn')?.addEventListener('click', () => {
+        // Restaurar picks
+        document.getElementById('resetPicksBtn')?.addEventListener('click', () => {
             if (confirm("Restaurar picks por defecto?")) {
                 mlbGames = [...DEFAULT_MLB];
                 nbaGames = [...DEFAULT_NBA];
@@ -640,24 +601,34 @@
         document.getElementById('doLoginBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
-            if (login(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); }
+            if (login(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); renderResults(); }
             else alert("Credenciales incorrectas");
         });
         document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
             if (!email || !pass) { alert("Completa email y contraseña"); return; }
-            if (register(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); alert("Registro exitoso"); }
+            if (register(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); renderResults(); alert("Registro exitoso"); }
             else alert("El email ya está registrado");
         });
         document.getElementById('subscriptionLink')?.addEventListener('click', () => document.getElementById('plansModal').classList.remove('hidden'));
+        // Enlace resultados (para que funcione el click en el nav)
+        document.getElementById('resultsLink')?.addEventListener('click', () => {
+            document.querySelector('.main-tab[data-main="resultados"]').click();
+        });
+        document.getElementById('homeLink')?.addEventListener('click', () => {
+            document.querySelector('.main-tab[data-main="picks"]').click();
+        });
     }
 
-    // ==================== INICIO ====================
-    loadUsers(); loadResultsFromLocal();
+    // ==================== INICIALIZACIÓN ====================
+    loadUsers();
+    loadResultsFromLocal();
     const savedUser = localStorage.getItem('thia_current_user');
     if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
-    initEvents(); initGoogleSignIn(); updateUserUI(); renderGames();
+    initEvents();
+    updateUserUI();
+    renderGames();
     // Asegurar que la sección de resultados esté oculta al inicio
     document.getElementById('resultsSection').classList.add('hidden');
     document.getElementById('picksSection').classList.remove('hidden');
