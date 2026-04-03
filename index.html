@@ -155,7 +155,6 @@
         }
     </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -208,22 +207,16 @@
     </div>
     <textarea id="adminJsonData" class="admin-textarea" rows="8" placeholder="Pega aquí el JSON de los juegos..."></textarea>
     <div class="admin-buttons">
-        <button id="saveDataBtn" class="btn">💾 Guardar datos (local)</button>
-        <button id="saveToCloudBtn" class="btn btn-primary">☁️ Guardar en la nube</button>
+        <button id="saveDataBtn" class="btn">💾 Guardar datos</button>
         <button id="resetDataBtn" class="btn">🔄 Restaurar datos por defecto</button>
     </div>
-    <p style="font-size:0.7rem; margin-top:0.5rem; color:#9ca3af;">📌 Los datos locales se guardan en tu navegador. Los datos en la nube se guardan en Supabase.</p>
+    <p style="font-size:0.7rem; margin-top:0.5rem; color:#9ca3af;">📌 Los datos se guardan automáticamente en tu navegador.</p>
 </div>
 
-<div class="footer">Predicciones ThIA Sports | Datos en la nube con Supabase</div>
+<div class="footer">Predicciones ThIA Sports | Los datos se guardan localmente</div>
 
 <script>
-    // ==================== CONFIGURACIÓN SUPABASE ====================
-    const SUPABASE_URL = "https://brouoeirvjdcpelddnma.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publisible_BLARVSH2wAT46D5Td-D90g_HWvctDKB";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    // ==================== DATOS POR DEFECTO MLB (15 juegos) ====================
+    // ==================== DATOS POR DEFECTO ====================
     const DEFAULT_MLB = [
         { away: "Athletics", home: "Atlanta", time: "12:15 PM", spAway: "L. Severino (4.54)", spHome: "C. Sale (3.41)", prediction: "ATL ML -155 • UNDER 8.5 • Sale 7K+", star: false },
         { away: "Texas", home: "Baltimore", time: "12:35 PM", spAway: "K. Rocker (5.74)", spHome: "T. Rogers (1.81)", prediction: "BAL ML -118 • UNDER 8.0 • Henderson HR", star: false },
@@ -242,7 +235,6 @@
         { away: "Cleveland", home: "LA Dodgers", time: "8:20 PM", spAway: "G. Williams (3.05)", spHome: "Y. Yamamoto (3.41)", prediction: "LAD ML -158 • UNDER 8.5 • Ohtani HR", star: false }
     ];
     
-    // ==================== DATOS POR DEFECTO NBA (6 juegos) ====================
     const DEFAULT_NBA = [
         { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true },
         { away: "Charlotte Hornets", away_rec: "36-33", home: "Phoenix Suns", home_rec: "41-34", time: "7:00 PM", spread: "CHA -5.5", total: "226.5", prediction: "UNDER 226.5 • CHA ML -220", injuries: "PHX: Williams/Highsmith OUT", star: false },
@@ -252,7 +244,6 @@
         { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true }
     ];
     
-    // ==================== DATOS POR DEFECTO NHL (6 juegos) ====================
     const DEFAULT_NHL = [
         { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true },
         { away: "Pittsburgh Penguins", away_rec: "37-30-8", home: "Tampa Bay Lightning", home_rec: "46-22-6", time: "7:00 PM", spread: "TB -1.5", total: "6.5", prediction: "TB ML -176 • UNDER 6.5", injuries: "Hagel doubtful", star: false },
@@ -263,12 +254,54 @@
     ];
     
     // ==================== SISTEMA DE USUARIOS ====================
+    let users = [];
     let currentUser = null;
     let currentSport = 'mlb';
     let currentAdminSport = 'mlb';
     let mlbGames = [...DEFAULT_MLB];
     let nbaGames = [...DEFAULT_NBA];
     let nhlGames = [...DEFAULT_NHL];
+    
+    function loadUsers() {
+        const saved = localStorage.getItem('thia_users');
+        if (saved) {
+            try { users = JSON.parse(saved); }
+            catch(e) { users = []; }
+        }
+        if (!users.length) {
+            users = [{ email: "admin@thiasports.com", password: "admin123", isAdmin: true }];
+            saveUsers();
+        }
+    }
+    
+    function saveUsers() { localStorage.setItem('thia_users', JSON.stringify(users)); }
+    
+    function login(email, password) {
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) {
+            currentUser = { email: user.email, isAdmin: user.isAdmin || false };
+            localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
+            return true;
+        }
+        return false;
+    }
+    
+    function register(email, password) {
+        if (users.find(u => u.email === email)) return false;
+        const isAdmin = (email === "admin@thiasports.com");
+        users.push({ email, password, isAdmin });
+        saveUsers();
+        currentUser = { email, isAdmin };
+        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
+        return true;
+    }
+    
+    function logout() {
+        currentUser = null;
+        localStorage.removeItem('thia_current_user');
+        updateUserUI();
+        renderGames();
+    }
     
     function loadLocalData() {
         const saved = localStorage.getItem('thia_games_data');
@@ -286,117 +319,29 @@
         localStorage.setItem('thia_games_data', JSON.stringify({ mlb: mlbGames, nba: nbaGames, nhl: nhlGames }));
     }
     
-    // ==================== SUPABASE OPERACIONES ====================
-    async function loadGamesFromCloud() {
-        const today = new Date().toISOString().split('T')[0];
-        try {
-            const { data, error } = await supabase
-                .from('juegos_diarios')
-                .select('*')
-                .eq('fecha', today);
-            
-            if (error) throw error;
-            
-            if (data && data.length > 0) {
-                for (let item of data) {
-                    if (item.deporte === 'mlb') mlbGames = item.juegos;
-                    if (item.deporte === 'nba') nbaGames = item.juegos;
-                    if (item.deporte === 'nhl') nhlGames = item.juegos;
-                }
-                saveLocalData();
-                renderGames();
-                console.log("Datos cargados desde la nube");
-            }
-        } catch (error) {
-            console.error("Error cargando desde la nube:", error);
-        }
-    }
-    
-    async function saveToCloud() {
-        if (!currentUser || !currentUser.isAdmin) {
-            alert("Solo el administrador puede guardar en la nube");
-            return;
-        }
-        
-        const today = new Date().toISOString().split('T')[0];
-        
-        try {
-            await supabase.from('juegos_diarios').upsert({ fecha: today, deporte: 'mlb', juegos: mlbGames }, { onConflict: 'fecha,deporte' });
-            await supabase.from('juegos_diarios').upsert({ fecha: today, deporte: 'nba', juegos: nbaGames }, { onConflict: 'fecha,deporte' });
-            await supabase.from('juegos_diarios').upsert({ fecha: today, deporte: 'nhl', juegos: nhlGames }, { onConflict: 'fecha,deporte' });
-            alert("Datos guardados en la nube exitosamente");
-        } catch (error) {
-            alert("Error al guardar: " + error.message);
-        }
-    }
-    
-    // ==================== LOGIN ====================
-    async function loginWithEmail(email, password) {
-        try {
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) throw error;
-            
-            const { data: userData } = await supabase
-                .from('usuarios')
-                .select('is_admin')
-                .eq('id', data.user.id)
-                .single();
-            
-            currentUser = { id: data.user.id, email: data.user.email, isAdmin: userData?.is_admin || false };
-            localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
-            updateUserUI();
+    function resetToDefault() {
+        if (confirm("¿Restaurar datos por defecto?")) {
+            mlbGames = [...DEFAULT_MLB];
+            nbaGames = [...DEFAULT_NBA];
+            nhlGames = [...DEFAULT_NHL];
+            saveLocalData();
             renderGames();
-            document.getElementById('authModal').classList.add('hidden');
-            return true;
-        } catch (error) {
-            alert("Error: " + error.message);
-            return false;
+            alert("Datos restaurados");
         }
     }
     
-    async function registerWithEmail(email, password) {
+    function updateGamesFromAdmin() {
+        const sport = currentAdminSport;
         try {
-            const { data, error } = await supabase.auth.signUp({ email, password });
-            if (error) throw error;
-            
-            await supabase.from('usuarios').insert({ id: data.user.id, email: email, is_admin: (email === "admin@thiasports.com") });
-            
-            currentUser = { id: data.user.id, email: email, isAdmin: (email === "admin@thiasports.com") };
-            localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
-            updateUserUI();
+            const newGames = JSON.parse(document.getElementById('adminJsonData').value);
+            if (!Array.isArray(newGames)) throw new Error("Debe ser un array");
+            if (sport === 'mlb') mlbGames = newGames;
+            else if (sport === 'nba') nbaGames = newGames;
+            else nhlGames = newGames;
+            saveLocalData();
             renderGames();
-            document.getElementById('authModal').classList.add('hidden');
-            alert("Registro exitoso");
-            return true;
-        } catch (error) {
-            alert("Error: " + error.message);
-            return false;
-        }
-    }
-    
-    async function handleGoogleCredential(response) {
-        const { data, error } = await supabase.auth.signInWithIdToken({ provider: 'google', token: response.credential });
-        if (error) { alert("Error con Google: " + error.message); return; }
-        
-        const { data: userData } = await supabase.from('usuarios').select('is_admin').eq('id', data.user.id).single();
-        currentUser = { id: data.user.id, email: data.user.email, isAdmin: userData?.is_admin || false };
-        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
-        updateUserUI();
-        renderGames();
-        document.getElementById('authModal').classList.add('hidden');
-    }
-    
-    function initGoogleSignIn() {
-        if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
-        google.accounts.id.initialize({ client_id: "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com", callback: handleGoogleCredential, auto_select: false });
-        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
-    }
-    
-    function logout() {
-        currentUser = null;
-        localStorage.removeItem('thia_current_user');
-        updateUserUI();
-        renderGames();
+            alert(`Datos de ${sport.toUpperCase()} actualizados`);
+        } catch(e) { alert("JSON inválido: " + e.message); }
     }
     
     // ==================== RENDERIZADO ====================
@@ -429,6 +374,38 @@
         container.innerHTML = html;
     }
     
+    // ==================== GOOGLE LOGIN ====================
+    function handleGoogleCredential(response) {
+        const idToken = response.credential;
+        const base64Url = idToken.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        const userInfo = JSON.parse(jsonPayload);
+        
+        let user = users.find(u => u.email === userInfo.email);
+        if (!user) {
+            user = { email: userInfo.email, password: "google_" + userInfo.sub, isAdmin: userInfo.email === "admin@thiasports.com" };
+            users.push(user);
+            saveUsers();
+        }
+        
+        currentUser = { email: user.email, isAdmin: user.isAdmin };
+        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
+        updateUserUI();
+        renderGames();
+        document.getElementById('authModal').classList.add('hidden');
+    }
+    
+    function initGoogleSignIn() {
+        if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
+        google.accounts.id.initialize({
+            client_id: "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com",
+            callback: handleGoogleCredential,
+            auto_select: false
+        });
+        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
+    }
+    
     function updateUserUI() {
         const userArea = document.getElementById('userArea');
         const adminPanel = document.getElementById('adminPanel');
@@ -443,20 +420,6 @@
             document.getElementById('showAuthBtn')?.addEventListener('click', () => document.getElementById('authModal').classList.remove('hidden'));
             adminPanel.classList.add('hidden');
         }
-    }
-    
-    function updateGamesFromAdmin() {
-        const sport = currentAdminSport;
-        try {
-            const newGames = JSON.parse(document.getElementById('adminJsonData').value);
-            if (!Array.isArray(newGames)) throw new Error("Debe ser un array");
-            if (sport === 'mlb') mlbGames = newGames;
-            else if (sport === 'nba') nbaGames = newGames;
-            else nhlGames = newGames;
-            saveLocalData();
-            renderGames();
-            alert(`Datos de ${sport.toUpperCase()} actualizados localmente`);
-        } catch(e) { alert("JSON inválido: " + e.message); }
     }
     
     // ==================== EVENTOS ====================
@@ -483,41 +446,39 @@
         document.getElementById('plan20Btn')?.addEventListener('click', () => alert("Plan $20: Envía comprobante a soporte@thiasports.com"));
         document.getElementById('plan30Btn')?.addEventListener('click', () => alert("Plan $30: Envía comprobante a soporte@thiasports.com"));
         document.getElementById('saveDataBtn')?.addEventListener('click', updateGamesFromAdmin);
-        document.getElementById('saveToCloudBtn')?.addEventListener('click', saveToCloud);
-        document.getElementById('resetDataBtn')?.addEventListener('click', () => {
-            if (confirm("¿Restaurar datos por defecto?")) {
-                mlbGames = [...DEFAULT_MLB];
-                nbaGames = [...DEFAULT_NBA];
-                nhlGames = [...DEFAULT_NHL];
-                saveLocalData();
-                renderGames();
-                alert("Datos restaurados");
-            }
-        });
+        document.getElementById('resetDataBtn')?.addEventListener('click', resetToDefault);
         
         document.getElementById('doLoginBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
-            loginWithEmail(email, pass);
+            if (login(email, pass)) {
+                document.getElementById('authModal').classList.add('hidden');
+                updateUserUI();
+                renderGames();
+            } else { alert("Credenciales incorrectas"); }
         });
         
         document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
             if (!email || !pass) { alert("Completa email y contraseña"); return; }
-            registerWithEmail(email, pass);
+            if (register(email, pass)) {
+                document.getElementById('authModal').classList.add('hidden');
+                updateUserUI();
+                renderGames();
+                alert("Registro exitoso");
+            } else { alert("El email ya está registrado"); }
         });
     }
     
     // ==================== INICIO ====================
+    loadUsers();
     loadLocalData();
     
     const savedUser = localStorage.getItem('thia_current_user');
     if (savedUser) {
-        try { currentUser = JSON.parse(savedUser); updateUserUI(); } catch(e) {}
+        try { currentUser = JSON.parse(savedUser); } catch(e) {}
     }
-    
-    loadGamesFromCloud().then(() => { renderGames(); });
     
     initEvents();
     initGoogleSignIn();
@@ -532,35 +493,3 @@
 </script>
 </body>
 </html>
-CREATE TABLE IF NOT EXISTS usuarios (
-  id TEXT PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
-  nombre TEXT,
-  foto TEXT,
-  is_admin BOOLEAN DEFAULT FALSE,
-  creado_en TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS suscripciones (
-  id SERIAL PRIMARY KEY,
-  usuario_id TEXT REFERENCES usuarios(id) ON DELETE CASCADE,
-  email TEXT NOT NULL,
-  plan TEXT NOT NULL CHECK (plan IN ('premium_20', 'premium_30')),
-  deportes TEXT[],
-  activo BOOLEAN DEFAULT TRUE,
-  fecha_compra TIMESTAMP DEFAULT NOW(),
-  fecha_expiracion TIMESTAMP,
-  UNIQUE(usuario_id)
-);
-
-CREATE TABLE IF NOT EXISTS juegos_diarios (
-  id SERIAL PRIMARY KEY,
-  fecha DATE NOT NULL,
-  deporte TEXT NOT NULL,
-  juegos JSONB NOT NULL,
-  UNIQUE(fecha, deporte)
-);
-
-ALTER TABLE usuarios DISABLE ROW LEVEL SECURITY;
-ALTER TABLE suscripciones DISABLE ROW LEVEL SECURITY;
-ALTER TABLE juegos_diarios DISABLE ROW LEVEL SECURITY;
