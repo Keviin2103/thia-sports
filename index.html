@@ -532,3 +532,35 @@
 </script>
 </body>
 </html>
+CREATE TABLE IF NOT EXISTS usuarios (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  nombre TEXT,
+  foto TEXT,
+  is_admin BOOLEAN DEFAULT FALSE,
+  creado_en TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS suscripciones (
+  id SERIAL PRIMARY KEY,
+  usuario_id TEXT REFERENCES usuarios(id) ON DELETE CASCADE,
+  email TEXT NOT NULL,
+  plan TEXT NOT NULL CHECK (plan IN ('premium_20', 'premium_30')),
+  deportes TEXT[],
+  activo BOOLEAN DEFAULT TRUE,
+  fecha_compra TIMESTAMP DEFAULT NOW(),
+  fecha_expiracion TIMESTAMP,
+  UNIQUE(usuario_id)
+);
+
+CREATE TABLE IF NOT EXISTS juegos_diarios (
+  id SERIAL PRIMARY KEY,
+  fecha DATE NOT NULL,
+  deporte TEXT NOT NULL,
+  juegos JSONB NOT NULL,
+  UNIQUE(fecha, deporte)
+);
+
+ALTER TABLE usuarios DISABLE ROW LEVEL SECURITY;
+ALTER TABLE suscripciones DISABLE ROW LEVEL SECURITY;
+ALTER TABLE juegos_diarios DISABLE ROW LEVEL SECURITY;
