@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | MLB 2026 V4.5</title>
+    <title>ThIA Sports | MLB + NBA + NHL + Fútbol</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -11,13 +11,8 @@
             background: linear-gradient(135deg, #0a0f2c 0%, #01030d 100%);
             color: #eef2ff;
             min-height: 100vh;
+            padding-bottom: 2rem;
         }
-        
-        /* Utilidades */
-        .bg-black\/30 { background: rgba(0,0,0,0.3); }
-        .bg-white\/2 { background: rgba(255,255,255,0.02); }
-        .border-white\/5 { border-color: rgba(255,255,255,0.05); }
-        .border-white\/10 { border-color: rgba(255,255,255,0.1); }
         
         /* Header */
         .sticky-header {
@@ -43,14 +38,41 @@
             align-items: center;
             gap: 0.75rem;
         }
-        .dot-red { width: 12px; height: 12px; border-radius: 50%; background: #ef4444; }
-        .dot-yellow { width: 12px; height: 12px; border-radius: 50%; background: #facc15; }
-        .dot-green { width: 12px; height: 12px; border-radius: 50%; background: #22c55e; }
-        .logo-text h1 { color: #facc15; font-weight: 900; font-size: 1.1rem; line-height: 1.2; }
+        .dot-red, .dot-yellow, .dot-green {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #facc15; }
+        .dot-green { background: #22c55e; }
+        .logo-text h1 { color: #facc15; font-weight: 900; font-size: 1.1rem; }
         .logo-text p { color: #9ca3af; font-size: 0.65rem; }
+        .user-area { display: flex; align-items: center; gap: 0.8rem; }
+        .user-info {
+            font-size: 0.7rem;
+            background: rgba(30, 41, 59, 0.8);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn {
+            background: transparent;
+            border: 1px solid #facc15;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            color: #facc15;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.7rem;
+        }
+        .btn:hover { background: #facc15; color: #0f172a; }
         .record-container { text-align: right; }
-        .record-wins { color: #facc15; font-weight: 900; font-size: 0.9rem; }
-        .record-pct { background: #22c55e; color: #000; font-weight: 900; font-size: 0.8rem; padding: 0.2rem 0.8rem; border-radius: 12px; margin-left: 0.5rem; }
+        .record-wins { color: #facc15; font-weight: 900; font-size: 0.8rem; }
+        .record-pct { background: #22c55e; color: #000; font-weight: 900; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; }
         
         /* Tabs */
         .tabs-container {
@@ -58,81 +80,102 @@
             margin: 1rem auto 0;
             padding: 0 1rem;
         }
-        .tabs {
+        .sport-tabs {
             display: flex;
-            gap: 0.25rem;
-            background: rgba(17, 24, 39, 0.9);
-            border-radius: 12px;
-            padding: 0.25rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            background: rgba(17, 24, 39, 0.6);
+            border-radius: 60px;
+            padding: 0.3rem;
         }
-        .tab-btn {
-            flex: 1;
-            padding: 0.5rem;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            font-weight: bold;
+        .tab {
             background: transparent;
             border: none;
-            color: #9ca3af;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            color: #cbd5e6;
+            font-weight: bold;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .tab-btn.active {
-            background: #facc15;
-            color: #000;
+        .tab.active {
+            background: linear-gradient(95deg, #f97316, #facc15);
+            color: #0f172a;
         }
-        .tab-btn:hover:not(.active) { color: #fff; }
         
-        /* Main content */
-        .main-content {
+        /* Admin Panel */
+        .admin-panel {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            border: 1px solid #334155;
+        }
+        .admin-panel h3 { color: #facc15; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .admin-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        .admin-tab {
+            background: #1e293b;
+            border: none;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            color: #cbd5e6;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        .admin-tab.active { background: #facc15; color: #0f172a; }
+        .admin-textarea {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 0.5rem;
+            color: #eef2ff;
+            font-family: monospace;
+            font-size: 0.65rem;
+            margin-bottom: 0.5rem;
+        }
+        .admin-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        
+        /* Games Grid */
+        .games-grid {
             max-width: 1200px;
             margin: 1rem auto;
             padding: 0 1rem;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) {
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
         }
         
-        /* Banner */
-        .banner {
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), rgba(249, 115, 22, 0.1));
-            border: 1px solid rgba(250, 204, 21, 0.4);
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .banner-title { color: #facc15; font-weight: 900; font-size: 1rem; }
-        .banner-sub { color: #9ca3af; font-size: 0.75rem; margin-top: 0.25rem; }
-        .banner-badges { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
-        .badge { padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.65rem; font-weight: bold; }
-        .badge-yellow { background: #facc15; color: #000; }
-        .badge-blue { background: #2563eb; color: #fff; }
-        .badge-green { background: #16a34a; color: #fff; }
-        
-        /* Alert */
-        .alert-red {
-            background: rgba(220, 38, 38, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            border-radius: 12px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        
-        /* Game Cards */
-        .games-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
-        @media (min-width: 768px) { .games-grid { grid-template-columns: repeat(2, 1fr); } }
-        
+        /* Game Card */
         .game-card {
-            border-radius: 12px;
-            padding: 0.75rem;
+            border-radius: 16px;
+            padding: 1rem;
             background: rgba(0,0,0,0.3);
             border: 1px solid rgba(250, 204, 21, 0.2);
         }
-        .game-card.tier-DINERO { background: rgba(234, 179, 8, 0.1); border-color: #eab308; }
-        .game-card.tier-SOLIDO { background: rgba(34, 197, 94, 0.1); border-color: #22c55e; }
+        .game-card.star { border: 2px solid #facc15; }
         
-        /* Metrics table */
+        .tier-DINERO { background: rgba(234, 179, 8, 0.1); border-color: #eab308; }
+        .tier-SOLIDO { background: rgba(34, 197, 94, 0.1); border-color: #22c55e; }
+        
+        /* Prob Bar */
+        .prob-bar {
+            display: flex;
+            border-radius: 999px;
+            overflow: hidden;
+            height: 20px;
+            margin: 0.5rem 0;
+        }
+        
+        /* Metrics Table */
         .metrics-table {
             background: rgba(0,0,0,0.3);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 0.5rem;
             margin: 0.5rem 0;
         }
@@ -142,50 +185,81 @@
             text-align: center;
             padding: 0.25rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.7rem;
         }
         .metric-row.highlight { background: rgba(250, 204, 21, 0.15); color: #facc15; font-weight: bold; }
         
-        /* Prob Bar */
-        .prob-bar {
-            display: flex;
-            border-radius: 999px;
-            overflow: hidden;
-            height: 16px;
-            margin: 0.5rem 0;
-        }
-        
-        /* Parlay cards */
-        .parlay-card {
+        .locked-overlay {
+            background: #1e293b;
             border-radius: 12px;
-            padding: 0.75rem;
-            background: rgba(17, 24, 39, 0.6);
-            border: 1px solid;
-        }
-        .parlay-gold { border-color: #eab308; color: #eab308; }
-        .parlay-green { border-color: #22c55e; color: #22c55e; }
-        .parlay-orange { border-color: #f97316; color: #f97316; }
-        .parlay-purple { border-color: #a855f7; color: #a855f7; }
-        
-        /* Footer */
-        .footer-note {
-            background: rgba(17, 24, 39, 0.6);
-            border: 1px solid rgba(75, 85, 99, 0.5);
-            border-radius: 12px;
-            padding: 0.75rem;
+            padding: 0.8rem;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
         
-        .hidden-tab { display: none; }
+        /* Modal */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal-content { background: #111827; padding: 1.5rem; border-radius: 28px; width: 90%; max-width: 380px; text-align: center; border: 1px solid #facc15; }
+        .modal-content input {
+            width: 100%;
+            padding: 0.6rem;
+            margin: 0.5rem 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 40px;
+            color: white;
+        }
+        .google-btn-container { display: flex; justify-content: center; margin: 0.5rem 0; }
+        .separator { margin: 0.5rem 0; color: #5b6e8c; font-size: 0.7rem; }
         
-        /* Scroll */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #1f2937; }
-        ::-webkit-scrollbar-thumb { background: #facc15; border-radius: 3px; }
+        .hidden { display: none; }
+        .footer { text-align: center; font-size: 0.6rem; color: #5b6e8c; margin-top: 1rem; padding: 0 1rem; }
+        
+        @media (max-width: 640px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .sport-tabs { justify-content: center; }
+            .tab { padding: 0.3rem 0.8rem; font-size: 0.7rem; }
+        }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
+<!-- Modales -->
+<div id="authModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>ThIA Sports</h2>
+        <p style="font-size:0.8rem;">Inicia sesión para acceder a predicciones premium</p>
+        <input type="email" id="loginEmail" placeholder="Correo electrónico">
+        <input type="password" id="loginPassword" placeholder="Contraseña">
+        <button id="doLoginBtn" class="btn" style="width:100%; background:#facc15; color:#000;">Iniciar sesión</button>
+        <button id="doRegisterBtn" class="btn" style="width:100%; margin-top:0.5rem;">Registrarse</button>
+        <div class="separator">━━━━━ o ━━━━━</div>
+        <div id="googleBtnContainer" class="google-btn-container"></div>
+        <button class="btn" style="margin-top:0.5rem;" onclick="document.getElementById('authModal').classList.add('hidden')">Cerrar</button>
+    </div>
+</div>
+
+<div id="plansModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>Planes ThIA Sports</h2>
+        <div style="background:#1e293b; margin:0.5rem 0; padding:0.8rem; border-radius:16px;">
+            <h3>⚡ Plan Básico - $20/mes</h3>
+            <p style="font-size:0.7rem;">Elige 2 deportes</p>
+        </div>
+        <div style="background:#1e293b; margin:0.5rem 0; padding:0.8rem; border-radius:16px;">
+            <h3>🏆 Plan Total - $30/mes</h3>
+            <p style="font-size:0.7rem;">Todos los deportes</p>
+        </div>
+        <button class="btn" onclick="document.getElementById('plansModal').classList.add('hidden')">Cerrar</button>
+    </div>
+</div>
+
+<!-- Header -->
 <div class="sticky-header">
     <div class="header-content">
         <div class="logo-container">
@@ -196,454 +270,330 @@
             </div>
             <div class="logo-text">
                 <h1>ThIA Sports</h1>
-                <p>MLB 2026 · V4.5 · Miércoles 02 Abril</p>
+                <p>MLB · NBA · NHL · Fútbol · V4.5</p>
             </div>
         </div>
-        <div class="record-container">
-            <div class="record-wins" id="recordWins">Cargando...</div>
-            <div class="record-pct" id="recordPct">--%</div>
+        <div id="userArea" class="user-area">
+            <button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>
+        </div>
+        <div class="record-container" id="recordContainer">
+            <div class="record-wins">Cargando...</div>
         </div>
     </div>
 </div>
 
 <div class="tabs-container">
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="picks">🎯 Picks Hoy</button>
-        <button class="tab-btn" data-tab="scorecard">📊 Scorecard</button>
-        <button class="tab-btn" data-tab="parlays">🎰 Parlays</button>
-        <button class="tab-btn" data-tab="sistema">⚙️ Sistema V4.5</button>
+    <div class="sport-tabs">
+        <button class="tab active" data-sport="mlb">⚾ MLB</button>
+        <button class="tab" data-sport="nba">🏀 NBA</button>
+        <button class="tab" data-sport="nhl">🏒 NHL</button>
+        <button class="tab" data-sport="soccer">⚽ Fútbol</button>
     </div>
 </div>
 
-<div class="main-content">
-    <!-- Tab: Picks Hoy -->
-    <div id="tab-picks" class="tab-content">
-        <div class="banner">
-            <div class="banner-title">⚾ 02 ABRIL — MINI SLATE</div>
-            <div class="banner-sub">Solo 2 juegos · Día de descanso mayoría de equipos</div>
-            <div class="banner-badges">
-                <span class="badge badge-yellow">2 JUEGOS</span>
-                <span class="badge badge-blue">V4.5 ACTIVO</span>
-                <span class="badge badge-green">HORA VENEZUELA</span>
-            </div>
-        </div>
-        
-        <div class="alert-red">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <span style="color: #ef4444; font-weight: bold; font-size: 0.85rem;">⚠️ AYER 01/04 — 2G/7P = 22%</span>
-                <span style="color: #9ca3af; font-size: 0.7rem;">Peor día del sistema</span>
-            </div>
-            <div style="color: #9ca3af; font-size: 0.7rem;">Skenes 2do desastre · ATH sorprendió a ATL · Gausman dominó COL · NYY Fried destruyó SEA · HOU aplastó BOS</div>
-            <button id="viewScorecardBtn" style="margin-top: 8px; color: #facc15; font-size: 0.7rem; text-decoration: underline; background: none; border: none; cursor: pointer;">Ver scorecard completo →</button>
-        </div>
-        
-        <div id="gamesGrid" class="games-grid"></div>
-        
-        <div class="footer-note">
-            <p style="color: #9ca3af; font-size: 0.7rem;">Solo informativo · No es consejo de apuesta · Apostar con responsabilidad · ThIA Sports V4.5</p>
-        </div>
+<div id="gamesContainer" class="games-grid"></div>
+
+<div id="adminPanel" class="admin-panel hidden">
+    <h3>🔧 Panel de Administración</h3>
+    <div class="admin-tabs">
+        <button class="admin-tab active" data-admin="mlb">⚾ MLB</button>
+        <button class="admin-tab" data-admin="nba">🏀 NBA</button>
+        <button class="admin-tab" data-admin="nhl">🏒 NHL</button>
+        <button class="admin-tab" data-admin="soccer">⚽ Fútbol</button>
     </div>
-    
-    <!-- Tab: Scorecard -->
-    <div id="tab-scorecard" class="tab-content hidden-tab">
-        <div id="scorecardContainer"></div>
-        <div id="leccionesContainer"></div>
-        <div id="acumuladoContainer"></div>
+    <textarea id="adminJsonData" class="admin-textarea" rows="6" placeholder="Pega aquí el JSON de los juegos..."></textarea>
+    <div class="admin-buttons">
+        <button id="saveDataBtn" class="btn">💾 Guardar datos</button>
+        <button id="resetDataBtn" class="btn">🔄 Restaurar datos por defecto</button>
     </div>
-    
-    <!-- Tab: Parlays -->
-    <div id="tab-parlays" class="tab-content hidden-tab">
-        <div class="banner" style="margin-bottom: 1rem;">
-            <div class="banner-title">🎰 4 PARLAYS — 02 ABRIL 2026</div>
-            <div class="banner-sub">Día corto de 2 juegos. Parlays conservadores.</div>
-        </div>
-        <div id="parlaysGrid" class="games-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));"></div>
-        <div class="footer-note" style="margin-top: 1rem;">
-            <p style="color: #9ca3af; font-size: 0.7rem;"><strong style="color:#facc15">V4.5 Regla Parlays:</strong> Solo incluir picks DINERO o SÓLIDO. Nunca ML puro en parley grande. Seguro = max 2 picks siempre.</p>
-        </div>
-    </div>
-    
-    <!-- Tab: Sistema -->
-    <div id="tab-sistema" class="tab-content hidden-tab">
-        <div id="reglasContainer"></div>
-        <div id="trackingContainer"></div>
-    </div>
+    <p style="font-size:0.6rem; margin-top:0.3rem;">📌 Los datos se guardan automáticamente en tu navegador.</p>
 </div>
+
+<div class="footer">Predicciones ThIA Sports | Datos actualizados 03/04/2026</div>
 
 <script>
-    // ==================== DATA ====================
-    const SCORECARD = {
-        fecha: "01/04/2026",
-        picks: [
-            { pick: "ATL ML -155", tier: "DINERO", result: "ATH 5-2 ATL", ok: false, nota: "ATH ganó 2 de 2 vs ATL. Sale dominó pero bullpen no." },
-            { pick: "BAL ML -118", tier: "SOLIDO", result: "TEX 8-5 BAL", ok: false, nota: "Rogers sacado temprano. TEX explotó." },
-            { pick: "PIT ML -122", tier: "DINERO", result: "CIN 3-0 PIT", ok: false, nota: "Abbott DOMINÓ. Skenes 2do desastre seguido. SKIP." },
-            { pick: "MIL ML -132", tier: "DINERO", result: "MIL 6-2 TB",  ok: true,  nota: "Misiorowski sólido. MIL home confiable. ✅" },
-            { pick: "LAD ML -158", tier: "DINERO", result: "LAD 4-1 CLE", ok: true,  nota: "Yamamoto perfecto 2do juego. LAD DINERO siempre. ✅" },
-            { pick: "OVER COL/TOR", tier: "OVER",  result: "TOR 5-1 COL", ok: false, nota: "Gausman 5-1. La regla falla con Gausman. Ajustar." },
-            { pick: "SEA ML -118", tier: "SOLIDO", result: "NYY 5-0 SEA", ok: false, nota: "Fried dominó SEA otra vez. No picks SEA vs Fried." },
-            { pick: "BOS ML -118", tier: "ML",     result: "HOU 9-2 BOS", ok: false, nota: "Crochet destruido 2da vez en HOU. No BOS en HOU." },
-            { pick: "CHC ML -118", tier: "ML",     result: "LAA 2-0 CHC", ok: false, nota: "Boyd 0-2. CHC no puede con LAA este año." },
-        ],
-    };
-    
-    const LECCIONES = [
-        { emoji: "🚫", titulo: "ATL vs ATH — SKIP", desc: "ATH ganó 2 seguidos vs ATL. No apostar ATL favorito vs ATH hasta que sale esta serie." },
-        { emoji: "⚠️", titulo: "Skenes en CRISIS", desc: "2 desastres consecutivos (5ER en 0.2 INN + sacado temprano vs CIN). Skip hasta estabilizarse." },
-        { emoji: "🔄", titulo: "OVER Freeland = FIJO", desc: "La regla OVER Freeland falla si el SP contrario es Gausman o mejor. Ambos SP deben ser malos." },
-        { emoji: "🚫", titulo: "SEA vs NYY Fried", desc: "Fried 5-0 en esta serie vs SEA. No picks SEA cuando Fried o Schlittler lanza." },
-        { emoji: "🚫", titulo: "BOS en HOU — SKIP", desc: "Crochet destruido 2 veces en HOU (8-1, 9-2). HOU lineup brutal vs BOS este año." },
-        { emoji: "✅", titulo: "LAD/Yamamoto SIEMPRE", desc: "2-0 perfecto, 4-1 ambos juegos. Yamamoto en casa Dodger Stadium = pick más confiable." },
-        { emoji: "✅", titulo: "MIL en casa CONFIABLE", desc: "Misiorowski 2-0. MIL home vs equipos débiles = pick validado toda la semana 1." },
+    // ==================== DATOS POR DEFECTO MLB (con métricas) ====================
+    const DEFAULT_MLB = [
+        { id: "min_kc", away: "MIN", home: "KC", time: "2:10 PM", spAway: "J.Ryan (3.42)", spHome: "K.Bubic (2.55)", tier: "SOLIDO", ml: "KC -118", ou: "UNDER 8.5", ou_odds: "-112", prob_h: 55, prob_d: 5, prob_a: 40, carreras_a: 2.6, carreras_h: 2.9, hits_a: 7.0, hits_h: 7.5, tb_a: 10.5, tb_h: 11.5, k_a: 7.5, k_h: 7.8, hr: 1.2, nrfi_pct: 60, over_pct: 42, prediction: "KC ML -118 • UNDER 8.5 • Bubic 2.55 ERA en casa", star: false, props: [{jugador:"K.Bubic",tipo:"K 6+",odds:"-112"},{jugador:"S.Perez",tipo:"HR",odds:"+295"}] },
+        { id: "tor_cws", away: "TOR", home: "CWS", time: "4:10 PM", spAway: "D.Cease (3.48)", spHome: "S.Smith (3.81)", tier: "ML", ml: "TOR -145", ou: "OVER 9.0", ou_odds: "-108", prob_h: 35, prob_d: 5, prob_a: 60, carreras_a: 3.5, carreras_h: 2.0, hits_a: 8.5, hits_h: 5.5, tb_a: 14.0, tb_h: 8.5, k_a: 8.5, k_h: 7.0, hr: 1.4, nrfi_pct: 52, over_pct: 55, prediction: "TOR ML -145 • OVER 9.0 • Cease vs CWS 0-7", star: false, props: [{jugador:"V.Guerrero Jr",tipo:"HR",odds:"+255"},{jugador:"D.Cease",tipo:"K 7+",odds:"-108"}] }
     ];
     
-    const TODAY_GAMES = [
-        {
-            id: 1, hora: "2:10 PM VEN", away: "MIN", home: "KC", liga: "AL",
-            sp_away: "J.Ryan", era_away: 3.42, sp_home: "K.Bubic", era_home: 2.55,
-            tier: "SOLIDO", ml_pick: "KC -118", ml_odds: -118,
-            ou_line: 8.5, ou_dir: "UNDER", ou_odds: -112,
-            rl: "+1.5", rl_odds: +148, nrfi_odds: -138,
-            prob_h: 55, prob_d: 5, prob_a: 40,
-            carreras_a: 2.6, carreras_h: 2.9, hits_a: 7.0, hits_h: 7.5,
-            tb_a: 10.5, tb_h: 11.5, k_sp_a: 7.5, k_sp_h: 7.8, hr: 1.2,
-            nrfi_pct: 60, over_pct: 42, wbc: "Arraez(VEN🏆) · Perez(VEN)",
-            props: [
-                { jugador: "K.Bubic", tipo: "K 6+", odds: "-112" },
-                { jugador: "S.Perez", tipo: "H+", odds: "-115" },
-                { jugador: "S.Perez", tipo: "HR", odds: "+295" },
-                { jugador: "J.Ryan", tipo: "K 7+", odds: "-108" },
-            ],
-            pred: "MIN 2 — KC 3",
-            anal: "Bubic 2.55 ERA en casa vs Ryan 3.42. KC home con Perez+Melendez. Ryan brilló G1 pero Bubic en Kauffman = ventaja local. UNDER con 2 SPs sólidos.",
-            noticia: "Ryan 7K G1. Bubic 2.55 ERA en casa.",
-        },
-        {
-            id: 2, hora: "4:10 PM VEN", away: "TOR", home: "CWS", liga: "AL",
-            sp_away: "D.Cease", era_away: 3.48, sp_home: "S.Smith", era_home: 3.81,
-            tier: "ML", ml_pick: "TOR -145", ml_odds: -145,
-            ou_line: 9.0, ou_dir: "OVER", ou_odds: -108,
-            rl: "-1.5", rl_odds: -108, nrfi_odds: -128,
-            prob_h: 35, prob_d: 5, prob_a: 60,
-            carreras_a: 3.5, carreras_h: 2.0, hits_a: 8.5, hits_h: 5.5,
-            tb_a: 14.0, tb_h: 8.5, k_sp_a: 8.5, k_sp_h: 7.0, hr: 1.4,
-            nrfi_pct: 52, over_pct: 55, wbc: "Guerrero Jr(VEN) · Springer(USA)",
-            props: [
-                { jugador: "V.Guerrero Jr", tipo: "HR", odds: "+255" },
-                { jugador: "D.Cease", tipo: "K 7+", odds: "-108" },
-                { jugador: "G.Springer", tipo: "H+", odds: "-118" },
-                { jugador: "V.Guerrero Jr", tipo: "TB 2+", odds: "-125" },
-            ],
-            pred: "TOR 5 — CWS 2",
-            anal: "CWS 0-7 peor MLB. Smith 3.81 ERA vs Cease 3.48 TOR ace. Guerrero+Springer+Barger. TOR debería dominar este juego fácil.",
-            noticia: "CWS 0-7. Cease vs equipo peor de MLB.",
-        },
+    // ==================== DATOS NBA (con métricas simplificadas) ====================
+    const DEFAULT_NBA = [
+        { away: "Detroit Pistons", away_rec: "54-21", home: "Minnesota T-Wolves", home_rec: "45-29", time: "7:00 PM", spread: "DET -3.0", total: "224.5", prediction: "⭐ UNDER 224.5 • DET ML -155", injuries: "Cade OUT • Edwards Q", star: true, prob_h: 45, prob_a: 55, pts_a: 114, pts_h: 109 },
+        { away: "Golden State Warriors", away_rec: "36-37", home: "Cleveland Cavaliers", home_rec: "47-28", time: "10:00 PM", spread: "GSW +11.5", total: "222.5", prediction: "⭐ OVER 220.5 • GSW +11.5", injuries: "9 LESIONADOS", star: true, prob_h: 80, prob_a: 20, pts_a: 108, pts_h: 116 },
+        { away: "LA Clippers", away_rec: "36-37", home: "San Antonio Spurs", home_rec: "56-19", time: "10:30 PM", spread: "SAS +1.5", total: "229.5", prediction: "⭐ UNDER 229.5 • SAS ML -105", injuries: "Wemby ACTIVO", star: true, prob_h: 59, prob_a: 41, pts_a: 112, pts_h: 115 }
     ];
     
-    const PARLAYS = [
-        { nombre: "TRIPLETA GANADORA", picks: ["KC ML(-118)", "TOR ML(-145)"], odds: "~+48", stake: "3.0%", prob: 55, color: "gold", nota: "Solo 2 juegos hoy. Parley conservador con ambos picks." },
-        { nombre: "PARLEY SEGURO", picks: ["KC ML(-118)"], odds: "-118", stake: "5.0%", prob: 55, color: "green", nota: "Día de descanso de MLB. KC ML es el pick más confiable hoy." },
-        { nombre: "PARLEY MIXTO", picks: ["KC ML(-118)", "OVER 9.0 CWS/TOR(-108)"], odds: "~+75", stake: "2.0%", prob: 40, color: "orange", nota: "KC ML + OVER TOR/CWS. CWS lineup débil ante Cease." },
-        { nombre: "PARLEY MILLONARIO", picks: ["KC ML(-118)", "TOR ML(-145)", "NRFI MIN(-138)"], odds: "~+148", stake: "0.5%", prob: 30, color: "purple", nota: "Día corto = menos riesgo. 3 picks. Stake mínimo." },
+    // ==================== DATOS NHL ====================
+    const DEFAULT_NHL = [
+        { away: "Buffalo Sabres", away_rec: "46-21-8", home: "Ottawa Senators", home_rec: "38-26-10", time: "7:00 PM", spread: "OTT -1.5", total: "6.5", prediction: "⭐ OVER 6.5 • Sabres ofensiva", injuries: "Chabot OUT", star: true, prob_h: 38, prob_a: 62, goals_a: 3.5, goals_h: 2.8 },
+        { away: "Montreal Canadiens", away_rec: "33-32-10", home: "NY Rangers", home_rec: "29-36-10", time: "7:00 PM", spread: "MTL +1.5", total: "5.5", prediction: "⭐ MTL ML (+108)", injuries: "NYR L10: 1-9", star: true, prob_h: 35, prob_a: 65, goals_a: 3.2, goals_h: 2.5 }
     ];
     
-    const REGLAS = [
-        { num: "①", titulo: "SP ERA <4.0 en casa", desc: "Solo SPs con ERA <4.00. Rocker 5.74 y Houser 4.86 = NO pick." },
-        { num: "②", titulo: "OVER ambos ERA>5", desc: "OVER garantizado cuando AMBOS SPs tienen xERA>5.0. Con Gausman = UNDER." },
-        { num: "③", titulo: "Debut SP = SÓLIDO", desc: "Debut = máximo SÓLIDO, nunca DINERO. Suárez -145 DINERO nos costó." },
-        { num: "④", titulo: "Yamamoto casa = DINERO", desc: "2-0 perfecto. Yamamoto en Dodger Stadium es el pick más confiable del sistema." },
-        { num: "⑤", titulo: "MIL casa confiable", desc: "Misiorowski 2-0, Woodruff 3-0. MIL home con SP bueno = pick automático." },
-        { num: "⑥", titulo: "SKIP: Skenes/BOS@HOU", desc: "Skenes 2 desastres. BOS en HOU destruidos 2 veces. No apostar hasta cambio." },
-        { num: "⑦", titulo: "ATH no es débil", desc: "ATH ganó 2 vs ATL. No apostar contra ATH a precio alto (-150+)." },
-        { num: "⑧", titulo: "Parlays: calidad", desc: "Solo DINERO y SÓLIDO en parlays. Nunca ML picks (-118 o menos) en parlay grande." },
+    // ==================== DATOS FÚTBOL ====================
+    const DEFAULT_SOCCER = [
+        { away: "Gil Vicente", away_rec: "11º", home: "AFS Viseu", home_rec: "17º", time: "12:30 VEN", spread: "GV -0.75", total: "2.5", prediction: "Over 1.5 goles • 1.55", injuries: "AFS frágil visitante", star: false, prob_h: 58, prob_d: 24, prob_a: 18, goals_a: 0.8, goals_h: 1.2 },
+        { away: "Tondela", away_rec: "15º", home: "Vitória Guimarães", home_rec: "5º", time: "14:30 VEN", spread: "VSC -1.25", total: "2.5", prediction: "⭐ Vitória Guimarães 1X • 1.55", injuries: "Tondela recién ascendido", star: true, prob_h: 65, prob_d: 21, prob_a: 14, goals_a: 0.6, goals_h: 1.8 },
+        { away: "Elche CF", away_rec: "16º", home: "Rayo Vallecano", home_rec: "10º", time: "15:00 VEN", spread: "RAY -0.5", total: "2.5", prediction: "⭐ UNDER 2.5 • 1.80", injuries: "Elche sin gol visitante", star: true, prob_h: 53, prob_d: 26, prob_a: 21, goals_a: 0.5, goals_h: 1.3 }
     ];
     
-    const TRACKING = [
-        { eq: "SEA", status: "✅ ACTIVO", note: "4-1 en picks. J.Rod+Muñoz WBC. Kirby+Castillo home = DINERO.", color: "green" },
-        { eq: "MIL", status: "✅ ACTIVO", note: "3-0 en casa. Miso+Woodruff élite. Chourio caliente.", color: "green" },
-        { eq: "LAD", status: "✅ ACTIVO", note: "Yamamoto 2-0 perfecto. Solo apostar con Yamamoto.", color: "green" },
-        { eq: "DET", status: "✅ ACTIVO", note: "Skubal SIEMPRE. DET sin Skubal = diferente equipo.", color: "green" },
-        { eq: "ATL", status: "⚠️ CUIDADO", note: "ATH sorprendió 2 veces. No ATL a precio alto vs ATH.", color: "yellow" },
-        { eq: "HOU", status: "🚫 SKIP BOS", note: "HOU vs BOS = NO. Crochet destruido 2 veces.", color: "red" },
-        { eq: "SF", status: "🚫 SKIP", note: "0-3 vs NYY toda la serie. No picks hasta ganar.", color: "red" },
-        { eq: "PIT", status: "🚫 SKIP", note: "Skenes 2 desastres. Skip hasta estabilizarse.", color: "red" },
-    ];
+    // ==================== SISTEMA DE USUARIOS ====================
+    let users = [];
+    let currentUser = null;
+    let currentSport = 'mlb';
+    let currentAdminSport = 'mlb';
+    let mlbGames = [...DEFAULT_MLB];
+    let nbaGames = [...DEFAULT_NBA];
+    let nhlGames = [...DEFAULT_NHL];
+    let soccerGames = [...DEFAULT_SOCCER];
     
-    const ACUMULADO = [
-        { dia: "ON 25/03", res: "3-0", pct: 100, best: true },
-        { dia: "OD 26/03", res: "7-4", pct: 64, best: false },
-        { dia: "27/03", res: "4-4", pct: 50, best: false },
-        { dia: "28/03", res: "7-1", pct: 88, best: true },
-        { dia: "29/03", res: "6-5", pct: 55, best: false },
-        { dia: "30/03", res: "6-2", pct: 75, best: false },
-        { dia: "01/04", res: "2-7", pct: 22, best: false },
-    ];
+    function loadUsers() {
+        const saved = localStorage.getItem('thia_users');
+        if (saved) { try { users = JSON.parse(saved); } catch(e) { users = []; } }
+        if (!users.length) { users = [{ email: "admin@thiasports.com", password: "admin123", isAdmin: true }]; saveUsers(); }
+    }
+    function saveUsers() { localStorage.setItem('thia_users', JSON.stringify(users)); }
     
-    const totalWins = ACUMULADO.reduce((s, d) => s + parseInt(d.res.split("-")[0]), 0);
-    const totalLosses = ACUMULADO.reduce((s, d) => s + parseInt(d.res.split("-")[1]), 0);
-    const overallPct = Math.round((totalWins / (totalWins + totalLosses)) * 100);
+    function login(email, password) {
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) { currentUser = { email: user.email, isAdmin: user.isAdmin || false }; localStorage.setItem('thia_current_user', JSON.stringify(currentUser)); return true; }
+        return false;
+    }
+    function register(email, password) {
+        if (users.find(u => u.email === email)) return false;
+        const isAdmin = (email === "admin@thiasports.com");
+        users.push({ email, password, isAdmin });
+        saveUsers();
+        currentUser = { email, isAdmin };
+        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
+        return true;
+    }
+    function logout() { currentUser = null; localStorage.removeItem('thia_current_user'); updateUserUI(); renderGames(); }
     
-    // ==================== RENDER FUNCTIONS ====================
+    function loadLocalData() {
+        const saved = localStorage.getItem('thia_games_data');
+        if (saved) {
+            try { const data = JSON.parse(saved);
+                if (data.mlb) mlbGames = data.mlb;
+                if (data.nba) nbaGames = data.nba;
+                if (data.nhl) nhlGames = data.nhl;
+                if (data.soccer) soccerGames = data.soccer;
+            } catch(e) {}
+        }
+    }
+    function saveLocalData() {
+        localStorage.setItem('thia_games_data', JSON.stringify({ mlb: mlbGames, nba: nbaGames, nhl: nhlGames, soccer: soccerGames }));
+    }
+    
+    function resetToDefault() {
+        if (confirm("¿Restaurar datos por defecto?")) {
+            mlbGames = [...DEFAULT_MLB]; nbaGames = [...DEFAULT_NBA]; nhlGames = [...DEFAULT_NHL]; soccerGames = [...DEFAULT_SOCCER];
+            saveLocalData(); renderGames(); alert("Datos restaurados");
+        }
+    }
+    function updateGamesFromAdmin() {
+        const sport = currentAdminSport;
+        try {
+            const newGames = JSON.parse(document.getElementById('adminJsonData').value);
+            if (!Array.isArray(newGames)) throw new Error("Debe ser un array");
+            if (sport === 'mlb') mlbGames = newGames;
+            else if (sport === 'nba') nbaGames = newGames;
+            else if (sport === 'nhl') nhlGames = newGames;
+            else soccerGames = newGames;
+            saveLocalData(); renderGames();
+            alert(`Datos de ${sport.toUpperCase()} actualizados`);
+        } catch(e) { alert("JSON inválido: " + e.message); }
+    }
+    
+    function hasAccess() { return currentUser !== null; }
+    
     function renderGames() {
-        const container = document.getElementById('gamesGrid');
-        if (!container) return;
+        let games = [];
+        if (currentSport === 'mlb') games = mlbGames;
+        else if (currentSport === 'nba') games = nbaGames;
+        else if (currentSport === 'nhl') games = nhlGames;
+        else games = soccerGames;
         
+        const container = document.getElementById('gamesContainer');
+        const acceso = hasAccess();
         let html = '';
-        for (let g of TODAY_GAMES) {
-            const tierClass = g.tier === 'DINERO' ? 'tier-DINERO' : (g.tier === 'SOLIDO' ? 'tier-SOLIDO' : '');
-            const isUnder = g.ou_dir === 'UNDER';
+        
+        for (let g of games) {
+            const starClass = g.star ? 'star' : '';
+            const starBadge = g.star ? '<span style="background:#facc15; color:#000; font-size:0.6rem; padding:0.1rem 0.5rem; border-radius:20px; margin-bottom:0.3rem; display:inline-block;">⭐ PICK ESTRELLA ⭐</span>' : '';
+            const sportEmoji = currentSport === 'mlb' ? '⚾' : (currentSport === 'nba' ? '🏀' : (currentSport === 'nhl' ? '🏒' : '⚽'));
             
-            html += `
-                <div class="game-card ${tierClass}">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: flex; gap: 0.5rem;">
-                            <span style="background: ${g.liga === 'AL' ? '#0f766e' : '#b91c1c'}; color: white; font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: bold;">${g.liga}</span>
-                            <span style="color: #93c5fd; font-size: 0.7rem;">${g.hora}</span>
-                        </div>
-                        <span style="background: ${g.tier === 'DINERO' ? '#eab308' : (g.tier === 'SOLIDO' ? '#22c55e' : '#3b82f6')}; color: black; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 4px; font-weight: bold;">${g.tier}</span>
+            if (!acceso) {
+                html += `<div class="game-card"><div class="teams" style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;"><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div>${g.away}</div></div><div style="background:#facc15; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000;">VS</div><div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">${sportEmoji}</div><div>${g.home}</div></div></div><div class="locked-overlay">🔒 Inicia sesión para ver la predicción</div></div>`;
+                continue;
+            }
+            
+            // MLB con métricas completas
+            if (currentSport === 'mlb' && g.prob_h !== undefined) {
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                        <div style="display:flex; gap:0.5rem;"><span style="background:#0f766e; font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:4px;">AL</span><span style="color:#93c5fd; font-size:0.65rem;">${g.time}</span></div>
+                        <span style="background:${g.tier==='DINERO'?'#eab308':g.tier==='SOLIDO'?'#22c55e':'#3b82f6'}; color:#000; font-size:0.6rem; padding:0.1rem 0.5rem; border-radius:4px;">${g.tier||'ML'}</span>
                     </div>
-                    
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0;">
-                        <div style="text-align: center; flex: 1;"><div style="font-size: 1.5rem; font-weight: 900;">${g.away}</div><div style="font-size: 0.65rem; color: #9ca3af;">${g.prob_a}%</div></div>
-                        <div style="flex: 1; text-align: center;"><span style="color: #6b7280; font-weight: bold;">VS</span><div style="font-size: 0.6rem; color: #9ca3af;">${g.sp_away}(${g.era_away}) / ${g.sp_home}(${g.era_home})</div>${g.wbc ? `<div style="font-size: 0.6rem; color: #facc15;">🏆 ${g.wbc}</div>` : ''}</div>
-                        <div style="text-align: center; flex: 1;"><div style="font-size: 1.5rem; font-weight: 900;">${g.home}</div><div style="font-size: 0.65rem; color: #22c55e;">${g.prob_h}%</div></div>
+                    <div style="display:flex; align-items:center; gap:0.5rem; margin:0.5rem 0;">
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.3rem; font-weight:900;">${g.away}</div><div style="font-size:0.6rem; color:#9ca3af;">${g.prob_a}%</div></div>
+                        <div style="flex:1; text-align:center;"><span style="color:#6b7280;">VS</span><div style="font-size:0.55rem;">${g.spAway} / ${g.spHome}</div></div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.3rem; font-weight:900;">${g.home}</div><div style="font-size:0.6rem; color:#22c55e;">${g.prob_h}%</div></div>
                     </div>
-                    
-                    <div class="prob-bar">
-                        <div style="width: ${g.prob_h}%; background: #22c55e; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">${g.prob_h}%</div>
-                        <div style="width: ${g.prob_d}%; background: #facc15;"></div>
-                        <div style="width: ${g.prob_a}%; background: #ef4444;"></div>
-                    </div>
-                    
+                    <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.55rem;">${g.prob_h}%</div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
                     <div class="metrics-table">
-                        <div class="metric-row" style="font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <div style="color: #60a5fa;">${g.away}</div><div style="color: #facc15;">PARTIDO</div><div style="color: #f87171;">${g.home}</div>
-                        </div>
+                        <div class="metric-row" style="font-weight:bold; border-bottom:1px solid rgba(255,255,255,0.1);"><div style="color:#60a5fa;">${g.away}</div><div style="color:#facc15;">PARTIDO</div><div style="color:#f87171;">${g.home}</div></div>
                         <div class="metric-row"><div>${g.carreras_a}</div><div>Carreras</div><div>${g.carreras_h}</div></div>
                         <div class="metric-row"><div>${g.hits_a}</div><div>Hits</div><div>${g.hits_h}</div></div>
                         <div class="metric-row"><div>${g.tb_a}</div><div>Tot.Bases</div><div>${g.tb_h}</div></div>
-                        <div class="metric-row"><div>${g.k_sp_a}</div><div>K (SP)</div><div>${g.k_sp_h}</div></div>
+                        <div class="metric-row"><div>${g.k_a}</div><div>K (SP)</div><div>${g.k_h}</div></div>
                         <div class="metric-row"><div>${(g.hr/2).toFixed(1)}</div><div>HR pred</div><div>${(g.hr/2).toFixed(1)}</div></div>
                         <div class="metric-row"><div>${g.nrfi_pct}%</div><div>NRFI %</div><div>${g.nrfi_pct}%</div></div>
-                        <div class="metric-row highlight"><div>${g.over_pct}%</div><div>Over ${g.ou_line}%</div><div>${100 - g.over_pct}%</div></div>
+                        <div class="metric-row highlight"><div>${g.over_pct}%</div><div>Over ${g.ou}%</div><div>${100-g.over_pct}%</div></div>
                     </div>
-                    
-                    <p style="color: #9ca3af; font-size: 0.7rem; line-height: 1.4; margin: 0.5rem 0;">${g.anal}</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.25rem; margin: 0.5rem 0;">
-                        <div style="background: rgba(234, 179, 8, 0.2); border-radius: 8px; padding: 0.25rem; text-align: center;"><div style="font-size: 0.6rem;">ML</div><div style="font-weight: bold; font-size: 0.8rem;">${g.ml_pick}</div><div style="font-size: 0.6rem;">${g.ml_odds}</div></div>
-                        <div style="background: ${isUnder ? 'rgba(20, 184, 166, 0.2)' : 'rgba(249, 115, 22, 0.2)'}; border-radius: 8px; padding: 0.25rem; text-align: center;"><div style="font-size: 0.6rem;">O/U</div><div style="font-weight: bold; font-size: 0.8rem;">${g.ou_dir} ${g.ou_line}</div><div style="font-size: 0.6rem;">${g.ou_odds}</div></div>
-                        <div style="background: rgba(249, 115, 22, 0.2); border-radius: 8px; padding: 0.25rem; text-align: center;"><div style="font-size: 0.6rem;">RL</div><div style="font-weight: bold; font-size: 0.8rem;">RL ${g.rl}</div><div style="font-size: 0.6rem;">${g.rl_odds > 0 ? '+' + g.rl_odds : g.rl_odds}</div></div>
-                        <div style="background: rgba(6, 182, 212, 0.2); border-radius: 8px; padding: 0.25rem; text-align: center;"><div style="font-size: 0.6rem;">NRFI</div><div style="font-weight: bold; font-size: 0.8rem;">NRFI</div><div style="font-size: 0.6rem;">${g.nrfi_odds}</div></div>
+                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; margin:0.5rem 0;">
+                        <div style="background:rgba(234,179,8,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">ML</div><div style="font-weight:bold; font-size:0.7rem;">${g.ml}</div></div>
+                        <div style="background:${g.ou.includes('UNDER')?'rgba(20,184,166,0.2)':'rgba(249,115,22,0.2)'}; border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">O/U</div><div style="font-weight:bold; font-size:0.7rem;">${g.ou}</div><div style="font-size:0.55rem;">${g.ou_odds}</div></div>
+                        <div style="background:rgba(249,115,22,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">RL</div><div style="font-weight:bold; font-size:0.7rem;">RL +1.5</div></div>
+                        <div style="background:rgba(6,182,212,0.2); border-radius:8px; padding:0.2rem; text-align:center;"><div style="font-size:0.55rem;">NRFI</div><div style="font-weight:bold; font-size:0.7rem;">NRFI</div><div style="font-size:0.55rem;">-138</div></div>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.25rem; margin: 0.5rem 0;">
-                        ${g.props.map(p => `<div style="background: rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 0.25rem 0.5rem; display: flex; justify-content: space-between;"><span style="font-size: 0.7rem;"><strong>${p.jugador}</strong><br>${p.tipo}</span><span style="color: #facc15; font-weight: bold;">${p.odds}</span></div>`).join('')}
+                    ${g.props ? `<div style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem; margin:0.5rem 0;">${g.props.map(p => `<div style="background:rgba(168,85,247,0.2); border-radius:8px; padding:0.2rem 0.4rem; display:flex; justify-content:space-between;"><span style="font-size:0.6rem;"><strong>${p.jugador}</strong><br>${p.tipo}</span><span style="color:#facc15; font-weight:bold;">${p.odds}</span></div>`).join('')}</div>` : ''}
+                    <div style="background:rgba(37,99,235,0.2); border-radius:8px; padding:0.3rem; text-align:center; margin-top:0.5rem;"><span style="color:#facc15; font-weight:bold;">PRED: ${g.prediction}</span></div>
+                </div>`;
+            }
+            // NBA
+            else if (currentSport === 'nba') {
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span><span class="star-badge">${starBadge}</span></div>
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏀</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a || 50}%</div></div>
+                        <div class="vs" style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">VS</div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏀</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
                     </div>
-                    
-                    <div style="background: rgba(37, 99, 235, 0.2); border-radius: 8px; padding: 0.25rem; text-align: center; margin-top: 0.5rem;">
-                        <span style="color: #facc15; font-weight: bold;">PRED: ${g.pred}</span>
+                    <div class="game-info" style="display:flex; justify-content:space-between; margin:0.5rem 0; font-size:0.65rem;"><span>📊 ${g.spread || ''}</span><span>Total: ${g.total || ''}</span></div>
+                    ${g.injuries ? `<div class="injury-note" style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem;">⚠️ ${g.injuries}</div>` : ''}
+                    <div class="prediction-block" style="margin-top:0.5rem;"><div class="prediction-text" style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
+                </div>`;
+            }
+            // NHL
+            else if (currentSport === 'nhl') {
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span><span class="star-badge">${starBadge}</span></div>
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏒</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a || 50}%</div></div>
+                        <div class="vs" style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;">VS</div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">🏒</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h || 50}%</div></div>
                     </div>
-                </div>
-            `;
+                    <div style="display:flex; justify-content:space-between; margin:0.5rem 0; font-size:0.65rem;"><span>📊 ${g.spread || ''}</span><span>Total: ${g.total || ''}</span></div>
+                    ${g.injuries ? `<div style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem;">⚠️ ${g.injuries}</div>` : ''}
+                    <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
+                </div>`;
+            }
+            // Fútbol
+            else {
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span style="color:#93c5fd; font-size:0.7rem;">⏰ ${g.time}</span><span class="star-badge">${starBadge}</span></div>
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div style="font-weight:bold; font-size:0.85rem;">${g.away}</div><div style="font-size:0.6rem;">${g.away_rec}</div><div style="font-size:0.65rem;">${g.prob_a}%</div></div>
+                        <div class="vs" style="background:#facc15; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;">VS</div>
+                        <div style="text-align:center; flex:1;"><div style="font-size:1.2rem;">⚽</div><div style="font-weight:bold; font-size:0.85rem;">${g.home}</div><div style="font-size:0.6rem;">${g.home_rec}</div><div style="font-size:0.65rem;">${g.prob_h}%</div></div>
+                    </div>
+                    <div class="prob-bar"><div style="width:${g.prob_h}%; background:#22c55e;"></div><div style="width:${g.prob_d}%; background:#facc15;"></div><div style="width:${g.prob_a}%; background:#ef4444;"></div></div>
+                    <div class="metrics-table">
+                        <div class="metric-row" style="font-weight:bold;"><div>${g.away}</div><div>MÉTRICA</div><div>${g.home}</div></div>
+                        <div class="metric-row"><div>${g.goals_a || '0.8'}</div><div>Goles/temp</div><div>${g.goals_h || '1.2'}</div></div>
+                    </div>
+                    <div style="margin-top:0.5rem;"><div style="background:#0f172a; border-left:4px solid #10b981; border-radius:12px; padding:0.5rem; font-size:0.7rem;">🔮 ${starBadge}<strong>Predicción:</strong> ${g.prediction}</div></div>
+                    ${g.injuries ? `<div style="background:rgba(220,38,38,0.2); padding:0.2rem; border-radius:8px; font-size:0.6rem; margin-top:0.3rem;">⚠️ ${g.injuries}</div>` : ''}
+                </div>`;
+            }
         }
         container.innerHTML = html;
     }
     
-    function renderScorecard() {
-        const container = document.getElementById('scorecardContainer');
-        if (!container) return;
-        
-        const wins = SCORECARD.picks.filter(p => p.ok).length;
-        const losses = SCORECARD.picks.filter(p => !p.ok).length;
-        
-        let html = `
-            <div style="background: rgba(17, 24, 39, 0.6); border-radius: 12px; overflow: hidden; margin-bottom: 1rem;">
-                <div style="background: rgba(220, 38, 38, 0.3); padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(239, 68, 68, 0.4);">
-                    <div><div style="font-weight: 900;">Scorecard ${SCORECARD.fecha}</div><div style="font-size: 0.7rem; color: #9ca3af;">Resultados reales</div></div>
-                    <div style="background: #ef4444; padding: 0.2rem 0.8rem; border-radius: 8px; font-weight: 900;">${wins}G / ${losses}P = ${Math.round(wins/(wins+losses)*100)}%</div>
-                </div>
-                ${SCORECARD.picks.map((p, i) => `
-                    <div style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: ${i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent'};">
-                        <span style="font-size: 1.2rem;">${p.ok ? '✅' : '❌'}</span>
-                        <div style="flex: 1;">
-                            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                                <span style="font-weight: bold;">${p.pick}</span>
-                                <span style="background: ${p.tier === 'DINERO' ? '#eab308' : (p.tier === 'SOLIDO' ? '#22c55e' : '#3b82f6')}; color: black; font-size: 0.6rem; padding: 0.1rem 0.4rem; border-radius: 4px;">${p.tier}</span>
-                            </div>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem;">
-                                <span style="color: ${p.ok ? '#22c55e' : '#ef4444'}; font-size: 0.7rem; font-weight: bold;">${p.result}</span>
-                                <span style="color: #9ca3af; font-size: 0.7rem;">${p.nota}</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        container.innerHTML = html;
+    // ==================== GOOGLE LOGIN ====================
+    function handleGoogleCredential(response) {
+        const idToken = response.credential;
+        const base64Url = idToken.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        const userInfo = JSON.parse(jsonPayload);
+        let user = users.find(u => u.email === userInfo.email);
+        if (!user) { user = { email: userInfo.email, password: "google_" + userInfo.sub, isAdmin: userInfo.email === "admin@thiasports.com" }; users.push(user); saveUsers(); }
+        currentUser = { email: user.email, isAdmin: user.isAdmin };
+        localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
+        updateUserUI(); renderGames();
+        document.getElementById('authModal').classList.add('hidden');
     }
     
-    function renderLecciones() {
-        const container = document.getElementById('leccionesContainer');
-        if (!container) return;
-        
-        let html = `
-            <div style="background: rgba(17, 24, 39, 0.6); border-radius: 12px; overflow: hidden; margin-bottom: 1rem; border: 1px solid rgba(250, 204, 21, 0.3);">
-                <div style="background: rgba(250, 204, 21, 0.15); padding: 0.75rem 1rem; border-bottom: 1px solid rgba(250, 204, 21, 0.3);">
-                    <div style="font-weight: 900; color: #facc15;">💡 Lecciones & Mejoras V4.5</div>
-                </div>
-                ${LECCIONES.map((l, i) => `
-                    <div style="display: flex; gap: 0.75rem; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: ${i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent'};">
-                        <span style="font-size: 1.5rem;">${l.emoji}</span>
-                        <div>
-                            <div style="font-weight: bold;">${l.titulo}</div>
-                            <div style="color: #9ca3af; font-size: 0.7rem;">${l.desc}</div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        container.innerHTML = html;
+    function initGoogleSignIn() {
+        if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
+        google.accounts.id.initialize({ client_id: "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com", callback: handleGoogleCredential, auto_select: false });
+        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
     }
     
-    function renderAcumulado() {
-        const container = document.getElementById('acumuladoContainer');
-        if (!container) return;
+    function updateUserUI() {
+        const userArea = document.getElementById('userArea');
+        const adminPanel = document.getElementById('adminPanel');
+        const recordContainer = document.getElementById('recordContainer');
         
-        let html = `
-            <div style="background: rgba(17, 24, 39, 0.6); border-radius: 12px; overflow: hidden;">
-                <div style="background: rgba(59, 130, 246, 0.25); padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(59, 130, 246, 0.3);">
-                    <div style="font-weight: 900;">📈 Acumulado Semana 1</div>
-                    <div style="color: #facc15; font-weight: 900;">${totalWins}G/${totalLosses}P = ${overallPct}%</div>
-                </div>
-                ${ACUMULADO.map(d => `
-                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); ${d.best ? 'background: rgba(34, 197, 94, 0.1);' : ''}">
-                        <span style="width: 70px; font-size: 0.7rem;">${d.dia}</span>
-                        <div style="flex: 1; background: #374151; border-radius: 999px; height: 8px; overflow: hidden;">
-                            <div style="width: ${d.pct}%; height: 100%; background: ${d.pct >= 80 ? '#22c55e' : (d.pct >= 60 ? '#facc15' : '#ef4444')};"></div>
-                        </div>
-                        <span style="width: 45px; font-size: 0.7rem; text-align: right; font-weight: bold; color: ${d.pct >= 80 ? '#22c55e' : (d.pct >= 60 ? '#facc15' : '#ef4444')};">${d.pct}%</span>
-                        <span style="width: 40px; font-size: 0.7rem;">${d.res}</span>
-                        ${d.best ? '<span style="color: #22c55e;">🔥</span>' : ''}
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        container.innerHTML = html;
-    }
-    
-    function renderParlays() {
-        const container = document.getElementById('parlaysGrid');
-        if (!container) return;
-        
-        let html = '';
-        for (let p of PARLAYS) {
-            const colorClass = p.color === 'gold' ? 'parlay-gold' : (p.color === 'green' ? 'parlay-green' : (p.color === 'orange' ? 'parlay-orange' : 'parlay-purple'));
-            html += `
-                <div class="parlay-card ${colorClass}">
-                    <div style="font-weight: 900; text-align: center; margin-bottom: 0.5rem;">${p.nombre}</div>
-                    <div style="background: #22c55e; border-radius: 8px; padding: 0.3rem; text-align: center; color: black; font-weight: 900; margin-bottom: 0.5rem;">${p.odds}</div>
-                    <div style="text-align: center; color: #9ca3af; font-size: 0.7rem;">Prob: ${p.prob}% · Stake: ${p.stake}</div>
-                    ${p.picks.map(pick => `<div style="background: rgba(0,0,0,0.3); border-radius: 6px; padding: 0.2rem 0.5rem; margin: 0.3rem 0; font-size: 0.7rem;">${pick}</div>`).join('')}
-                    <p style="color: #9ca3af; font-size: 0.65rem; margin-top: 0.5rem;">${p.nota}</p>
-                </div>
-            `;
+        if (currentUser) {
+            userArea.innerHTML = `<div class="user-info">👤 ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn">Salir</button></div>`;
+            document.getElementById('logoutBtn')?.addEventListener('click', logout);
+            if (currentUser.isAdmin) adminPanel.classList.remove('hidden');
+            else adminPanel.classList.add('hidden');
+            if (recordContainer) recordContainer.innerHTML = `<div class="record-wins">📊 Premium Activo</div>`;
+        } else {
+            userArea.innerHTML = `<button id="showAuthBtn" class="btn">🔑 Iniciar sesión</button>`;
+            document.getElementById('showAuthBtn')?.addEventListener('click', () => document.getElementById('authModal').classList.remove('hidden'));
+            adminPanel.classList.add('hidden');
+            if (recordContainer) recordContainer.innerHTML = `<div class="record-wins">🔒 Inicia sesión</div>`;
         }
-        container.innerHTML = html;
     }
     
-    function renderReglas() {
-        const container = document.getElementById('reglasContainer');
-        if (!container) return;
-        
-        let html = `
-            <div style="background: rgba(17, 24, 39, 0.6); border-radius: 12px; overflow: hidden; margin-bottom: 1rem; border: 1px solid rgba(250, 204, 21, 0.3);">
-                <div style="background: rgba(250, 204, 21, 0.15); padding: 0.75rem 1rem; border-bottom: 1px solid rgba(250, 204, 21, 0.3);">
-                    <div style="font-weight: 900; color: #facc15;">⚙️ Sistema V4.5 — Reglas Activas</div>
-                    <div style="font-size: 0.65rem; color: #9ca3af;">Actualizadas post semana 1 (33G/16L = 67%)</div>
-                </div>
-                ${REGLAS.map((r, i) => `
-                    <div style="display: flex; gap: 0.75rem; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: ${i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent'};">
-                        <span style="color: #facc15; font-weight: 900; font-size: 1.1rem;">${r.num}</span>
-                        <div>
-                            <div style="font-weight: bold;">${r.titulo}</div>
-                            <div style="color: #9ca3af; font-size: 0.7rem;">${r.desc}</div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        container.innerHTML = html;
-    }
-    
-    function renderTracking() {
-        const container = document.getElementById('trackingContainer');
-        if (!container) return;
-        
-        let html = `
-            <div style="background: rgba(17, 24, 39, 0.6); border-radius: 12px; overflow: hidden;">
-                <div style="background: rgba(59, 130, 246, 0.25); padding: 0.75rem 1rem; border-bottom: 1px solid rgba(59, 130, 246, 0.3);">
-                    <div style="font-weight: 900;">🏟️ Tracking de Equipos</div>
-                </div>
-                ${TRACKING.map((t, i) => `
-                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); background: ${i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent'};">
-                        <div style="font-weight: 900; width: 50px; color: ${t.color === 'green' ? '#22c55e' : (t.color === 'yellow' ? '#facc15' : '#ef4444')};">${t.eq}</div>
-                        <span style="background: #374151; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.65rem;">${t.status}</span>
-                        <span style="color: #9ca3af; font-size: 0.7rem; flex: 1;">${t.note}</span>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        container.innerHTML = html;
-    }
-    
-    // ==================== TAB SWITCHING ====================
-    function initTabs() {
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = {
-            picks: document.getElementById('tab-picks'),
-            scorecard: document.getElementById('tab-scorecard'),
-            parlays: document.getElementById('tab-parlays'),
-            sistema: document.getElementById('tab-sistema'),
-        };
-        
-        tabs.forEach(tab => {
+    // ==================== EVENTOS ====================
+    function initEvents() {
+        document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-tab');
-                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                Object.values(contents).forEach(c => c.classList.add('hidden-tab'));
-                if (contents[target]) contents[target].classList.remove('hidden-tab');
+                currentSport = tab.getAttribute('data-sport');
+                renderGames();
             });
         });
-        
-        document.getElementById('viewScorecardBtn')?.addEventListener('click', () => {
-            document.querySelector('.tab-btn[data-tab="scorecard"]').click();
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentAdminSport = tab.getAttribute('data-admin');
+                let data = currentAdminSport === 'mlb' ? mlbGames : (currentAdminSport === 'nba' ? nbaGames : (currentAdminSport === 'nhl' ? nhlGames : soccerGames));
+                document.getElementById('adminJsonData').value = JSON.stringify(data, null, 2);
+            });
+        });
+        document.getElementById('saveDataBtn')?.addEventListener('click', updateGamesFromAdmin);
+        document.getElementById('resetDataBtn')?.addEventListener('click', resetToDefault);
+        document.getElementById('doLoginBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            if (login(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); }
+            else alert("Credenciales incorrectas");
+        });
+        document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            if (!email || !pass) { alert("Completa email y contraseña"); return; }
+            if (register(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); alert("Registro exitoso"); }
+            else alert("El email ya está registrado");
         });
     }
     
-    // ==================== UPDATE HEADER ====================
-    function updateHeader() {
-        const recordWinsEl = document.getElementById('recordWins');
-        const recordPctEl = document.getElementById('recordPct');
-        if (recordWinsEl) recordWinsEl.innerHTML = `${totalWins}G / ${totalLosses}P`;
-        if (recordPctEl) recordPctEl.innerHTML = `${overallPct}%`;
-    }
-    
-    // ==================== INIT ====================
-    function init() {
-        renderGames();
-        renderScorecard();
-        renderLecciones();
-        renderAcumulado();
-        renderParlays();
-        renderReglas();
-        renderTracking();
-        initTabs();
-        updateHeader();
-    }
-    
-    init();
+    // ==================== INICIO ====================
+    loadUsers(); loadLocalData();
+    const savedUser = localStorage.getItem('thia_current_user');
+    if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
+    initEvents(); initGoogleSignIn(); updateUserUI(); renderGames();
+    setTimeout(() => { if (document.getElementById('adminJsonData')) document.getElementById('adminJsonData').value = JSON.stringify(mlbGames, null, 2); }, 100);
 </script>
 </body>
 </html>
