@@ -351,15 +351,111 @@
         { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM", spAway: "R.Lopez (1.50)", spHome: "R.Nelson (7.71)", prediction: "ATL ML -118 • UNDER 8.5", star: false },
         { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM", spAway: "N.McLean (3.60)", spHome: "T.Mahle (4.50)", prediction: "SF ML -118 • UNDER 8.0", star: false }
     ];
-    const DEFAULT_NBA = [
-        { away: "Detroit Pistons", home: "Minnesota T-Wolves", time: "7:00 PM", prediction: "⭐ UNDER 224.5 • DET ML -155", star: true },
-        { away: "Golden State Warriors", home: "Cleveland Cavaliers", time: "10:00 PM", prediction: "⭐ OVER 220.5 • GSW +11.5", star: true },
-        { away: "LA Clippers", home: "San Antonio Spurs", time: "10:30 PM", prediction: "⭐ UNDER 229.5 • SAS ML -105", star: true }
-    ];
+   
     const DEFAULT_NHL = [
         { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
         { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM", prediction: "⭐ MTL ML (+108)", star: true }
-    ];
+    ];const DEFAULT_NBA = [
+    // G1 - CHA vs IND  7:00 PM ET
+    {
+        id: "cha_ind", away: "Indiana Pacers", away_rec: "16-57", home: "Charlotte Hornets", home_rec: "37-33",
+        time: "7:00 PM ET", spread: "CHA -17.0", total: "237.0",
+        prediction: "⭐ UNDER 237.0 • ALT UNDER 239.0 • SKIP ML -1300",
+        injuries: "IND: Haliburton OUT (temporada), Turner OUT • CHA: LaMelo ACTIVO ✅, PJ Hall OUT",
+        star: false, prob_h: 91, prob_a: 9,
+        proj_home: 128, proj_away: 106,
+        analysis: "CHA domina en casa. IND sin Haliburton ni Turner = sin ataque ni defensa. UNDER 237 (MC 234).",
+        pick_ml: "SKIP -1300", pick_ou: "UNDER 237", alt_ou: "UNDER 239"
+    },
+    // G2 - PHI vs MIN  7:00 PM ET  ⭐ PICK ESTRELLA
+    {
+        id: "phi_min", away: "Minnesota T-Wolves", away_rec: "46-30", home: "Philadelphia 76ers", home_rec: "40-36",
+        time: "7:00 PM ET", spread: "MIN -2.0", total: "224.5",
+        prediction: "⭐ MIN ML -105 • ALT UNDER 226.5 • Embiid OUT, Edwards Q",
+        injuries: "PHI: Embiid OUT (illness), Maxey Q • MIN: McDaniels OUT, Edwards Q (rodilla)",
+        star: true, prob_h: 45, prob_a: 55,
+        proj_home: 110, proj_away: 112,
+        analysis: "BOMBA: PHI sin Embiid. MIN con KAT+Gobert. Si Edwards juega MIN es favorito real. UNDER 224.5 (MC 222).",
+        pick_ml: "MIN ML -105", pick_ou: "UNDER 224.5", alt_ou: "UNDER 226.5"
+    },
+    // G3 - BKN vs ATL  7:30 PM ET
+    {
+        id: "bkn_atl", away: "Atlanta Hawks", away_rec: "43-34", home: "Brooklyn Nets", home_rec: "17-57",
+        time: "7:30 PM ET", spread: "ATL -16.0", total: "234.5",
+        prediction: "ALT UNDER 236.5 • SKIP ML -1000 • Trae Young ACTIVO",
+        injuries: "ATL: Jalen Johnson OUT, Trae ✅ • BKN: Wolf OUT, Claxton probable",
+        star: false, prob_h: 8, prob_a: 92,
+        proj_home: 107, proj_away: 125,
+        analysis: "ATL road favorito. MC 107-125=232 UNDER 234.5. ALT UNDER 236.5 más seguro.",
+        pick_ml: "SKIP -1000", pick_ou: "UNDER 234.5", alt_ou: "UNDER 236.5"
+    },
+    // G4 - NYK vs CHI  7:30 PM ET
+    {
+        id: "nyk_chi", away: "Chicago Bulls", away_rec: "29-46", home: "New York Knicks", home_rec: "47-26",
+        time: "7:30 PM ET", spread: "NYK -16.5", total: "228.5",
+        prediction: "ALT UNDER 230.5 • SKIP ML -1400 • Brunson+KAT vs CHI depleted",
+        injuries: "CHI: Vucevic OUT, LaVine OUT • NYK: Robinson OUT, Brunson ACTIVO ✅",
+        star: false, prob_h: 92, prob_a: 8,
+        proj_home: 122, proj_away: 105,
+        analysis: "NYK en casa vs CHI sin LaVine ni Vucevic. MC 227 UNDER 228.5. ALT UNDER 230.5.",
+        pick_ml: "SKIP -1400", pick_ou: "UNDER 228.5", alt_ou: "UNDER 230.5"
+    },
+    // G5 - MEM vs TOR  8:00 PM ET
+    {
+        id: "mem_tor", away: "Toronto Raptors", away_rec: "41-32", home: "Memphis Grizzlies", home_rec: "26-50",
+        time: "8:00 PM ET", spread: "TOR -14.0", total: "226.5",
+        prediction: "ALT UNDER 228.5 • SKIP ML -650 • Barnes Q",
+        injuries: "TOR: Barnes Q (shoulder), Barrett ✅ • MEM: Morant OUT (temporada), Clarke OUT",
+        star: false, prob_h: 12, prob_a: 88,
+        proj_home: 104, proj_away: 118,
+        analysis: "TOR road favorito. MC 222 UNDER 226.5. Si Barnes juega el UNDER es más seguro.",
+        pick_ml: "SKIP -650", pick_ou: "UNDER 226.5", alt_ou: "UNDER 228.5"
+    },
+    // G6 - MIL vs BOS  8:00 PM ET  ⭐ PICK ESTRELLA
+    {
+        id: "mil_bos", away: "Boston Celtics", away_rec: "50-24", home: "Milwaukee Bucks", home_rec: "27-44",
+        time: "8:00 PM ET", spread: "BOS -15.5", total: "227.5",
+        prediction: "⭐ ALT UNDER 229.5 • SKIP ML -850 • Tatum Q, Giannis OUT",
+        injuries: "MIL: Giannis OUT, Khris OUT, Brook OUT • BOS: Tatum Q, Brown Q, Porzingis OUT",
+        star: true, prob_h: 7, prob_a: 93,
+        proj_home: 107, proj_away: 119,
+        analysis: "PICK ESTRELLA: BOS road vs MIL sin Giannis. MC 226 UNDER 227.5. ALT UNDER 229.5.",
+        pick_ml: "SKIP -850", pick_ou: "UNDER 227.5", alt_ou: "UNDER 229.5"
+    },
+    // G7 - HOU vs UTA  8:00 PM ET
+    {
+        id: "hou_uta", away: "Utah Jazz", away_rec: "21-55", home: "Houston Rockets", home_rec: "44-28",
+        time: "8:00 PM ET", spread: "HOU -18.5", total: "232.5",
+        prediction: "ALT UNDER 234.5 • SKIP ML -1800 • HOU home dominante",
+        injuries: "UTA: Keyonte OUT, Kessler OUT, Markkanen ✅ • HOU: Sengun probable",
+        star: false, prob_h: 92, prob_a: 8,
+        proj_home: 126, proj_away: 104,
+        analysis: "HOU en casa vs UTA depleted. MC 230 UNDER 232.5. ALT UNDER 234.5.",
+        pick_ml: "SKIP -1800", pick_ou: "UNDER 232.5", alt_ou: "UNDER 234.5"
+    },
+    // G8 - DAL vs ORL  8:30 PM ET  ⭐ PICK ESTRELLA
+    {
+        id: "dal_orl", away: "Orlando Magic", away_rec: "40-33", home: "Dallas Mavericks", home_rec: "24-52",
+        time: "8:30 PM ET", spread: "ORL -7.0", total: "220.5",
+        prediction: "⭐ ORL ML -310 • ALT UNDER 222.5 • Luka OUT (R63)",
+        injuries: "DAL: Luka Doncic OUT (hamstring) 🚨, Kleber OUT • ORL: Franz Wagner Q, Banchero ✅",
+        star: true, prob_h: 30, prob_a: 70,
+        proj_home: 105, proj_away: 114,
+        analysis: "⭐ BOMBA: Luka OUT (salió anoche). ORL con Banchero+Suggs en modo playoff. UNDER 220.5.",
+        pick_ml: "ORL ML -310", pick_ou: "UNDER 220.5", alt_ou: "UNDER 222.5"
+    },
+    // G9 - SAC vs NOP  10:00 PM ET  ⭐ PICK ESTRELLA
+    {
+        id: "sac_nop", away: "New Orleans Pelicans", away_rec: "23-52", home: "Sacramento Kings", home_rec: "19-56",
+        time: "10:00 PM ET", spread: "NOP -5.5", total: "222.0",
+        prediction: "⭐ NOP ML -215 • ALT OVER 220 • SAC sin 3 starters",
+        injuries: "SAC: Monk OUT, Murray OUT, Westbrook OUT • NOP: Dejounte OUT, Murphy III Q",
+        star: true, prob_h: 34, prob_a: 66,
+        proj_home: 108, proj_away: 116,
+        analysis: "SAC sin 3 starters (Monk, Murray, Westbrook). NOP con Zion+Ingram+McCollum. OVER 222 (MC 224).",
+        pick_ml: "NOP ML -215", pick_ou: "OVER 222", alt_ou: "OVER 220"
+    }
+];
     const DEFAULT_SOCCER = [
         { away: "Gil Vicente", home: "AFS Viseu", time: "12:30", prediction: "⚠ Over 1.5 goles", star: false },
         { away: "Tondela", home: "Vitória Guimarães", time: "14:30", prediction: "⭐ Vitória 1X", star: true },
