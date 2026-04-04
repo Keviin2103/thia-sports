@@ -405,33 +405,33 @@
     </div>
 </div>
 
-<div class="footer">ThIA Sports v3.17 · Reglas activas: v3.9, v3.12, v3.18, v3.19, v3.20, v3.21 · Datos actualizados 04/04/2026</div>
+<div class="footer">ThIA Sports v3.17 · Reglas activas: v3.9, v3.12, v3.18, v3.19, v3.20, v3.21 · Datos actualizados 04/04/2026 · Horas Venezuela (VEN)</div>
 
 <script>
     // ==================== DATOS DE PICKS ====================
     // MLB (15 juegos - resumido)
     const DEFAULT_MLB = [
-        { id: "lad_wsh", away: "LAD", home: "WSH", time: "1:05 PM", prediction: "LAD ML -145 • UNDER 8.5", star: false },
-        { id: "stl_det", away: "STL", home: "DET", time: "1:10 PM", prediction: "DET ML -184 • UNDER 7.5", star: true },
-        { id: "mia_nyy", away: "MIA", home: "NYY", time: "1:35 PM", prediction: "NYY ML -145 • OVER 8.5", star: false },
-        { id: "sd_bos", away: "SD", home: "BOS", time: "2:10 PM", prediction: "BOS ML -118 • UNDER 8.5", star: true },
-        { id: "tor_cws", away: "TOR", home: "CWS", time: "2:10 PM", prediction: "TOR ML -210 • OVER 7.5", star: true },
-        { id: "cin_tex", away: "CIN", home: "TEX", time: "4:05 PM", prediction: "TEX ML -118 • UNDER 8.5", star: false },
-        { id: "tb_min", away: "TB", home: "MIN", time: "4:10 PM", prediction: "TB ML -112 • UNDER 7.5", star: false },
-        { id: "phi_col", away: "PHI", home: "COL", time: "4:10 PM", prediction: "OVER 9.5 • COORS", star: true },
-        { id: "chc_cle", away: "CHC", home: "CLE", time: "4:10 PM", prediction: "CLE ML +100 • UNDER 7.5", star: false },
-        { id: "bal_pit", away: "BAL", home: "PIT", time: "4:12 PM", prediction: "⭐ NRFI • UNDER 8.5", star: true },
-        { id: "mil_kc", away: "MIL", home: "KC", time: "7:45 PM", prediction: "MIL ML -132 • UNDER 8.0", star: true },
-        { id: "sea_laa", away: "SEA", home: "LAA", time: "9:38 PM", prediction: "SEA ML -132 • UNDER 8.0", star: true },
-        { id: "hou_ath", away: "HOU", home: "ATH", time: "9:40 PM", prediction: "HOU ML -132 • UNDER 8.5", star: false },
-        { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM", prediction: "ATL ML -118 • UNDER 8.5", star: false },
-        { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM", prediction: "SF ML -118 • UNDER 8.0", star: false }
+        { id: "lad_wsh", away: "LAD", home: "WSH", time: "1:05 PM VEN", prediction: "LAD ML -145 • UNDER 8.5", star: false },
+        { id: "stl_det", away: "STL", home: "DET", time: "1:10 PM VEN", prediction: "DET ML -184 • UNDER 7.5", star: true },
+        { id: "mia_nyy", away: "MIA", home: "NYY", time: "1:35 PM VEN", prediction: "NYY ML -145 • OVER 8.5", star: false },
+        { id: "sd_bos", away: "SD", home: "BOS", time: "2:10 PM VEN", prediction: "BOS ML -118 • UNDER 8.5", star: true },
+        { id: "tor_cws", away: "TOR", home: "CWS", time: "2:10 PM VEN", prediction: "TOR ML -210 • OVER 7.5", star: true },
+        { id: "cin_tex", away: "CIN", home: "TEX", time: "4:05 PM VEN", prediction: "TEX ML -118 • UNDER 8.5", star: false },
+        { id: "tb_min", away: "TB", home: "MIN", time: "4:10 PM VEN", prediction: "TB ML -112 • UNDER 7.5", star: false },
+        { id: "phi_col", away: "PHI", home: "COL", time: "4:10 PM VEN", prediction: "OVER 9.5 • COORS", star: true },
+        { id: "chc_cle", away: "CHC", home: "CLE", time: "4:10 PM VEN", prediction: "CLE ML +100 • UNDER 7.5", star: false },
+        { id: "bal_pit", away: "BAL", home: "PIT", time: "4:12 PM VEN", prediction: "⭐ NRFI • UNDER 8.5", star: true },
+        { id: "mil_kc", away: "MIL", home: "KC", time: "7:45 PM VEN", prediction: "MIL ML -132 • UNDER 8.0", star: true },
+        { id: "sea_laa", away: "SEA", home: "LAA", time: "9:38 PM VEN", prediction: "SEA ML -132 • UNDER 8.0", star: true },
+        { id: "hou_ath", away: "HOU", home: "ATH", time: "9:40 PM VEN", prediction: "HOU ML -132 • UNDER 8.5", star: false },
+        { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM VEN", prediction: "ATL ML -118 • UNDER 8.5", star: false },
+        { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM VEN", prediction: "SF ML -118 • UNDER 8.0", star: false }
     ];
 
-    // NBA (3 juegos con métricas completas, props y picks estrella)
+    // NBA (3 juegos con métricas completas, props y picks estrella) - HORAS VENEZUELA
     const DEFAULT_NBA = [
         {
-            id: "mia_was", away: "Washington Wizards", home: "Miami Heat", time: "3:00 PM ET", league: "NBA",
+            id: "mia_was", away: "Washington Wizards", home: "Miami Heat", time: "3:00 PM VEN", league: "NBA",
             prob_h: 91, prob_d: 5, prob_a: 4,
             proj_home: 115, proj_away: 100, total_line: 222.0,
             prediction: "⭐ ALT UNDER 224 • MIA -15.5 ALT • SKIP ML -1300",
@@ -441,7 +441,7 @@
             analysis: "MIA en casa -1300 vs WAS sin sus 3 mejores jugadores. MC 115-100=215 UNDER 222 Δ-7. ALT UNDER 224 y RL -15.5.",
         },
         {
-            id: "den_sas", away: "San Antonio Spurs", home: "Denver Nuggets", time: "3:00 PM ET", league: "NBA",
+            id: "den_sas", away: "San Antonio Spurs", home: "Denver Nuggets", time: "3:00 PM VEN", league: "NBA",
             prob_h: 46, prob_d: 5, prob_a: 49,
             proj_home: 120, proj_away: 118, total_line: 234.0,
             prediction: "⭐ OVER 231.5 ★★ • SAS ML -130 • Jokic PRA OV 47.5 • Wemby BLK OV 2.5",
@@ -454,7 +454,7 @@
             analysis: "Jokic vs Wemby = OVER obligatorio. SAS a 2.5 juegos del #1 Oeste, DEN busca semilla. MC 238 OVER 234 Δ+4. ALT OVER 231.5. SAS ML -130 valor.",
         },
         {
-            id: "phi_det", away: "Detroit Pistons", home: "Philadelphia 76ers", time: "7:00 PM ET", league: "NBA",
+            id: "phi_det", away: "Detroit Pistons", home: "Philadelphia 76ers", time: "7:00 PM VEN", league: "NBA",
             prob_h: 46, prob_d: 5, prob_a: 49,
             proj_home: 113, proj_away: 115, total_line: 226.5,
             prediction: "⭐ DET ML -135 (si Embiid OUT) • ALT OVER 224.5 • Maxey Pts OV 26.5",
@@ -467,11 +467,11 @@
 
     // NHL (2 juegos)
     const DEFAULT_NHL = [
-        { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
-        { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM", prediction: "⭐ MTL ML (+108)", star: true }
+        { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM VEN", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
+        { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM VEN", prediction: "⭐ MTL ML (+108)", star: true }
     ];
 
-    // Fútbol (20+ partidos con métricas completas)
+    // Fútbol (20+ partidos con métricas completas) - ya en hora VEN
     const DEFAULT_SOCCER = [
         { id: "freiburg_bayern", away: "Freiburg", home: "Bayern Munich", time: "07:30 VEN", league: "GER", prob_h: 20, prob_d: 26, prob_a: 54, goals_away: 38, goals_home: 97, form_away: "W D L W D", form_home: "W W W D W", prediction: "⭐ Over 2.5 goles ★★ (Bayern 100% score, Freiburg 9 GA consecutivos)", star: true, xg_away: 1.2, xg_home: 2.8 },
         { id: "leverkusen_wolfsburg", away: "Wolfsburg", home: "Bayer Leverkusen", time: "07:30 VEN", league: "GER", prob_h: 65, prob_d: 21, prob_a: 14, goals_away: 31, goals_home: 62, form_away: "D L D L W", form_home: "W W L W W", prediction: "⭐ Leverkusen 1X ★ (65% · 1.62 EV+11%)", star: true, xg_away: 1.05, xg_home: 1.85 },
@@ -500,14 +500,12 @@
     ];
 
     // ==================== PARLAYS ====================
-    // Soccer parlays (from previous data)
     const SOCCER_PARLAYS = [
         { nombre: "PARLAY SEGURO 🛡️", tipo: "gold", picks: ["Leverkusen 1X (1.62)", "Stuttgart 1X (1.60)", "Lazio WIN (1.84)", "Cruz Azul 1X (1.67)"], odds: "~7.97", stake: "2%", prob: "~35%", desc: "Anclas puras de Alemania, Italia y México. Lazio EV+16%." },
         { nombre: "PARLAY MIXTO (RECOMENDADO) ⚡", tipo: "orange", picks: ["Leverkusen 1X (1.62)", "Stuttgart 1X (1.60)", "Lazio WIN (1.84)", "BTTS Atlético-Barça (1.72)", "Cruz Azul 1X (1.67)"], odds: "~13.71", stake: "1%", prob: "~27%", desc: "El mejor equilibrio entre riesgo y valor. 5 ligas distintas." },
         { nombre: "PARLAY MILLONARIO 💰", tipo: "purple", picks: ["Over 2.5 Bayern (1.68)", "Leverkusen 1X (1.62)", "Chelsea Over 3.5 (1.60)", "Betis WIN (1.78)", "Tarjetas Lille-Lens (1.65)", "Lazio WIN (1.84)", "América X2 (1.88)"], odds: "~21.8", stake: "0.5%", prob: "~11%", desc: "7 picks estrella, máxima varianza. Stake mínimo." }
     ];
 
-    // NBA parlays (from the new NBA module)
     const NBA_PARLAYS = [
         { nombre: "PARLAY SEGURO NBA 🛡️", tipo: "green", picks: ["DEN/SAS ★ OVER 231.5 (1.83)", "SAS ML -130 (1.77)", "Jokic PRA OV 47.5 (1.83)", "Wemby BLK OV 2.5 (1.87)"], odds: "~12.0x", stake: "3-4u", prob: "~37%", desc: "OVER bomba Jokic+Wemby + SAS valor ML + 2 props élite." },
         { nombre: "PARLAY MIXTO NBA ⚡", tipo: "orange", picks: ["DEN/SAS ★ OVER 231.5 (1.83)", "SAS ML -130 (1.77)", "Jokic PRA OV 47.5 (1.83)", "Wemby BLK OV 2.5 (1.87)"], odds: "~14.0x", stake: "1-2u", prob: "~35%", desc: "El parlay más limpio: OVER + SAS + 2 props élite." },
@@ -570,7 +568,6 @@
         let html = '';
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
-            // Fútbol
             if (currentSport === 'soccer' && g.prob_h !== undefined) {
                 const totalProb = g.prob_h + g.prob_d + g.prob_a;
                 html += `<div class="game-card ${starClass}">
@@ -597,7 +594,6 @@
                     <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${g.prediction}` : '🔒 Inicia sesión para ver la predicción'}</div>
                 </div>`;
             } 
-            // NBA con métricas y props
             else if (currentSport === 'nba' && g.prob_h !== undefined) {
                 const totalProb = g.prob_h + g.prob_d + g.prob_a;
                 html += `<div class="game-card ${starClass}">
@@ -626,7 +622,6 @@
                     <div class="analysis" style="font-size:0.7rem; margin-top:0.5rem; color:#9ca3af;">📊 ${g.analysis}</div>
                 </div>`;
             }
-            // MLB y NHL simplificado
             else {
                 html += `<div class="game-card ${starClass}">
                     <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>⏰ ${g.time}</span></div>
@@ -639,7 +634,6 @@
     }
 
     function renderParlays() {
-        // Render soccer parlays
         const soccerContainer = document.getElementById('soccerParlaysContainer');
         let soccerHtml = '';
         for (let p of SOCCER_PARLAYS) {
@@ -653,7 +647,6 @@
         }
         soccerContainer.innerHTML = soccerHtml;
 
-        // Render NBA parlays
         const nbaContainer = document.getElementById('nbaParlaysContainer');
         let nbaHtml = '';
         for (let p of NBA_PARLAYS) {
@@ -725,7 +718,6 @@
     }
 
     function initEvents() {
-        // Main tabs
         document.querySelectorAll('.main-tab').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
@@ -734,7 +726,6 @@
                 renderCurrentView();
             });
         });
-        // Sport tabs (picks)
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -743,7 +734,6 @@
                 if (currentMainTab === 'picks') renderGames();
             });
         });
-        // Result sport tabs
         document.querySelectorAll('.result-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.result-tab').forEach(t => t.classList.remove('active'));
@@ -752,20 +742,17 @@
                 if (currentMainTab === 'resultados') renderResults();
             });
         });
-        // Date picker
         const datePicker = document.getElementById('resultDatePicker');
         if (datePicker) {
             datePicker.value = currentResultDate;
             datePicker.addEventListener('change', (e) => { currentResultDate = e.target.value; if (currentMainTab === 'resultados') renderResults(); });
         }
-        // Restaurar picks
         document.getElementById('resetPicksBtn')?.addEventListener('click', () => {
             if (confirm("Restaurar picks por defecto?")) {
                 mlbGames = [...DEFAULT_MLB]; nbaGames = [...DEFAULT_NBA]; nhlGames = [...DEFAULT_NHL]; soccerGames = [...DEFAULT_SOCCER];
                 renderGames(); alert("Picks restaurados");
             }
         });
-        // Login/register
         document.getElementById('doLoginBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
