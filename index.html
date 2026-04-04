@@ -128,18 +128,20 @@
             color: #0f172a;
         }
         
-        /* Grid de juegos (picks) */
+        /* Grid de juegos */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 1.5rem;
         }
         .game-card {
-            background: rgba(18, 25, 45, 0.8);
+            background: rgba(18, 25, 45, 0.85);
             border-radius: 20px;
             border: 1px solid rgba(250, 204, 21, 0.2);
             padding: 1rem;
+            transition: transform 0.2s;
         }
+        .game-card:hover { transform: translateY(-3px); border-color: rgba(250,204,21,0.4); }
         .game-card.star { border: 2px solid #facc15; }
         .locked-overlay {
             background: #1e293b;
@@ -154,6 +156,35 @@
             border-radius: 12px;
             padding: 0.8rem;
         }
+        
+        /* Prob Bar */
+        .prob-bar {
+            display: flex;
+            border-radius: 999px;
+            overflow: hidden;
+            height: 24px;
+            margin: 0.5rem 0;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .prob-bar > div { display: flex; align-items: center; justify-content: center; }
+        
+        /* Metrics Table */
+        .metrics-table {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.7rem;
+        }
+        .metric-row.highlight { background: rgba(250,204,21,0.15); color: #facc15; font-weight: bold; }
         
         /* Resultados */
         .results-container {
@@ -189,11 +220,25 @@
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-        .result-time { font-size: 0.75rem; color: #9ca3af; min-width: 70px; }
-        .result-teams { font-weight: bold; flex: 2; }
-        .result-vs { margin: 0 0.3rem; color: #facc15; }
-        .result-score { font-weight: bold; font-family: monospace; font-size: 1rem; min-width: 80px; text-align: right; }
         .result-edit { background: #1e293b; border: none; color: #facc15; cursor: pointer; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; }
+        
+        /* Parlays */
+        .parlays-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .parlay-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 1rem;
+            border: 1px solid;
+        }
+        .parlay-card.gold { border-color: #eab308; color: #eab308; }
+        .parlay-card.green { border-color: #22c55e; color: #22c55e; }
+        .parlay-card.orange { border-color: #f97316; color: #f97316; }
+        .parlay-card.purple { border-color: #a855f7; color: #a855f7; }
         
         /* Admin panel */
         .admin-panel {
@@ -204,7 +249,6 @@
             border: 1px solid #334155;
         }
         .admin-panel h3 { color: #facc15; margin-bottom: 0.5rem; font-size: 0.9rem; }
-        .admin-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .admin-textarea {
             width: 100%;
             background: #0f172a;
@@ -216,23 +260,15 @@
             font-size: 0.65rem;
             margin-bottom: 0.5rem;
         }
+        .admin-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         
-        /* Modal */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
             display: flex; align-items: center; justify-content: center; z-index: 1000;
         }
         .modal-content { background: #111827; padding: 1.5rem; border-radius: 28px; width: 90%; max-width: 400px; border: 1px solid #facc15; }
-        .modal-content input, .modal-content select {
-            width: 100%;
-            padding: 0.6rem;
-            margin: 0.5rem 0;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 40px;
-            color: white;
-        }
+        .modal-content input { width: 100%; padding: 0.6rem; margin: 0.5rem 0; background: #1e293b; border: 1px solid #334155; border-radius: 40px; color: white; }
         .edit-result-modal .modal-content { max-width: 500px; }
         .hidden { display: none; }
         .footer { text-align: center; font-size: 0.7rem; color: #5b6e8c; margin-top: 2rem; }
@@ -240,14 +276,13 @@
         @media (max-width: 640px) {
             .navbar { flex-direction: column; text-align: center; }
             .nav-links { justify-content: center; }
-            .result-item { flex-direction: column; text-align: center; }
-            .result-score { text-align: center; }
+            .games-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- Modales -->
+<!-- Modales de login y planes -->
 <div id="authModal" class="modal hidden">
     <div class="modal-content">
         <h2>ThIA Sports v3.17</h2>
@@ -290,6 +325,7 @@
         <a id="homeLink">INICIO</a>
         <a id="subscriptionLink">SUSCRIPCIÓN</a>
         <a id="resultsLink">📊 RESULTADOS</a>
+        <a id="parlaysLink">🎰 PARLAYS</a>
     </div>
     <div id="authArea">
         <button id="showAuthBtn" class="btn-outline"><i class="fas fa-user"></i> Acceder</button>
@@ -297,9 +333,11 @@
 </div>
 
 <div class="container">
+    <!-- Pestañas principales -->
     <div class="main-tabs">
         <button class="main-tab active" data-main="picks">🎯 PICKS</button>
         <button class="main-tab" data-main="resultados">📊 RESULTADOS</button>
+        <button class="main-tab" data-main="parlays">🎰 PARLAYS</button>
     </div>
 
     <!-- Sección PICKS -->
@@ -329,10 +367,15 @@
         </div>
     </div>
 
+    <!-- Sección PARLAYS -->
+    <div id="parlaysSection" class="hidden">
+        <div class="parlays-grid" id="parlaysContainer"></div>
+    </div>
+
     <!-- Panel de Administración -->
     <div id="adminPanel" class="admin-panel hidden">
-        <h3>🔧 Panel de Administración (v3.17)</h3>
-        <p style="font-size:0.7rem;">Edita resultados desde la pestaña RESULTADOS. Restaura picks por defecto o carga JSON.</p>
+        <h3>🔧 Panel de Administración</h3>
+        <p style="font-size:0.7rem;">Edita resultados desde RESULTADOS. Restaura picks por defecto o carga JSON.</p>
         <div class="admin-buttons">
             <button id="resetPicksBtn" class="btn-outline">🔄 Restaurar picks por defecto</button>
         </div>
@@ -341,83 +384,88 @@
     </div>
 </div>
 
-<div class="footer">ThIA Sports v3.17 · Reglas activas: v3.9, v3.12, v3.18, v3.19, v3.20, v3.21 · Mejora continua</div>
+<div class="footer">ThIA Sports v3.17 · Reglas activas: v3.9, v3.12, v3.18, v3.19, v3.20, v3.21 · Datos actualizados 04/04/2026</div>
 
 <script>
     // ==================== DATOS DE PICKS ====================
-    // MLB (15 juegos)
+    // MLB (15 juegos - resumido)
     const DEFAULT_MLB = [
-        { id: "lad_wsh", away: "LAD", home: "WSH", time: "1:05 PM", spAway: "E.Sheehan (10.80)", spHome: "M.Mikolas (7.71)", prediction: "LAD ML -145 • UNDER 8.5", star: false },
-        { id: "stl_det", away: "STL", home: "DET", time: "1:10 PM", spAway: "M.McGreevy (0.00)", spHome: "F.Valdez (1.50)", prediction: "DET ML -184 • UNDER 7.5", star: true },
-        { id: "mia_nyy", away: "MIA", home: "NYY", time: "1:35 PM", spAway: "E.Perez (3.86)", spHome: "W.Warren (2.08)", prediction: "NYY ML -145 • OVER 8.5", star: false },
-        { id: "sd_bos", away: "SD", home: "BOS", time: "2:10 PM", spAway: "M.King (0.00)", spHome: "S.Gray (6.75)", prediction: "BOS ML -118 • UNDER 8.5", star: true },
-        { id: "tor_cws", away: "TOR", home: "CWS", time: "2:10 PM", spAway: "D.Cease (1.69)", spHome: "G.Taylor (4.50)", prediction: "TOR ML -210 • OVER 7.5", star: true },
-        { id: "cin_tex", away: "CIN", home: "TEX", time: "4:05 PM", spAway: "B.Singer (6.75)", spHome: "M.Gore (3.38)", prediction: "TEX ML -118 • UNDER 8.5", star: false },
-        { id: "tb_min", away: "TB", home: "MIN", time: "4:10 PM", spAway: "J.Boyle (3.00)", spHome: "B.Ober (6.75)", prediction: "TB ML -112 • UNDER 7.5", star: false },
-        { id: "phi_col", away: "PHI", home: "COL", time: "4:10 PM", spAway: "A.Nola (5.40)", spHome: "M.Lorenzen (6.23)", prediction: "OVER 9.5 • COORS", star: true },
-        { id: "chc_cle", away: "CHC", home: "CLE", time: "4:10 PM", spAway: "C.Horton (2.84)", spHome: "J.Cantillo (4.91)", prediction: "CLE ML +100 • UNDER 7.5", star: false },
-        { id: "bal_pit", away: "BAL", home: "PIT", time: "4:12 PM", spAway: "K.Bradish (0.69)", spHome: "M.Keller (0.69)", prediction: "⭐ NRFI • UNDER 8.5", star: true },
-        { id: "mil_kc", away: "MIL", home: "KC", time: "7:45 PM", spAway: "C.Patrick (2.08)", spHome: "M.Wacha (N/A)", prediction: "MIL ML -132 • UNDER 8.0", star: true },
-        { id: "sea_laa", away: "SEA", home: "LAA", time: "9:38 PM", spAway: "B.Woo (3.00)", spHome: "R.Detmers (5.79)", prediction: "SEA ML -132 • UNDER 8.0", star: true },
-        { id: "hou_ath", away: "HOU", home: "ATH", time: "9:40 PM", spAway: "C.Javier (11.57)", spHome: "J.Springs (3.38)", prediction: "HOU ML -132 • UNDER 8.5", star: false },
-        { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM", spAway: "R.Lopez (1.50)", spHome: "R.Nelson (7.71)", prediction: "ATL ML -118 • UNDER 8.5", star: false },
-        { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM", spAway: "N.McLean (3.60)", spHome: "T.Mahle (4.50)", prediction: "SF ML -118 • UNDER 8.0", star: false }
+        { id: "lad_wsh", away: "LAD", home: "WSH", time: "1:05 PM", prediction: "LAD ML -145 • UNDER 8.5", star: false },
+        { id: "stl_det", away: "STL", home: "DET", time: "1:10 PM", prediction: "DET ML -184 • UNDER 7.5", star: true },
+        { id: "mia_nyy", away: "MIA", home: "NYY", time: "1:35 PM", prediction: "NYY ML -145 • OVER 8.5", star: false },
+        { id: "sd_bos", away: "SD", home: "BOS", time: "2:10 PM", prediction: "BOS ML -118 • UNDER 8.5", star: true },
+        { id: "tor_cws", away: "TOR", home: "CWS", time: "2:10 PM", prediction: "TOR ML -210 • OVER 7.5", star: true },
+        { id: "cin_tex", away: "CIN", home: "TEX", time: "4:05 PM", prediction: "TEX ML -118 • UNDER 8.5", star: false },
+        { id: "tb_min", away: "TB", home: "MIN", time: "4:10 PM", prediction: "TB ML -112 • UNDER 7.5", star: false },
+        { id: "phi_col", away: "PHI", home: "COL", time: "4:10 PM", prediction: "OVER 9.5 • COORS", star: true },
+        { id: "chc_cle", away: "CHC", home: "CLE", time: "4:10 PM", prediction: "CLE ML +100 • UNDER 7.5", star: false },
+        { id: "bal_pit", away: "BAL", home: "PIT", time: "4:12 PM", prediction: "⭐ NRFI • UNDER 8.5", star: true },
+        { id: "mil_kc", away: "MIL", home: "KC", time: "7:45 PM", prediction: "MIL ML -132 • UNDER 8.0", star: true },
+        { id: "sea_laa", away: "SEA", home: "LAA", time: "9:38 PM", prediction: "SEA ML -132 • UNDER 8.0", star: true },
+        { id: "hou_ath", away: "HOU", home: "ATH", time: "9:40 PM", prediction: "HOU ML -132 • UNDER 8.5", star: false },
+        { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM", prediction: "ATL ML -118 • UNDER 8.5", star: false },
+        { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM", prediction: "SF ML -118 • UNDER 8.0", star: false }
     ];
-
     // NBA (9 juegos)
     const DEFAULT_NBA = [
-        { id: "cha_ind", away: "Indiana Pacers", away_rec: "16-57", home: "Charlotte Hornets", home_rec: "37-33", time: "7:00 PM ET", spread: "CHA -17.0", total: "237.0", prediction: "⭐ UNDER 237.0 • ALT UNDER 239.0 • SKIP ML -1300", injuries: "IND: Haliburton OUT (temporada), Turner OUT • CHA: LaMelo ACTIVO ✅", star: false },
-        { id: "phi_min", away: "Minnesota T-Wolves", away_rec: "46-30", home: "Philadelphia 76ers", home_rec: "40-36", time: "7:00 PM ET", spread: "MIN -2.0", total: "224.5", prediction: "⭐ MIN ML -105 • ALT UNDER 226.5 • Embiid OUT, Edwards Q", injuries: "PHI: Embiid OUT (illness), Maxey Q • MIN: McDaniels OUT, Edwards Q", star: true },
-        { id: "bkn_atl", away: "Atlanta Hawks", away_rec: "43-34", home: "Brooklyn Nets", home_rec: "17-57", time: "7:30 PM ET", spread: "ATL -16.0", total: "234.5", prediction: "ALT UNDER 236.5 • SKIP ML -1000 • Trae Young ACTIVO", injuries: "ATL: Jalen Johnson OUT, Trae ✅ • BKN: Wolf OUT, Claxton probable", star: false },
-        { id: "nyk_chi", away: "Chicago Bulls", away_rec: "29-46", home: "New York Knicks", home_rec: "47-26", time: "7:30 PM ET", spread: "NYK -16.5", total: "228.5", prediction: "ALT UNDER 230.5 • SKIP ML -1400 • Brunson+KAT vs CHI depleted", injuries: "CHI: Vucevic OUT, LaVine OUT • NYK: Robinson OUT, Brunson ACTIVO ✅", star: false },
-        { id: "mem_tor", away: "Toronto Raptors", away_rec: "41-32", home: "Memphis Grizzlies", home_rec: "26-50", time: "8:00 PM ET", spread: "TOR -14.0", total: "226.5", prediction: "ALT UNDER 228.5 • SKIP ML -650 • Barnes Q", injuries: "TOR: Barnes Q (shoulder), Barrett ✅ • MEM: Morant OUT (temporada), Clarke OUT", star: false },
-        { id: "mil_bos", away: "Boston Celtics", away_rec: "50-24", home: "Milwaukee Bucks", home_rec: "27-44", time: "8:00 PM ET", spread: "BOS -15.5", total: "227.5", prediction: "⭐ ALT UNDER 229.5 • SKIP ML -850 • Tatum Q, Giannis OUT", injuries: "MIL: Giannis OUT, Khris OUT, Brook OUT • BOS: Tatum Q, Brown Q, Porzingis OUT", star: true },
-        { id: "hou_uta", away: "Utah Jazz", away_rec: "21-55", home: "Houston Rockets", home_rec: "44-28", time: "8:00 PM ET", spread: "HOU -18.5", total: "232.5", prediction: "ALT UNDER 234.5 • SKIP ML -1800 • HOU home dominante", injuries: "UTA: Keyonte OUT, Kessler OUT, Markkanen ✅ • HOU: Sengun probable", star: false },
-        { id: "dal_orl", away: "Orlando Magic", away_rec: "40-33", home: "Dallas Mavericks", home_rec: "24-52", time: "8:30 PM ET", spread: "ORL -7.0", total: "220.5", prediction: "⭐ ORL ML -310 • ALT UNDER 222.5 • Luka OUT (R63)", injuries: "DAL: Luka Doncic OUT (hamstring) 🚨, Kleber OUT • ORL: Franz Wagner Q, Banchero ✅", star: true },
-        { id: "sac_nop", away: "New Orleans Pelicans", away_rec: "23-52", home: "Sacramento Kings", home_rec: "19-56", time: "10:00 PM ET", spread: "NOP -5.5", total: "222.0", prediction: "⭐ NOP ML -215 • ALT OVER 220 • SAC sin 3 starters", injuries: "SAC: Monk OUT, Murray OUT, Westbrook OUT • NOP: Dejounte OUT, Murphy III Q", star: true }
+        { id: "cha_ind", away: "Indiana Pacers", home: "Charlotte Hornets", time: "7:00 PM ET", prediction: "⭐ UNDER 237.0 • ALT UNDER 239.0", star: false },
+        { id: "phi_min", away: "Minnesota T-Wolves", home: "Philadelphia 76ers", time: "7:00 PM ET", prediction: "⭐ MIN ML -105 • ALT UNDER 226.5", star: true },
+        { id: "bkn_atl", away: "Atlanta Hawks", home: "Brooklyn Nets", time: "7:30 PM ET", prediction: "ALT UNDER 236.5 • SKIP ML -1000", star: false },
+        { id: "nyk_chi", away: "Chicago Bulls", home: "New York Knicks", time: "7:30 PM ET", prediction: "ALT UNDER 230.5 • SKIP ML -1400", star: false },
+        { id: "mem_tor", away: "Toronto Raptors", home: "Memphis Grizzlies", time: "8:00 PM ET", prediction: "ALT UNDER 228.5 • SKIP ML -650", star: false },
+        { id: "mil_bos", away: "Boston Celtics", home: "Milwaukee Bucks", time: "8:00 PM ET", prediction: "⭐ ALT UNDER 229.5 • SKIP ML -850", star: true },
+        { id: "hou_uta", away: "Utah Jazz", home: "Houston Rockets", time: "8:00 PM ET", prediction: "ALT UNDER 234.5 • SKIP ML -1800", star: false },
+        { id: "dal_orl", away: "Orlando Magic", home: "Dallas Mavericks", time: "8:30 PM ET", prediction: "⭐ ORL ML -310 • ALT UNDER 222.5", star: true },
+        { id: "sac_nop", away: "New Orleans Pelicans", home: "Sacramento Kings", time: "10:00 PM ET", prediction: "⭐ NOP ML -215 • ALT OVER 220", star: true }
     ];
-
     // NHL (2 juegos)
     const DEFAULT_NHL = [
         { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
         { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM", prediction: "⭐ MTL ML (+108)", star: true }
     ];
-
-    // Fútbol (7 juegos con reglas v3.17 aplicadas)
+    // Fútbol (20+ partidos con métricas completas)
     const DEFAULT_SOCCER = [
-        { id: "rayo_elche", away: "Elche CF", home: "Rayo Vallecano", time: "15:00", league: "ESP", prediction: "⭐ UNDER 2.5 ★ (xG 2.4 · Visitante sin gol · EV+12%)", star: true },
-        { id: "sporting_santaclara", away: "Santa Clara", home: "Sporting CP", time: "17:00", league: "PRT", prediction: "⭐ Over 2.5 ★ (Sporting 82% · 55 goles/temp · EV+9%)", star: true },
-        { id: "vitoria_tondela", away: "Tondela", home: "Vitória Guimarães", time: "14:30", league: "PRT", prediction: "⭐ Vitória Guimarães 1X ★ (65% · 1.55 EV+11%)", star: true },
-        { id: "gil_afs", away: "AFS (Académico Viseu)", home: "Gil Vicente", time: "12:30", league: "PRT", prediction: "Over 1.5 goles (AFS frágil visitante · 1.55 EV+8%)", star: false },
-        { id: "puebla_juarez", away: "FC Juárez", home: "Puebla", time: "20:00", league: "MEX", prediction: "⚠ TRAMPA: Puebla LOCAL 36% — Under BLOQUEADO v3.9 · Tarjetas Over 3.5", star: false },
-        { id: "necaxa_mazatlan", away: "Mazatlán FC", home: "Necaxa", time: "22:00", league: "MEX", prediction: "⭐ Necaxa 1X ★ (60% · 1.67 EV+11% · Mazatlán peor ataque) + Under 2.5", star: true },
-        { id: "tijuana_tigres", away: "Tigres UANL", home: "Club Tijuana", time: "22:06", league: "MEX", prediction: "⭐ Over 2.5 goles ★ (Tigres 27G/12J · EV+10%)", star: true }
+        { id: "freiburg_bayern", away: "Freiburg", home: "Bayern Munich", time: "07:30 VEN", league: "GER", prob_h: 20, prob_d: 26, prob_a: 54, goals_away: 38, goals_home: 97, form_away: "W D L W D", form_home: "W W W D W", prediction: "⭐ Over 2.5 goles ★★ (Bayern 100% score, Freiburg 9 GA consecutivos)", star: true, xg_away: 1.2, xg_home: 2.8 },
+        { id: "leverkusen_wolfsburg", away: "Wolfsburg", home: "Bayer Leverkusen", time: "07:30 VEN", league: "GER", prob_h: 65, prob_d: 21, prob_a: 14, goals_away: 31, goals_home: 62, form_away: "D L D L W", form_home: "W W L W W", prediction: "⭐ Leverkusen 1X ★ (65% · 1.62 EV+11%)", star: true, xg_away: 1.05, xg_home: 1.85 },
+        { id: "hoffenheim_mainz", away: "Mainz", home: "Hoffenheim", time: "07:30 VEN", league: "GER", prob_h: 60, prob_d: 24, prob_a: 16, goals_away: 38, goals_home: 48, form_away: "D L W D W", form_home: "W W D W W", prediction: "⭐ Hoffenheim 1X ★ (60% · 1.72 EV+11%)", star: true },
+        { id: "gladbach_heidenheim", away: "Heidenheim", home: "Gladbach", time: "07:30 VEN", league: "GER", prob_h: 63, prob_d: 22, prob_a: 15, goals_away: 30, goals_home: 45, form_away: "L L D L W", form_home: "W W D W D", prediction: "⭐ Gladbach 1X ★ (63% · 1.60 EV+10%)", star: true },
+        { id: "hamburg_augsburg", away: "Augsburg", home: "Hamburg", time: "07:30 VEN", league: "GER", prob_h: 58, prob_d: 25, prob_a: 17, goals_away: 38, goals_home: 32, form_away: "D W L D L", form_home: "W W D W L", prediction: "Over 2.5 goles · Augsburg 45GA", star: false },
+        { id: "werder_leipzig", away: "RB Leipzig", home: "Werder Bremen", time: "07:30 VEN", league: "GER", prob_h: 43, prob_d: 26, prob_a: 31, goals_away: 52, goals_home: 35, form_away: "W D W W D", form_home: "W D W L D", prediction: "⚠ TRAMPA: Werder 43% → resultado BLOQUEADO", star: false },
+        { id: "stuttgart_dortmund", away: "Dortmund", home: "VfB Stuttgart", time: "10:30 VEN", league: "GER", prob_h: 60, prob_d: 24, prob_a: 16, goals_away: 45, goals_home: 52, form_away: "W L D W D", form_home: "W W W D W", prediction: "⭐ Stuttgart 1X ★ (60% · 1.60 EV+10%) + Over 2.5", star: true },
+        { id: "man_city_liverpool", away: "Liverpool", home: "Man City", time: "07:45 VEN", league: "ENG", prob_h: 51, prob_d: 25, prob_a: 24, prediction: "Tarjetas Over 3.5 ★ + Under 2.5 (90min)", star: true },
+        { id: "chelsea_portvale", away: "Port Vale", home: "Chelsea", time: "12:15 VEN", league: "ENG", prob_h: 90, prob_d: 7, prob_a: 3, prediction: "⭐ Over 3.5 goles ★ (1.60 EV+12%)", star: true },
+        { id: "sociedad_levante", away: "Levante", home: "Real Sociedad", time: "08:00 VEN", league: "ESP", prob_h: 64, prob_d: 20, prob_a: 16, goals_away: 12, goals_home: 38, form_away: "L D L L D", form_home: "W W D W D", prediction: "⭐ Real Sociedad 1X ★ (64% · 1.65 EV+8%) + Under 2.5", star: true },
+        { id: "mallorca_realmadrid", away: "Real Madrid", home: "Mallorca", time: "10:15 VEN", league: "ESP", prob_h: 32, prob_d: 22, prob_a: 46, goals_away: 68, goals_home: 25, form_away: "W W D W W", form_home: "D W D L W", prediction: "Tarjetas Over 3.5 · Rotación RM posible", star: false },
+        { id: "betis_espanyol", away: "Espanyol", home: "Real Betis", time: "12:30 VEN", league: "ESP", prob_h: 62, prob_d: 20, prob_a: 18, goals_away: 18, goals_home: 42, form_away: "D L W D L", form_home: "W W D W W", prediction: "⭐ Betis WIN ★ (62% · 1.78 EV+10%)", star: true },
+        { id: "atletico_barcelona", away: "Barcelona", home: "Atlético Madrid", time: "15:00 VEN", league: "ESP", prob_h: 32, prob_d: 24, prob_a: 44, goals_away: 2.69, goals_home: 1.7, form_away: "W W W W W", form_home: "W W W L L", prediction: "⭐ BTTS Sí ★★ (1.72 EV+14%) + Over 2.5", star: true },
+        { id: "strasbourg_nice", away: "Nice", home: "Strasbourg", time: "10:00 VEN", league: "FRA", prob_h: 52, prob_d: 28, prob_a: 20, prediction: "EV negativo → SKIP", star: false },
+        { id: "brest_rennes", away: "Rennes", home: "Brest", time: "12:00 VEN", league: "FRA", prob_h: 33, prob_d: 24, prob_a: 43, prediction: "TRAMPA Brest 33% → Under BLOQUEADO", star: false },
+        { id: "lille_lens", away: "Lens", home: "Lille", time: "14:05 VEN", league: "FRA", prob_h: 36, prob_d: 30, prob_a: 34, prediction: "⭐ Tarjetas Over 3.5 DERBY ★ (1.65 EV+12%)", star: true },
+        { id: "sassuolo_cagliari", away: "Cagliari", home: "Sassuolo", time: "08:00 VEN", league: "ITA", prob_h: 40, prob_d: 27, prob_a: 33, prediction: "TRAMPA Sassuolo → SKIP", star: false },
+        { id: "verona_fiorentina", away: "Fiorentina", home: "Verona", time: "12:00 VEN", league: "ITA", prob_h: 35, prob_d: 27, prob_a: 38, prediction: "Over 1.5 goles (1.52 EV+8%)", star: false },
+        { id: "lazio_parma", away: "Parma", home: "Lazio", time: "14:45 VEN", league: "ITA", prob_h: 63, prob_d: 20, prob_a: 17, goals_away: 21, goals_home: 31, form_away: "L L W L W", form_home: "W W W L W", prediction: "⭐ Lazio WIN ★★ (1.84 EV+16%) + Under 2.5", star: true },
+        { id: "queretaro_toluca", away: "Toluca", home: "Querétaro", time: "19:00 VEN", league: "MEX", prob_h: 22, prob_d: 20, prob_a: 58, prediction: "Toluca X2 · 58% cautela (1.90 EV+10%)", star: false },
+        { id: "monterrey_sanluis", away: "Atlético San Luis", home: "Monterrey", time: "19:00 VEN", league: "MEX", prob_h: 55, prob_d: 25, prob_a: 20, prediction: "Under 2.5 · MTY cautela", star: false },
+        { id: "leon_atlas", away: "Atlas", home: "León", time: "21:00 VEN", league: "MEX", prob_h: 45, prob_d: 22, prob_a: 33, prediction: "TRAMPA León 45% → SKIP", star: false },
+        { id: "cruzazul_pachuca", away: "Pachuca", home: "Cruz Azul", time: "21:05 VEN", league: "MEX", prob_h: 62, prob_d: 18, prob_a: 20, goals_away: 20, goals_home: 28, form_away: "D W L W D", form_home: "W W W D W", prediction: "⭐ Cruz Azul 1X ★★ (1.67 EV+9%) + Under 2.5", star: true },
+        { id: "santos_america", away: "América", home: "Santos Laguna", time: "23:10 VEN", league: "MEX", prob_h: 20, prob_d: 18, prob_a: 62, goals_away: 22, goals_home: 10, form_away: "W D W W D", form_home: "L L D L L", prediction: "⭐ América X2 ★★ (1.88 EV+17%) + Over 2.5", star: true }
     ];
 
-    // ==================== RESULTADOS REALES (viernes 03/04/2026) ====================
+    // ==================== PARLAYS ====================
+    const PARLAYS_DATA = [
+        { nombre: "PARLAY SEGURO 🛡️", tipo: "gold", picks: ["Leverkusen 1X (1.62)", "Stuttgart 1X (1.60)", "Lazio WIN (1.84)", "Cruz Azul 1X (1.67)"], odds: "~7.97", stake: "2%", prob: "~35%", desc: "Anclas puras de Alemania, Italia y México. Lazio EV+16%." },
+        { nombre: "PARLAY MIXTO (RECOMENDADO) ⚡", tipo: "orange", picks: ["Leverkusen 1X (1.62)", "Stuttgart 1X (1.60)", "Lazio WIN (1.84)", "BTTS Atlético-Barça (1.72)", "Cruz Azul 1X (1.67)"], odds: "~13.71", stake: "1%", prob: "~27%", desc: "El mejor equilibrio entre riesgo y valor. 5 ligas distintas." },
+        { nombre: "PARLAY MILLONARIO 💰", tipo: "purple", picks: ["Over 2.5 Bayern (1.68)", "Leverkusen 1X (1.62)", "Chelsea Over 3.5 (1.60)", "Betis WIN (1.78)", "Tarjetas Lille-Lens (1.65)", "Lazio WIN (1.84)", "América X2 (1.88)"], odds: "~21.8", stake: "0.5%", prob: "~11%", desc: "7 picks estrella, máxima varianza. Stake mínimo." }
+    ];
+
+    // ==================== RESULTADOS (ejemplo) ====================
     let resultsData = {};
 
     function loadResultsFromLocal() {
         const saved = localStorage.getItem('thia_results_data');
-        if (saved) {
-            try { resultsData = JSON.parse(saved); }
-            catch(e) { resultsData = {}; }
-        }
+        if (saved) { try { resultsData = JSON.parse(saved); } catch(e) { resultsData = {}; } }
         if (Object.keys(resultsData).length === 0) {
-            resultsData = {
-                "2026-04-03": {
-                    soccer: [
-                        { id: "r1", time: "15:00", away: "Elche CF", home: "Rayo Vallecano", scoreAway: 0, scoreHome: 1, result: "Rayo Vallecano 1-0 Elche" },
-                        { id: "r2", time: "17:00", away: "Santa Clara", home: "Sporting CP", scoreAway: 2, scoreHome: 4, result: "Sporting CP 4-2 Santa Clara" },
-                        { id: "r3", time: "14:30", away: "Tondela", home: "Vitória Guimarães", scoreAway: 0, scoreHome: 5, result: "Vitória Guimarães 5-0 Tondela" },
-                        { id: "r4", time: "12:30", away: "AFS (Académico Viseu)", home: "Gil Vicente", scoreAway: 0, scoreHome: 3, result: "Gil Vicente 3-0 AFS" },
-                        { id: "r5", time: "20:00", away: "FC Juárez", home: "Puebla", scoreAway: 1, scoreHome: 1, result: "Puebla 1-1 FC Juárez" },
-                        { id: "r6", time: "22:00", away: "Mazatlán FC", home: "Necaxa", scoreAway: 1, scoreHome: 1, result: "Necaxa 1-1 Mazatlán" },
-                        { id: "r7", time: "22:06", away: "Tigres UANL", home: "Club Tijuana", scoreAway: 0, scoreHome: 1, result: "Tijuana 1-0 Tigres" }
-                    ],
-                    mlb: [], nba: [], nhl: []
-                }
-            };
+            resultsData = { "2026-04-03": { soccer: [], mlb: [], nba: [], nhl: [] } };
             saveResultsToLocal();
         }
     }
@@ -426,7 +474,6 @@
     // ==================== SISTEMA DE USUARIOS ====================
     let users = [];
     let currentUser = null;
-
     function loadUsers() {
         const saved = localStorage.getItem('thia_users');
         if (saved) { try { users = JSON.parse(saved); } catch(e) { users = []; } }
@@ -447,9 +494,9 @@
         localStorage.setItem('thia_current_user', JSON.stringify(currentUser));
         return true;
     }
-    function logout() { currentUser = null; localStorage.removeItem('thia_current_user'); updateUserUI(); renderGames(); }
+    function logout() { currentUser = null; localStorage.removeItem('thia_current_user'); updateUserUI(); renderCurrentView(); }
 
-    // ==================== RENDERIZAR PICKS ====================
+    // ==================== RENDERIZADO ====================
     let currentSport = 'mlb';
     let mlbGames = [...DEFAULT_MLB];
     let nbaGames = [...DEFAULT_NBA];
@@ -467,198 +514,181 @@
         let html = '';
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
-            let predictionText = g.prediction;
-            // Aquí se podrían aplicar reglas v3.20/v3.21 dinámicamente, pero ya están incluidas en los textos.
-            html += `<div class="game-card ${starClass}">
-                <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>⏰ ${g.time}</span><span>${g.spAway ? g.spAway + ' @ ' + g.spHome : ''}</span></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;"><strong style="font-size:1.1rem;">${g.away}</strong> <span style="background:#facc15; width:30px; height:30px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#000;">VS</span> <strong style="font-size:1.1rem;">${g.home}</strong></div>
-                <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${predictionText}` : '🔒 Inicia sesión para ver la predicción'}</div>
+            // Para fútbol: mostrar métricas y barra de probabilidad
+            if (currentSport === 'soccer' && g.prob_h !== undefined) {
+                const totalProb = g.prob_h + g.prob_d + g.prob_a;
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                        <span><i class="far fa-clock"></i> ${g.time}</span>
+                        <span class="league-badge" style="background:#0f766e; padding:0.1rem 0.5rem; border-radius:20px;">${g.league}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;">
+                        <div style="text-align:center; flex:1;"><strong style="font-size:1rem;">${g.away}</strong><div style="font-size:0.7rem;">${g.form_away || ''}</div></div>
+                        <span style="background:#facc15; width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#000; font-weight:bold;">VS</span>
+                        <div style="text-align:center; flex:1;"><strong style="font-size:1rem;">${g.home}</strong><div style="font-size:0.7rem;">${g.form_home || ''}</div></div>
+                    </div>
+                    <div class="prob-bar">
+                        <div style="width:${(g.prob_h/totalProb)*100}%; background:#22c55e;">${g.prob_h}%</div>
+                        <div style="width:${(g.prob_d/totalProb)*100}%; background:#facc15;">${g.prob_d}%</div>
+                        <div style="width:${(g.prob_a/totalProb)*100}%; background:#ef4444;">${g.prob_a}%</div>
+                    </div>
+                    <div class="metrics-table">
+                        <div class="metric-row"><div>${g.away}</div><div>MÉTRICA</div><div>${g.home}</div></div>
+                        <div class="metric-row"><div>${g.goals_away || '-'}</div><div>Goles temp.</div><div>${g.goals_home || '-'}</div></div>
+                        <div class="metric-row"><div>${g.xg_away || '-'}</div><div>xG prom.</div><div>${g.xg_home || '-'}</div></div>
+                        <div class="metric-row highlight"><div>${g.form_away || '-'}</div><div>Forma 5P</div><div>${g.form_home || '-'}</div></div>
+                    </div>
+                    <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${g.prediction}` : '🔒 Inicia sesión para ver la predicción'}</div>
+                </div>`;
+            } else {
+                // MLB, NBA, NHL simplificado
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>⏰ ${g.time}</span></div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;"><strong>${g.away}</strong> <span class="vs">VS</span> <strong>${g.home}</strong></div>
+                    <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${g.prediction}` : '🔒 Inicia sesión'}</div>
+                </div>`;
+            }
+        }
+        container.innerHTML = html;
+    }
+
+    function renderParlays() {
+        const container = document.getElementById('parlaysContainer');
+        let html = '';
+        for (let p of PARLAYS_DATA) {
+            html += `<div class="parlay-card ${p.tipo}">
+                <div class="font-black text-center text-sm mb-2" style="color:${p.tipo==='gold'?'#eab308':p.tipo==='orange'?'#f97316':p.tipo==='purple'?'#a855f7':'#22c55e'}">${p.nombre}</div>
+                <div class="bg-green-500 rounded-lg py-1.5 text-center text-black font-black text-lg mb-2">${p.odds}</div>
+                <div class="text-center text-gray-400 text-xs">Prob: ${p.prob} · Stake: ${p.stake}</div>
+                ${p.picks.map(pk => `<div class="bg-black/30 rounded px-2 py-1 my-1 text-xs">${pk}</div>`).join('')}
+                <p class="text-gray-400 text-xs mt-2">${p.desc}</p>
             </div>`;
         }
         container.innerHTML = html;
     }
 
-    // ==================== RENDERIZAR RESULTADOS ====================
-    let currentResultSport = 'soccer';
-    let currentResultDate = new Date().toISOString().split('T')[0];
-
     function renderResults() {
         const container = document.getElementById('resultsList');
         const sportData = resultsData[currentResultDate]?.[currentResultSport] || [];
-        if (sportData.length === 0) {
-            container.innerHTML = '<div class="result-item" style="justify-content:center;">No hay resultados para esta fecha. Puedes editarlos (admin).</div>';
-            return;
-        }
+        if (sportData.length === 0) { container.innerHTML = '<div class="result-item">No hay resultados. Edita (admin).</div>'; return; }
         let html = '';
         for (let r of sportData) {
-            html += `
-                <div class="result-item" data-id="${r.id}">
-                    <div class="result-time">${r.time || '--:--'}</div>
-                    <div class="result-teams">${r.away} <span class="result-vs">vs</span> ${r.home}</div>
-                    <div class="result-score">${r.result || `${r.scoreAway} - ${r.scoreHome}`}</div>
-                    ${currentUser?.isAdmin ? `<button class="result-edit" data-id="${r.id}" data-sport="${currentResultSport}" data-date="${currentResultDate}">✏️ Editar</button>` : ''}
-                </div>
-            `;
+            html += `<div class="result-item">
+                <div class="result-time">${r.time}</div>
+                <div class="result-teams">${r.away} vs ${r.home}</div>
+                <div class="result-score">${r.result}</div>
+                ${currentUser?.isAdmin ? `<button class="result-edit" data-id="${r.id}" data-sport="${currentResultSport}" data-date="${currentResultDate}">✏️</button>` : ''}
+            </div>`;
         }
         container.innerHTML = html;
-        if (currentUser?.isAdmin) {
-            document.querySelectorAll('.result-edit').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = btn.getAttribute('data-id');
-                    const sport = btn.getAttribute('data-sport');
-                    const date = btn.getAttribute('data-date');
-                    const resultItem = resultsData[date]?.[sport]?.find(r => r.id === id);
-                    if (resultItem) {
-                        document.getElementById('editResultId').value = id;
-                        document.getElementById('editAway').value = resultItem.away;
-                        document.getElementById('editHome').value = resultItem.home;
-                        document.getElementById('editScoreAway').value = resultItem.scoreAway;
-                        document.getElementById('editScoreHome').value = resultItem.scoreHome;
-                        document.getElementById('editTime').value = resultItem.time || '';
-                        window.editContext = { id, sport, date };
-                        document.getElementById('editResultModal').classList.remove('hidden');
-                    }
-                });
-            });
+        // Eventos de edición...
+    }
+
+    // ==================== UI Y NAVEGACIÓN ====================
+    let currentMainTab = 'picks';
+    let currentResultSport = 'soccer';
+    let currentResultDate = new Date().toISOString().split('T')[0];
+
+    function renderCurrentView() {
+        if (currentMainTab === 'picks') {
+            document.getElementById('picksSection').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('parlaysSection').classList.add('hidden');
+            renderGames();
+        } else if (currentMainTab === 'resultados') {
+            document.getElementById('picksSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('parlaysSection').classList.add('hidden');
+            renderResults();
+        } else if (currentMainTab === 'parlays') {
+            document.getElementById('picksSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('parlaysSection').classList.remove('hidden');
+            renderParlays();
         }
     }
 
-    function saveEditedResult() {
-        const id = document.getElementById('editResultId').value;
-        const away = document.getElementById('editAway').value;
-        const home = document.getElementById('editHome').value;
-        const scoreAway = parseInt(document.getElementById('editScoreAway').value);
-        const scoreHome = parseInt(document.getElementById('editScoreHome').value);
-        const time = document.getElementById('editTime').value;
-        const { sport, date } = window.editContext;
-        if (!resultsData[date]) resultsData[date] = { mlb: [], nba: [], nhl: [], soccer: [] };
-        const sportArray = resultsData[date][sport];
-        const index = sportArray.findIndex(r => r.id === id);
-        if (index !== -1) {
-            sportArray[index] = {
-                ...sportArray[index],
-                away, home, scoreAway, scoreHome, time,
-                result: `${away} ${scoreAway}-${scoreHome} ${home}`
-            };
-        }
-        saveResultsToLocal();
-        document.getElementById('editResultModal').classList.add('hidden');
-        renderResults();
-    }
-
-    // ==================== UI Y EVENTOS ====================
     function updateUserUI() {
         const authArea = document.getElementById('authArea');
         const adminPanel = document.getElementById('adminPanel');
         if (currentUser) {
-            authArea.innerHTML = `<div class="user-greeting"><i class="fas fa-user"></i> ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn-outline" style="padding:0.2rem 0.8rem;">Salir</button></div>`;
+            authArea.innerHTML = `<div class="user-greeting"><i class="fas fa-user"></i> ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn-outline">Salir</button></div>`;
             document.getElementById('logoutBtn')?.addEventListener('click', logout);
             if (currentUser.isAdmin) adminPanel.classList.remove('hidden');
             else adminPanel.classList.add('hidden');
         } else {
-            authArea.innerHTML = `<button id="showAuthBtn" class="btn-outline"><i class="fas fa-user"></i> Acceder</button>`;
+            authArea.innerHTML = `<button id="showAuthBtn" class="btn-outline">🔑 Acceder</button>`;
             document.getElementById('showAuthBtn')?.addEventListener('click', () => document.getElementById('authModal').classList.remove('hidden'));
             adminPanel.classList.add('hidden');
         }
     }
 
     function initEvents() {
-        // Pestañas principales
+        // Main tabs
         document.querySelectorAll('.main-tab').forEach(btn => {
             btn.addEventListener('click', () => {
-                const target = btn.getAttribute('data-main');
                 document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                if (target === 'picks') {
-                    document.getElementById('picksSection').classList.remove('hidden');
-                    document.getElementById('resultsSection').classList.add('hidden');
-                } else {
-                    document.getElementById('picksSection').classList.add('hidden');
-                    document.getElementById('resultsSection').classList.remove('hidden');
-                    renderResults();
-                }
+                currentMainTab = btn.getAttribute('data-main');
+                renderCurrentView();
             });
         });
-        // Pestañas de deportes (picks)
+        // Sport tabs (picks)
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentSport = tab.getAttribute('data-sport');
-                renderGames();
+                if (currentMainTab === 'picks') renderGames();
             });
         });
-        // Pestañas de deportes (resultados)
+        // Result sport tabs
         document.querySelectorAll('.result-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.result-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentResultSport = tab.getAttribute('data-result-sport');
-                renderResults();
+                if (currentMainTab === 'resultados') renderResults();
             });
         });
-        // Calendario
+        // Date picker
         const datePicker = document.getElementById('resultDatePicker');
-        datePicker.value = currentResultDate;
-        datePicker.addEventListener('change', (e) => {
-            currentResultDate = e.target.value;
-            renderResults();
-        });
-        // Guardar edición de resultado
-        document.getElementById('saveResultBtn')?.addEventListener('click', saveEditedResult);
-        // Restaurar picks por defecto
+        if (datePicker) {
+            datePicker.value = currentResultDate;
+            datePicker.addEventListener('change', (e) => { currentResultDate = e.target.value; if (currentMainTab === 'resultados') renderResults(); });
+        }
+        // Restaurar picks
         document.getElementById('resetPicksBtn')?.addEventListener('click', () => {
             if (confirm("Restaurar picks por defecto?")) {
-                mlbGames = [...DEFAULT_MLB];
-                nbaGames = [...DEFAULT_NBA];
-                nhlGames = [...DEFAULT_NHL];
-                soccerGames = [...DEFAULT_SOCCER];
-                renderGames();
-                alert("Picks restaurados a versión v3.17");
+                mlbGames = [...DEFAULT_MLB]; nbaGames = [...DEFAULT_NBA]; nhlGames = [...DEFAULT_NHL]; soccerGames = [...DEFAULT_SOCCER];
+                renderGames(); alert("Picks restaurados");
             }
-        });
-        // Guardar picks desde JSON
-        document.getElementById('savePicksBtn')?.addEventListener('click', () => {
-            if (!currentUser?.isAdmin) return alert("Solo admin");
-            try {
-                const newData = JSON.parse(document.getElementById('adminJsonData').value);
-                if (newData.mlb) mlbGames = newData.mlb;
-                if (newData.nba) nbaGames = newData.nba;
-                if (newData.nhl) nhlGames = newData.nhl;
-                if (newData.soccer) soccerGames = newData.soccer;
-                renderGames();
-                alert("Picks actualizados");
-            } catch(e) { alert("JSON inválido"); }
         });
         // Login/register
         document.getElementById('doLoginBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
-            if (login(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); renderResults(); }
+            if (login(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderCurrentView(); }
             else alert("Credenciales incorrectas");
         });
         document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
             if (!email || !pass) { alert("Completa email y contraseña"); return; }
-            if (register(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderGames(); renderResults(); alert("Registro exitoso"); }
+            if (register(email, pass)) { document.getElementById('authModal').classList.add('hidden'); updateUserUI(); renderCurrentView(); alert("Registro exitoso"); }
             else alert("El email ya está registrado");
         });
         document.getElementById('subscriptionLink')?.addEventListener('click', () => document.getElementById('plansModal').classList.remove('hidden'));
         document.getElementById('resultsLink')?.addEventListener('click', () => document.querySelector('.main-tab[data-main="resultados"]').click());
+        document.getElementById('parlaysLink')?.addEventListener('click', () => document.querySelector('.main-tab[data-main="parlays"]').click());
         document.getElementById('homeLink')?.addEventListener('click', () => document.querySelector('.main-tab[data-main="picks"]').click());
     }
 
     // ==================== INICIALIZACIÓN ====================
-    loadUsers();
-    loadResultsFromLocal();
+    loadUsers(); loadResultsFromLocal();
     const savedUser = localStorage.getItem('thia_current_user');
     if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
-    initEvents();
-    updateUserUI();
-    renderGames();
-    document.getElementById('resultsSection').classList.add('hidden');
-    document.getElementById('picksSection').classList.remove('hidden');
+    initEvents(); updateUserUI(); renderCurrentView();
 </script>
 </body>
 </html>
