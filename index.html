@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | Predicciones y Resultados</title>
+    <title>ThIA Sports v3.17 | Predicciones y Resultados</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -247,10 +247,10 @@
 </head>
 <body>
 
-<!-- Modal de Login -->
+<!-- Modales -->
 <div id="authModal" class="modal hidden">
     <div class="modal-content">
-        <h2>ThIA Sports</h2>
+        <h2>ThIA Sports v3.17</h2>
         <p>Inicia sesión para acceder a predicciones premium</p>
         <input type="email" id="loginEmail" placeholder="Correo electrónico">
         <input type="password" id="loginPassword" placeholder="Contraseña">
@@ -269,7 +269,6 @@
     </div>
 </div>
 
-<!-- Modal para editar resultado -->
 <div id="editResultModal" class="modal hidden edit-result-modal">
     <div class="modal-content">
         <h3>Editar Resultado</h3>
@@ -286,7 +285,7 @@
 
 <!-- Header -->
 <div class="navbar">
-    <div class="logo">ThIA <span style="color:#facc15;">Sports</span></div>
+    <div class="logo">ThIA <span style="color:#facc15;">Sports v3.17</span></div>
     <div class="nav-links">
         <a id="homeLink">INICIO</a>
         <a id="subscriptionLink">SUSCRIPCIÓN</a>
@@ -298,7 +297,6 @@
 </div>
 
 <div class="container">
-    <!-- Pestañas principales -->
     <div class="main-tabs">
         <button class="main-tab active" data-main="picks">🎯 PICKS</button>
         <button class="main-tab" data-main="resultados">📊 RESULTADOS</button>
@@ -333,17 +331,17 @@
 
     <!-- Panel de Administración -->
     <div id="adminPanel" class="admin-panel hidden">
-        <h3>🔧 Panel de Administración</h3>
-        <p style="font-size:0.7rem;">Los resultados se editan manualmente desde la pestaña RESULTADOS (solo admin).</p>
+        <h3>🔧 Panel de Administración (v3.17)</h3>
+        <p style="font-size:0.7rem;">Edita resultados desde la pestaña RESULTADOS. Restaura picks por defecto o carga JSON.</p>
         <div class="admin-buttons">
             <button id="resetPicksBtn" class="btn-outline">🔄 Restaurar picks por defecto</button>
         </div>
-        <textarea id="adminJsonData" class="admin-textarea" rows="4" placeholder="JSON para actualizar picks"></textarea>
+        <textarea id="adminJsonData" class="admin-textarea" rows="4" placeholder='{"mlb":[], "nba":[], "nhl":[], "soccer":[]}'></textarea>
         <button id="savePicksBtn" class="btn-outline">💾 Guardar picks (admin)</button>
     </div>
 </div>
 
-<div class="footer">ThIA Sports · Predicciones v3.17 · Resultados reales editables</div>
+<div class="footer">ThIA Sports v3.17 · Reglas activas: v3.9, v3.12, v3.18, v3.19, v3.20, v3.21 · Mejora continua</div>
 
 <script>
     // ==================== DATOS DE PICKS ====================
@@ -368,35 +366,35 @@
 
     // NBA (9 juegos)
     const DEFAULT_NBA = [
-        { id: "cha_ind", away: "Indiana Pacers", away_rec: "16-57", home: "Charlotte Hornets", home_rec: "37-33", time: "7:00 PM ET", spread: "CHA -17.0", total: "237.0", prediction: "⭐ UNDER 237.0 • ALT UNDER 239.0 • SKIP ML -1300", injuries: "IND: Haliburton OUT (temporada), Turner OUT • CHA: LaMelo ACTIVO ✅", star: false, proj_home: 128, proj_away: 106 },
-        { id: "phi_min", away: "Minnesota T-Wolves", away_rec: "46-30", home: "Philadelphia 76ers", home_rec: "40-36", time: "7:00 PM ET", spread: "MIN -2.0", total: "224.5", prediction: "⭐ MIN ML -105 • ALT UNDER 226.5 • Embiid OUT, Edwards Q", injuries: "PHI: Embiid OUT (illness), Maxey Q • MIN: McDaniels OUT, Edwards Q", star: true, proj_home: 110, proj_away: 112 },
-        { id: "bkn_atl", away: "Atlanta Hawks", away_rec: "43-34", home: "Brooklyn Nets", home_rec: "17-57", time: "7:30 PM ET", spread: "ATL -16.0", total: "234.5", prediction: "ALT UNDER 236.5 • SKIP ML -1000 • Trae Young ACTIVO", injuries: "ATL: Jalen Johnson OUT, Trae ✅ • BKN: Wolf OUT, Claxton probable", star: false, proj_home: 107, proj_away: 125 },
-        { id: "nyk_chi", away: "Chicago Bulls", away_rec: "29-46", home: "New York Knicks", home_rec: "47-26", time: "7:30 PM ET", spread: "NYK -16.5", total: "228.5", prediction: "ALT UNDER 230.5 • SKIP ML -1400 • Brunson+KAT vs CHI depleted", injuries: "CHI: Vucevic OUT, LaVine OUT • NYK: Robinson OUT, Brunson ACTIVO ✅", star: false, proj_home: 122, proj_away: 105 },
-        { id: "mem_tor", away: "Toronto Raptors", away_rec: "41-32", home: "Memphis Grizzlies", home_rec: "26-50", time: "8:00 PM ET", spread: "TOR -14.0", total: "226.5", prediction: "ALT UNDER 228.5 • SKIP ML -650 • Barnes Q", injuries: "TOR: Barnes Q (shoulder), Barrett ✅ • MEM: Morant OUT (temporada), Clarke OUT", star: false, proj_home: 104, proj_away: 118 },
-        { id: "mil_bos", away: "Boston Celtics", away_rec: "50-24", home: "Milwaukee Bucks", home_rec: "27-44", time: "8:00 PM ET", spread: "BOS -15.5", total: "227.5", prediction: "⭐ ALT UNDER 229.5 • SKIP ML -850 • Tatum Q, Giannis OUT", injuries: "MIL: Giannis OUT, Khris OUT, Brook OUT • BOS: Tatum Q, Brown Q, Porzingis OUT", star: true, proj_home: 107, proj_away: 119 },
-        { id: "hou_uta", away: "Utah Jazz", away_rec: "21-55", home: "Houston Rockets", home_rec: "44-28", time: "8:00 PM ET", spread: "HOU -18.5", total: "232.5", prediction: "ALT UNDER 234.5 • SKIP ML -1800 • HOU home dominante", injuries: "UTA: Keyonte OUT, Kessler OUT, Markkanen ✅ • HOU: Sengun probable", star: false, proj_home: 126, proj_away: 104 },
-        { id: "dal_orl", away: "Orlando Magic", away_rec: "40-33", home: "Dallas Mavericks", home_rec: "24-52", time: "8:30 PM ET", spread: "ORL -7.0", total: "220.5", prediction: "⭐ ORL ML -310 • ALT UNDER 222.5 • Luka OUT (R63)", injuries: "DAL: Luka Doncic OUT (hamstring) 🚨, Kleber OUT • ORL: Franz Wagner Q, Banchero ✅", star: true, proj_home: 105, proj_away: 114 },
-        { id: "sac_nop", away: "New Orleans Pelicans", away_rec: "23-52", home: "Sacramento Kings", home_rec: "19-56", time: "10:00 PM ET", spread: "NOP -5.5", total: "222.0", prediction: "⭐ NOP ML -215 • ALT OVER 220 • SAC sin 3 starters", injuries: "SAC: Monk OUT, Murray OUT, Westbrook OUT • NOP: Dejounte OUT, Murphy III Q", star: true, proj_home: 108, proj_away: 116 }
+        { id: "cha_ind", away: "Indiana Pacers", away_rec: "16-57", home: "Charlotte Hornets", home_rec: "37-33", time: "7:00 PM ET", spread: "CHA -17.0", total: "237.0", prediction: "⭐ UNDER 237.0 • ALT UNDER 239.0 • SKIP ML -1300", injuries: "IND: Haliburton OUT (temporada), Turner OUT • CHA: LaMelo ACTIVO ✅", star: false },
+        { id: "phi_min", away: "Minnesota T-Wolves", away_rec: "46-30", home: "Philadelphia 76ers", home_rec: "40-36", time: "7:00 PM ET", spread: "MIN -2.0", total: "224.5", prediction: "⭐ MIN ML -105 • ALT UNDER 226.5 • Embiid OUT, Edwards Q", injuries: "PHI: Embiid OUT (illness), Maxey Q • MIN: McDaniels OUT, Edwards Q", star: true },
+        { id: "bkn_atl", away: "Atlanta Hawks", away_rec: "43-34", home: "Brooklyn Nets", home_rec: "17-57", time: "7:30 PM ET", spread: "ATL -16.0", total: "234.5", prediction: "ALT UNDER 236.5 • SKIP ML -1000 • Trae Young ACTIVO", injuries: "ATL: Jalen Johnson OUT, Trae ✅ • BKN: Wolf OUT, Claxton probable", star: false },
+        { id: "nyk_chi", away: "Chicago Bulls", away_rec: "29-46", home: "New York Knicks", home_rec: "47-26", time: "7:30 PM ET", spread: "NYK -16.5", total: "228.5", prediction: "ALT UNDER 230.5 • SKIP ML -1400 • Brunson+KAT vs CHI depleted", injuries: "CHI: Vucevic OUT, LaVine OUT • NYK: Robinson OUT, Brunson ACTIVO ✅", star: false },
+        { id: "mem_tor", away: "Toronto Raptors", away_rec: "41-32", home: "Memphis Grizzlies", home_rec: "26-50", time: "8:00 PM ET", spread: "TOR -14.0", total: "226.5", prediction: "ALT UNDER 228.5 • SKIP ML -650 • Barnes Q", injuries: "TOR: Barnes Q (shoulder), Barrett ✅ • MEM: Morant OUT (temporada), Clarke OUT", star: false },
+        { id: "mil_bos", away: "Boston Celtics", away_rec: "50-24", home: "Milwaukee Bucks", home_rec: "27-44", time: "8:00 PM ET", spread: "BOS -15.5", total: "227.5", prediction: "⭐ ALT UNDER 229.5 • SKIP ML -850 • Tatum Q, Giannis OUT", injuries: "MIL: Giannis OUT, Khris OUT, Brook OUT • BOS: Tatum Q, Brown Q, Porzingis OUT", star: true },
+        { id: "hou_uta", away: "Utah Jazz", away_rec: "21-55", home: "Houston Rockets", home_rec: "44-28", time: "8:00 PM ET", spread: "HOU -18.5", total: "232.5", prediction: "ALT UNDER 234.5 • SKIP ML -1800 • HOU home dominante", injuries: "UTA: Keyonte OUT, Kessler OUT, Markkanen ✅ • HOU: Sengun probable", star: false },
+        { id: "dal_orl", away: "Orlando Magic", away_rec: "40-33", home: "Dallas Mavericks", home_rec: "24-52", time: "8:30 PM ET", spread: "ORL -7.0", total: "220.5", prediction: "⭐ ORL ML -310 • ALT UNDER 222.5 • Luka OUT (R63)", injuries: "DAL: Luka Doncic OUT (hamstring) 🚨, Kleber OUT • ORL: Franz Wagner Q, Banchero ✅", star: true },
+        { id: "sac_nop", away: "New Orleans Pelicans", away_rec: "23-52", home: "Sacramento Kings", home_rec: "19-56", time: "10:00 PM ET", spread: "NOP -5.5", total: "222.0", prediction: "⭐ NOP ML -215 • ALT OVER 220 • SAC sin 3 starters", injuries: "SAC: Monk OUT, Murray OUT, Westbrook OUT • NOP: Dejounte OUT, Murphy III Q", star: true }
     ];
 
-    // NHL (2 juegos ejemplo)
+    // NHL (2 juegos)
     const DEFAULT_NHL = [
         { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
         { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM", prediction: "⭐ MTL ML (+108)", star: true }
     ];
 
-    // Fútbol (7 juegos con predicciones v3.17)
+    // Fútbol (7 juegos con reglas v3.17 aplicadas)
     const DEFAULT_SOCCER = [
-        { id: "rayo_elche", away: "Elche CF", home: "Rayo Vallecano", time: "15:00", league: "ESP", prediction: "⭐ UNDER 2.5 ★ (xG 2.4 · Visitante sin gol · EV+12%)", star: true, prob_h: 53, prob_a: 21 },
-        { id: "sporting_santaclara", away: "Santa Clara", home: "Sporting CP", time: "17:00", league: "PRT", prediction: "⭐ Over 2.5 ★ (Sporting 82% · 55 goles/temp · EV+9%)", star: true, prob_h: 82, prob_a: 7 },
-        { id: "vitoria_tondela", away: "Tondela", home: "Vitória Guimarães", time: "14:30", league: "PRT", prediction: "⭐ Vitória Guimarães 1X ★ (65% · 1.55 EV+11%)", star: true, prob_h: 65, prob_a: 14 },
-        { id: "gil_afs", away: "AFS (Académico Viseu)", home: "Gil Vicente", time: "12:30", league: "PRT", prediction: "Over 1.5 goles (AFS frágil visitante · 1.55 EV+8%)", star: false, prob_h: 58, prob_a: 18 },
-        { id: "puebla_juarez", away: "FC Juárez", home: "Puebla", time: "20:00", league: "MEX", prediction: "⚠ TRAMPA: Puebla LOCAL 36% — Under BLOQUEADO v3.9 · Tarjetas Over 3.5", star: false, prob_h: 36, prob_a: 34 },
-        { id: "necaxa_mazatlan", away: "Mazatlán FC", home: "Necaxa", time: "22:00", league: "MEX", prediction: "⭐ Necaxa 1X ★ (60% · 1.67 EV+11% · Mazatlán peor ataque) + Under 2.5", star: true, prob_h: 60, prob_a: 20 },
-        { id: "tijuana_tigres", away: "Tigres UANL", home: "Club Tijuana", time: "22:06", league: "MEX", prediction: "⭐ Over 2.5 goles ★ (Tigres 27G/12J · EV+10%)", star: true, prob_h: 26, prob_a: 42 }
+        { id: "rayo_elche", away: "Elche CF", home: "Rayo Vallecano", time: "15:00", league: "ESP", prediction: "⭐ UNDER 2.5 ★ (xG 2.4 · Visitante sin gol · EV+12%)", star: true },
+        { id: "sporting_santaclara", away: "Santa Clara", home: "Sporting CP", time: "17:00", league: "PRT", prediction: "⭐ Over 2.5 ★ (Sporting 82% · 55 goles/temp · EV+9%)", star: true },
+        { id: "vitoria_tondela", away: "Tondela", home: "Vitória Guimarães", time: "14:30", league: "PRT", prediction: "⭐ Vitória Guimarães 1X ★ (65% · 1.55 EV+11%)", star: true },
+        { id: "gil_afs", away: "AFS (Académico Viseu)", home: "Gil Vicente", time: "12:30", league: "PRT", prediction: "Over 1.5 goles (AFS frágil visitante · 1.55 EV+8%)", star: false },
+        { id: "puebla_juarez", away: "FC Juárez", home: "Puebla", time: "20:00", league: "MEX", prediction: "⚠ TRAMPA: Puebla LOCAL 36% — Under BLOQUEADO v3.9 · Tarjetas Over 3.5", star: false },
+        { id: "necaxa_mazatlan", away: "Mazatlán FC", home: "Necaxa", time: "22:00", league: "MEX", prediction: "⭐ Necaxa 1X ★ (60% · 1.67 EV+11% · Mazatlán peor ataque) + Under 2.5", star: true },
+        { id: "tijuana_tigres", away: "Tigres UANL", home: "Club Tijuana", time: "22:06", league: "MEX", prediction: "⭐ Over 2.5 goles ★ (Tigres 27G/12J · EV+10%)", star: true }
     ];
 
-    // ==================== DATOS DE RESULTADOS (con resultados reales del 03/04) ====================
+    // ==================== RESULTADOS REALES (viernes 03/04/2026) ====================
     let resultsData = {};
 
     function loadResultsFromLocal() {
@@ -406,7 +404,6 @@
             catch(e) { resultsData = {}; }
         }
         if (Object.keys(resultsData).length === 0) {
-            // Resultados reales del viernes 03/04/2026
             resultsData = {
                 "2026-04-03": {
                     soccer: [
@@ -418,9 +415,7 @@
                         { id: "r6", time: "22:00", away: "Mazatlán FC", home: "Necaxa", scoreAway: 1, scoreHome: 1, result: "Necaxa 1-1 Mazatlán" },
                         { id: "r7", time: "22:06", away: "Tigres UANL", home: "Club Tijuana", scoreAway: 0, scoreHome: 1, result: "Tijuana 1-0 Tigres" }
                     ],
-                    mlb: [],
-                    nba: [],
-                    nhl: []
+                    mlb: [], nba: [], nhl: []
                 }
             };
             saveResultsToLocal();
@@ -473,7 +468,7 @@
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
             let predictionText = g.prediction;
-            // (Las predicciones ya están en los datos, no necesitan modificación adicional)
+            // Aquí se podrían aplicar reglas v3.20/v3.21 dinámicamente, pero ya están incluidas en los textos.
             html += `<div class="game-card ${starClass}">
                 <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>⏰ ${g.time}</span><span>${g.spAway ? g.spAway + ' @ ' + g.spHome : ''}</span></div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;"><strong style="font-size:1.1rem;">${g.away}</strong> <span style="background:#facc15; width:30px; height:30px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#000;">VS</span> <strong style="font-size:1.1rem;">${g.home}</strong></div>
@@ -568,7 +563,7 @@
     }
 
     function initEvents() {
-        // Cambio entre pestañas principales
+        // Pestañas principales
         document.querySelectorAll('.main-tab').forEach(btn => {
             btn.addEventListener('click', () => {
                 const target = btn.getAttribute('data-main');
@@ -619,10 +614,10 @@
                 nhlGames = [...DEFAULT_NHL];
                 soccerGames = [...DEFAULT_SOCCER];
                 renderGames();
-                alert("Picks restaurados");
+                alert("Picks restaurados a versión v3.17");
             }
         });
-        // Guardar picks desde JSON (admin)
+        // Guardar picks desde JSON
         document.getElementById('savePicksBtn')?.addEventListener('click', () => {
             if (!currentUser?.isAdmin) return alert("Solo admin");
             try {
@@ -662,7 +657,6 @@
     initEvents();
     updateUserUI();
     renderGames();
-    // Asegurar que la sección de resultados esté oculta al inicio
     document.getElementById('resultsSection').classList.add('hidden');
     document.getElementById('picksSection').classList.remove('hidden');
 </script>
