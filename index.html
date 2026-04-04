@@ -186,6 +186,24 @@
         }
         .metric-row.highlight { background: rgba(250,204,21,0.15); color: #facc15; font-weight: bold; }
         
+        /* Props list */
+        .props-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .prop-item {
+            background: rgba(168,85,247,0.2);
+            border-radius: 12px;
+            padding: 0.3rem 0.5rem;
+            font-size: 0.7rem;
+            flex: 1 0 auto;
+            text-align: center;
+        }
+        .prop-player { font-weight: bold; color: #d8b4fe; }
+        .prop-line { color: #facc15; }
+        
         /* Resultados */
         .results-container {
             background: rgba(0,0,0,0.2);
@@ -369,7 +387,10 @@
 
     <!-- Sección PARLAYS -->
     <div id="parlaysSection" class="hidden">
-        <div class="parlays-grid" id="parlaysContainer"></div>
+        <h3 style="margin-bottom: 1rem;">⚽ Parlays Fútbol</h3>
+        <div id="soccerParlaysContainer" class="parlays-grid"></div>
+        <h3 style="margin: 2rem 0 1rem;">🏀 Parlays NBA</h3>
+        <div id="nbaParlaysContainer" class="parlays-grid"></div>
     </div>
 
     <!-- Panel de Administración -->
@@ -406,23 +427,50 @@
         { id: "atl_az", away: "ATL", home: "AZ", time: "9:45 PM", prediction: "ATL ML -118 • UNDER 8.5", star: false },
         { id: "nym_sf", away: "NYM", home: "SF", time: "10:15 PM", prediction: "SF ML -118 • UNDER 8.0", star: false }
     ];
-    // NBA (9 juegos)
+
+    // NBA (3 juegos con métricas completas, props y picks estrella)
     const DEFAULT_NBA = [
-        { id: "cha_ind", away: "Indiana Pacers", home: "Charlotte Hornets", time: "7:00 PM ET", prediction: "⭐ UNDER 237.0 • ALT UNDER 239.0", star: false },
-        { id: "phi_min", away: "Minnesota T-Wolves", home: "Philadelphia 76ers", time: "7:00 PM ET", prediction: "⭐ MIN ML -105 • ALT UNDER 226.5", star: true },
-        { id: "bkn_atl", away: "Atlanta Hawks", home: "Brooklyn Nets", time: "7:30 PM ET", prediction: "ALT UNDER 236.5 • SKIP ML -1000", star: false },
-        { id: "nyk_chi", away: "Chicago Bulls", home: "New York Knicks", time: "7:30 PM ET", prediction: "ALT UNDER 230.5 • SKIP ML -1400", star: false },
-        { id: "mem_tor", away: "Toronto Raptors", home: "Memphis Grizzlies", time: "8:00 PM ET", prediction: "ALT UNDER 228.5 • SKIP ML -650", star: false },
-        { id: "mil_bos", away: "Boston Celtics", home: "Milwaukee Bucks", time: "8:00 PM ET", prediction: "⭐ ALT UNDER 229.5 • SKIP ML -850", star: true },
-        { id: "hou_uta", away: "Utah Jazz", home: "Houston Rockets", time: "8:00 PM ET", prediction: "ALT UNDER 234.5 • SKIP ML -1800", star: false },
-        { id: "dal_orl", away: "Orlando Magic", home: "Dallas Mavericks", time: "8:30 PM ET", prediction: "⭐ ORL ML -310 • ALT UNDER 222.5", star: true },
-        { id: "sac_nop", away: "New Orleans Pelicans", home: "Sacramento Kings", time: "10:00 PM ET", prediction: "⭐ NOP ML -215 • ALT OVER 220", star: true }
+        {
+            id: "mia_was", away: "Washington Wizards", home: "Miami Heat", time: "3:00 PM ET", league: "NBA",
+            prob_h: 91, prob_d: 5, prob_a: 4,
+            proj_home: 115, proj_away: 100, total_line: 222.0,
+            prediction: "⭐ ALT UNDER 224 • MIA -15.5 ALT • SKIP ML -1300",
+            injuries: "WAS: Paul George OUT, Beal OUT, A.Davis OUT • MIA: Powell OUT, Herro probable",
+            star: false,
+            props: [{ player: "Bam Adebayo", line: "Pts+Reb OV 29.5", odds: "-120", conf: "77%" }],
+            analysis: "MIA en casa -1300 vs WAS sin sus 3 mejores jugadores. MC 115-100=215 UNDER 222 Δ-7. ALT UNDER 224 y RL -15.5.",
+        },
+        {
+            id: "den_sas", away: "San Antonio Spurs", home: "Denver Nuggets", time: "3:00 PM ET", league: "NBA",
+            prob_h: 46, prob_d: 5, prob_a: 49,
+            proj_home: 120, proj_away: 118, total_line: 234.0,
+            prediction: "⭐ OVER 231.5 ★★ • SAS ML -130 • Jokic PRA OV 47.5 • Wemby BLK OV 2.5",
+            injuries: "Ambos full squad: Jokic ✅, Wemby ✅, Murray ✅, Vassell ✅",
+            star: true,
+            props: [
+                { player: "Nikola Jokic", line: "PRA OV 47.5", odds: "-120", conf: "84%" },
+                { player: "Victor Wembanyama", line: "Bloqueos OV 2.5", odds: "-115", conf: "84%" }
+            ],
+            analysis: "Jokic vs Wemby = OVER obligatorio. SAS a 2.5 juegos del #1 Oeste, DEN busca semilla. MC 238 OVER 234 Δ+4. ALT OVER 231.5. SAS ML -130 valor.",
+        },
+        {
+            id: "phi_det", away: "Detroit Pistons", home: "Philadelphia 76ers", time: "7:00 PM ET", league: "NBA",
+            prob_h: 46, prob_d: 5, prob_a: 49,
+            proj_home: 113, proj_away: 115, total_line: 226.5,
+            prediction: "⭐ DET ML -135 (si Embiid OUT) • ALT OVER 224.5 • Maxey Pts OV 26.5",
+            injuries: "PHI: Embiid OUT (illness) según report • DET: Cade OUT, Stewart OUT",
+            star: true,
+            props: [{ player: "Tyrese Maxey", line: "Puntos OV 26.5", odds: "-115", conf: "82%" }],
+            analysis: "Todo gira en torno a Embiid. Sin él, DET -135 road con Hayes liderando. MC 228 OVER 226.5 Δ+1.5. ALT OVER 224.5 72% confianza.",
+        }
     ];
+
     // NHL (2 juegos)
     const DEFAULT_NHL = [
         { away: "Buffalo Sabres", home: "Ottawa Senators", time: "7:00 PM", prediction: "⭐ OVER 6.5 • Sabres ofensiva", star: true },
         { away: "Montreal Canadiens", home: "NY Rangers", time: "7:00 PM", prediction: "⭐ MTL ML (+108)", star: true }
     ];
+
     // Fútbol (20+ partidos con métricas completas)
     const DEFAULT_SOCCER = [
         { id: "freiburg_bayern", away: "Freiburg", home: "Bayern Munich", time: "07:30 VEN", league: "GER", prob_h: 20, prob_d: 26, prob_a: 54, goals_away: 38, goals_home: 97, form_away: "W D L W D", form_home: "W W W D W", prediction: "⭐ Over 2.5 goles ★★ (Bayern 100% score, Freiburg 9 GA consecutivos)", star: true, xg_away: 1.2, xg_home: 2.8 },
@@ -452,10 +500,18 @@
     ];
 
     // ==================== PARLAYS ====================
-    const PARLAYS_DATA = [
+    // Soccer parlays (from previous data)
+    const SOCCER_PARLAYS = [
         { nombre: "PARLAY SEGURO 🛡️", tipo: "gold", picks: ["Leverkusen 1X (1.62)", "Stuttgart 1X (1.60)", "Lazio WIN (1.84)", "Cruz Azul 1X (1.67)"], odds: "~7.97", stake: "2%", prob: "~35%", desc: "Anclas puras de Alemania, Italia y México. Lazio EV+16%." },
         { nombre: "PARLAY MIXTO (RECOMENDADO) ⚡", tipo: "orange", picks: ["Leverkusen 1X (1.62)", "Stuttgart 1X (1.60)", "Lazio WIN (1.84)", "BTTS Atlético-Barça (1.72)", "Cruz Azul 1X (1.67)"], odds: "~13.71", stake: "1%", prob: "~27%", desc: "El mejor equilibrio entre riesgo y valor. 5 ligas distintas." },
         { nombre: "PARLAY MILLONARIO 💰", tipo: "purple", picks: ["Over 2.5 Bayern (1.68)", "Leverkusen 1X (1.62)", "Chelsea Over 3.5 (1.60)", "Betis WIN (1.78)", "Tarjetas Lille-Lens (1.65)", "Lazio WIN (1.84)", "América X2 (1.88)"], odds: "~21.8", stake: "0.5%", prob: "~11%", desc: "7 picks estrella, máxima varianza. Stake mínimo." }
+    ];
+
+    // NBA parlays (from the new NBA module)
+    const NBA_PARLAYS = [
+        { nombre: "PARLAY SEGURO NBA 🛡️", tipo: "green", picks: ["DEN/SAS ★ OVER 231.5 (1.83)", "SAS ML -130 (1.77)", "Jokic PRA OV 47.5 (1.83)", "Wemby BLK OV 2.5 (1.87)"], odds: "~12.0x", stake: "3-4u", prob: "~37%", desc: "OVER bomba Jokic+Wemby + SAS valor ML + 2 props élite." },
+        { nombre: "PARLAY MIXTO NBA ⚡", tipo: "orange", picks: ["DEN/SAS ★ OVER 231.5 (1.83)", "SAS ML -130 (1.77)", "Jokic PRA OV 47.5 (1.83)", "Wemby BLK OV 2.5 (1.87)"], odds: "~14.0x", stake: "1-2u", prob: "~35%", desc: "El parlay más limpio: OVER + SAS + 2 props élite." },
+        { nombre: "PARLAY MILLONARIO NBA 💰", tipo: "purple", picks: ["DEN/SAS ★ OVER 231.5 (1.83)", "SAS ML -130 (1.77)", "MIA ALT UNDER 224 (1.83)", "Jokic PRA OV 47.5 (1.83)", "Wemby BLK OV 2.5 (1.87)", "Maxey Pts OV 26.5 (1.87)"], odds: "~32.0x", stake: "1u max", prob: "~24%", desc: "OVER masivo + 4 props estrella + SAS ML." }
     ];
 
     // ==================== RESULTADOS (ejemplo) ====================
@@ -514,7 +570,7 @@
         let html = '';
         for (let g of games) {
             const starClass = g.star ? 'star' : '';
-            // Para fútbol: mostrar métricas y barra de probabilidad
+            // Fútbol
             if (currentSport === 'soccer' && g.prob_h !== undefined) {
                 const totalProb = g.prob_h + g.prob_d + g.prob_a;
                 html += `<div class="game-card ${starClass}">
@@ -540,8 +596,38 @@
                     </div>
                     <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${g.prediction}` : '🔒 Inicia sesión para ver la predicción'}</div>
                 </div>`;
-            } else {
-                // MLB, NBA, NHL simplificado
+            } 
+            // NBA con métricas y props
+            else if (currentSport === 'nba' && g.prob_h !== undefined) {
+                const totalProb = g.prob_h + g.prob_d + g.prob_a;
+                html += `<div class="game-card ${starClass}">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                        <span><i class="far fa-clock"></i> ${g.time}</span>
+                        <span class="league-badge" style="background:#1e40af; padding:0.1rem 0.5rem; border-radius:20px;">NBA</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;">
+                        <div style="text-align:center; flex:1;"><strong style="font-size:1rem;">${g.away}</strong><div style="font-size:0.7rem;">${g.proj_away} pts</div></div>
+                        <span style="background:#facc15; width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#000; font-weight:bold;">VS</span>
+                        <div style="text-align:center; flex:1;"><strong style="font-size:1rem;">${g.home}</strong><div style="font-size:0.7rem;">${g.proj_home} pts</div></div>
+                    </div>
+                    <div class="prob-bar">
+                        <div style="width:${(g.prob_h/totalProb)*100}%; background:#22c55e;">${g.prob_h}%</div>
+                        <div style="width:${(g.prob_d/totalProb)*100}%; background:#facc15;">${g.prob_d}%</div>
+                        <div style="width:${(g.prob_a/totalProb)*100}%; background:#ef4444;">${g.prob_a}%</div>
+                    </div>
+                    <div class="metrics-table">
+                        <div class="metric-row"><div>${g.away}</div><div>PROYECCIÓN</div><div>${g.home}</div></div>
+                        <div class="metric-row"><div>${g.proj_away} pts</div><div>Puntos</div><div>${g.proj_home} pts</div></div>
+                        <div class="metric-row"><div>${g.total_line}</div><div>Total línea</div><div>${g.total_line}</div></div>
+                        <div class="metric-row highlight"><div>${g.injuries || 'Sin bajas'}</div><div>LESIONES</div><div>${g.injuries || 'Sin bajas'}</div></div>
+                    </div>
+                    ${g.props ? `<div class="props-list"><strong>🎯 Props destacados:</strong> ${g.props.map(p => `<div class="prop-item"><span class="prop-player">${p.player}</span> <span class="prop-line">${p.line}</span> <span class="prop-odds">${p.odds}</span> <span class="prop-conf">${p.conf}</span></div>`).join('')}</div>` : ''}
+                    <div class="${acceso ? 'premium-unlocked' : 'locked-overlay'}">${acceso ? `🔮 ${g.prediction}` : '🔒 Inicia sesión para ver la predicción'}</div>
+                    <div class="analysis" style="font-size:0.7rem; margin-top:0.5rem; color:#9ca3af;">📊 ${g.analysis}</div>
+                </div>`;
+            }
+            // MLB y NHL simplificado
+            else {
                 html += `<div class="game-card ${starClass}">
                     <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>⏰ ${g.time}</span></div>
                     <div style="display:flex; justify-content:space-between; align-items:center; margin:0.5rem 0;"><strong>${g.away}</strong> <span class="vs">VS</span> <strong>${g.home}</strong></div>
@@ -553,10 +639,11 @@
     }
 
     function renderParlays() {
-        const container = document.getElementById('parlaysContainer');
-        let html = '';
-        for (let p of PARLAYS_DATA) {
-            html += `<div class="parlay-card ${p.tipo}">
+        // Render soccer parlays
+        const soccerContainer = document.getElementById('soccerParlaysContainer');
+        let soccerHtml = '';
+        for (let p of SOCCER_PARLAYS) {
+            soccerHtml += `<div class="parlay-card ${p.tipo}">
                 <div class="font-black text-center text-sm mb-2" style="color:${p.tipo==='gold'?'#eab308':p.tipo==='orange'?'#f97316':p.tipo==='purple'?'#a855f7':'#22c55e'}">${p.nombre}</div>
                 <div class="bg-green-500 rounded-lg py-1.5 text-center text-black font-black text-lg mb-2">${p.odds}</div>
                 <div class="text-center text-gray-400 text-xs">Prob: ${p.prob} · Stake: ${p.stake}</div>
@@ -564,7 +651,21 @@
                 <p class="text-gray-400 text-xs mt-2">${p.desc}</p>
             </div>`;
         }
-        container.innerHTML = html;
+        soccerContainer.innerHTML = soccerHtml;
+
+        // Render NBA parlays
+        const nbaContainer = document.getElementById('nbaParlaysContainer');
+        let nbaHtml = '';
+        for (let p of NBA_PARLAYS) {
+            nbaHtml += `<div class="parlay-card ${p.tipo}">
+                <div class="font-black text-center text-sm mb-2" style="color:${p.tipo==='green'?'#22c55e':p.tipo==='orange'?'#f97316':p.tipo==='purple'?'#a855f7':'#eab308'}">${p.nombre}</div>
+                <div class="bg-green-500 rounded-lg py-1.5 text-center text-black font-black text-lg mb-2">${p.odds}</div>
+                <div class="text-center text-gray-400 text-xs">Stake: ${p.stake} · Prob: ${p.prob}</div>
+                ${p.picks.map(pk => `<div class="bg-black/30 rounded px-2 py-1 my-1 text-xs">${pk}</div>`).join('')}
+                <p class="text-gray-400 text-xs mt-2">${p.desc}</p>
+            </div>`;
+        }
+        nbaContainer.innerHTML = nbaHtml;
     }
 
     function renderResults() {
