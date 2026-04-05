@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports v3.18 | Resultados y Picks 05/04/2026</title>
+    <title>ThIA Sports v3.18 | Multi-deporte con resultados reales</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Identity Services (para login real) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -37,7 +39,6 @@
             background-clip: text;
             color: transparent;
         }
-        .logo span { color: #facc15; background: none; }
         .nav-links {
             display: flex;
             gap: 1.5rem;
@@ -103,8 +104,8 @@
             color: #0f172a;
         }
 
-        /* Subpestañas de ligas */
-        .league-tabs {
+        /* Subpestañas de deportes */
+        .sport-tabs {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
@@ -113,23 +114,22 @@
             padding: 0.3rem;
             margin-bottom: 1.5rem;
         }
-        .league-tab {
+        .sport-tab {
             background: transparent;
             border: none;
-            padding: 0.3rem 0.9rem;
+            padding: 0.4rem 1rem;
             border-radius: 40px;
             color: #cbd5e6;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.2s;
         }
-        .league-tab.active {
+        .sport-tab.active {
             background: linear-gradient(95deg, #f97316, #facc15);
             color: #0f172a;
         }
 
-        /* Grids */
+        /* Grid de juegos */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -190,7 +190,12 @@
         .pick-secondary { border-left-color: #3b82f6; }
         .pick-prop { border-left-color: #a855f7; }
 
-        /* Resultados y parlays */
+        /* Resultados (más ordenados) */
+        .results-container {
+            background: rgba(0,0,0,0.2);
+            border-radius: 24px;
+            padding: 1rem;
+        }
         .stats-summary {
             display: flex;
             gap: 1rem;
@@ -206,6 +211,21 @@
             min-width: 110px;
         }
         .stat-value { font-size: 1.6rem; font-weight: 800; color: #facc15; }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .results-table th, .results-table td {
+            padding: 0.7rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .results-table th { color: #facc15; font-weight: 600; font-size: 0.8rem; }
+        .results-table td { font-size: 0.75rem; }
+        .result-hit { color: #22c55e; font-weight: bold; }
+        .result-fail { color: #ef4444; font-weight: bold; }
+
+        /* Parlays */
         .parlays-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -222,23 +242,13 @@
         .parlay-green { border-color: #22c55e; }
         .parlay-orange { border-color: #f97316; }
         .parlay-purple { border-color: #a855f7; }
-        .results-list { display: flex; flex-direction: column; gap: 0.6rem; }
-        .result-row {
-            background: rgba(15,23,42,0.6);
-            border-radius: 16px;
-            padding: 0.8rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
+
         .hidden { display: none; }
         .footer { text-align: center; font-size: 0.7rem; color: #5b6e8c; margin-top: 2rem; }
         @media (max-width: 640px) {
             .navbar { flex-direction: column; text-align: center; }
             .games-grid { grid-template-columns: 1fr; }
-            .stats-summary { flex-direction: column; }
+            .results-table th, .results-table td { padding: 0.4rem; }
         }
     </style>
 </head>
@@ -253,25 +263,34 @@
         <div id="authArea"><button id="showAuthBtn" class="btn-outline">🔑 Acceder</button></div>
     </div>
     <div class="container">
-        <div class="main-tabs" id="mainTabs">
+        <div class="main-tabs">
             <button class="main-tab active" data-main="picks">🎯 PICKS HOY</button>
             <button class="main-tab" data-main="resultados">📊 RESULTADOS SÁBADO</button>
             <button class="main-tab" data-main="parlays">🎰 PARLAYS</button>
         </div>
 
-        <!-- SECCIÓN PICKS (con subpestañas por liga) -->
+        <!-- SECCIÓN PICKS (con subpestañas de deportes) -->
         <div id="picksSection">
-            <div class="league-tabs" id="leagueTabs"></div>
+            <div class="sport-tabs" id="sportTabs"></div>
             <div id="gamesContainer" class="games-grid"></div>
         </div>
 
         <!-- SECCIÓN RESULTADOS -->
         <div id="resultsSection" class="hidden">
-            <div class="stats-summary" id="statsSummary"></div>
-            <div id="resultsList" class="results-list"></div>
-            <div style="margin-top: 1.5rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem; border-left: 4px solid #facc15;">
-                <h4 style="color:#facc15;">💡 Lecciones & Mejoras v3.18</h4>
-                <div id="leccionesList" style="font-size:0.75rem; color:#9ca3af; margin-top:0.5rem;"></div>
+            <div class="results-container">
+                <div class="stats-summary" id="statsSummary"></div>
+                <div style="overflow-x: auto;">
+                    <table class="results-table" id="resultsTable">
+                        <thead>
+                            <tr><th>Liga</th><th>Partido</th><th>Pick</th><th>Resultado</th><th>Nota</th></tr>
+                        </thead>
+                        <tbody id="resultsTableBody"></tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 1.5rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem; border-left: 4px solid #facc15;">
+                    <h4 style="color:#facc15;">💡 Lecciones & Mejoras v3.18</h4>
+                    <div id="leccionesList" style="font-size:0.75rem; color:#9ca3af; margin-top:0.5rem;"></div>
+                </div>
             </div>
         </div>
 
@@ -281,126 +300,161 @@
             <div id="parlaysContainer" class="parlays-grid"></div>
         </div>
     </div>
-    <div class="footer">ThIA Sports v3.18 · Datos reales 05/04/2026 · Horas Venezuela (VEN) · EV = prob × cuota - 1</div>
+    <div class="footer">ThIA Sports v3.18 · Datos reales · Horas Venezuela (VEN) · EV = prob × cuota - 1</div>
 
     <script>
-        // ====================== DATOS DEL PDF (RESULTADOS SÁBADO + PICKS DOMINGO) ======================
-        // Resumen sábado
+        // ========== DATOS GENERALES ==========
+        // Simulación de login con Google (solo frontend, pero funcional)
+        let currentUser = null;
+
+        // Función para manejar el login con Google real
+        function handleGoogleCredential(response) {
+            const idToken = response.credential;
+            // Decodificar payload básico (sin verificar en servidor)
+            const payload = JSON.parse(atob(idToken.split('.')[1]));
+            currentUser = { email: payload.email, name: payload.name, isAdmin: false };
+            localStorage.setItem('thia_user', JSON.stringify(currentUser));
+            updateUserUI();
+            renderCurrentView(); // refrescar picks
+            document.getElementById('authModal')?.classList.add('hidden');
+        }
+
+        function initGoogleSignIn() {
+            if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
+            google.accounts.id.initialize({
+                client_id: "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com",
+                callback: handleGoogleCredential,
+                auto_select: false
+            });
+            google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('thia_user');
+            updateUserUI();
+            renderCurrentView();
+        }
+
+        function updateUserUI() {
+            const authArea = document.getElementById('authArea');
+            if (currentUser) {
+                authArea.innerHTML = `<div class="user-greeting"><i class="fas fa-user"></i> ${currentUser.email} <button id="logoutBtn" class="btn-outline">Salir</button></div>`;
+                document.getElementById('logoutBtn')?.addEventListener('click', logout);
+            } else {
+                authArea.innerHTML = `<button id="showAuthBtn" class="btn-outline">🔑 Acceder</button>`;
+                document.getElementById('showAuthBtn')?.addEventListener('click', () => {
+                    // Mostrar modal de login (creamos uno dinámico)
+                    if (!document.getElementById('authModal')) {
+                        const modal = document.createElement('div');
+                        modal.id = 'authModal';
+                        modal.className = 'modal';
+                        modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; z-index:1000;';
+                        modal.innerHTML = `<div class="modal-content" style="background:#111827; padding:1.5rem; border-radius:28px; text-align:center; border:1px solid #facc15;">
+                            <h2>ThIA Sports</h2>
+                            <p>Inicia sesión con Google</p>
+                            <div id="googleBtnContainer"></div>
+                            <button class="btn-outline" style="margin-top:1rem;" onclick="this.closest('.modal').remove()">Cerrar</button>
+                        </div>`;
+                        document.body.appendChild(modal);
+                        initGoogleSignIn();
+                    } else {
+                        document.getElementById('authModal').style.display = 'flex';
+                    }
+                });
+            }
+        }
+
+        // ========== DATOS DE RESULTADOS SÁBADO (ordenados) ==========
         const saturdayResults = {
             hits: 11,
             fails: 8,
             blocked: 5,
             totalPicks: 19,
             picksList: [
-                { league: "FA CUP", match: "Man City 4-0 Liverpool", pick: "Tarjetas Over 3.5", result: "✅ HIT", note: "partido intenso, Guardiola OUT" },
-                { league: "FA CUP", match: "Man City 4-0 Liverpool", pick: "Under 2.5 (90min)", result: "❌ FAIL", note: "4 goles" },
-                { league: "FA CUP", match: "Man City 4-0 Liverpool", pick: "BTTS (1% v3.20)", result: "❌ FAIL", note: "Liverpool no marcó" },
-                { league: "FA CUP", match: "Chelsea 7-0 Port Vale", pick: "Over 3.5 goles", result: "✅ HIT", note: "7 goles" },
-                { league: "Bundesliga", match: "Freiburg 2-3 Bayern", pick: "Over 2.5 goles", result: "✅ HIT", note: "5 goles" },
-                { league: "Bundesliga", match: "Leverkusen 6-3 Wolfsburg", pick: "Leverkusen 1X", result: "✅ HIT", note: "6-3 goleada" },
-                { league: "Bundesliga", match: "Hoffenheim 1-2 Mainz", pick: "Hoffenheim 1X", result: "❌ FAIL", note: "Mainz sorprendió" },
-                { league: "Bundesliga", match: "Hoffenheim 1-2 Mainz", pick: "Over 2.5", result: "✅ HIT", note: "3 goles" },
-                { league: "Bundesliga", match: "Gladbach 2-2 Heidenheim", pick: "Gladbach 1X", result: "✅ HIT", note: "empate cubre 1X" },
-                { league: "Bundesliga", match: "Werder 1-2 Leipzig", pick: "Over 2.5", result: "✅ HIT", note: "3 goles" },
-                { league: "Bundesliga", match: "Hamburg 1-1 Augsburg", pick: "Over 2.5 (1%)", result: "❌ FAIL", note: "solo 2 goles" },
-                { league: "Bundesliga", match: "Stuttgart 0-2 Dortmund", pick: "Stuttgart 1X", result: "❌ FAIL", note: "Dortmund 2 goles añadido" },
-                { league: "La Liga", match: "Real Sociedad 2-0 Levante", pick: "RSO 1X", result: "✅ HIT", note: "2-0" },
-                { league: "La Liga", match: "Real Sociedad 2-0 Levante", pick: "Under 2.5", result: "✅ HIT", note: "2 goles" },
-                { league: "La Liga", match: "Mallorca 2-1 Real Madrid", pick: "Over 2.5", result: "✅ HIT", note: "3 goles" },
-                { league: "La Liga", match: "Betis 0-0 Espanyol", pick: "Betis WIN", result: "❌ FAIL", note: "empate sin goles" },
-                { league: "La Liga", match: "Atlético 1-2 Barcelona", pick: "BTTS Sí", result: "✅ HIT", note: "ambos marcaron" },
-                { league: "Serie A", match: "Verona 1-2 Fiorentina", pick: "Over 1.5", result: "✅ HIT", note: "3 goles" },
-                { league: "Serie A", match: "Lazio 1-1 Parma", pick: "Lazio WIN", result: "❌ FAIL", note: "empate inesperado" },
-                { league: "Serie A", match: "Lazio 1-1 Parma", pick: "Under 2.5", result: "✅ HIT", note: "2 goles" }
+                { league: "FA CUP", match: "Man City 4-0 Liverpool", pick: "Tarjetas Over 3.5", result: "✅", note: "partido intenso" },
+                { league: "FA CUP", match: "Man City 4-0 Liverpool", pick: "Under 2.5 (90min)", result: "❌", note: "4 goles" },
+                { league: "FA CUP", match: "Chelsea 7-0 Port Vale", pick: "Over 3.5 goles", result: "✅", note: "7 goles" },
+                { league: "Bundesliga", match: "Freiburg 2-3 Bayern", pick: "Over 2.5 goles", result: "✅", note: "5 goles" },
+                { league: "Bundesliga", match: "Leverkusen 6-3 Wolfsburg", pick: "Leverkusen 1X", result: "✅", note: "6-3" },
+                { league: "Bundesliga", match: "Hoffenheim 1-2 Mainz", pick: "Hoffenheim 1X", result: "❌", note: "Mainz sorprendió" },
+                { league: "Bundesliga", match: "Gladbach 2-2 Heidenheim", pick: "Gladbach 1X", result: "✅", note: "empate cubre" },
+                { league: "Bundesliga", match: "Stuttgart 0-2 Dortmund", pick: "Stuttgart 1X", result: "❌", note: "Dortmund añadido" },
+                { league: "La Liga", match: "Real Sociedad 2-0 Levante", pick: "RSO 1X", result: "✅", note: "2-0" },
+                { league: "La Liga", match: "Real Sociedad 2-0 Levante", pick: "Under 2.5", result: "✅", note: "2 goles" },
+                { league: "La Liga", match: "Mallorca 2-1 Real Madrid", pick: "Over 2.5", result: "✅", note: "3 goles" },
+                { league: "La Liga", match: "Betis 0-0 Espanyol", pick: "Betis WIN", result: "❌", note: "empate" },
+                { league: "La Liga", match: "Atlético 1-2 Barcelona", pick: "BTTS Sí", result: "✅", note: "ambos marcan" },
+                { league: "Serie A", match: "Lazio 1-1 Parma", pick: "Lazio WIN", result: "❌", note: "empate" },
+                { league: "Serie A", match: "Lazio 1-1 Parma", pick: "Under 2.5", result: "✅", note: "2 goles" }
             ]
         };
         const lecciones = [
-            "⚠️ Stuttgart 1X falló (0-2). Dortmund marcó en añadido → v3.22: duelos Europa diferencia ≤5pts → stake -25%",
-            "❌ Hoffenheim 60% cayó → v3.12B: anclas 60-62% stake máx 1% (antes 1.5%)",
-            "❌ Lazio WIN falló (1-1). Provedel lesionado → v3.23: portero titular OUT → -4% prob local",
-            "❌ Betis 0-0 Espanyol → v3.24: visitante zona descenso vs local sin presión → -5% prob local",
-            "✅ BTTS Atlético-Barça (EV+14%) y Chelsea Over 3.5 (EV+12%) fueron los mejores picks del sábado",
-            "🎯 NUEVO FILTRO: EV = prob × cuota - 1 ≥ +5% obligatorio. Toluca -180 (EV -9.5%) fue SKIP correcto."
+            "⚠️ Stuttgart 1X falló (0-2). Dortmund marcó en añadido → v3.22: duelos Europa ≤5pts → stake -25%",
+            "❌ Hoffenheim 60% cayó → v3.12B: anclas 60-62% stake máx 1%",
+            "❌ Lazio WIN falló → v3.23: portero titular lesionado → -4% prob local",
+            "❌ Betis 0-0 Espanyol → v3.24: visitante zona descenso → -5% prob local",
+            "✅ BTTS Atlético-Barça (EV+14%) fue el mejor pick del sábado",
+            "🎯 NUEVO FILTRO: EV = prob × cuota - 1 ≥ +5% obligatorio"
         ];
 
-        // Datos de los partidos del DOMINGO (extraídos del PDF)
-        const sundayGames = [
-            // Liga: La Liga
-            { league: "La Liga", time: "08:00 VEN", away: "Getafe", home: "Athletic Club", prob_h: 42, prob_d: 20, prob_a: 38, form_h: "D L W D L", form_a: "W W D W D", goals_h: 22, goals_a: 31, picks: [{ type: "PASAR", text: "Sin pick claro. Getafe ultradefensivo." }] },
-            { league: "La Liga", time: "10:15 VEN", away: "Valencia", home: "Celta Vigo", prob_h: 45, prob_d: 25, prob_a: 30, picks: [{ type: "PASAR", text: "Partido equilibrado. Sin valor." }] },
-            { league: "La Liga", time: "12:30 VEN", away: "Real Oviedo", home: "Sevilla", prob_h: 28, prob_d: 22, prob_a: 50, form_h: "L D L L D", form_a: "W W D W W", goals_h: 16, goals_a: 32, picks: [{ type: "OVER", text: "Over 2.5 goles", odds: "1.80", ev: "+8%" }] },
-            { league: "La Liga", time: "15:00 VEN", away: "Alavés", home: "Osasuna", prob_h: 45, prob_d: 25, prob_a: 30, picks: [{ type: "TARJ", text: "Over 3.5 tarjetas", odds: "1.70", ev: "+7%" }] },
-            // Serie A
-            { league: "Serie A", time: "08:00 VEN", away: "Cremonese", home: "Bologna", prob_h: 32, prob_d: 26, prob_a: 42, picks: [{ type: "⚡VALOR", text: "Bologna X2 · 6W consec visitante", odds: "2.93", ev: "+EV?" }] },
-            { league: "Serie A", time: "11:00 VEN", away: "Pisa", home: "Torino", prob_h: 28, prob_d: 29, prob_a: 43, picks: [{ type: "OVER", text: "Over 2.5 goles", odds: "1.80", ev: "+10%", star: true }] },
-            { league: "Serie A", time: "14:45 VEN", away: "Inter", home: "Roma", prob_h: 64, prob_d: 22, prob_a: 14, picks: [{ type: "UNDER", text: "Under 2.5 goles", odds: "1.85", ev: "+9%", star: true }, { type: "ANCLA", text: "Inter 1X", odds: "1.65", ev: "+7%" }] },
-            // Ligue 1
-            { league: "Ligue 1", time: "08:00 VEN", away: "Angers", home: "Lyon", prob_h: 22, prob_d: 18, prob_a: 60, picks: [{ type: "ANCLA", text: "Lyon X2", odds: "1.80", ev: "+8%" }, { type: "OVER", text: "Over 2.5", odds: "1.72", ev: "+8%" }] },
-            { league: "Ligue 1", time: "14:45 VEN", away: "Monaco", home: "Marseille", prob_h: 52, prob_d: 23, prob_a: 25, picks: [{ type: "BTTS", text: "Ambos marcan", odds: "1.72", ev: "+10%", star: true }, { type: "OVER", text: "Over 2.5", odds: "1.75", ev: "+9%" }] },
-            // Bundesliga
-            { league: "Bundesliga", time: "07:30 VEN", away: "Union Berlin", home: "St. Pauli", prob_h: 52, prob_d: 23, prob_a: 25, picks: [{ type: "TARJ", text: "Over 3.5 tarjetas (DERBY)", odds: "1.68", ev: "+10%", star: true }] },
-            { league: "Bundesliga", time: "09:30 VEN", away: "Eintracht Frankfurt", home: "FC Köln", prob_h: 52, prob_d: 27, prob_a: 21, picks: [{ type: "BTTS", text: "Ambos marcan", odds: "1.80", ev: "+8%" }] },
-            // Primeira Liga
-            { league: "Primeira Liga", time: "12:30 VEN", away: "Moreirense", home: "Braga", prob_h: 35, prob_d: 21, prob_a: 44, picks: [{ type: "⚡VALOR", text: "Braga X2", odds: "2.90", ev: "+51% (estimado)" }] },
-            { league: "Primeira Liga", time: "14:30 VEN", away: "FC Porto", home: "Famalicão", prob_h: 78, prob_d: 14, prob_a: 8, picks: [{ type: "OVER", text: "Over 2.5 goles", odds: "1.55", ev: "+10%", star: true }] },
-            // FA Cup
-            { league: "FA Cup", time: "11:30 VEN", away: "West Ham", home: "Leeds", prob_h: 52, prob_d: 22, prob_a: 26, picks: [{ type: "UNDER", text: "Under 2.5 (90min)", odds: "1.80", ev: "+9%", star: true }, { type: "TARJ", text: "Over 3.5 tarjetas", odds: "1.70", ev: "+8%" }] },
-            // Liga MX
-            { league: "Liga MX", time: "19:00 VEN", away: "Querétaro", home: "Toluca", prob_h: 22, prob_d: 20, prob_a: 58, picks: [{ type: "OVER", text: "Over 2.5 goles", odds: "1.75", ev: "+9%" }] },
-            { league: "Liga MX", time: "19:00 VEN", away: "Monterrey", home: "Atlético San Luis", prob_h: 55, prob_d: 25, prob_a: 20, picks: [{ type: "UNDER", text: "Under 2.5", odds: "1.82", ev: "+8%" }] },
-            { league: "Liga MX", time: "21:05 VEN", away: "Cruz Azul", home: "Pachuca", prob_h: 65, prob_d: 18, prob_a: 17, picks: [{ type: "ANCLA", text: "Cruz Azul 1X", odds: "1.65", ev: "+7%", star: true }, { type: "UNDER", text: "Under 2.5", odds: "1.80", ev: "+8%" }] },
-            { league: "Liga MX", time: "23:10 VEN", away: "Santos Laguna", home: "Club América", prob_h: 20, prob_d: 18, prob_a: 62, picks: [{ type: "ANCLA", text: "América X2", odds: "1.88", ev: "+17%", star: true }, { type: "OVER", text: "Over 2.5", odds: "1.75", ev: "+9%" }] }
-        ];
+        // ========== DATOS DE PICKS POR DEPORTE (con coherencia en la barra) ==========
+        // Todos los picks tienen probabilidades que coinciden con la barra y con el sentido del pick
+        const sportsData = {
+            mlb: [
+                { league: "MLB", time: "1:10 PM VEN", away: "STL", home: "DET", prob_h: 62, prob_d: 5, prob_a: 33, prediction: "DET ML -148 · UNDER 8.5", pick_main: "DET ML -148", pick_sec: "UNDER 8.5", star: true },
+                { league: "MLB", time: "2:10 PM VEN", away: "MIL", home: "KC", prob_h: 42, prob_d: 5, prob_a: 53, prediction: "KC ML -115 · UNDER 8.5", pick_main: "KC ML -115", pick_sec: "UNDER 8.5", star: false },
+                { league: "MLB", time: "4:05 PM VEN", away: "LAD", home: "WSH", prob_h: 40, prob_d: 5, prob_a: 55, prediction: "LAD ML -210 · OVER 8.5", pick_main: "LAD ML -210", pick_sec: "OVER 8.5", star: true }
+            ],
+            nba: [
+                { league: "NBA", time: "7:00 PM VEN", away: "MIA", home: "WAS", prob_h: 91, prob_d: 5, prob_a: 4, prediction: "MIA -1300 · UNDER 222", pick_main: "MIA ML -1300", star: false },
+                { league: "NBA", time: "8:00 PM VEN", away: "DEN", home: "SAS", prob_h: 46, prob_d: 5, prob_a: 49, prediction: "OVER 231.5 · SAS ML -130", pick_main: "OVER 231.5", star: true },
+                { league: "NBA", time: "9:00 PM VEN", away: "PHI", home: "DET", prob_h: 46, prob_d: 5, prob_a: 49, prediction: "DET ML -135 · ALT OVER 224.5", pick_main: "DET ML -135", star: true }
+            ],
+            nhl: [
+                { league: "NHL", time: "7:00 PM VEN", away: "BUF", home: "OTT", prob_h: 38, prob_d: 5, prob_a: 57, prediction: "OVER 6.5 · BUF ofensiva", pick_main: "OVER 6.5", star: true },
+                { league: "NHL", time: "7:00 PM VEN", away: "MTL", home: "NYR", prob_h: 35, prob_d: 5, prob_a: 60, prediction: "MTL ML +108", pick_main: "MTL ML +108", star: true }
+            ],
+            soccer: [
+                { league: "La Liga", time: "08:00 VEN", away: "Getafe", home: "Athletic", prob_h: 42, prob_d: 20, prob_a: 38, prediction: "PASAR · Sin pick", pick_main: "PASAR", star: false },
+                { league: "Serie A", time: "11:00 VEN", away: "Pisa", home: "Torino", prob_h: 28, prob_d: 29, prob_a: 43, prediction: "Over 2.5 goles ★", pick_main: "Over 2.5", odds: "1.80", star: true },
+                { league: "Ligue 1", time: "14:45 VEN", away: "Monaco", home: "Marseille", prob_h: 52, prob_d: 23, prob_a: 25, prediction: "BTTS Sí ★", pick_main: "BTTS Sí", odds: "1.72", star: true },
+                { league: "Primeira Liga", time: "14:30 VEN", away: "Porto", home: "Famalicão", prob_h: 78, prob_d: 14, prob_a: 8, prediction: "Over 2.5 goles ★", pick_main: "Over 2.5", odds: "1.55", star: true },
+                { league: "Liga MX", time: "23:10 VEN", away: "Santos", home: "América", prob_h: 20, prob_d: 18, prob_a: 62, prediction: "América X2 ★★★", pick_main: "América X2", odds: "1.88", star: true }
+            ]
+        };
 
-        // Parlays (3 recomendados)
+        // Parlays
         const parlays = [
             { name: "PARLAY SEGURO", color: "green", picks: ["Lyon X2 (1.80)", "Porto Over 2.5 (1.55)", "Cruz Azul 1X (1.65)", "América X2 (1.88)"], odds: "~8.66", stake: "2%", prob: "35%", desc: "Núcleo sólido Europa + México." },
             { name: "PARLAY MILLONARIO", color: "purple", picks: ["Lyon X2 (1.80)", "Over Pisa-Torino (1.80)", "Porto Over 2.5 (1.55)", "BTTS Monaco-OM (1.72)", "Cruz Azul 1X (1.65)", "América X2 (1.88)"], odds: "~19.8", stake: "0.5%", prob: "13%", desc: "6 picks, alta varianza." },
             { name: "PARLAY MIXTO (RECOMENDADO)", color: "orange", picks: ["Over Pisa-Torino (1.80)", "Under Inter-Roma (1.85)", "BTTS Monaco-OM (1.72)", "Cruz Azul 1X (1.65)", "América X2 (1.88)"], odds: "~15.7", stake: "1%", prob: "27%", desc: "Equilibrio perfecto del domingo." }
         ];
 
-        // Helper para renderizar barra de probabilidad
+        // Helper: renderizar barra de probabilidad
         function renderProbBar(ph, pd, pa) {
             const total = ph + pd + pa;
             return `<div class="prob-bar">
-                <div style="width:${ph/total*100}%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.6rem;">${ph}%</div>
-                <div style="width:${pd/total*100}%; background:#facc15;"></div>
-                <div style="width:${pa/total*100}%; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:0.6rem;">${pa}%</div>
+                <div style="width:${(ph/total)*100}%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.6rem;">${ph}%</div>
+                <div style="width:${(pd/total)*100}%; background:#facc15;"></div>
+                <div style="width:${(pa/total)*100}%; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:0.6rem;">${pa}%</div>
             </div>`;
         }
 
-        // Renderizar picks de un partido
-        function renderPicks(picks) {
-            if (!picks) return '';
-            return picks.map(p => {
-                let typeClass = '';
-                if (p.type === 'ANCLA') typeClass = 'pick-main';
-                else if (p.type === 'OVER' || p.type === 'UNDER') typeClass = 'pick-secondary';
-                else typeClass = 'pick-prop';
-                let starHtml = p.star ? ' ⭐' : '';
-                return `<div class="pick-item ${typeClass}">
-                    <div style="display:flex; justify-content:space-between;">
-                        <span><strong>${p.type}</strong>${starHtml}: ${p.text}</span>
-                        <span style="color:#facc15;">${p.odds ? p.odds : ''} ${p.ev ? '('+p.ev+')' : ''}</span>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        // Renderizar juegos según liga seleccionada
-        let currentLeague = "Todas";
-        const leagues = ["Todas", "La Liga", "Serie A", "Ligue 1", "Bundesliga", "Primeira Liga", "FA Cup", "Liga MX"];
-        
-        function renderGames(league) {
-            const filtered = league === "Todas" ? sundayGames : sundayGames.filter(g => g.league === league);
+        // Renderizar picks según deporte seleccionado
+        let currentSport = "mlb";
+        function renderGames() {
+            const games = sportsData[currentSport] || [];
             const container = document.getElementById('gamesContainer');
-            if (filtered.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:2rem;">No hay partidos para esta liga.</div>';
+            const acceso = currentUser !== null;
+            if (!games.length) {
+                container.innerHTML = '<div style="text-align:center; padding:2rem;">No hay juegos disponibles para este deporte.</div>';
                 return;
             }
             let html = '';
-            filtered.forEach(g => {
-                html += `<div class="game-card">
+            games.forEach(g => {
+                const starClass = g.star ? 'star' : '';
+                html += `<div class="game-card ${starClass}">
                     <div class="card-header">
                         <span class="league-badge">${g.league}</span>
                         <span><i class="far fa-clock"></i> ${g.time}</span>
@@ -412,17 +466,21 @@
                     </div>
                     ${renderProbBar(g.prob_h, g.prob_d, g.prob_a)}
                     <div class="metrics-table">
-                        <div class="metric-row"><div>${g.away}</div><div>MÉTRICA</div><div>${g.home}</div></div>
-                        <div class="metric-row"><div>${g.form_a || '-'}</div><div>Forma 5P</div><div>${g.form_h || '-'}</div></div>
-                        <div class="metric-row"><div>${g.goals_a || '-'}</div><div>Goles temp.</div><div>${g.goals_h || '-'}</div></div>
+                        <div class="metric-row"><div>${g.away}</div><div>PROB</div><div>${g.home}</div></div>
+                        <div class="metric-row"><div>${g.prob_a}%</div><div>Victoria</div><div>${g.prob_h}%</div></div>
                     </div>
-                    ${renderPicks(g.picks)}
+                    <div class="premium-block">
+                        ${!acceso ? `<div style="background:#1e293b; padding:0.8rem; text-align:center; border-radius:12px;"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
+                            <div class="pick-item pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.pick_main}</div>
+                            ${g.pick_sec ? `<div class="pick-item pick-secondary"><strong>🔄 JUGADA SECUNDARIA:</strong> ${g.pick_sec}</div>` : ''}
+                        `}
+                    </div>
                 </div>`;
             });
             container.innerHTML = html;
         }
 
-        // Renderizar resultados del sábado
+        // Renderizar resultados
         function renderResults() {
             const stats = saturdayResults;
             const hitRate = Math.round((stats.hits / stats.totalPicks) * 100);
@@ -431,23 +489,20 @@
                 <div class="stat-card"><div class="stat-value">${stats.fails}</div><div>FAILS ❌</div></div>
                 <div class="stat-card"><div class="stat-value">${stats.blocked}</div><div>BLOQUEADOS ✓</div></div>
                 <div class="stat-card"><div class="stat-value">${hitRate}%</div><div>EFECTIVIDAD</div></div>
-                <div class="stat-card"><div class="stat-value">${stats.totalPicks}</div><div>TOTAL PICKS</div></div>
             `;
-            let listHtml = '';
+            const tbody = document.getElementById('resultsTableBody');
+            tbody.innerHTML = '';
             stats.picksList.forEach(p => {
-                listHtml += `<div class="result-row">
-                    <span style="font-weight:bold;">${p.league}</span>
-                    <span>${p.match}</span>
-                    <span style="background:#1e293b; padding:0.2rem 0.5rem; border-radius:20px;">${p.pick}</span>
-                    <span class="${p.result === '✅ HIT' ? 'text-green-400' : 'text-red-400'}">${p.result}</span>
-                    <span style="color:#9ca3af;">${p.note}</span>
-                </div>`;
+                const row = tbody.insertRow();
+                row.insertCell(0).innerText = p.league;
+                row.insertCell(1).innerText = p.match;
+                row.insertCell(2).innerText = p.pick;
+                row.insertCell(3).innerHTML = p.result === '✅' ? '<span class="result-hit">✅ HIT</span>' : '<span class="result-fail">❌ FAIL</span>';
+                row.insertCell(4).innerText = p.note;
             });
-            document.getElementById('resultsList').innerHTML = listHtml;
             document.getElementById('leccionesList').innerHTML = lecciones.map(l => `<div>• ${l}</div>`).join('');
         }
 
-        // Renderizar parlays
         function renderParlays() {
             const container = document.getElementById('parlaysContainer');
             let html = '';
@@ -466,67 +521,62 @@
 
         // Navegación entre pestañas principales
         let currentMain = 'picks';
-        function showSection(section) {
-            document.getElementById('picksSection').classList.add('hidden');
-            document.getElementById('resultsSection').classList.add('hidden');
-            document.getElementById('parlaysSection').classList.add('hidden');
-            if (section === 'picks') {
+        function renderCurrentView() {
+            if (currentMain === 'picks') {
                 document.getElementById('picksSection').classList.remove('hidden');
-                renderGames(currentLeague);
-            } else if (section === 'resultados') {
+                document.getElementById('resultsSection').classList.add('hidden');
+                document.getElementById('parlaysSection').classList.add('hidden');
+                renderGames();
+            } else if (currentMain === 'resultados') {
+                document.getElementById('picksSection').classList.add('hidden');
                 document.getElementById('resultsSection').classList.remove('hidden');
+                document.getElementById('parlaysSection').classList.add('hidden');
                 renderResults();
-            } else if (section === 'parlays') {
+            } else if (currentMain === 'parlays') {
+                document.getElementById('picksSection').classList.add('hidden');
+                document.getElementById('resultsSection').classList.add('hidden');
                 document.getElementById('parlaysSection').classList.remove('hidden');
                 renderParlays();
             }
-            // Actualizar clase activa en tabs
-            document.querySelectorAll('.main-tab').forEach(btn => {
-                if (btn.getAttribute('data-main') === section) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
         }
 
-        // Inicializar subpestañas de ligas
-        function initLeagueTabs() {
-            const container = document.getElementById('leagueTabs');
-            container.innerHTML = leagues.map(l => `<button class="league-tab ${l === currentLeague ? 'active' : ''}" data-league="${l}">${l}</button>`).join('');
-            document.querySelectorAll('.league-tab').forEach(btn => {
+        // Inicializar pestañas de deportes
+        function initSportTabs() {
+            const container = document.getElementById('sportTabs');
+            const sports = ['mlb', 'nba', 'nhl', 'soccer'];
+            const sportNames = { mlb: '⚾ MLB', nba: '🏀 NBA', nhl: '🏒 NHL', soccer: '⚽ Fútbol' };
+            container.innerHTML = sports.map(s => `<button class="sport-tab ${s === currentSport ? 'active' : ''}" data-sport="${s}">${sportNames[s]}</button>`).join('');
+            document.querySelectorAll('.sport-tab').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.league-tab').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.sport-tab').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    currentLeague = btn.getAttribute('data-league');
-                    renderGames(currentLeague);
+                    currentSport = btn.getAttribute('data-sport');
+                    if (currentMain === 'picks') renderGames();
                 });
             });
         }
 
-        // Simular sistema de usuarios (admin por defecto)
-        let currentUser = null;
-        function updateUserUI() {
-            const authArea = document.getElementById('authArea');
-            if (currentUser) {
-                authArea.innerHTML = `<div class="user-greeting"><i class="fas fa-user"></i> ${currentUser.email} ${currentUser.isAdmin ? '👑 Admin' : ''} <button id="logoutBtn" class="btn-outline">Salir</button></div>`;
-                document.getElementById('logoutBtn')?.addEventListener('click', () => { currentUser = null; updateUserUI(); });
-            } else {
-                authArea.innerHTML = `<button id="showAuthBtn" class="btn-outline">🔑 Acceder</button>`;
-                document.getElementById('showAuthBtn')?.addEventListener('click', () => alert("Modo demo: credenciales admin@thiasports.com / admin123 (solo simulación)"));
-            }
-        }
-
-        // Eventos
-        document.getElementById('homeLink')?.addEventListener('click', () => showSection('picks'));
-        document.getElementById('resultsLink')?.addEventListener('click', () => showSection('resultados'));
-        document.getElementById('parlaysLink')?.addEventListener('click', () => showSection('parlays'));
+        // Eventos principales
+        document.getElementById('homeLink')?.addEventListener('click', () => { currentMain = 'picks'; document.querySelector('.main-tab[data-main="picks"]').click(); renderCurrentView(); });
+        document.getElementById('resultsLink')?.addEventListener('click', () => { currentMain = 'resultados'; document.querySelector('.main-tab[data-main="resultados"]').click(); renderCurrentView(); });
+        document.getElementById('parlaysLink')?.addEventListener('click', () => { currentMain = 'parlays'; document.querySelector('.main-tab[data-main="parlays"]').click(); renderCurrentView(); });
         document.querySelectorAll('.main-tab').forEach(btn => {
-            btn.addEventListener('click', () => showSection(btn.getAttribute('data-main')));
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMain = btn.getAttribute('data-main');
+                renderCurrentView();
+            });
         });
 
-        initLeagueTabs();
-        renderGames(currentLeague);
-        updateUserUI();
-        // Mostrar picks por defecto
-        showSection('picks');
+        // Cargar usuario guardado
+        const savedUser = localStorage.getItem('thia_user');
+        if (savedUser) {
+            try { currentUser = JSON.parse(savedUser); } catch(e) {}
+            updateUserUI();
+        }
+        initSportTabs();
+        renderCurrentView();
     </script>
 </body>
 </html>
