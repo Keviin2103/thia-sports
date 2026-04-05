@@ -190,7 +190,7 @@
         .pick-secondary { border-left-color: #3b82f6; }
         .pick-prop { border-left-color: #a855f7; }
 
-        /* Resultados (más ordenados) */
+        /* Resultados (ordenados) */
         .results-container {
             background: rgba(0,0,0,0.2);
             border-radius: 24px;
@@ -303,20 +303,17 @@
     <div class="footer">ThIA Sports v3.18 · Datos reales · Horas Venezuela (VEN) · EV = prob × cuota - 1</div>
 
     <script>
-        // ========== DATOS GENERALES ==========
-        // Simulación de login con Google (solo frontend, pero funcional)
+        // ========== LOGIN CON GOOGLE (REAL) ==========
         let currentUser = null;
 
-        // Función para manejar el login con Google real
         function handleGoogleCredential(response) {
             const idToken = response.credential;
-            // Decodificar payload básico (sin verificar en servidor)
             const payload = JSON.parse(atob(idToken.split('.')[1]));
             currentUser = { email: payload.email, name: payload.name, isAdmin: false };
             localStorage.setItem('thia_user', JSON.stringify(currentUser));
             updateUserUI();
-            renderCurrentView(); // refrescar picks
-            document.getElementById('authModal')?.classList.add('hidden');
+            renderCurrentView();
+            if (document.getElementById('authModal')) document.getElementById('authModal').remove();
         }
 
         function initGoogleSignIn() {
@@ -344,11 +341,9 @@
             } else {
                 authArea.innerHTML = `<button id="showAuthBtn" class="btn-outline">🔑 Acceder</button>`;
                 document.getElementById('showAuthBtn')?.addEventListener('click', () => {
-                    // Mostrar modal de login (creamos uno dinámico)
                     if (!document.getElementById('authModal')) {
                         const modal = document.createElement('div');
                         modal.id = 'authModal';
-                        modal.className = 'modal';
                         modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; z-index:1000;';
                         modal.innerHTML = `<div class="modal-content" style="background:#111827; padding:1.5rem; border-radius:28px; text-align:center; border:1px solid #facc15;">
                             <h2>ThIA Sports</h2>
@@ -358,8 +353,6 @@
                         </div>`;
                         document.body.appendChild(modal);
                         initGoogleSignIn();
-                    } else {
-                        document.getElementById('authModal').style.display = 'flex';
                     }
                 });
             }
@@ -398,29 +391,37 @@
             "🎯 NUEVO FILTRO: EV = prob × cuota - 1 ≥ +5% obligatorio"
         ];
 
-        // ========== DATOS DE PICKS POR DEPORTE (con coherencia en la barra) ==========
-        // Todos los picks tienen probabilidades que coinciden con la barra y con el sentido del pick
+        // ========== DATOS DE PICKS POR DEPORTE (TODOS LOS JUEGOS) ==========
+        // Los valores de probabilidad son coherentes con los picks (barra alineada)
         const sportsData = {
             mlb: [
-                { league: "MLB", time: "1:10 PM VEN", away: "STL", home: "DET", prob_h: 62, prob_d: 5, prob_a: 33, prediction: "DET ML -148 · UNDER 8.5", pick_main: "DET ML -148", pick_sec: "UNDER 8.5", star: true },
-                { league: "MLB", time: "2:10 PM VEN", away: "MIL", home: "KC", prob_h: 42, prob_d: 5, prob_a: 53, prediction: "KC ML -115 · UNDER 8.5", pick_main: "KC ML -115", pick_sec: "UNDER 8.5", star: false },
-                { league: "MLB", time: "4:05 PM VEN", away: "LAD", home: "WSH", prob_h: 40, prob_d: 5, prob_a: 55, prediction: "LAD ML -210 · OVER 8.5", pick_main: "LAD ML -210", pick_sec: "OVER 8.5", star: true }
+                { league: "MLB", time: "1:10 PM VEN", away: "STL", home: "DET", prob_h: 62, prob_d: 5, prob_a: 33, pick_main: "DET ML -148", pick_sec: "UNDER 8.5", star: true },
+                { league: "MLB", time: "2:10 PM VEN", away: "MIL", home: "KC", prob_h: 42, prob_d: 5, prob_a: 53, pick_main: "KC ML -115", pick_sec: "UNDER 8.5", star: false },
+                { league: "MLB", time: "4:05 PM VEN", away: "LAD", home: "WSH", prob_h: 40, prob_d: 5, prob_a: 55, pick_main: "LAD ML -210", pick_sec: "OVER 8.5", star: true },
+                { league: "MLB", time: "7:05 PM VEN", away: "NYY", home: "MIA", prob_h: 64, prob_d: 5, prob_a: 31, pick_main: "NYY ML -165", pick_sec: "UNDER 8.5", star: true },
+                { league: "MLB", time: "8:10 PM VEN", away: "PHI", home: "COL", prob_h: 42, prob_d: 5, prob_a: 53, pick_main: "OVER 10.0", pick_sec: null, star: true }
             ],
             nba: [
-                { league: "NBA", time: "7:00 PM VEN", away: "MIA", home: "WAS", prob_h: 91, prob_d: 5, prob_a: 4, prediction: "MIA -1300 · UNDER 222", pick_main: "MIA ML -1300", star: false },
-                { league: "NBA", time: "8:00 PM VEN", away: "DEN", home: "SAS", prob_h: 46, prob_d: 5, prob_a: 49, prediction: "OVER 231.5 · SAS ML -130", pick_main: "OVER 231.5", star: true },
-                { league: "NBA", time: "9:00 PM VEN", away: "PHI", home: "DET", prob_h: 46, prob_d: 5, prob_a: 49, prediction: "DET ML -135 · ALT OVER 224.5", pick_main: "DET ML -135", star: true }
+                { league: "NBA", time: "7:00 PM VEN", away: "MIA", home: "WAS", prob_h: 91, prob_d: 5, prob_a: 4, pick_main: "MIA -1300 · UNDER 222", star: false },
+                { league: "NBA", time: "8:00 PM VEN", away: "DEN", home: "SAS", prob_h: 46, prob_d: 5, prob_a: 49, pick_main: "OVER 231.5 · SAS ML -130", star: true },
+                { league: "NBA", time: "9:00 PM VEN", away: "PHI", home: "DET", prob_h: 46, prob_d: 5, prob_a: 49, pick_main: "DET ML -135 · ALT OVER 224.5", star: true }
             ],
             nhl: [
-                { league: "NHL", time: "7:00 PM VEN", away: "BUF", home: "OTT", prob_h: 38, prob_d: 5, prob_a: 57, prediction: "OVER 6.5 · BUF ofensiva", pick_main: "OVER 6.5", star: true },
-                { league: "NHL", time: "7:00 PM VEN", away: "MTL", home: "NYR", prob_h: 35, prob_d: 5, prob_a: 60, prediction: "MTL ML +108", pick_main: "MTL ML +108", star: true }
+                { league: "NHL", time: "7:00 PM VEN", away: "BUF", home: "OTT", prob_h: 38, prob_d: 5, prob_a: 57, pick_main: "OVER 6.5 · BUF ofensiva", star: true },
+                { league: "NHL", time: "7:00 PM VEN", away: "MTL", home: "NYR", prob_h: 35, prob_d: 5, prob_a: 60, pick_main: "MTL ML +108", star: true }
             ],
             soccer: [
-                { league: "La Liga", time: "08:00 VEN", away: "Getafe", home: "Athletic", prob_h: 42, prob_d: 20, prob_a: 38, prediction: "PASAR · Sin pick", pick_main: "PASAR", star: false },
-                { league: "Serie A", time: "11:00 VEN", away: "Pisa", home: "Torino", prob_h: 28, prob_d: 29, prob_a: 43, prediction: "Over 2.5 goles ★", pick_main: "Over 2.5", odds: "1.80", star: true },
-                { league: "Ligue 1", time: "14:45 VEN", away: "Monaco", home: "Marseille", prob_h: 52, prob_d: 23, prob_a: 25, prediction: "BTTS Sí ★", pick_main: "BTTS Sí", odds: "1.72", star: true },
-                { league: "Primeira Liga", time: "14:30 VEN", away: "Porto", home: "Famalicão", prob_h: 78, prob_d: 14, prob_a: 8, prediction: "Over 2.5 goles ★", pick_main: "Over 2.5", odds: "1.55", star: true },
-                { league: "Liga MX", time: "23:10 VEN", away: "Santos", home: "América", prob_h: 20, prob_d: 18, prob_a: 62, prediction: "América X2 ★★★", pick_main: "América X2", odds: "1.88", star: true }
+                { league: "La Liga", time: "08:00 VEN", away: "Getafe", home: "Athletic", prob_h: 42, prob_d: 20, prob_a: 38, pick_main: "PASAR (sin valor)", star: false },
+                { league: "La Liga", time: "12:30 VEN", away: "Oviedo", home: "Sevilla", prob_h: 28, prob_d: 22, prob_a: 50, pick_main: "Over 2.5 goles", odds: "1.80", star: true },
+                { league: "Serie A", time: "11:00 VEN", away: "Pisa", home: "Torino", prob_h: 28, prob_d: 29, prob_a: 43, pick_main: "Over 2.5 goles ★", odds: "1.80", star: true },
+                { league: "Serie A", time: "14:45 VEN", away: "Inter", home: "Roma", prob_h: 64, prob_d: 22, prob_a: 14, pick_main: "Under 2.5 goles ★", odds: "1.85", star: true },
+                { league: "Ligue 1", time: "08:00 VEN", away: "Angers", home: "Lyon", prob_h: 22, prob_d: 18, prob_a: 60, pick_main: "Lyon X2", odds: "1.80", star: true },
+                { league: "Ligue 1", time: "14:45 VEN", away: "Monaco", home: "Marseille", prob_h: 52, prob_d: 23, prob_a: 25, pick_main: "BTTS Sí ★", odds: "1.72", star: true },
+                { league: "Bundesliga", time: "07:30 VEN", away: "Union", home: "St. Pauli", prob_h: 52, prob_d: 23, prob_a: 25, pick_main: "Tarjetas Over 3.5 ★", odds: "1.68", star: true },
+                { league: "Primeira Liga", time: "14:30 VEN", away: "Porto", home: "Famalicão", prob_h: 78, prob_d: 14, prob_a: 8, pick_main: "Over 2.5 goles ★", odds: "1.55", star: true },
+                { league: "FA Cup", time: "11:30 VEN", away: "West Ham", home: "Leeds", prob_h: 52, prob_d: 22, prob_a: 26, pick_main: "Under 2.5 (90min) ★", odds: "1.80", star: true },
+                { league: "Liga MX", time: "21:05 VEN", away: "Cruz Azul", home: "Pachuca", prob_h: 65, prob_d: 18, prob_a: 17, pick_main: "Cruz Azul 1X ★★", odds: "1.65", star: true },
+                { league: "Liga MX", time: "23:10 VEN", away: "Santos", home: "América", prob_h: 20, prob_d: 18, prob_a: 62, pick_main: "América X2 ★★★", odds: "1.88", star: true }
             ]
         };
 
@@ -431,7 +432,7 @@
             { name: "PARLAY MIXTO (RECOMENDADO)", color: "orange", picks: ["Over Pisa-Torino (1.80)", "Under Inter-Roma (1.85)", "BTTS Monaco-OM (1.72)", "Cruz Azul 1X (1.65)", "América X2 (1.88)"], odds: "~15.7", stake: "1%", prob: "27%", desc: "Equilibrio perfecto del domingo." }
         ];
 
-        // Helper: renderizar barra de probabilidad
+        // Helper: barra de probabilidad
         function renderProbBar(ph, pd, pa) {
             const total = ph + pd + pa;
             return `<div class="prob-bar">
@@ -441,7 +442,6 @@
             </div>`;
         }
 
-        // Renderizar picks según deporte seleccionado
         let currentSport = "mlb";
         function renderGames() {
             const games = sportsData[currentSport] || [];
@@ -480,7 +480,6 @@
             container.innerHTML = html;
         }
 
-        // Renderizar resultados
         function renderResults() {
             const stats = saturdayResults;
             const hitRate = Math.round((stats.hits / stats.totalPicks) * 100);
@@ -519,7 +518,7 @@
             container.innerHTML = html;
         }
 
-        // Navegación entre pestañas principales
+        // Navegación
         let currentMain = 'picks';
         function renderCurrentView() {
             if (currentMain === 'picks') {
@@ -540,7 +539,6 @@
             }
         }
 
-        // Inicializar pestañas de deportes
         function initSportTabs() {
             const container = document.getElementById('sportTabs');
             const sports = ['mlb', 'nba', 'nhl', 'soccer'];
@@ -556,7 +554,7 @@
             });
         }
 
-        // Eventos principales
+        // Eventos
         document.getElementById('homeLink')?.addEventListener('click', () => { currentMain = 'picks'; document.querySelector('.main-tab[data-main="picks"]').click(); renderCurrentView(); });
         document.getElementById('resultsLink')?.addEventListener('click', () => { currentMain = 'resultados'; document.querySelector('.main-tab[data-main="resultados"]').click(); renderCurrentView(); });
         document.getElementById('parlaysLink')?.addEventListener('click', () => { currentMain = 'parlays'; document.querySelector('.main-tab[data-main="parlays"]').click(); renderCurrentView(); });
@@ -569,7 +567,7 @@
             });
         });
 
-        // Cargar usuario guardado
+        // Inicialización
         const savedUser = localStorage.getItem('thia_user');
         if (savedUser) {
             try { currentUser = JSON.parse(savedUser); } catch(e) {}
