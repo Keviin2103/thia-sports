@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports v7.2 | Picks del 06/04/2026</title>
+    <title>ThIA Sports v6.6 | Picks 06/04/2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -168,13 +168,15 @@
         .pick-secondary { border-left-color: #3b82f6; }
         .pick-prop { border-left-color: #a855f7; }
 
-        /* Resultados y parlays */
+        /* Resultados */
         .stats-summary { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
         .stat-card { background: rgba(0,0,0,0.4); border-radius: 20px; padding: 0.8rem 1.2rem; text-align: center; flex: 1; min-width: 110px; }
         .stat-value { font-size: 1.6rem; font-weight: 800; color: #facc15; }
         .results-table { width: 100%; border-collapse: collapse; }
         .results-table th, .results-table td { padding: 0.7rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .results-table th { color: #facc15; }
+
+        /* Parlays */
         .parlays-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -191,6 +193,7 @@
         .parlay-green { border-color: #22c55e; }
         .parlay-orange { border-color: #f97316; }
         .parlay-purple { border-color: #a855f7; }
+
         .hidden { display: none; }
         .footer { text-align: center; font-size: 0.7rem; color: #5b6e8c; margin-top: 2rem; }
         .modal {
@@ -208,7 +211,7 @@
 </head>
 <body>
 <div class="navbar">
-    <div class="logo">ThIA <span>Sports v7.2</span></div>
+    <div class="logo">ThIA <span>Sports v6.6</span></div>
     <div class="nav-links">
         <a id="homeLink">INICIO</a>
         <a id="resultsLink">📊 RESULTADOS</a>
@@ -235,19 +238,15 @@
             </table>
         </div>
         <div style="margin-top: 1.5rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem; border-left: 4px solid #facc15;">
-            <h4 style="color:#facc15;">💡 Lecciones & Mejoras</h4>
+            <h4 style="color:#facc15;">💡 Lecciones & Mejoras Activas</h4>
             <div id="leccionesList" style="font-size:0.75rem; color:#9ca3af;"></div>
-        </div>
-        <div style="margin-top:1rem; background:rgba(0,0,0,0.3); border-radius:20px; padding:1rem;">
-            <h4 style="color:#facc15;">📈 Acumulado</h4>
-            <div id="historialList" style="font-size:0.75rem; color:#9ca3af;"></div>
         </div>
     </div>
     <div id="parlaysSection" class="hidden">
         <div id="parlaysContainer" class="parlays-grid"></div>
     </div>
 </div>
-<div class="footer">ThIA Sports v7.2 · Picks del 06/04/2026 · Horas aproximadas · Inicia sesión para ver los picks</div>
+<div class="footer">ThIA Sports v6.6 · Picks 06/04/2026 · Cuota mínima 1.40 · EV ≥ +5% · Reglas activas: R67, R68, R69, v3.9, R64, R60</div>
 
 <script>
     // ---------- LOGIN CON GOOGLE + LOCAL ----------
@@ -322,82 +321,78 @@
         document.getElementById('showAuthBtn')?.addEventListener('click', showLoginModal);
     }
 
-    // ========== DATOS DE RESULTADOS (ejemplo, puedes editarlos) ==========
+    // ========== DATOS DE RESULTADOS (EJEMPLO) ==========
     const resultadosEjemplo = [
-        { pick: "Napoli Moneyline (1.67)", res: "Pendiente", ok: null, nota: "Partido aún no jugado" },
-        { pick: "Rays Moneyline (1.84)", res: "Pendiente", ok: null, nota: "Partido aún no jugado" }
+        { pick: "Rays Moneyline (1.84)", res: "Pendiente", ok: null, nota: "Partido aún no jugado" },
+        { pick: "Guardians Moneyline (1.65)", res: "Pendiente", ok: null, nota: "Partido aún no jugado" },
+        { pick: "Brewers Moneyline (1.83)", res: "Pendiente", ok: null, nota: "Partido aún no jugado" }
     ];
     const lecciones = [
-        "✅ Mantén la disciplina: solo picks con EV positivo",
-        "⚠️ Los parlays de muchos picks tienen alta varianza, stake mínimo",
-        "🎯 Objetivo: alcanzar 70% de efectividad"
-    ];
-    const historial = [
-        { d:"Semana pasada", r:"15-10", p:60 },
-        { d:"Ayer 05/04", r:"8-5", p:61.5 }
+        "✅ Cuota mínima 1.40 absoluta",
+        "✅ EV ≥ +5% obligatorio antes de apostar",
+        "⚠️ No ML > -600 sin playoff urgency (R46)",
+        "🔥 R67: Si mercado > MC +20 → NO UNDER",
+        "⭐ R64: ORL con Banchero+Wagner = OVER siempre"
     ];
 
     // ========== DATOS DE PICKS DESDE EL JSON ==========
+    const mlbPicks = [
+        { partido: "Cubs vs Rays", principal: "Rays Moneyline (1.84) | stake 2% | EV+9.8%", secundaria: "Under 7.5 carreras (1.91) | stake 1%", prop: "Shane McClanahan – Over 5.5 ponches (1.80) | stake 1%" },
+        { partido: "Royals vs Guardians", principal: "Guardians Moneyline (1.65) | stake 1.5% | EV+5.2%", secundaria: "Guardians -1.5 Run Line (2.00) | stake 0.5%", prop: "José Ramírez – Over 0.5 bases por bolas (2.20) | stake 0.5%" },
+        { partido: "Reds vs Marlins", principal: "Marlins Moneyline (1.78) | stake 1.5% | EV+7.1%", secundaria: "Marlins -1.5 Run Line (2.10) | stake 0.5%", prop: "Janson Junk – Over 3.5 ponches (1.85) | stake 0.5%" },
+        { partido: "Padres vs Pirates", principal: "Pirates Moneyline (1.95) | stake 2% | EV+12.6%", secundaria: "Under 8.0 carreras (1.90) | stake 1%", prop: "Bubba Chandler – Over 5.5 ponches (1.80) | stake 1%" },
+        { partido: "Cardinals vs Nationals", principal: "Nationals Moneyline (1.95) | stake 1.5% | EV+8.5%", secundaria: "Over 8.5 carreras (1.85) | stake 1%", prop: "CJ Abrams – Over 0.5 bases robadas (2.30) | stake 0.5%" },
+        { partido: "Brewers vs Red Sox", principal: "Brewers Moneyline (1.83) | stake 2% | EV+11.2%", secundaria: "Brewers -1.5 Run Line (2.05) | stake 0.5%", prop: "Brandon Woodruff – Over 6.5 ponches (1.90) | stake 1%" },
+        { partido: "Dodgers vs Blue Jays", principal: "Blue Jays Moneyline (2.15) | stake 2% | EV+18.6%", secundaria: "Under 8.5 carreras (1.88) | stake 1%", prop: "Max Scherzer – Over 6.5 ponches (1.85) | stake 1%" },
+        { partido: "Orioles vs White Sox", principal: "Orioles Run Line -1.5 (1.80) | stake 1.5% | EV+8.3%", secundaria: "Over 9.0 carreras (1.90) | stake 0.5%", prop: "Adley Rutschman – Over 1.5 bases totales (1.85) | stake 0.5%" },
+        { partido: "Tigers vs Twins", principal: "Under 8.0 carreras (1.87) | stake 1.5% | EV+7.5%", secundaria: "Twins Moneyline (1.70) | stake 1%", prop: "Joe Ryan – Over 5.5 ponches (1.85) | stake 0.5%" },
+        { partido: "Mariners vs Rangers", principal: "Under 7.5 carreras (1.90) | stake 2% | EV+10.2%", secundaria: "Rangers Moneyline (1.80) | stake 1%", prop: "Luis Castillo – Over 6.5 ponches (1.85) | stake 1%" },
+        { partido: "Astros vs Rockies", principal: "Over 11.0 carreras (1.90) | stake 2.5% | EV+15.5%", secundaria: "Rockies Moneyline (2.20) | stake 0.5%", prop: "Kyle Tucker – Over 1.5 bases totales (1.80) | stake 1%" },
+        { partido: "Braves vs Angels", principal: "Braves Run Line -1.5 (1.85) | stake 2% | EV+12.4%", secundaria: "Under 8.5 carreras (1.88) | stake 1%", prop: "Chris Sale – Over 7.5 ponches (1.95) | stake 1%" },
+        { partido: "Phillies vs Giants", principal: "Under 7.5 carreras (1.85) | stake 1.5% | EV+6.8%", secundaria: "Phillies Moneyline (1.80) | stake 1%", prop: "Zack Wheeler – Over 7.5 ponches (1.90) | stake 1%" }
+    ];
     const futbolPicks = [
-        { partido:"Girona vs Villarreal", principal:"Over 2.5 goles (1.85)", secundaria:"Ambos equipos marcan (1.70)", prop:"Artem Dovbyk – Más de 0.5 goles (2.10)" },
-        { partido:"Juventus vs Genoa", principal:"Juventus -1 Handicap (1.80)", secundaria:"Juventus al descanso y final (1.90)", prop:"Dusan Vlahovic – Más de 1.5 tiros a puerta (1.85)" },
-        { partido:"Napoli vs Milan", principal:"Napoli Moneyline (1.67)", secundaria:"Napoli gana al menos un tiempo (1.55)", prop:"Khvicha Kvaratskhelia – Más de 2.5 regates (1.90)" },
-        { partido:"Udinese vs Como", principal:"Under 2.5 goles (1.75)", secundaria:"Empate al descanso (2.00)", prop:"Lazar Samardzic – Más de 1.5 faltas recibidas (1.80)" },
-        { partido:"Lecce vs Atalanta", principal:"Atalanta Moneyline (1.80)", secundaria:"Atalanta gana ambos tiempos (2.50)", prop:"Teun Koopmeiners – Más de 2.5 tiros (1.85)" }
+        { partido: "Girona vs Villarreal", principal: "Over 2.5 goles (1.85) | stake 1.5% | EV+7.3%", secundaria: "Ambos equipos marcan (1.70) | stake 0.5% | EV-6.5% (no recomendado)", prop: "Vladyslav Vanat – Over 0.5 goles (2.10) | stake 0.5%" },
+        { partido: "Juventus vs Genoa", principal: "Juventus -1 Handicap (1.80) | stake 2% | EV+11.6%", secundaria: "Juventus gana al descanso y final (1.90) | stake 1%", prop: "Dusan Vlahovic – Over 1.5 tiros a puerta (1.85) | stake 0.5%" }
     ];
-    const beisbolPicks = [
-        { partido:"Cubs vs Rays", principal:"Rays Moneyline (1.84)", secundaria:"Under 7.5 carreras (1.91)", prop:"Shane McClanahan – Más de 6.5 ponches (1.85)" },
-        { partido:"Royals vs Guardians", principal:"Guardians Moneyline (1.65)", secundaria:"Guardians -1.5 Run Line (2.00)", prop:"José Ramírez – Más de 0.5 bases por bolas (2.20)" },
-        { partido:"Reds vs Marlins", principal:"Marlins Moneyline (1.78)", secundaria:"Marlins -1.5 Run Line (2.10)", prop:"Luis Arráez – Más de 1.5 hits (2.00)" },
-        { partido:"Padres vs Pirates", principal:"Pirates Moneyline (1.95)", secundaria:"Under 8.0 carreras (1.90)", prop:"Bubba Chandler – Más de 5.5 ponches (1.80)" },
-        { partido:"Cardinals vs Nationals", principal:"Nationals Moneyline (1.95)", secundaria:"Over 8.5 carreras (1.85)", prop:"CJ Abrams – Más de 0.5 bases robadas (2.30)" },
-        { partido:"Brewers vs Red Sox", principal:"Brewers Moneyline (1.83)", secundaria:"Brewers -1.5 Run Line (2.05)", prop:"Brandon Woodruff – Más de 7.5 ponches (1.90)" },
-        { partido:"Dodgers vs Blue Jays", principal:"Blue Jays Moneyline (2.15)", secundaria:"Under 8.5 carreras (1.88)", prop:"Max Scherzer – Más de 6.5 ponches (1.85)" },
-        { partido:"Orioles vs White Sox", principal:"Orioles Run Line -1.5 (1.80)", secundaria:"Over 9.0 carreras (1.90)", prop:"Adley Rutschman – Más de 1.5 bases totales (1.85)" },
-        { partido:"Tigers vs Twins", principal:"Under 8.0 carreras (1.87)", secundaria:"Twins Moneyline (1.70)", prop:"Pablo López – Más de 5.5 ponches (1.80)" },
-        { partido:"Mariners vs Rangers", principal:"Under 7.5 carreras (1.90)", secundaria:"Rangers Moneyline (1.80)", prop:"Luis Castillo – Más de 6.5 ponches (1.85)" },
-        { partido:"Astros vs Rockies", principal:"Over 11.0 carreras (1.90)", secundaria:"Rockies Moneyline (2.20)", prop:"Kyle Tucker – Más de 1.5 bases totales (1.80)" },
-        { partido:"Braves vs Angels", principal:"Braves Run Line -1.5 (1.85)", secundaria:"Under 8.5 carreras (1.88)", prop:"Ronald Acuña Jr. – Más de 0.5 bases robadas (2.10)" },
-        { partido:"Phillies vs Giants", principal:"Under 7.5 carreras (1.85)", secundaria:"Phillies Moneyline (1.80)", prop:"Zack Wheeler – Más de 7.5 ponches (1.90)" }
+    const nbaPicks = [
+        { partido: "Knicks vs Hawks", principal: "Hawks Moneyline (1.90) | stake 1.5% | EV+10.2%", secundaria: "Hawks -1.5 Handicap (1.95) | stake 1%", prop: "Jalen Johnson – Triple-doble (3.50) | stake 0.5%" },
+        { partido: "Cavaliers vs Grizzlies", principal: "Cavaliers -13.5 Handicap (1.90) | stake 2% | EV+17.8%", secundaria: "Cavaliers Team Total Over 115.5 (1.85) | stake 1%", prop: "Donovan Mitchell – Over 28.5 puntos (1.85) | stake 1%" },
+        { partido: "76ers vs Spurs", principal: "Over 235.5 (1.88) | stake 1.5% | EV+9.0%", secundaria: "76ers Moneyline (1.65) | stake 1%", prop: "Tyrese Maxey – Over 25.5 puntos (1.85) | stake 1%" },
+        { partido: "Trail Blazers vs Nuggets", principal: "Nuggets -12.5 Handicap (1.90) | stake 2% | EV+29.2%", secundaria: "Nuggets Team Total Over 118.5 (1.85) | stake 1%", prop: "Nikola Jokic – Triple-doble (1.95) | stake 1%" },
+        { partido: "Pistons vs Magic", principal: "Over 215.5 (1.88) | stake 2% | EV+16.6%", secundaria: "Magic -10.5 Handicap (1.90) | stake 1%", prop: "Paolo Banchero – Over 25.5 puntos (1.85) | stake 1%" }
     ];
-    const baloncestoPicks = [
-        { partido:"Knicks vs Hawks", principal:"Hawks -1.5 Handicap (1.90)", secundaria:"Over 227.5 puntos (1.88)", prop:"Trae Young – Más de 10.5 asistencias (1.85)" },
-        { partido:"Cavaliers vs Grizzlies", principal:"Cavaliers -13.5 Handicap (1.90)", secundaria:"Under 237.5 puntos (1.88)", prop:"Donovan Mitchell – Más de 28.5 puntos (1.90)" },
-        { partido:"76ers vs Spurs", principal:"76ers +8.5 Handicap (1.90)", secundaria:"Over 235.5 puntos (1.88)", prop:"Joel Embiid – Más de 12.5 rebotes (1.85)" },
-        { partido:"Trail Blazers vs Nuggets", principal:"Nuggets -7.5 Handicap (1.90)", secundaria:"Over 239.5 puntos (1.88)", prop:"Nikola Jokic – Triple-doble (1.95)" },
-        { partido:"Pistons vs Magic", principal:"Magic Moneyline (1.75)", secundaria:"Under 215.5 puntos (1.90)", prop:"Paolo Banchero – Más de 25.5 puntos (1.85)" }
-    ];
-    const hockeyPicks = [
-        { partido:"Lightning vs Sabres", principal:"Sabres Moneyline (2.10)", secundaria:"Over 5.5 goles (1.85)", prop:"Tage Thompson – Más de 0.5 goles (2.20)" },
-        { partido:"Kraken vs Jets", principal:"Jets Moneyline (1.62)", secundaria:"Jets -1.5 Handicap (2.10)", prop:"Kyle Connor – Más de 0.5 puntos (1.70)" },
-        { partido:"Blackhawks vs Sharks", principal:"Sharks Moneyline (1.65)", secundaria:"Over 6.0 goles (1.90)", prop:"Macklin Celebrini – Más de 0.5 asistencias (2.00)" },
-        { partido:"Predators vs Kings", principal:"Predators Moneyline (2.00)", secundaria:"Under 5.5 goles (1.85)", prop:"Juuse Saros – Más de 30.5 paradas (1.90)" }
+    const nhlPicks = [
+        { partido: "Lightning vs Sabres", principal: "Sabres Moneyline (2.10) | stake 1.5% | EV+9.5%", secundaria: "Over 5.5 goles (1.85) | stake 1%", prop: "Tage Thompson – Over 0.5 goles (2.20) | stake 0.5%" },
+        { partido: "Kraken vs Jets", principal: "Jets Moneyline (1.62) | stake 2% | EV+7.8%", secundaria: "Jets -1.5 Handicap (2.10) | stake 1%", prop: "Kyle Connor – Over 0.5 puntos (1.70) | stake 1%" },
+        { partido: "Blackhawks vs Sharks", principal: "Sharks Moneyline (1.65) | stake 2% | EV+8.5%", secundaria: "Over 6.0 goles (1.90) | stake 1%", prop: "Macklin Celebrini – Over 0.5 asistencias (2.00) | stake 0.5%" },
+        { partido: "Predators vs Kings", principal: "Predators Moneyline (2.00) | stake 1.5% | EV+12.0%", secundaria: "Under 5.5 goles (1.85) | stake 1%", prop: "Juuse Saros – Over 30.5 paradas (1.90) | stake 0.5%" }
     ];
 
     // Parlays desde JSON
     const parlaysData = [
-        { name:"DIRECTA DEL DÍA", type:"green", picks:["MLB | Astros vs Rockies | Over 11 carreras (1.90)"], odds:"1.90", stake:"Bajo", desc:"La apuesta más segura del día con EV+ altísimo" },
-        { name:"MOROCHA 2 PICKS", type:"orange", picks:["Fútbol | Napoli Moneyline (1.67)","MLB | Brewers Moneyline (1.83)"], odds:"3.06", stake:"Medio", desc:"Combinada de dos picks con valor y probabilidad real alta" },
-        { name:"PARLEY SEGURO 4 PICKS", type:"purple", picks:["NBA | Nuggets -7.5 (1.90)","NHL | Jets Moneyline (1.62)","MLB | Blue Jays Moneyline (2.15)","Fútbol | Juventus -1 Handicap (1.80)"], odds:"11.91", stake:"Medio-Alto", desc:"Cuatro selecciones con alta probabilidad de acierto individual" },
-        { name:"MILLONARIO TODOS", type:"gold", picks:["Fútbol: Girona Over 2.5","Fútbol: Juventus -1","Fútbol: Napoli ML","Fútbol: Udinese Under 2.5","Fútbol: Atalanta ML","MLB: Rays ML","MLB: Guardians ML","MLB: Marlins ML","MLB: Pirates ML","MLB: Nationals ML","MLB: Brewers ML","MLB: Blue Jays ML","MLB: Orioles RL -1.5","MLB: Twins Under 8","MLB: Rangers Under 7.5","MLB: Astros Over 11","MLB: Braves RL -1.5","MLB: Phillies Under 7.5","NBA: Hawks -1.5","NBA: Cavaliers -13.5","NBA: 76ers +8.5","NBA: Nuggets -7.5","NBA: Magic ML","NHL: Sabres ML","NHL: Jets ML","NHL: Sharks ML","NHL: Predators ML"], odds:"~284,000", stake:"Extremo", desc:"Solo por diversión, stake mínimo" }
+        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Astros vs Rockies | Over 11 carreras (1.90)"], odds: "1.90", stake: "2-3%", desc: "La apuesta más sólida del día (EV+ >15%, regla diamante)" },
+        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Cavaliers -13.5 (1.90)", "MLB | Brewers Moneyline (1.83)"], odds: "3.48", stake: "1.5%", desc: "Combinada de dos picks con alto valor y reglas de oro" },
+        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["NBA | Pistons vs Magic Over 215.5 (1.88)", "NHL | Jets Moneyline (1.62)", "MLB | Blue Jays Moneyline (2.15)", "Fútbol | Juventus -1 Handicap (1.80)"], odds: "11.80", stake: "1%", desc: "Cuatro selecciones con alta probabilidad individual (80%+ cada una)" },
+        { name: "MILLONARIO TODOS", type: "gold", picks: ["MLB: Rays ML","MLB: Guardians ML","MLB: Marlins ML","MLB: Pirates ML","MLB: Nationals ML","MLB: Brewers ML","MLB: Blue Jays ML","MLB: Orioles RL -1.5","MLB: Tigers vs Twins Under 8","MLB: Mariners vs Rangers Under 7.5","MLB: Astros vs Rockies Over 11","MLB: Braves RL -1.5","MLB: Phillies vs Giants Under 7.5","Fútbol: Girona Over 2.5","Fútbol: Juventus -1","NBA: Hawks ML","NBA: Cavaliers -13.5","NBA: 76ers vs Spurs Over 235.5","NBA: Nuggets -12.5","NBA: Pistons vs Magic Over 215.5","NHL: Sabres ML","NHL: Jets ML","NHL: Sharks ML","NHL: Predators ML"], odds: ">15000", stake: "0.2%", desc: "Solo con fines de entretenimiento, bankroll mínimo" }
     ];
 
-    let currentSport = "futbol";
+    let currentSport = "mlb";
     let currentMain = "picks";
 
     function renderGames() {
         let games = [];
-        if (currentSport === "futbol") games = futbolPicks;
-        else if (currentSport === "beisbol") games = beisbolPicks;
-        else if (currentSport === "baloncesto") games = baloncestoPicks;
-        else games = hockeyPicks;
+        if (currentSport === "mlb") games = mlbPicks;
+        else if (currentSport === "futbol") games = futbolPicks;
+        else if (currentSport === "nba") games = nbaPicks;
+        else games = nhlPicks;
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
         if (!games.length) { container.innerHTML = '<div style="text-align:center; padding:2rem;">No hay juegos disponibles.</div>'; return; }
         let html = '';
         games.forEach(g => {
             html += `<div class="game-card">
-                <div class="card-header"><span class="league-badge">${currentSport.toUpperCase()}</span><span><i class="far fa-clock"></i> ${g.partido}</span></div>
+                <div class="card-header"><span class="league-badge">${currentSport.toUpperCase()}</span><span>${g.partido}</span></div>
                 <div class="premium-block">${!acceso ? `<div style="background:#1e293b; padding:0.8rem; text-align:center; border-radius:12px;"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
                     <div class="pick-item pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal}</div>
                     <div class="pick-item pick-secondary"><strong>🔄 JUGADA SECUNDARIA:</strong> ${g.secundaria}</div>
@@ -409,7 +404,6 @@
     }
 
     function renderResults() {
-        // Simulación de resultados (puedes editarlos después)
         const wins = resultadosEjemplo.filter(p=>p.ok===true).length;
         const losses = resultadosEjemplo.filter(p=>p.ok===false).length;
         const hitRate = wins+losses ? Math.round(wins/(wins+losses)*100) : 0;
@@ -423,9 +417,6 @@
             row.insertCell(2).innerText = p.nota;
         });
         document.getElementById('leccionesList').innerHTML = lecciones.map(l => `<div>• ${l}</div>`).join('');
-        let histHtml = '';
-        historial.forEach(h => { histHtml += `<div style="display:flex; justify-content:space-between; padding:0.2rem 0;"><span>${h.d}</span><span>${h.r}</span><span style="color:${h.p>=75?'#22c55e':h.p>=55?'#facc15':'#ef4444'}">${h.p}%</span></div>`; });
-        document.getElementById('historialList').innerHTML = histHtml;
     }
 
     function renderParlays() {
@@ -436,7 +427,7 @@
             html += `<div class="parlay-card ${colorClass}">
                 <div class="font-black text-center text-lg mb-2" style="color:${p.type==='gold'?'#eab308':p.type==='green'?'#22c55e':p.type==='orange'?'#f97316':'#a855f7'}">${p.name}</div>
                 <div class="bg-green-500 rounded-lg py-1.5 text-center text-black font-black text-xl mb-2">${p.odds}</div>
-                <div class="text-center text-gray-400 text-xs">Riesgo: ${p.stake}</div>
+                <div class="text-center text-gray-400 text-xs">Stake: ${p.stake}</div>
                 ${p.picks.map(pk => `<div class="bg-black/30 rounded px-2 py-1 my-1 text-sm">${pk}</div>`).join('')}
                 <p class="text-gray-400 text-xs mt-2">${p.desc}</p>
             </div>`;
@@ -465,8 +456,8 @@
 
     function initSportTabs() {
         const container = document.getElementById('sportTabs');
-        const sports = ['futbol', 'beisbol', 'baloncesto', 'hockey'];
-        const names = { futbol:'⚽ Fútbol', beisbol:'⚾ Béisbol', baloncesto:'🏀 Baloncesto', hockey:'🏒 Hockey' };
+        const sports = ['mlb', 'futbol', 'nba', 'nhl'];
+        const names = { mlb:'⚾ Béisbol', futbol:'⚽ Fútbol', nba:'🏀 Baloncesto', nhl:'🏒 Hockey' };
         container.innerHTML = sports.map(s => `<button class="sport-tab ${s === currentSport ? 'active' : ''}" data-sport="${s}">${names[s]}</button>`).join('');
         document.querySelectorAll('.sport-tab').forEach(btn => {
             btn.addEventListener('click', () => {
