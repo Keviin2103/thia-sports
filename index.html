@@ -260,7 +260,7 @@
             </table>
         </div>
         <div style="margin-top: 1.5rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem; border-left: 4px solid #facc15;">
-            <h4 style="color:#facc15;">💡 Mejoras Activas</h4>
+            <h4 style="color:#facc15;">💡 Mejoras Activas (Híbrido ThIA-SA)</h4>
             <div id="leccionesList" style="font-size:0.75rem; color:#9ca3af;"></div>
         </div>
     </div>
@@ -268,7 +268,7 @@
         <div id="parlaysContainer" class="parlays-grid"></div>
     </div>
 </div>
-<div class="footer">ThIA Sports · Picks 08/04/2026 · Cuota mínima 1.40 · EV ≥ +5%</div>
+<div class="footer">ThIA Sports · Sistema híbrido ThIA-SA · Picks 08/04/2026 · Cuota mínima 1.40 · EV ≥ +5%</div>
 
 <script>
     // ---------- LOGIN CON GOOGLE + LOCAL ----------
@@ -343,8 +343,8 @@
         document.getElementById('showAuthBtn')?.addEventListener('click', showLoginModal);
     }
 
-    // ========== FUNCIÓN PARA EMOJIS ==========
-    function getTeamEmoji(teamName, sport) {
+    // Emojis genéricos por deporte
+    function getTeamEmoji(team, sport) {
         if (sport === 'futbol') return "⚽";
         if (sport === 'nba') return "🏀";
         if (sport === 'mlb') return "⚾";
@@ -352,11 +352,62 @@
         return "🏆";
     }
 
-    // ========== DATOS DE RESULTADOS (ejemplo, se editan después) ==========
-    const resultadosEjemplo = [
-        { pick: "Barcelona Moneyline (1.70)", res: "Pendiente", ok: null, nota: "Champions League" },
-        { pick: "PSG vs Liverpool Over 2.5 (1.80)", res: "Pendiente", ok: null, nota: "Champions League" }
+    // ========== DATOS DE PICKS (según JSON híbrido) ==========
+    // FÚTBOL (9 partidos)
+    const futbolPicks = [
+        { partido: "Barcelona vs Atlético Madrid", awayTeam: "Atlético Madrid", homeTeam: "Barcelona", principal: "Barcelona Moneyline (1.70) | stake 1.5% | EV+6.4%", secundaria: "Under 3.5 goles (1.55) | stake 1.0%", prop: "Lewandowski over 0.5 SOT (1.80) | stake 0.5%" },
+        { partido: "PSG vs Liverpool", awayTeam: "Liverpool", homeTeam: "PSG", principal: "BTTS Sí (1.65) | stake 1.5% | EV+5.5%", secundaria: "Over 2.5 goles (1.80) | stake 1.0%", prop: "Salah over 1.5 shots (1.70) | stake 0.5%" },
+        { partido: "Braga vs Real Betis", awayTeam: "Braga", homeTeam: "Real Betis", principal: "Betis DNB (1.55) | stake 1.5% | EV+8.0%", secundaria: "Under 2.5 goles (1.80) | stake 0.5%", prop: "Isco over 0.5 asistencias (2.50) | stake 0.5%" },
+        { partido: "Coquimbo Unido vs Nacional", awayTeam: "Coquimbo Unido", homeTeam: "Nacional", principal: "Under 2.5 goles (1.70) | stake 1.5% | EV+6.5%", secundaria: "Nacional DNB (1.50) | stake 1.0%", prop: "Coates over 1.5 tackles (1.85) | stake 0.5%" },
+        { partido: "Mirassol vs Lanús", awayTeam: "Lanús", homeTeam: "Mirassol", principal: "Lanús X2 (1.55) | stake 1.5% | EV+7.0%", secundaria: "Under 2.5 goles (1.75) | stake 0.5%", prop: "Lanús over 3.5 corners (1.80) | stake 0.5%" },
+        { partido: "Independiente Medellín vs Estudiantes", awayTeam: "Estudiantes", homeTeam: "Independiente Medellín", principal: "Under 2.5 goles (1.75) | stake 1.5% | EV+5.5%", secundaria: "Medellín +0.25 AH (1.80) | stake 0.5%", prop: "Delantero Medellín over 0.5 SOT (1.90) | stake 0.5%" },
+        { partido: "Atlético Junior vs Palmeiras", awayTeam: "Atlético Junior", homeTeam: "Palmeiras", principal: "Palmeiras DNB (1.55) | stake 1.5% | EV+8.0%", secundaria: "Palmeiras X2 (1.50) | stake 0.5%", prop: "Palmeiras over 1.5 team goals (1.85) | stake 0.5%" },
+        { partido: "Cusco FC vs Flamengo", awayTeam: "Cusco FC", homeTeam: "Flamengo", principal: "Flamengo DNB (1.50) | stake 1.5% | EV+7.5%", secundaria: "Under 2.5 goles (1.80) | stake 1.0%", prop: "Pedro over 0.5 SOT (1.75) | stake 0.5%" },
+        { partido: "Sporting Cristal vs Cerro Porteño", awayTeam: "Cerro Porteño", homeTeam: "Sporting Cristal", principal: "Under 2.5 goles (1.70) | stake 1.5% | EV+6.5%", secundaria: "BTTS No (1.80) | stake 0.5%", prop: "Portero Cristal over saves (1.85) | stake 0.5%" }
     ];
+    // MLB (15 partidos)
+    const mlbPicks = [
+        { partido: "Padres vs Pirates", awayTeam: "Padres", homeTeam: "Pirates", principal: "Pirates Moneyline (1.75) | stake 1.5% | EV+7.5%", secundaria: "Under 7.5 (1.85) | stake 1.0%", prop: "Mitch Keller over 5.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Royals vs Guardians", awayTeam: "Royals", homeTeam: "Guardians", principal: "Under 7.5 (1.85) | stake 1.5% | EV+6.5%", secundaria: "Royals ML (condicional 1.95) | stake 0.5%", prop: "Cole Ragans over 4.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Brewers vs Red Sox", awayTeam: "Brewers", homeTeam: "Red Sox", principal: "Brewers Moneyline (1.75) | stake 1.5% | EV+7.5%", secundaria: "Over 8.5 (1.85) | stake 0.5%", prop: "Sonny Gray under 2.5 ER (1.85) | stake 0.5%" },
+        { partido: "Orioles vs White Sox", awayTeam: "Orioles", homeTeam: "White Sox", principal: "Orioles Moneyline (1.65) | stake 2.0% | EV+10.5%", secundaria: "Orioles -1.5 (1.80) | stake 1.0%", prop: "Kyle Bradish over 5.5 Ks (1.85) | stake 0.5%" },
+        { partido: "Mariners vs Rangers", awayTeam: "Mariners", homeTeam: "Rangers", principal: "Mariners Moneyline (1.70) | stake 1.5% | EV+7.5%", secundaria: "Under 8.5 (1.85) | stake 1.0%", prop: "Bryan Woo over 4.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Dodgers vs Blue Jays", awayTeam: "Dodgers", homeTeam: "Blue Jays", principal: "Under 7.5 (1.88) | stake 2.0% | EV+12.5%", secundaria: "Dodgers Moneyline (1.65) | stake 0.5%", prop: "Shohei Ohtani over 6.5 Ks (1.85) | stake 1.0%" },
+        { partido: "Astros vs Rockies", awayTeam: "Astros", homeTeam: "Rockies", principal: "Over 11.0 (1.90) | stake 2.0% | EV+15.5%", secundaria: "Astros Moneyline (1.70) | stake 0.5%", prop: "Cristian Javier over 4.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Phillies vs Giants", awayTeam: "Phillies", homeTeam: "Giants", principal: "Phillies Moneyline (1.65) | stake 1.5% | EV+7.5%", secundaria: "Under 8.0 (1.85) | stake 0.5%", prop: "Aaron Nola over 6.5 Ks (1.85) | stake 0.5%" },
+        { partido: "Cardinals vs Nationals", awayTeam: "Cardinals", homeTeam: "Nationals", principal: "Cardinals Moneyline (1.65) | stake 2.0% | EV+10.5%", secundaria: "Over 8.5 (1.85) | stake 0.5%", prop: "Mikolas under 4.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Braves vs Angels", awayTeam: "Braves", homeTeam: "Angels", principal: "Braves Moneyline (1.70) | stake 1.5% | EV+8.5%", secundaria: "Braves -1.5 (1.85) | stake 1.0%", prop: "Acuña over 1.5 H+R+RBI (1.85) | stake 0.5%" },
+        { partido: "Diamondbacks vs Mets", awayTeam: "Diamondbacks", homeTeam: "Mets", principal: "Mets Moneyline (1.70) | stake 1.5% | EV+6.5%", secundaria: "Under 8.5 (1.85) | stake 0.5%", prop: "Peterson over 4.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Cubs vs Rays", awayTeam: "Cubs", homeTeam: "Rays", principal: "Under 8.0 (1.85) | stake 1.5% | EV+6.5%", secundaria: "Rays Moneyline (1.70) | stake 0.5%", prop: "Joe Boyle over 5.5 Ks (1.85) | stake 0.5%" },
+        { partido: "Reds vs Marlins", awayTeam: "Reds", homeTeam: "Marlins", principal: "Over 8.5 (1.85) | stake 1.5% | EV+7.5%", secundaria: "Reds Moneyline (1.75) | stake 0.5%", prop: "Brady Singer over 5.5 Ks (1.80) | stake 0.5%" },
+        { partido: "Athletics vs Yankees", awayTeam: "Athletics", homeTeam: "Yankees", principal: "Yankees -1.5 Run Line (1.80) | stake 2.0% | EV+12.5%", secundaria: "Under 8.5 (1.85) | stake 0.5%", prop: "Judge over 1.5 total bases (1.80) | stake 0.5%" },
+        { partido: "Tigers vs Twins", awayTeam: "Tigers", homeTeam: "Twins", principal: "Tigers Moneyline (1.65) | stake 1.5% | EV+8.5%", secundaria: "Under 7.5 (1.85) | stake 1.0%", prop: "Framber Valdez over 6.5 Ks (1.85) | stake 0.5%" }
+    ];
+    // NBA (7 partidos)
+    const nbaPicks = [
+        { partido: "Bucks vs Pistons", awayTeam: "Bucks", homeTeam: "Pistons", principal: "Pistons Moneyline (1.70) | stake 1.5% | EV+7.5%", secundaria: "Under 220.5 (1.88) | stake 1.0%", prop: "Jalen Duren over 12.5 rebotes (1.85) | stake 0.5%" },
+        { partido: "Hawks vs Cavaliers", awayTeam: "Hawks", homeTeam: "Cavaliers", principal: "Cavaliers -9.5 (1.90) | stake 2.0% | EV+12.5%", secundaria: "Under 230.5 (1.88) | stake 0.5%", prop: "Mitchell over 28.5 pts (1.85) | stake 1.0%" },
+        { partido: "Timberwolves vs Magic", awayTeam: "Timberwolves", homeTeam: "Magic", principal: "Over 225.5 (1.88) | stake 2.0% | EV+10.5%", secundaria: "Magic +2.5 (1.90) | stake 0.5%", prop: "Banchero over 25.5 pts (1.85) | stake 1.0%" },
+        { partido: "Grizzlies vs Nuggets", awayTeam: "Grizzlies", homeTeam: "Nuggets", principal: "Nuggets -14.5 (1.90) | stake 2.0% | EV+15.0%", secundaria: "Under 230.5 (1.88) | stake 0.5%", prop: "Jokic triple-doble (1.95) | stake 1.0%" },
+        { partido: "Blazers vs Spurs", awayTeam: "Blazers", homeTeam: "Spurs", principal: "Spurs -10.5 (1.90) | stake 2.0% | EV+14.5%", secundaria: "Over 230.5 (1.88) | stake 0.5%", prop: "Wembanyama over 3.5 blocks (1.85) | stake 0.5%" },
+        { partido: "Thunder vs Clippers", awayTeam: "Thunder", homeTeam: "Clippers", principal: "Thunder Moneyline (1.70) | stake 1.5% | EV+6.5%", secundaria: "Under 225.5 (1.88) | stake 0.5%", prop: "SGA over 30.5 pts (1.85) | stake 1.0%" },
+        { partido: "Mavericks vs Suns", awayTeam: "Mavericks", homeTeam: "Suns", principal: "Under 229.5 (1.88) | stake 1.5% | EV+6.5%", secundaria: "Suns -6.5 (1.90) | stake 0.5%", prop: "Booker over 28.5 pts (1.85) | stake 0.5%" }
+    ];
+    // NHL (3 partidos)
+    const nhlPicks = [
+        { partido: "Sabres vs Rangers", awayTeam: "Sabres", homeTeam: "Rangers", principal: "Sabres Moneyline (1.75) | stake 1.5% | EV+7.5%", secundaria: "Over 5.5 (1.85) | stake 0.5%", prop: "Shesterkin over 30.5 saves (1.85) | stake 0.5%" },
+        { partido: "Capitals vs Maple Leafs", awayTeam: "Capitals", homeTeam: "Maple Leafs", principal: "Maple Leafs Moneyline (1.65) | stake 1.5% | EV+6.0%", secundaria: "Over 5.5 (1.85) | stake 0.5%", prop: "Matthews over 3.5 shots (1.80) | stake 0.5%" },
+        { partido: "Oilers vs Sharks", awayTeam: "Oilers", homeTeam: "Sharks", principal: "Oilers -1.5 (1.90) | stake 2.0% | EV+15.0%", secundaria: "Over 6.0 (1.85) | stake 0.5%", prop: "McDavid over 1.5 puntos (1.80) | stake 1.0%" }
+    ];
+
+    // Parlays híbridos
+    const parlaysData = [
+        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Astros vs Rockies | Over 11.0 (1.90)"], odds: "1.90", stake: "2-3%", desc: "Máxima confianza del día (EV+ >15%, consenso total)" },
+        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Nuggets -14.5 (1.90)", "NHL | Oilers -1.5 (1.90)"], odds: "3.61", stake: "1.5%", desc: "Combinada de dos picks con consenso y alto EV" },
+        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Yankees -1.5 (1.80)", "NBA | Spurs -10.5 (1.90)", "NHL | Maple Leafs ML (1.65)", "Fútbol | Palmeiras DNB (1.55)"], odds: "8.77", stake: "1%", desc: "Cuatro selecciones con consenso y alta probabilidad" },
+        { name: "MILLONARIO TODOS", type: "gold", picks: ["Fútbol: Barcelona ML", "Fútbol: PSG BTTS", "Fútbol: Betis DNB", "Fútbol: Coquimbo Under 2.5", "Fútbol: Lanús X2", "Fútbol: Medellín Under 2.5", "Fútbol: Palmeiras DNB", "Fútbol: Flamengo DNB", "Fútbol: Cristal Under 2.5", "NBA: Pistons ML", "NBA: Cavaliers -9.5", "NBA: Wolves Over", "NBA: Nuggets -14.5", "NBA: Spurs -10.5", "NBA: Thunder ML", "NBA: Mavs Under", "MLB: Pirates ML", "MLB: Royals Under", "MLB: Brewers ML", "MLB: Orioles ML", "MLB: Mariners ML", "MLB: Dodgers Under", "MLB: Astros Over", "MLB: Phillies ML", "MLB: Cardinals ML", "MLB: Braves ML", "MLB: Mets ML", "MLB: Cubs Under", "MLB: Reds Over", "MLB: Yankees -1.5", "MLB: Tigers ML", "NHL: Sabres ML", "NHL: Maple Leafs ML", "NHL: Oilers -1.5"], odds: ">40000", stake: "0.1%", desc: "Combinada de 34 picks, solo entretenimiento" }
+    ];
+
     const mejoras = [
         "✅ R77: No apostar ML solo por altura extrema (Libertadores)",
         "✅ R78: Champions: Over 2.5 si ambos tienen poder ofensivo",
@@ -368,70 +419,14 @@
         "✅ R85: Wild card pressure = no favorecer local automáticamente"
     ];
 
-    // ========== PICKS SEGÚN JSON ==========
-    // FÚTBOL (9 partidos)
-    const futbolPicks = [
-        { partido: "Barcelona vs Atlético Madrid", awayTeam: "Atlético Madrid", homeTeam: "Barcelona", principal: "Barcelona Moneyline (1.70) | stake 1.5% | EV+6.4%", secundaria: "Under 2.5 goles (1.85) | stake 1.0%", prop: "Robert Lewandowski – Over 0.5 goles (2.10) | stake 0.5%" },
-        { partido: "PSG vs Liverpool", awayTeam: "Liverpool", homeTeam: "PSG", principal: "Over 2.5 goles (1.80) | stake 2.0% | EV+8.4%", secundaria: "Ambos equipos marcan (1.65) | stake 1.0%", prop: "Kylian Mbappé – Over 0.5 goles (2.00) | stake 1.0%" },
-        { partido: "Braga vs Real Betis", awayTeam: "Braga", homeTeam: "Real Betis", principal: "Betis DNB (1.55) | stake 1.5% | EV+8.0%", secundaria: "Under 2.5 goles (1.80) | stake 0.5%", prop: "Isco – Over 0.5 asistencias (2.50) | stake 0.5%" },
-        { partido: "Coquimbo Unido vs Nacional", awayTeam: "Coquimbo Unido", homeTeam: "Nacional", principal: "Nacional DNB (1.50) | stake 1.5% | EV+7.5%", secundaria: "Under 2.5 goles (1.70) | stake 0.5%", prop: "Gonzalo Carneiro – Over 0.5 goles (2.20) | stake 0.5%" },
-        { partido: "Mirassol vs Lanús", awayTeam: "Lanús", homeTeam: "Mirassol", principal: "Mirassol Moneyline (1.80) | stake 1.5% | EV+6.0%", secundaria: "Over 2.5 goles (1.90) | stake 0.5%", prop: "Ronald – Over 0.5 asistencias (2.30) | stake 0.5%" },
-        { partido: "Independiente Medellín vs Estudiantes", awayTeam: "Estudiantes", homeTeam: "Independiente Medellín", principal: "Medellín DNB (1.60) | stake 1.5% | EV+8.0%", secundaria: "Under 2.5 goles (1.75) | stake 0.5%", prop: "Luciano Pons – Over 0.5 goles (2.10) | stake 0.5%" },
-        { partido: "Atlético Junior vs Palmeiras", awayTeam: "Atlético Junior", homeTeam: "Palmeiras", principal: "Palmeiras DNB (1.55) | stake 1.5% | EV+7.0%", secundaria: "Under 2.5 goles (1.65) | stake 0.5%", prop: "Raphael Veiga – Over 0.5 asistencias (2.40) | stake 0.5%" },
-        { partido: "Cusco FC vs Flamengo", awayTeam: "Cusco FC", homeTeam: "Flamengo", principal: "Under 2.5 goles (1.80) | stake 1.5% | EV+6.5%", secundaria: "Flamengo DNB (1.60) | stake 1.0%", prop: "Pedro – Over 0.5 goles (2.00) | stake 0.5%" },
-        { partido: "Sporting Cristal vs Cerro Porteño", awayTeam: "Cerro Porteño", homeTeam: "Sporting Cristal", principal: "Sporting Cristal Moneyline (1.85) | stake 1.5% | EV+7.5%", secundaria: "Over 2.5 goles (1.90) | stake 0.5%", prop: "Yoshimar Yotún – Over 0.5 asistencias (2.20) | stake 0.5%" }
-    ];
-    // NBA (7 partidos)
-    const nbaPicks = [
-        { partido: "Hawks vs Cavaliers", awayTeam: "Hawks", homeTeam: "Cavaliers", principal: "Cavaliers -9.5 (1.90) | stake 2.0% | EV+12.5%", secundaria: "Under 230.5 (1.88) | stake 1.0%", prop: "Donovan Mitchell – Over 28.5 pts (1.85) | stake 1.0%" },
-        { partido: "Timberwolves vs Magic", awayTeam: "Timberwolves", homeTeam: "Magic", principal: "Over 225.5 (1.88) | stake 2.0% | EV+10.5%", secundaria: "Magic -2.5 (1.90) | stake 1.0%", prop: "Paolo Banchero – Over 25.5 pts (1.85) | stake 1.0%" },
-        { partido: "Bucks vs Pistons", awayTeam: "Bucks", homeTeam: "Pistons", principal: "Pistons Moneyline (1.65) | stake 1.5% | EV+6.0%", secundaria: "Under 220.5 (1.88) | stake 1.0%", prop: "Jalen Duren – Over 12.5 rebotes (1.85) | stake 0.5%" },
-        { partido: "Grizzlies vs Nuggets", awayTeam: "Grizzlies", homeTeam: "Nuggets", principal: "Nuggets -14.5 (1.90) | stake 2.0% | EV+15.0%", secundaria: "Under 230.5 (1.88) | stake 0.5%", prop: "Nikola Jokic – Triple-doble (1.95) | stake 1.0%" },
-        { partido: "Trail Blazers vs Spurs", awayTeam: "Trail Blazers", homeTeam: "Spurs", principal: "Spurs -10.5 (1.90) | stake 2.0% | EV+14.5%", secundaria: "Over 230.5 (1.88) | stake 0.5%", prop: "Victor Wembanyama – Over 25.5 pts + 10.5 reb (1.90) | stake 1.0%" },
-        { partido: "Thunder vs Clippers", awayTeam: "Thunder", homeTeam: "Clippers", principal: "Thunder Moneyline (1.70) | stake 1.5% | EV+6.5%", secundaria: "Under 225.5 (1.88) | stake 1.0%", prop: "Shai Gilgeous-Alexander – Over 30.5 pts (1.85) | stake 1.0%" },
-        { partido: "Mavericks vs Suns", awayTeam: "Mavericks", homeTeam: "Suns", principal: "Suns -6.5 (1.90) | stake 2.0% | EV+12.5%", secundaria: "Over 235.5 (1.88) | stake 0.5%", prop: "Devin Booker – Over 28.5 pts (1.85) | stake 1.0%" }
-    ];
-    // MLB (15 partidos)
-    const mlbPicks = [
-        { partido: "Padres vs Pirates", awayTeam: "Padres", homeTeam: "Pirates", principal: "Pirates Moneyline (1.75) | stake 1.5% | EV+7.5%", secundaria: "Under 7.5 (1.85) | stake 1.0%", prop: "Mitch Keller – Over 5.5 ponches (1.80) | stake 0.5%" },
-        { partido: "Royals vs Guardians", awayTeam: "Royals", homeTeam: "Guardians", principal: "Under 7.5 (1.85) | stake 1.5% | EV+6.5%", secundaria: "Guardians Moneyline (1.65) | stake 0.5%", prop: "Cole Ragans – Over 4.5 ponches (1.80) | stake 0.5%" },
-        { partido: "Brewers vs Red Sox", awayTeam: "Brewers", homeTeam: "Red Sox", principal: "Over 8.5 (1.85) | stake 1.5% | EV+7.5%", secundaria: "Red Sox Moneyline (1.70) | stake 0.5%", prop: "Rafael Devers – Over 1.5 bases totales (1.85) | stake 0.5%" },
-        { partido: "Orioles vs White Sox", awayTeam: "Orioles", homeTeam: "White Sox", principal: "Orioles Moneyline (1.65) | stake 1.5% | EV+6.5%", secundaria: "Under 8.0 (1.85) | stake 0.5%", prop: "Gunnar Henderson – Over 0.5 HR (2.20) | stake 0.5%" },
-        { partido: "Mariners vs Rangers", awayTeam: "Mariners", homeTeam: "Rangers", principal: "Mariners Moneyline (1.70) | stake 1.5% | EV+7.5%", secundaria: "Under 7.5 (1.85) | stake 1.0%", prop: "Bryan Woo – Over 4.5 ponches (1.80) | stake 0.5%" },
-        { partido: "Dodgers vs Blue Jays", awayTeam: "Dodgers", homeTeam: "Blue Jays", principal: "Under 7.5 (1.88) | stake 2.0% | EV+12.5%", secundaria: "Dodgers Moneyline (1.65) | stake 0.5%", prop: "Shohei Ohtani – Over 6.5 ponches (1.85) | stake 1.0%" },
-        { partido: "Astros vs Rockies", awayTeam: "Astros", homeTeam: "Rockies", principal: "Over 11.0 (1.90) | stake 2.0% | EV+15.5%", secundaria: "Rockies Moneyline (1.95) | stake 0.5%", prop: "Kyle Tucker – Over 1.5 bases totales (1.80) | stake 0.5%" },
-        { partido: "Phillies vs Giants", awayTeam: "Phillies", homeTeam: "Giants", principal: "Phillies Moneyline (1.65) | stake 1.5% | EV+7.5%", secundaria: "Under 7.5 (1.85) | stake 0.5%", prop: "Aaron Nola – Over 6.5 ponches (1.85) | stake 0.5%" },
-        { partido: "Cardinals vs Nationals", awayTeam: "Cardinals", homeTeam: "Nationals", principal: "Cardinals Moneyline (1.65) | stake 2.0% | EV+10.5%", secundaria: "Over 8.5 (1.85) | stake 1.0%", prop: "Nolan Arenado – Over 1.5 bases totales (1.85) | stake 0.5%" },
-        { partido: "Braves vs Angels", awayTeam: "Braves", homeTeam: "Angels", principal: "Under 8.5 (1.85) | stake 1.5% | EV+6.5%", secundaria: "Braves Moneyline (1.70) | stake 0.5%", prop: "Ronald Acuña Jr. – Over 0.5 bases robadas (2.10) | stake 0.5%" },
-        { partido: "Diamondbacks vs Mets", awayTeam: "Diamondbacks", homeTeam: "Mets", principal: "Mets Moneyline (1.70) | stake 1.5% | EV+6.5%", secundaria: "Over 7.5 (1.85) | stake 0.5%", prop: "Francisco Lindor – Over 0.5 HR (2.20) | stake 0.5%" },
-        { partido: "Cubs vs Rays", awayTeam: "Cubs", homeTeam: "Rays", principal: "Rays Moneyline (1.70) | stake 1.5% | EV+6.5%", secundaria: "Under 7.5 (1.85) | stake 0.5%", prop: "Joe Boyle – Over 5.5 ponches (1.85) | stake 0.5%" },
-        { partido: "Reds vs Marlins", awayTeam: "Reds", homeTeam: "Marlins", principal: "Over 8.5 (1.85) | stake 1.5% | EV+7.5%", secundaria: "Marlins Moneyline (1.75) | stake 0.5%", prop: "Jazz Chisholm – Over 0.5 HR (2.30) | stake 0.5%" },
-        { partido: "Athletics vs Yankees", awayTeam: "Athletics", homeTeam: "Yankees", principal: "Yankees -1.5 Run Line (1.80) | stake 2.0% | EV+12.5%", secundaria: "Under 8.0 (1.85) | stake 0.5%", prop: "Aaron Judge – Over 1.5 bases totales (1.80) | stake 0.5%" },
-        { partido: "Tigers vs Twins", awayTeam: "Tigers", homeTeam: "Twins", principal: "Tigers Moneyline (1.65) | stake 1.5% | EV+8.5%", secundaria: "Under 7.5 (1.85) | stake 1.0%", prop: "Framber Valdez – Over 6.5 ponches (1.85) | stake 0.5%" }
-    ];
-    // NHL (3 partidos)
-    const nhlPicks = [
-        { partido: "Sabres vs Rangers", awayTeam: "Sabres", homeTeam: "Rangers", principal: "Sabres Moneyline (1.75) | stake 1.5% | EV+7.5%", secundaria: "Over 5.5 (1.85) | stake 0.5%", prop: "Tage Thompson – Over 0.5 goles (2.10) | stake 0.5%" },
-        { partido: "Capitals vs Maple Leafs", awayTeam: "Capitals", homeTeam: "Maple Leafs", principal: "Maple Leafs Moneyline (1.65) | stake 1.5% | EV+6.0%", secundaria: "Under 5.5 (1.85) | stake 0.5%", prop: "Auston Matthews – Over 0.5 goles (2.00) | stake 0.5%" },
-        { partido: "Oilers vs Sharks", awayTeam: "Oilers", homeTeam: "Sharks", principal: "Oilers Moneyline (1.70) | stake 1.5% | EV+6.5%", secundaria: "Over 6.0 (1.85) | stake 0.5%", prop: "Connor McDavid – Over 1.5 puntos (1.80) | stake 1.0%" }
-    ];
-
-    // Parlays
-    const parlaysData = [
-        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Astros vs Rockies | Over 11.0 (1.90)"], odds: "1.90", stake: "2-3%", desc: "Máxima confianza del día (EV+ >15%)" },
-        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Nuggets -14.5 (1.90)", "MLB | Dodgers vs Blue Jays Under 7.5 (1.88)"], odds: "3.57", stake: "1.5%", desc: "Combinada de dos picks con alto EV+" },
-        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Cardinals Moneyline (1.65)", "NBA | Spurs -10.5 (1.90)", "NHL | Sabres Moneyline (1.75)", "Fútbol | PSG vs Liverpool Over 2.5 (1.80)"], odds: "9.87", stake: "1%", desc: "Cuatro selecciones con alta probabilidad individual" },
-        { name: "MILLONARIO TODOS", type: "gold", picks: ["Fútbol: Barcelona ML", "Fútbol: PSG Over 2.5", "Fútbol: Betis DNB", "Fútbol: Nacional DNB", "Fútbol: Mirassol ML", "Fútbol: Medellín DNB", "Fútbol: Palmeiras DNB", "Fútbol: Cusco Under", "Fútbol: Sporting Cristal ML", "NBA: Cavaliers -9.5", "NBA: Wolves Over", "NBA: Pistons ML", "NBA: Nuggets -14.5", "NBA: Spurs -10.5", "NBA: Thunder ML", "NBA: Suns -6.5", "MLB: Pirates ML", "MLB: Royals Under", "MLB: Brewers Over", "MLB: Orioles ML", "MLB: Mariners ML", "MLB: Dodgers Under", "MLB: Astros Over", "MLB: Phillies ML", "MLB: Cardinals ML", "MLB: Braves Under", "MLB: Mets ML", "MLB: Rays ML", "MLB: Reds Over", "MLB: Yankees -1.5", "MLB: Tigers ML", "NHL: Sabres ML", "NHL: Maple Leafs ML", "NHL: Oilers ML"], odds: ">30000", stake: "0.1%", desc: "Combinada de 34 picks, solo entretenimiento" }
-    ];
-
     let currentSport = "futbol";
     let currentMain = "picks";
 
     function renderGames() {
         let games = [];
         if (currentSport === "futbol") games = futbolPicks;
-        else if (currentSport === "nba") games = nbaPicks;
         else if (currentSport === "mlb") games = mlbPicks;
+        else if (currentSport === "nba") games = nbaPicks;
         else games = nhlPicks;
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
@@ -467,18 +462,10 @@
     }
 
     function renderResults() {
-        const wins = resultadosEjemplo.filter(p=>p.ok===true).length;
-        const losses = resultadosEjemplo.filter(p=>p.ok===false).length;
-        const hitRate = wins+losses ? Math.round(wins/(wins+losses)*100) : 0;
-        document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-value">${wins}</div><div>HITS ✅</div></div><div class="stat-card"><div class="stat-value">${losses}</div><div>FAILS ❌</div></div><div class="stat-card"><div class="stat-value">${hitRate}%</div><div>EFECT.</div></div>`;
+        // Placeholder de resultados (se pueden editar después)
+        document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-value">0</div><div>HITS ✅</div></div><div class="stat-card"><div class="stat-value">0</div><div>FAILS ❌</div></div><div class="stat-card"><div class="stat-value">0%</div><div>EFECT.</div></div>`;
         const tbody = document.getElementById('resultsTableBody');
-        tbody.innerHTML = '';
-        resultadosEjemplo.forEach(p => {
-            const row = tbody.insertRow();
-            row.insertCell(0).innerText = p.pick;
-            row.insertCell(1).innerHTML = p.ok === true ? '<span class="result-hit">✅ '+p.res+'</span>' : (p.ok === false ? '<span class="result-fail">❌ '+p.res+'</span>' : '⏸️ Pendiente');
-            row.insertCell(2).innerText = p.nota;
-        });
+        tbody.innerHTML = '<tr><td colspan="3">No hay resultados registrados todavía. Edita desde admin.</td></tr>';
         document.getElementById('leccionesList').innerHTML = mejoras.map(l => `<div>• ${l}</div>`).join('');
     }
 
@@ -519,8 +506,8 @@
 
     function initSportTabs() {
         const container = document.getElementById('sportTabs');
-        const sports = ['futbol', 'nba', 'mlb', 'nhl'];
-        const names = { futbol:'⚽ Fútbol', nba:'🏀 Baloncesto', mlb:'⚾ Béisbol', nhl:'🏒 Hockey' };
+        const sports = ['futbol', 'mlb', 'nba', 'nhl'];
+        const names = { futbol:'⚽ Fútbol', mlb:'⚾ Béisbol', nba:'🏀 Baloncesto', nhl:'🏒 Hockey' };
         container.innerHTML = sports.map(s => `<button class="sport-tab ${s === currentSport ? 'active' : ''}" data-sport="${s}">${names[s]}</button>`).join('');
         document.querySelectorAll('.sport-tab').forEach(btn => {
             btn.addEventListener('click', () => {
