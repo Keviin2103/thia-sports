@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | Picks 11/04/2026</title>
+    <title>ThIA Sports | ESPN Style | Picks 10/04/2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -11,281 +11,404 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(145deg, #eef2ff 0%, #ffffff 100%);
-            color: #1e293b;
+            background: #0a0c10;
+            color: #fff;
             min-height: 100vh;
-            padding-bottom: 2rem;
+            position: relative;
         }
-        /* ESPN-inspired colors: azul oscuro, blanco, dorado */
-        .navbar {
+        /* Fondo dinámico por deporte (se aplica clase al body según deporte activo) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: -2;
+            transition: background-image 0.3s ease;
+        }
+        body.sport-futbol::before {
+            background-image: url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format');
+        }
+        body.sport-mlb::before {
+            background-image: url('https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=2070&auto=format');
+        }
+        body.sport-nba::before {
+            background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format');
+        }
+        body.sport-nhl::before {
+            background-image: url('https://images.unsplash.com/photo-1515704089429-fd06e6661ddd?q=80&w=2070&auto=format');
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.7), #0a0c10);
+            z-index: -1;
+        }
+
+        /* Barra superior tipo ESPN */
+        .top-bar {
+            background: #1e1f24;
+            border-bottom: 4px solid #facc15;
+            padding: 0.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
-            background: #0a2351; /* azul profundo ESPN */
-            color: white;
             flex-wrap: wrap;
             gap: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #facc15, #f97316);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            letter-spacing: -1px;
         }
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
+        .logo span:first-child { color: #facc15; }
+        .logo span:last-child { color: #fff; font-weight: 400; }
+        .date-badge {
+            background: #2c2e36;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #ccc;
         }
-        .nav-links a {
-            color: #facc15;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-        .nav-links a:hover, .nav-links a.active { color: white; text-decoration: underline; }
-        .btn-outline {
+        .user-area button {
             background: transparent;
             border: 1px solid #facc15;
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 1.2rem;
             border-radius: 40px;
             color: #facc15;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.85rem;
         }
-        .btn-outline:hover { background: #facc15; color: #0a2351; }
+        .user-area button:hover { background: #facc15; color: #000; }
         .user-greeting {
-            font-size: 0.85rem;
-            background: #1e293b;
+            background: #2c2e36;
             padding: 0.3rem 1rem;
             border-radius: 40px;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            color: white;
+            gap: 1rem;
         }
-        .container { max-width: 1400px; margin: 1.5rem auto; padding: 0 1.5rem; }
 
-        /* Tabs estilo ESPN */
-        .main-tabs {
+        /* Navegación principal tipo pestañas ESPN */
+        .nav-tabs {
             display: flex;
-            gap: 0.5rem;
-            background: white;
-            border-radius: 60px;
-            padding: 0.3rem;
-            margin-bottom: 1.5rem;
-            width: fit-content;
-            flex-wrap: wrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            justify-content: center;
+            gap: 0.2rem;
+            background: #15171c;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #2c2e36;
         }
-        .main-tab {
+        .nav-tab {
             background: transparent;
             border: none;
-            padding: 0.5rem 1.2rem;
+            padding: 0.6rem 1.8rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #aaa;
+            cursor: pointer;
             border-radius: 40px;
-            color: #1e293b;
+            transition: 0.2s;
+        }
+        .nav-tab i { margin-right: 8px; }
+        .nav-tab.active {
+            background: #facc15;
+            color: #0a0c10;
+        }
+        .nav-tab:not(.active):hover { color: #facc15; background: #2c2e36; }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Filtros deportivos (chip style) */
+        .sport-filters {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        .sport-chip {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
-        }
-        .main-tab.active {
-            background: #0a2351;
-            color: white;
-        }
-
-        .sport-tabs {
             display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            background: white;
-            border-radius: 60px;
-            padding: 0.3rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid #e2e8f0;
+            align-items: center;
+            gap: 8px;
         }
-        .sport-tab {
-            background: transparent;
-            border: none;
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            color: #1e293b;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        .sport-tab.active {
-            background: #0a2351;
-            color: white;
+        .sport-chip i { font-size: 1rem; }
+        .sport-chip.active {
+            background: #facc15;
+            color: #0a0c10;
+            border-color: #facc15;
         }
 
+        /* Grid de tarjetas */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 1.5rem;
+            gap: 1.8rem;
         }
         .game-card {
-            background: white;
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
+            background: rgba(20, 22, 28, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: 1px solid rgba(250, 204, 21, 0.3);
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .game-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: #facc15; }
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: #facc15;
+            box-shadow: 0 15px 30px rgba(250,204,21,0.2);
+        }
         .card-header {
             display: flex;
             justify-content: space-between;
             padding: 0.8rem 1rem;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: rgba(0,0,0,0.5);
             font-size: 0.7rem;
-            color: #475569;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .league-badge {
-            background: #0a2351;
-            color: white;
-            padding: 0.2rem 0.6rem;
+        .league {
+            background: #facc15;
+            color: #000;
+            padding: 0.2rem 0.7rem;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 0.7rem;
         }
-        .team-container {
+        .matchup {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 0.3rem;
-            text-align: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            gap: 0.5rem;
         }
-        .team-emoji {
-            font-size: 2rem;
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+        .team-logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.3rem;
         }
         .team-name {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 0.9rem;
-            color: #0a2351;
         }
-        .vs {
+        .vs-circle {
             background: #facc15;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #0a2351;
-            font-size: 0.9rem;
+            font-weight: 800;
+            color: #0a0c10;
+            font-size: 0.8rem;
         }
-        .pick-item {
-            background: #f8fafc;
-            border-radius: 14px;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
+        .pick-card {
+            padding: 0.8rem 1rem;
+            background: rgba(0,0,0,0.4);
+            margin: 0.5rem 1rem 1rem;
+            border-radius: 16px;
             border-left: 4px solid;
-            font-size: 0.75rem;
         }
-        .pick-main { border-left-color: #facc15; background: #fffbeb; }
-        .pick-secondary { border-left-color: #3b82f6; background: #eff6ff; }
-        .pick-prop { border-left-color: #a855f7; background: #faf5ff; }
+        .pick-main { border-left-color: #facc15; }
+        .pick-prop { border-left-color: #a855f7; }
+        .confidence {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: #2c2e36;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-top: 6px;
+        }
+        .premium-lock {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.6);
+            margin: 0.5rem 1rem 1rem;
+            border-radius: 16px;
+            color: #aaa;
+        }
 
-        .stats-summary { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-        .stat-card { background: white; border-radius: 20px; padding: 0.8rem 1.2rem; text-align: center; flex: 1; min-width: 110px; border: 1px solid #e2e8f0; }
-        .stat-value { font-size: 1.6rem; font-weight: 800; color: #0a2351; }
-        .results-table { width: 100%; border-collapse: collapse; background: white; border-radius: 20px; overflow: hidden; }
-        .results-table th, .results-table td { padding: 0.7rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
-        .results-table th { background: #0a2351; color: white; }
+        /* Estadísticas y resultados */
+        .stats-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+            border: 1px solid rgba(250,204,21,0.3);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #facc15;
+        }
+        .results-table {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .results-table th, .results-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .results-table th { color: #facc15; }
 
+        /* Parlays */
         .parlays-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
-            margin-top: 1rem;
         }
         .parlay-card {
-            background: white;
-            border-radius: 20px;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 1.2rem;
+            border: 1px solid;
         }
-        .parlay-card:hover { transform: translateY(-3px); border-color: #facc15; }
-        .parlay-gold { border-top: 4px solid #facc15; }
-        .parlay-green { border-top: 4px solid #22c55e; }
-        .parlay-orange { border-top: 4px solid #f97316; }
-        .parlay-purple { border-top: 4px solid #a855f7; }
+        .parlay-gold { border-color: #eab308; }
+        .parlay-green { border-color: #22c55e; }
+        .parlay-orange { border-color: #f97316; }
+        .parlay-purple { border-color: #a855f7; }
 
-        .hidden { display: none; }
-        .footer { text-align: center; font-size: 0.7rem; color: #5b6e8c; margin-top: 2rem; }
         .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-            display: flex; align-items: center; justify-content: center; z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
         }
-        .modal-content { background: white; padding: 1.5rem; border-radius: 28px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #facc15; }
-        .modal-content input { width: 100%; padding: 0.6rem; margin: 0.5rem 0; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 40px; color: #0f172a; }
+        .modal-content {
+            background: #1a1c23;
+            padding: 2rem;
+            border-radius: 32px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #facc15;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 0.7rem;
+            margin: 0.5rem 0;
+            background: #2c2e36;
+            border: none;
+            border-radius: 40px;
+            color: white;
+        }
+        .btn {
+            background: #facc15;
+            color: #0a0c10;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0.3rem;
+        }
+        .btn-outline-light {
+            background: transparent;
+            border: 1px solid #facc15;
+            color: #facc15;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+        }
+        .hidden { display: none; }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.7rem;
+            color: #5b6e8c;
+        }
         @media (max-width: 640px) {
-            .navbar { flex-direction: column; text-align: center; }
-            .team-emoji { font-size: 1.6rem; }
-            .team-name { font-size: 0.75rem; }
+            .games-grid { grid-template-columns: 1fr; }
+            .matchup { flex-direction: column; }
+            .vs-circle { margin: 0.5rem 0; }
         }
     </style>
 </head>
-<body>
-<div class="navbar">
-    <div class="logo">ThIA <span>Sports</span></div>
-    <div class="nav-links">
-        <a id="homeLink">INICIO</a>
-        <a id="resultsLink">📊 RESULTADOS</a>
-        <a id="parlaysLink">🎰 PARLAYS</a>
+<body class="sport-futbol">
+<div class="top-bar">
+    <div class="logo"><span>ThIA</span><span> Sports</span></div>
+    <div class="date-badge"><i class="far fa-calendar-alt"></i> 10 ABR 2026 | VEN</div>
+    <div class="user-area" id="authArea">
+        <button id="showAuthBtn"><i class="fas fa-lock"></i> Acceder</button>
     </div>
-    <div id="authArea"><button id="showAuthBtn" class="btn-outline">🔑 Acceder</button></div>
+</div>
+<div class="nav-tabs">
+    <button class="nav-tab active" data-main="picks"><i class="fas fa-chart-line"></i> PICKS HOY</button>
+    <button class="nav-tab" data-main="resultados"><i class="fas fa-trophy"></i> RESULTADOS</button>
+    <button class="nav-tab" data-main="parlays"><i class="fas fa-layer-group"></i> PARLAYS</button>
 </div>
 <div class="container">
-    <div class="main-tabs">
-        <button class="main-tab active" data-main="picks">🎯 PICKS HOY</button>
-        <button class="main-tab" data-main="resultados">📊 RESULTADOS</button>
-        <button class="main-tab" data-main="parlays">🎰 PARLAYS</button>
-    </div>
     <div id="picksSection">
-        <div class="sport-tabs" id="sportTabs"></div>
-        <div id="leagueTabsContainer" style="margin-bottom: 1rem;"></div>
+        <div class="sport-filters" id="sportFilters"></div>
         <div id="gamesContainer" class="games-grid"></div>
     </div>
     <div id="resultsSection" class="hidden">
-        <div class="stats-summary" id="statsSummary"></div>
+        <div class="stats-row" id="statsSummary"></div>
         <div style="overflow-x: auto;">
-            <table class="results-table" id="resultsTable">
+            <table class="results-table">
                 <thead><tr><th>Pick</th><th>Resultado</th><th>Nota</th></tr></thead>
                 <tbody id="resultsTableBody"></tbody>
             </table>
         </div>
-        <div style="margin-top: 1.5rem; background: #fffbeb; border-radius: 20px; padding: 1rem; border-left: 4px solid #facc15;">
-            <h4 style="color:#0a2351;">💡 Mejoras Activas (ThIA-SA v4.2)</h4>
-            <div id="leccionesList" style="font-size:0.75rem; color:#475569;"></div>
+        <div style="margin-top: 2rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem;">
+            <h4><i class="fas fa-brain"></i> Mejoras ThIA-SA v3.1</h4>
+            <div id="leccionesList" style="font-size:0.75rem; color:#ccc;"></div>
         </div>
     </div>
     <div id="parlaysSection" class="hidden">
         <div id="parlaysContainer" class="parlays-grid"></div>
     </div>
 </div>
-<div class="footer">ThIA Sports · Sistema ThIA-SA v4.2 · Picks 11/04/2026 · Datos reales · Horarios Venezuela</div>
+<footer>ThIA Sports · Sistema Predictivo · Datos simulados para 10/04/2026</footer>
 
 <script>
-    // ---------- LOGIN CON GOOGLE + LOCAL ----------
+    // ---------- AUTENTICACIÓN ----------
     let currentUser = null;
     function handleGoogleCredential(response) {
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
@@ -311,15 +434,15 @@
             modal.id = 'authModal';
             modal.className = 'modal';
             modal.innerHTML = `<div class="modal-content">
-                <h2>ThIA Sports</h2>
-                <p>Inicia sesión con Google o email local</p>
+                <h2 style="color:#facc15">ThIA Sports</h2>
+                <p>Accede con tu cuenta</p>
                 <input type="email" id="loginEmail" placeholder="Email">
                 <input type="password" id="loginPassword" placeholder="Contraseña">
-                <button id="doLoginBtn" class="btn-outline" style="background:#facc15; color:#000;">Iniciar sesión</button>
-                <button id="doRegisterBtn" class="btn-outline">Registrarse</button>
-                <div style="margin:0.5rem 0;">━━━━━ o ━━━━━</div>
+                <button id="doLoginBtn" class="btn">Iniciar sesión</button>
+                <button id="doRegisterBtn" class="btn-outline-light">Registrarse</button>
+                <div style="margin:1rem 0;">━━━━━ o ━━━━━</div>
                 <div id="googleBtnContainer"></div>
-                <button class="btn-outline" style="margin-top:0.5rem;" id="closeModalBtn">Cerrar</button>
+                <button class="btn-outline-light" style="margin-top:1rem;" id="closeModalBtn">Cerrar</button>
             </div>`;
             document.body.appendChild(modal);
             document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
@@ -351,206 +474,125 @@
     function logout() { currentUser = null; localStorage.removeItem('thia_user'); updateUserUI(); renderCurrentView(); }
     function updateUserUI() {
         const area = document.getElementById('authArea');
-        if (currentUser) area.innerHTML = `<div class="user-greeting"><i class="fas fa-user"></i> ${currentUser.email} <button id="logoutBtn" class="btn-outline">Salir</button></div>`;
-        else area.innerHTML = `<button id="showAuthBtn" class="btn-outline">🔑 Acceder</button>`;
+        if (currentUser) area.innerHTML = `<div class="user-greeting"><i class="fas fa-user-circle"></i> ${currentUser.email.split('@')[0]} <button id="logoutBtn" style="background:#facc15;color:#000;border:none;">Salir</button></div>`;
+        else area.innerHTML = `<button id="showAuthBtn"><i class="fas fa-key"></i> Acceder</button>`;
         document.getElementById('logoutBtn')?.addEventListener('click', logout);
         document.getElementById('showAuthBtn')?.addEventListener('click', showLoginModal);
     }
 
-    // Emojis genéricos por deporte
-    function getTeamEmoji(team, sport) {
-        if (sport === 'futbol') return "⚽";
-        if (sport === 'nba') return "🏀";
-        if (sport === 'mlb') return "⚾";
-        if (sport === 'nhl') return "🏒";
-        return "🏆";
+    // Emojis/iconos por equipo y deporte
+    function getTeamIcon(team, sport) {
+        const icons = { futbol:"⚽", nba:"🏀", mlb:"⚾", nhl:"🏒" };
+        return icons[sport] || "🏆";
     }
 
-    // ========== DATOS DE PICKS (basados en JSON ThIA-SA v4.2) ==========
-    // Fútbol agrupado por ligas con horarios aproximados (Venezuela)
-    const soccerLeagues = {
-        "La Liga": [
-            { partido: "Real Sociedad vs Alavés", awayTeam: "Alavés", homeTeam: "Real Sociedad", time: "10:15 AM VEN", principal: "Real Sociedad ML (1.53) | stake 1.5%", secundaria: "Over 1.5 goles (1.36) | stake 0.5%", prop: "Mikel Oyarzabal – Over 0.5 SOT (1.80) | stake 0.5%" },
-            { partido: "Elche vs Valencia", awayTeam: "Valencia", homeTeam: "Elche", time: "12:30 PM VEN", principal: "Under 2.5 goles (1.70) | stake 1.0%", secundaria: "Valencia DNB (1.65) | stake 0.5%", prop: "Hugo Duro – Over 0.5 SOT (1.90) | stake 0.5%" },
-            { partido: "Barcelona vs Espanyol", awayTeam: "Espanyol", homeTeam: "Barcelona", time: "3:00 PM VEN", principal: "Barcelona ML (1.28) | stake 2.0%", secundaria: "Barcelona -2.5 (1.85) | stake 0.5%", prop: "Robert Lewandowski – Over 1.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Sevilla vs Atlético Madrid", awayTeam: "Atlético Madrid", homeTeam: "Sevilla", time: "3:00 PM VEN", principal: "Atlético Madrid DNB (1.60) | stake 1.5%", secundaria: "Under 2.5 goles (1.65) | stake 0.5%", prop: "Antoine Griezmann – Over 0.5 SOT (1.85) | stake 0.5%" }
-        ],
-        "Premier League": [
-            { partido: "Arsenal vs Bournemouth", awayTeam: "Bournemouth", homeTeam: "Arsenal", time: "10:00 AM VEN", principal: "Arsenal ML (1.30) | stake 2.0%", secundaria: "Arsenal -1.75 (1.85) | stake 0.5%", prop: "Bukayo Saka – Over 1.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Brentford vs Everton", awayTeam: "Everton", homeTeam: "Brentford", time: "10:00 AM VEN", principal: "Over 2.5 goles (1.75) | stake 1.5%", secundaria: "BTTS Sí (1.70) | stake 0.5%", prop: "Jarrod Bowen – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Burnley vs Brighton", awayTeam: "Brighton", homeTeam: "Burnley", time: "10:00 AM VEN", principal: "Brighton DNB (1.55) | stake 1.5%", secundaria: "Over 2.5 goles (1.80) | stake 0.5%", prop: "Kaoru Mitoma – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Liverpool vs Fulham", awayTeam: "Fulham", homeTeam: "Liverpool", time: "12:30 PM VEN", principal: "Liverpool ML (1.45) | stake 2.0%", secundaria: "Liverpool -1.5 (1.85) | stake 0.5%", prop: "Mohamed Salah – Over 1.5 SOT (1.85) | stake 0.5%" }
-        ],
-        "Serie A": [
-            { partido: "Cagliari vs Cremonese", awayTeam: "Cremonese", homeTeam: "Cagliari", time: "9:00 AM VEN", principal: "Cagliari ML (1.65) | stake 1.5%", secundaria: "Under 2.5 goles (1.60) | stake 0.5%", prop: "Roberto Piccoli – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Torino vs Verona", awayTeam: "Verona", homeTeam: "Torino", time: "9:00 AM VEN", principal: "Torino ML (1.62) | stake 1.5%", secundaria: "Torino -1.0 (1.85) | stake 0.5%", prop: "Antonio Sanabria – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "AC Milan vs Udinese", awayTeam: "Udinese", homeTeam: "AC Milan", time: "12:00 PM VEN", principal: "AC Milan ML (1.45) | stake 2.0%", secundaria: "Milan -1.5 (1.85) | stake 0.5%", prop: "Rafael Leão – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Atalanta vs Juventus", awayTeam: "Juventus", homeTeam: "Atalanta", time: "2:45 PM VEN", principal: "Under 2.5 goles (1.65) | stake 1.5%", secundaria: "Juventus DNB (1.60) | stake 0.5%", prop: "Dušan Vlahović – Over 0.5 SOT (1.85) | stake 0.5%" }
-        ],
-        "Bundesliga": [
-            { partido: "Heidenheim vs Union Berlin", awayTeam: "Union Berlin", homeTeam: "Heidenheim", time: "9:30 AM VEN", principal: "Under 2.5 goles (1.70) | stake 1.0%", secundaria: "Union Berlin DNB (1.65) | stake 0.5%", prop: "Andrej Ilić – Over 0.5 SOT (1.90) | stake 0.5%" },
-            { partido: "Dortmund vs Leverkusen", awayTeam: "Leverkusen", homeTeam: "Dortmund", time: "12:30 PM VEN", principal: "Dortmund ML (1.80) | stake 1.5%", secundaria: "Over 3.0 goles (1.75) | stake 0.5%", prop: "Serhou Guirassy – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "RB Leipzig vs Mönchengladbach", awayTeam: "Mönchengladbach", homeTeam: "RB Leipzig", time: "12:30 PM VEN", principal: "RB Leipzig ML (1.50) | stake 2.0%", secundaria: "Leipzig -1.5 (1.85) | stake 0.5%", prop: "Benjamin Šeško – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Wolfsburg vs Eintracht Frankfurt", awayTeam: "Eintracht Frankfurt", homeTeam: "Wolfsburg", time: "12:30 PM VEN", principal: "Eintracht Frankfurt DNB (1.60) | stake 1.5%", secundaria: "Over 2.5 goles (1.75) | stake 0.5%", prop: "Omar Marmoush – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "St. Pauli vs Bayern Munich", awayTeam: "Bayern Munich", homeTeam: "St. Pauli", time: "12:30 PM VEN", principal: "Bayern Munich -2.5 (1.85) | stake 2.0%", secundaria: "Over 3.5 goles (1.75) | stake 0.5%", prop: "Harry Kane – Over 1.5 SOT (1.85) | stake 0.5%" }
-        ],
-        "MLS": [
-            { partido: "Toronto FC vs Cincinnati", awayTeam: "Cincinnati", homeTeam: "Toronto FC", time: "7:30 PM VEN", principal: "Under 2.5 goles (1.70) | stake 1.0%", secundaria: "Cincinnati DNB (1.65) | stake 0.5%", prop: "Lorenzo Insigne – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Portland Timbers vs LAFC", awayTeam: "LAFC", homeTeam: "Portland Timbers", time: "10:30 PM VEN", principal: "LAFC DNB (1.60) | stake 1.5%", secundaria: "Over 2.5 goles (1.75) | stake 0.5%", prop: "Dénis Bouanga – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Inter Miami vs NY Red Bulls", awayTeam: "NY Red Bulls", homeTeam: "Inter Miami", time: "7:30 PM VEN", principal: "Inter Miami ML (1.65) | stake 1.5%", secundaria: "Messi anytime goal (1.80) | stake 0.5%", prop: "Lionel Messi – Over 0.5 SOT (1.70) | stake 0.5%" }
-        ],
-        "Ligue 1": [
-            { partido: "Auxerre vs Nantes", awayTeam: "Nantes", homeTeam: "Auxerre", time: "11:00 AM VEN", principal: "Under 2.5 goles (1.70) | stake 1.0%", secundaria: "Auxerre DNB (1.65) | stake 0.5%", prop: "Auxerre striker – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Rennes vs Angers", awayTeam: "Angers", homeTeam: "Rennes", time: "11:00 AM VEN", principal: "Rennes ML (1.55) | stake 2.0%", secundaria: "Rennes -1.5 (1.85) | stake 0.5%", prop: "Arnaud Kalimuendo – Over 0.5 SOT (1.85) | stake 0.5%" }
-        ],
-        "Eredivisie": [
-            { partido: "FC Utrecht vs Telstar", awayTeam: "Telstar", homeTeam: "FC Utrecht", time: "2:45 PM VEN", principal: "FC Utrecht ML (1.55) | stake 1.5%", secundaria: "Over 2.5 goles (1.70) | stake 0.5%", prop: "Utrecht striker – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Sparta Rotterdam vs PSV Eindhoven", awayTeam: "PSV Eindhoven", homeTeam: "Sparta Rotterdam", time: "2:45 PM VEN", principal: "PSV Eindhoven ML (1.85) | stake 2.0%", secundaria: "PSV -1.25 (1.85) | stake 0.5%", prop: "Luuk de Jong – Over 0.5 SOT (1.85) | stake 0.5%" },
-            { partido: "Ajax vs Heracles Almelo", awayTeam: "Heracles Almelo", homeTeam: "Ajax", time: "2:45 PM VEN", principal: "Ajax -2.0 (1.80) | stake 2.0%", secundaria: "Over 3.5 goles (1.70) | stake 0.5%", prop: "Brian Brobbey – Over 1.5 SOT (1.85) | stake 0.5%" }
-        ]
-    };
-    // MLB
+    // DATOS (igual que original)
+    const futbolPicks = [
+        { partido: "Real Madrid vs Girona", awayTeam: "Girona", homeTeam: "Real Madrid", time: "12:30 PM", principal: "Real Madrid ML (1.28) stake 2%", confianza: "Alta", prop: "Vinicius over 0.5 SOT (1.70)" },
+        { partido: "West Ham vs Wolves", awayTeam: "Wolves", homeTeam: "West Ham", time: "1:00 PM", principal: "West Ham DNB (1.55) stake 1.5%", confianza: "Media", prop: "Bowen over 0.5 SOT (1.80)" },
+        { partido: "Roma vs Pisa", awayTeam: "Pisa", homeTeam: "Roma", time: "1:00 PM", principal: "Roma ML (1.32) stake 2%", confianza: "Alta" },
+        { partido: "Augsburg vs Hoffenheim", awayTeam: "Hoffenheim", homeTeam: "Augsburg", time: "2:30 PM", principal: "Hoffenheim DNB (1.60) stake 1.5%", confianza: "Media" },
+        { partido: "Paris FC vs Monaco", awayTeam: "Monaco", homeTeam: "Paris FC", time: "3:00 PM", principal: "Monaco ML (2.00) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Marseille vs Metz", awayTeam: "Metz", homeTeam: "Marseille", time: "3:00 PM", principal: "Marseille ML (1.25) stake 2%", confianza: "Alta" },
+        { partido: "Twente vs Volendam", awayTeam: "Volendam", homeTeam: "Twente", time: "3:45 PM", principal: "Twente ML (1.41) stake 2%", confianza: "Alta" }
+    ];
     const mlbPicks = [
-        { partido: "Diamondbacks vs Phillies", awayTeam: "Diamondbacks", homeTeam: "Phillies", time: "4:05 PM VEN", principal: "Diamondbacks ML (1.80) | stake 1.5%", secundaria: "Dbacks F5 ML (1.85) | stake 0.5%", prop: "Mike Soroka – Over 4.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Marlins vs Tigers", awayTeam: "Marlins", homeTeam: "Tigers", time: "4:10 PM VEN", principal: "Tigers ML (1.55) | stake 1.5%", secundaria: "Tigers -1.5 (1.85) | stake 0.5%", prop: "Keider Montero – Over 4.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Pirates vs Cubs", awayTeam: "Pirates", homeTeam: "Cubs", time: "4:10 PM VEN", principal: "Under 8.5 (1.85) | stake 1.5%", secundaria: "Pirates ML (1.95) | stake 0.5%", prop: "Pirates starter – Over 4.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Twins vs Blue Jays", awayTeam: "Twins", homeTeam: "Blue Jays", time: "7:07 PM VEN", principal: "Blue Jays ML (1.70) | stake 1.5%", secundaria: "Over 9.0 (1.85) | stake 0.5%", prop: "Blue Jays team total – Over 4.5 runs (1.85) | stake 0.5%" },
-        { partido: "Angels vs Reds", awayTeam: "Angels", homeTeam: "Reds", time: "7:10 PM VEN", principal: "Angels ML (1.80) | stake 1.5%", secundaria: "Angels -1.0 (1.85) | stake 0.5%", prop: "Angels offense – Over 4.5 runs (1.85) | stake 0.5%" },
-        { partido: "Athletics vs Mets", awayTeam: "Athletics", homeTeam: "Mets", time: "7:10 PM VEN", principal: "Mets ML (1.55) | stake 2.0%", secundaria: "Mets -1.5 (1.85) | stake 0.5%", prop: "Mets starter – Over 5.5 Ks (1.85) | stake 0.5%" },
-        { partido: "White Sox vs Royals", awayTeam: "White Sox", homeTeam: "Royals", time: "8:10 PM VEN", principal: "Royals ML (1.60) | stake 1.5%", secundaria: "Royals -1.25 (1.85) | stake 0.5%", prop: "Kris Bubic – Over 4.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Yankees vs Rays", awayTeam: "Yankees", homeTeam: "Rays", time: "8:10 PM VEN", principal: "Rays ML (1.80) | stake 1.5%", secundaria: "Under 8.0 (1.85) | stake 0.5%", prop: "Rays starter – Over 4.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Nationals vs Brewers", awayTeam: "Nationals", homeTeam: "Brewers", time: "8:10 PM VEN", principal: "Brewers ML (1.22) | stake 3.0%", secundaria: "Brewers -1.5 (1.60) | stake 1.0%", prop: "Kyle Harrison – Over 5.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Guardians vs Braves", awayTeam: "Guardians", homeTeam: "Braves", time: "8:20 PM VEN", principal: "Braves ML (1.37) | stake 2.0%", secundaria: "Braves -1.5 (1.80) | stake 1.0%", prop: "Braves offense – Over 4.5 runs (1.85) | stake 0.5%" },
-        { partido: "Giants vs Orioles", awayTeam: "Giants", homeTeam: "Orioles", time: "8:35 PM VEN", principal: "Orioles ML (1.65) | stake 1.5%", secundaria: "Orioles F5 ML (1.85) | stake 0.5%", prop: "Orioles starter – Over 5.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Red Sox vs Cardinals", awayTeam: "Red Sox", homeTeam: "Cardinals", time: "8:15 PM VEN", principal: "Cardinals ML (1.55) | stake 1.5%", secundaria: "Cardinals -1.0 (1.85) | stake 0.5%", prop: "Cardinals bullpen – Under 2.5 ER (1.85) | stake 0.5%" },
-        { partido: "Rockies vs Padres", awayTeam: "Rockies", homeTeam: "Padres", time: "8:40 PM VEN", principal: "Padres ML (1.30) | stake 2.5%", secundaria: "Padres -1.75 (1.85) | stake 1.0%", prop: "Padres starter – Over 5.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Rangers vs Dodgers", awayTeam: "Rangers", homeTeam: "Dodgers", time: "10:10 PM VEN", principal: "Dodgers ML (1.43) | stake 2.0%", secundaria: "Dodgers -1.5 (1.80) | stake 1.0%", prop: "Tyler Glasnow – Over 7.5 Ks (1.85) | stake 0.5%" },
-        { partido: "Astros vs Mariners", awayTeam: "Astros", homeTeam: "Mariners", time: "9:40 PM VEN", principal: "Mariners ML (1.65) | stake 1.5%", secundaria: "Under 7.0 (1.85) | stake 0.5%", prop: "Mariners starter – Over 5.5 Ks (1.85) | stake 0.5%" }
+        { partido: "Pirates vs Cubs", awayTeam: "Pirates", homeTeam: "Cubs", time: "1:20 PM", principal: "Cubs ML (1.52) stake 1.5%", confianza: "Media-Alta", prop: "Imanaga over 5.5 Ks (1.85)" },
+        { partido: "D-backs vs Phillies", awayTeam: "D-backs", homeTeam: "Phillies", time: "4:05 PM", principal: "Diamondbacks ML (1.69) stake 1.5%", confianza: "Media" },
+        { partido: "Marlins vs Tigers", awayTeam: "Marlins", homeTeam: "Tigers", time: "4:10 PM", principal: "Tigers ML (1.39) stake 2%", confianza: "Alta" },
+        { partido: "Angels vs Reds", awayTeam: "Angels", homeTeam: "Reds", time: "4:10 PM", principal: "Reds ML (1.43) stake 2%", confianza: "Alta" },
+        { partido: "Twins vs Blue Jays", awayTeam: "Twins", homeTeam: "Blue Jays", time: "7:07 PM", principal: "Blue Jays ML (1.85) stake 1.5%", confianza: "Media" },
+        { partido: "Athletics vs Mets", awayTeam: "Athletics", homeTeam: "Mets", time: "7:10 PM", principal: "Mets ML (1.45) stake 2%", confianza: "Alta" },
+        { partido: "Yankees vs Rays", awayTeam: "Yankees", homeTeam: "Rays", time: "7:10 PM", principal: "Yankees ML (1.82) stake 1.5%", confianza: "Media" },
+        { partido: "Guardians vs Braves", awayTeam: "Guardians", homeTeam: "Braves", time: "7:20 PM", principal: "Braves ML (1.37) stake 2%", confianza: "Alta" },
+        { partido: "Giants vs Orioles", awayTeam: "Giants", homeTeam: "Orioles", time: "7:35 PM", principal: "Orioles ML (1.56) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "White Sox vs Royals", awayTeam: "White Sox", homeTeam: "Royals", time: "8:10 PM", principal: "Royals ML (1.61) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Nationals vs Brewers", awayTeam: "Nationals", homeTeam: "Brewers", time: "8:10 PM", principal: "Brewers ML (1.22) stake 2%", confianza: "Muy Alta" },
+        { partido: "Red Sox vs Cardinals", awayTeam: "Red Sox", homeTeam: "Cardinals", time: "8:15 PM", principal: "Cardinals ML (1.41) stake 2%", confianza: "Alta" },
+        { partido: "Rockies vs Padres", awayTeam: "Rockies", homeTeam: "Padres", time: "8:40 PM", principal: "Padres ML (1.30) stake 2%", confianza: "Muy Alta", prop: "Buehler over 6.5 Ks (1.85)" },
+        { partido: "Astros vs Mariners", awayTeam: "Astros", homeTeam: "Mariners", time: "9:40 PM", principal: "Mariners ML (1.52) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Rangers vs Dodgers", awayTeam: "Rangers", homeTeam: "Dodgers", time: "10:10 PM", principal: "Dodgers ML (1.43) stake 2%", confianza: "Alta" }
     ];
-    // NBA
     const nbaPicks = [
-        { partido: "Pistons vs Hornets", awayTeam: "Hornets", homeTeam: "Pistons", time: "7:00 PM VEN", principal: "Pistons ML (1.53) | stake 1.5%", secundaria: "Pistons -5.5 (1.90) | stake 0.5%", prop: "Cade Cunningham – Over 8.5 asistencias (1.85) | stake 0.5%" },
-        { partido: "Heat vs Wizards", awayTeam: "Wizards", homeTeam: "Heat", time: "7:30 PM VEN", principal: "Heat ML (1.40) | stake 2.0%", secundaria: "Heat -6.5 (1.85) | stake 0.5%", prop: "Bam Adebayo – Over 11.5 rebotes (1.85) | stake 0.5%" },
-        { partido: "Cavaliers vs Hawks", awayTeam: "Hawks", homeTeam: "Cavaliers", time: "7:30 PM VEN", principal: "Under 228.5 (1.88) | stake 1.5%", secundaria: "Hawks ML (1.65) | stake 0.5%", prop: "Trae Young – Over 10.5 asistencias (1.85) | stake 0.5%" },
-        { partido: "Pelicans vs Celtics", awayTeam: "Pelicans", homeTeam: "Celtics", time: "7:30 PM VEN", principal: "Celtics -8.5 (1.85) | stake 2.0%", secundaria: "Celtics ML (1.22) | stake 1.0%", prop: "Jayson Tatum – Over 28.5 puntos (1.85) | stake 0.5%" },
-        { partido: "76ers vs Pacers", awayTeam: "Pacers", homeTeam: "76ers", time: "7:30 PM VEN", principal: "Under 227.5 (1.88) | stake 1.5%", secundaria: "Pacers ML (1.75) | stake 0.5%", prop: "Tyrese Maxey – Over 25.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Raptors vs Knicks", awayTeam: "Knicks", homeTeam: "Raptors", time: "7:30 PM VEN", principal: "Knicks ML (1.56) | stake 1.5%", secundaria: "Knicks -4.5 (1.90) | stake 0.5%", prop: "Jalen Brunson – Over 25.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Magic vs Bulls", awayTeam: "Bulls", homeTeam: "Magic", time: "7:00 PM VEN", principal: "Magic ML (1.52) | stake 1.5%", secundaria: "Magic -5.5 (1.85) | stake 0.5%", prop: "Paolo Banchero – Over 22.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Nets vs Bucks", awayTeam: "Nets", homeTeam: "Bucks", time: "8:00 PM VEN", principal: "Under 225.5 (1.88) | stake 1.5%", secundaria: "Bucks ML (1.70) | stake 0.5%", prop: "Khris Middleton – Over 20.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Mavericks vs Spurs", awayTeam: "Spurs", homeTeam: "Mavericks", time: "8:30 PM VEN", principal: "Spurs ML (1.28) | stake 2.0%", secundaria: "Spurs -8.5 (1.85) | stake 1.0%", prop: "Victor Wembanyama – Over 3.5 bloqueos (1.90) | stake 0.5%" },
-        { partido: "Thunder vs Nuggets", awayTeam: "Nuggets", homeTeam: "Thunder", time: "8:30 PM VEN", principal: "Under 215.5 (1.88) | stake 1.5%", secundaria: "Nuggets ML (1.85) | stake 0.5%", prop: "Michael Porter Jr. – Over 20.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Timberwolves vs Rockets", awayTeam: "Rockets", homeTeam: "Timberwolves", time: "8:30 PM VEN", principal: "Rockets ML (1.65) | stake 1.5%", secundaria: "Rockets -6.5 (1.90) | stake 0.5%", prop: "Kevin Durant – Over 27.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Grizzlies vs Jazz", awayTeam: "Jazz", homeTeam: "Grizzlies", time: "9:00 PM VEN", principal: "Jazz ML (1.65) | stake 1.0%", secundaria: "Over 235.5 (1.88) | stake 0.5%", prop: "Lauri Markkanen – Over 22.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Clippers vs Trail Blazers", awayTeam: "Trail Blazers", homeTeam: "Clippers", time: "10:00 PM VEN", principal: "Clippers ML (1.55) | stake 1.5%", secundaria: "Clippers -7.5 (1.90) | stake 0.5%", prop: "Kawhi Leonard – Over 25.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Warriors vs Kings", awayTeam: "Kings", homeTeam: "Warriors", time: "10:00 PM VEN", principal: "Warriors ML (1.65) | stake 1.5%", secundaria: "Warriors -6.5 (1.90) | stake 0.5%", prop: "Stephen Curry – Over 30.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Suns vs Lakers", awayTeam: "Lakers", homeTeam: "Suns", time: "10:30 PM VEN", principal: "Lakers ML (1.55) | stake 1.5%", secundaria: "Lakers -5.5 (1.90) | stake 0.5%", prop: "LeBron James – Over 7.5 asistencias (1.85) | stake 0.5%" }
+        { partido: "Pistons vs Hornets", awayTeam: "Hornets", homeTeam: "Pistons", time: "7:00 PM", principal: "Pistons ML (1.56) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Heat vs Wizards", awayTeam: "Wizards", homeTeam: "Heat", time: "7:30 PM", principal: "Heat ML (1.30) stake 2%", confianza: "Alta" },
+        { partido: "Cavaliers vs Hawks", awayTeam: "Hawks", homeTeam: "Cavaliers", time: "7:30 PM", principal: "Cavaliers ML (1.72) stake 1.5%", confianza: "Media" },
+        { partido: "Pelicans vs Celtics", awayTeam: "Pelicans", homeTeam: "Celtics", time: "7:30 PM", principal: "Celtics ML (1.22) stake 2%", confianza: "Muy Alta", prop: "Tatum over 28.5 pts (1.85)" },
+        { partido: "76ers vs Pacers", awayTeam: "Pacers", homeTeam: "76ers", time: "7:30 PM", principal: "76ers ML (1.41) stake 2%", confianza: "Alta" },
+        { partido: "Raptors vs Knicks", awayTeam: "Knicks", homeTeam: "Raptors", time: "7:30 PM", principal: "Knicks ML (1.56) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Magic vs Bulls", awayTeam: "Bulls", homeTeam: "Magic", time: "7:00 PM", principal: "Magic ML (1.52) stake 1.5%", confianza: "Alta" },
+        { partido: "Nets vs Bucks", awayTeam: "Nets", homeTeam: "Bucks", time: "8:00 PM", principal: "Bucks ML (1.32) stake 2%", confianza: "Muy Alta" },
+        { partido: "Mavericks vs Spurs", awayTeam: "Spurs", homeTeam: "Mavericks", time: "8:30 PM", principal: "Spurs ML (1.28) stake 2%", confianza: "Muy Alta", prop: "Wembanyama over 3.5 blocks (1.90)" },
+        { partido: "Thunder vs Nuggets", awayTeam: "Nuggets", homeTeam: "Thunder", time: "8:30 PM", principal: "Thunder ML (1.75) stake 1.5%", confianza: "Media" },
+        { partido: "Timberwolves vs Rockets", awayTeam: "Rockets", homeTeam: "Timberwolves", time: "8:30 PM", principal: "Rockets ML (1.82) stake 1.5%", confianza: "Media" },
+        { partido: "Grizzlies vs Jazz", awayTeam: "Jazz", homeTeam: "Grizzlies", time: "9:00 PM", principal: "Grizzlies ML (1.47) stake 2%", confianza: "Alta" },
+        { partido: "Clippers vs Blazers", awayTeam: "Blazers", homeTeam: "Clippers", time: "10:00 PM", principal: "Clippers ML (1.61) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Warriors vs Kings", awayTeam: "Kings", homeTeam: "Warriors", time: "10:00 PM", principal: "Warriors ML (1.85) stake 1.5%", confianza: "Media" },
+        { partido: "Suns vs Lakers", awayTeam: "Lakers", homeTeam: "Suns", time: "10:30 PM", principal: "Lakers ML (1.64) stake 1.5%", confianza: "Media-Alta" }
     ];
-    // NHL
     const nhlPicks = [
-        { partido: "Lightning vs Bruins", awayTeam: "Bruins", homeTeam: "Lightning", time: "7:00 PM VEN", principal: "Lightning ML (1.75) | stake 1.5%", secundaria: "Over 5.5 (1.85) | stake 0.5%", prop: "Nikita Kucherov – Over 0.5 puntos (1.65) | stake 0.5%" },
-        { partido: "Senators vs Islanders", awayTeam: "Islanders", homeTeam: "Senators", time: "7:00 PM VEN", principal: "Islanders ML (1.80) | stake 1.5%", secundaria: "Under 6.0 (1.85) | stake 0.5%", prop: "Mathew Barzal – Over 0.5 puntos (1.80) | stake 0.5%" },
-        { partido: "Capitals vs Penguins", awayTeam: "Penguins", homeTeam: "Capitals", time: "7:00 PM VEN", principal: "Penguins ML (1.70) | stake 1.5%", secundaria: "Over 6.0 (1.85) | stake 0.5%", prop: "Sidney Crosby – Over 0.5 puntos (1.70) | stake 0.5%" },
-        { partido: "Oilers vs Kings", awayTeam: "Kings", homeTeam: "Oilers", time: "10:00 PM VEN", principal: "Kings ML (1.85) | stake 1.5%", secundaria: "Under 5.5 (1.85) | stake 0.5%", prop: "Anze Kopitar – Over 0.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Devils vs Red Wings", awayTeam: "Red Wings", homeTeam: "Devils", time: "7:00 PM VEN", principal: "Red Wings ML (1.70) | stake 1.5%", secundaria: "Over 6.0 (1.85) | stake 0.5%", prop: "Alex DeBrincat – Over 0.5 puntos (1.80) | stake 0.5%" },
-        { partido: "Blues vs Blackhawks", awayTeam: "Blackhawks", homeTeam: "Blues", time: "8:00 PM VEN", principal: "Blues ML (1.65) | stake 1.5%", secundaria: "Blues -1.0 (1.85) | stake 0.5%", prop: "Robert Thomas – Over 0.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Wild vs Predators", awayTeam: "Predators", homeTeam: "Wild", time: "8:00 PM VEN", principal: "Wild ML (1.65) | stake 1.5%", secundaria: "Under 6.0 (1.85) | stake 0.5%", prop: "Kirill Kaprizov – Over 0.5 puntos (1.75) | stake 0.5%" },
-        { partido: "Rangers vs Stars", awayTeam: "Stars", homeTeam: "Rangers", time: "7:00 PM VEN", principal: "Stars ML (1.55) | stake 1.5%", secundaria: "Stars -1.25 (1.85) | stake 0.5%", prop: "Jason Robertson – Over 0.5 puntos (1.80) | stake 0.5%" },
-        { partido: "Hurricanes vs Mammoth", awayTeam: "Mammoth", homeTeam: "Hurricanes", time: "7:00 PM VEN", principal: "Hurricanes ML (1.28) | stake 2.5%", secundaria: "Hurricanes -1.5 (1.70) | stake 1.0%", prop: "Sebastian Aho – Over 0.5 puntos (1.75) | stake 0.5%" },
-        { partido: "Panthers vs Maple Leafs", awayTeam: "Maple Leafs", homeTeam: "Panthers", time: "7:00 PM VEN", principal: "Maple Leafs ML (1.65) | stake 1.5%", secundaria: "Over 6.5 (1.85) | stake 0.5%", prop: "William Nylander – Over 0.5 puntos (1.75) | stake 0.5%" },
-        { partido: "Blue Jackets vs Canadiens", awayTeam: "Canadiens", homeTeam: "Blue Jackets", time: "7:00 PM VEN", principal: "Canadiens ML (1.55) | stake 1.5%", secundaria: "Over 6.0 (1.85) | stake 0.5%", prop: "Nick Suzuki – Over 0.5 puntos (1.75) | stake 0.5%" },
-        { partido: "Flyers vs Jets", awayTeam: "Jets", homeTeam: "Flyers", time: "7:00 PM VEN", principal: "Jets ML (1.60) | stake 1.5%", secundaria: "Jets -1.0 (1.85) | stake 0.5%", prop: "Mark Scheifele – Over 0.5 puntos (1.80) | stake 0.5%" },
-        { partido: "Flames vs Kraken", awayTeam: "Kraken", homeTeam: "Flames", time: "9:00 PM VEN", principal: "Kraken ML (1.75) | stake 1.0%", secundaria: "Under 6.0 (1.85) | stake 0.5%", prop: "Jordan Eberle – Over 0.5 puntos (1.85) | stake 0.5%" },
-        { partido: "Golden Knights vs Avalanche", awayTeam: "Avalanche", homeTeam: "Golden Knights", time: "10:00 PM VEN", principal: "Avalanche ML (1.54) | stake 2.0%", secundaria: "Over 6.5 (1.85) | stake 0.5%", prop: "Nathan MacKinnon – Over 1.5 puntos (1.80) | stake 0.5%" },
-        { partido: "Canucks vs Sharks", awayTeam: "Sharks", homeTeam: "Canucks", time: "10:30 PM VEN", principal: "Sharks ML (1.41) | stake 2.0%", secundaria: "Sharks -1.5 (1.85) | stake 1.0%", prop: "Macklin Celebrini – Over 0.5 puntos (1.80) | stake 0.5%" }
+        { partido: "Maple Leafs vs Islanders", awayTeam: "Islanders", homeTeam: "Maple Leafs", time: "7:00 PM", principal: "Over 5.5 goles (1.85) stake 1.5%", confianza: "Media", prop: "Nylander over 0.5 puntos (1.75)" },
+        { partido: "Blue Jackets vs Sabres", awayTeam: "Sabres", homeTeam: "Blue Jackets", time: "7:00 PM", principal: "Sabres ML (1.43) stake 2%", confianza: "Alta" },
+        { partido: "Lightning vs Canadiens", awayTeam: "Canadiens", homeTeam: "Lightning", time: "7:00 PM", principal: "Lightning ML (1.54) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Panthers vs Senators", awayTeam: "Senators", homeTeam: "Panthers", time: "7:00 PM", principal: "Senators ML (1.85) stake 1.5%", confianza: "Media" },
+        { partido: "Flyers vs Red Wings", awayTeam: "Red Wings", homeTeam: "Flyers", time: "7:00 PM", principal: "Red Wings ML (1.75) stake 1.5%", confianza: "Media" },
+        { partido: "Penguins vs Devils", awayTeam: "Devils", homeTeam: "Penguins", time: "7:00 PM", principal: "Devils ML (1.89) stake 1.5%", confianza: "Media" },
+        { partido: "Jets vs Blues", awayTeam: "Blues", homeTeam: "Jets", time: "8:00 PM", principal: "Jets ML (1.64) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Hurricanes vs Blackhawks", awayTeam: "Blackhawks", homeTeam: "Hurricanes", time: "7:00 PM", principal: "Hurricanes ML (1.27) stake 2%", confianza: "Muy Alta" },
+        { partido: "Wild vs Stars", awayTeam: "Stars", homeTeam: "Wild", time: "8:00 PM", principal: "Under 6.0 goles (1.85) stake 1.5%", confianza: "Media", prop: "Robertson over 0.5 goles (2.00)" },
+        { partido: "Flames vs Avalanche", awayTeam: "Avalanche", homeTeam: "Flames", time: "9:00 PM", principal: "Avalanche ML (1.28) stake 2%", confianza: "Muy Alta" },
+        { partido: "Predators vs Mammoth", awayTeam: "Mammoth", homeTeam: "Predators", time: "8:00 PM", principal: "Mammoth ML (1.69) stake 1.5%", confianza: "Media" },
+        { partido: "Sharks vs Ducks", awayTeam: "Ducks", homeTeam: "Sharks", time: "10:30 PM", principal: "Ducks ML (1.79) stake 1.5%", confianza: "Media" },
+        { partido: "Golden Knights vs Kraken", awayTeam: "Kraken", homeTeam: "Golden Knights", time: "10:00 PM", principal: "Golden Knights ML (1.59) stake 1.5%", confianza: "Media-Alta" },
+        { partido: "Canucks vs Kings", awayTeam: "Kings", homeTeam: "Canucks", time: "10:00 PM", principal: "Kings ML (1.39) stake 2%", confianza: "Alta" }
     ];
 
-    // Parlays
     const parlaysData = [
-        { name: "DIRECTA DEL DÍA", type: "gold", picks: ["MLB | Brewers vs Nationals | Brewers ML (1.22)"], odds: "1.22", stake: "3%", desc: "Máxima confianza, EV+ altísimo (riesgo muy bajo)" },
-        { name: "MOROCHA 2 PICKS", type: "green", picks: ["NHL | Hurricanes vs Mammoth | Hurricanes ML (1.28)", "MLB | Padres vs Rockies | Padres ML (1.30)"], odds: "1.66", stake: "2%", desc: "Combinación segura de dos picks con cuota atractiva" },
-        { name: "PARLEY SEGURO 4 PICKS", type: "orange", picks: ["MLB | Braves vs Guardians | Braves ML (1.37)", "NHL | Avalanche vs Golden Knights | Avalanche ML (1.54)", "Fútbol | PSV vs Sparta | PSV ML (1.85)", "MLB | Brewers vs Nationals | Brewers ML (1.22)"], odds: "4.76", stake: "1.5%", desc: "Equilibrio entre seguridad y pago (cuota ~5:1)" },
-        { name: "MILLONARIO 6 PICKS", type: "purple", picks: ["NHL | Sharks vs Canucks | Sharks ML (1.41)", "Fútbol | Bayern vs St. Pauli | Bayern -2.5 (1.85)", "NBA | Celtics vs Pelicans | Celtics -8.5 (1.85)", "MLB | Braves vs Guardians | Braves ML (1.37)", "NHL | Hurricanes vs Mammoth | Hurricanes ML (1.28)", "Fútbol | Ajax vs Heracles | Ajax -2.0 (1.80)"], odds: "14.98", stake: "0.5% - 1%", desc: "Alto pago con picks sólidos" }
+        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Padres vs Rockies | Padres ML (1.30)"], odds: "1.30", stake: "2-3%", desc: "Máxima confianza del día" },
+        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Celtics ML (1.22)", "NHL | Hurricanes ML (1.27)"], odds: "1.55", stake: "1.5%", desc: "Dos picks muy seguros" },
+        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["Fútbol | Real Madrid ML (1.28)", "MLB | Brewers ML (1.22)", "NBA | Bucks ML (1.32)", "NHL | Avalanche ML (1.28)"], odds: "2.75", stake: "1%", desc: "Favoritos sólidos" },
+        { name: "MILLONARIO TODOS", type: "gold", picks: ["Real Madrid ML", "Celtics ML", "Brewers ML", "Avalanche ML", "Padres ML"], odds: "> 10000", stake: "0.1%", desc: "Entretenimiento" }
     ];
-
-    const mejoras = [
-        "✅ R77: No apostar ML solo por altura extrema",
-        "✅ R78: Champions: Over 2.5 si ambos tienen poder ofensivo",
-        "✅ R79: Cautela con brasileños visitantes en Libertadores",
-        "✅ R80: No apostar contra SP visitante con ERA<2.00 últimas 2",
-        "✅ R81: Coors Field: Over solo si SP local no está en forma",
-        "✅ R83: Duelo de ases = Under",
-        "✅ R84: Tanking vs playoffs = no ML del débil",
-        "✅ R85: Wild card pressure = no favorecer local automáticamente"
-    ];
+    const mejoras = ["✅ R77: No apostar ML solo por altura extrema", "✅ R78: Champions Over 2.5", "✅ R79: Cautela con brasileños visitantes", "✅ R80: No apostar contra SP visitante con ERA<2.00", "✅ R83: Duelo de ases = Under"];
 
     let currentSport = "futbol";
-    let currentLeague = "La Liga";
     let currentMain = "picks";
-
-    function renderLeagueTabs() {
-        const container = document.getElementById('leagueTabsContainer');
-        const leagues = Object.keys(soccerLeagues);
-        if (currentSport !== 'futbol' || leagues.length === 0) { container.innerHTML = ''; return; }
-        container.innerHTML = `<div class="sport-tabs" style="margin-bottom:0;">${leagues.map(l => `<button class="league-tab ${l === currentLeague ? 'active' : ''}" data-league="${l}">${l}</button>`).join('')}</div>`;
-        document.querySelectorAll('.league-tab').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.league-tab').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentLeague = btn.getAttribute('data-league');
-                renderGames();
-            });
-        });
-    }
 
     function renderGames() {
         let games = [];
-        if (currentSport === "futbol") {
-            games = soccerLeagues[currentLeague] || [];
-        } else if (currentSport === "mlb") {
-            games = mlbPicks;
-        } else if (currentSport === "nba") {
-            games = nbaPicks;
-        } else if (currentSport === "nhl") {
-            games = nhlPicks;
-        }
+        if (currentSport === "futbol") games = futbolPicks;
+        else if (currentSport === "mlb") games = mlbPicks;
+        else if (currentSport === "nba") games = nbaPicks;
+        else games = nhlPicks;
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
-        if (!games.length) { container.innerHTML = '<div style="text-align:center; padding:2rem;">No hay juegos disponibles.</div>'; return; }
+        if (!games.length) { container.innerHTML = '<div style="text-align:center;">Sin juegos</div>'; return; }
         let html = '';
         for (let g of games) {
-            const awayEmoji = getTeamEmoji(g.awayTeam, currentSport);
-            const homeEmoji = getTeamEmoji(g.homeTeam, currentSport);
+            const awayIcon = getTeamIcon(g.awayTeam, currentSport);
+            const homeIcon = getTeamIcon(g.homeTeam, currentSport);
             html += `<div class="game-card">
                 <div class="card-header">
-                    <span class="league-badge">${currentSport === 'futbol' ? currentLeague : currentSport.toUpperCase()}</span>
-                    <span><i class="far fa-clock"></i> ${g.time}</span>
+                    <span class="league">${currentSport.toUpperCase()}</span>
+                    <span><i class="far fa-clock"></i> ${g.time} VEN</span>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 1rem;">
-                    <div class="team-container">
-                        <div class="team-emoji">${awayEmoji}</div>
-                        <div class="team-name">${g.awayTeam}</div>
-                    </div>
-                    <div class="vs">VS</div>
-                    <div class="team-container">
-                        <div class="team-emoji">${homeEmoji}</div>
-                        <div class="team-name">${g.homeTeam}</div>
-                    </div>
+                <div class="matchup">
+                    <div class="team"><div class="team-logo">${awayIcon}</div><div class="team-name">${g.awayTeam}</div></div>
+                    <div class="vs-circle">VS</div>
+                    <div class="team"><div class="team-logo">${homeIcon}</div><div class="team-name">${g.homeTeam}</div></div>
                 </div>
-                <div class="premium-block">${!acceso ? `<div style="background:#f8fafc; padding:0.8rem; text-align:center; border-radius:12px; border:1px solid #e2e8f0;"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
-                    <div class="pick-item pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal}</div>
-                    <div class="pick-item pick-secondary"><strong>🔄 JUGADA SECUNDARIA:</strong> ${g.secundaria}</div>
-                    <div class="pick-item pick-prop"><strong>🎲 PROP DESTACADO:</strong> ${g.prop}</div>
-                `}</div>
+                ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
+                    <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal}<br><span class="confidence">Confianza: ${g.confianza}</span></div>
+                    ${g.prop ? `<div class="pick-card pick-prop"><strong>🎲 PROP:</strong> ${g.prop}</div>` : ''}
+                `}
             </div>`;
         }
         container.innerHTML = html;
-        if (currentSport === "futbol") renderLeagueTabs();
     }
 
     function renderResults() {
-        document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-value">0</div><div>HITS ✅</div></div><div class="stat-card"><div class="stat-value">0</div><div>FAILS ❌</div></div><div class="stat-card"><div class="stat-value">0%</div><div>EFECT.</div></div>`;
-        const tbody = document.getElementById('resultsTableBody');
-        tbody.innerHTML = '<tr><td colspan="3">No hay resultados registrados todavía. Edita desde admin. </td></tr>';
+        document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-number">0</div><div>HITS</div></div><div class="stat-card"><div class="stat-number">0</div><div>FAILS</div></div><div class="stat-card"><div class="stat-number">0%</div><div>EFECT.</div></div>`;
+        document.getElementById('resultsTableBody').innerHTML = '<tr><td colspan="3">Resultados en actualización (sistema en simulación)</td></tr>';
         document.getElementById('leccionesList').innerHTML = mejoras.map(l => `<div>• ${l}</div>`).join('');
     }
 
@@ -560,14 +602,18 @@
         parlaysData.forEach(p => {
             let colorClass = p.type === 'gold' ? 'parlay-gold' : (p.type === 'green' ? 'parlay-green' : (p.type === 'orange' ? 'parlay-orange' : 'parlay-purple'));
             html += `<div class="parlay-card ${colorClass}">
-                <div class="font-black text-center text-lg mb-2" style="color:${p.type==='gold'?'#eab308':p.type==='green'?'#22c55e':p.type==='orange'?'#f97316':'#a855f7'}">${p.name}</div>
-                <div class="bg-green-500 rounded-lg py-1.5 text-center text-black font-black text-xl mb-2">${p.odds}</div>
-                <div class="text-center text-gray-400 text-xs">Stake: ${p.stake}</div>
-                ${p.picks.map(pk => `<div class="bg-black/30 rounded px-2 py-1 my-1 text-sm">${pk}</div>`).join('')}
-                <p class="text-gray-400 text-xs mt-2">${p.desc}</p>
+                <div style="font-weight:800; font-size:1.2rem; margin-bottom:0.5rem;">${p.name}</div>
+                <div style="background:#facc15; color:#000; border-radius:20px; padding:0.3rem; text-align:center; font-weight:800; margin-bottom:0.5rem;">${p.odds}</div>
+                <div style="font-size:0.7rem; margin-bottom:0.5rem;">Stake: ${p.stake}</div>
+                ${p.picks.map(pk => `<div style="background:rgba(0,0,0,0.5); padding:0.3rem; border-radius:12px; margin:0.2rem 0;">${pk}</div>`).join('')}
+                <div style="font-size:0.7rem; margin-top:0.5rem;">${p.desc}</div>
             </div>`;
         });
         container.innerHTML = html;
+    }
+
+    function updateBodySportClass() {
+        document.body.className = `sport-${currentSport}`;
     }
 
     function renderCurrentView() {
@@ -587,30 +633,29 @@
             document.getElementById('parlaysSection').classList.remove('hidden');
             renderParlays();
         }
+        updateBodySportClass();
     }
 
-    function initSportTabs() {
-        const container = document.getElementById('sportTabs');
+    function initSportFilters() {
+        const container = document.getElementById('sportFilters');
         const sports = ['futbol', 'mlb', 'nba', 'nhl'];
         const names = { futbol:'⚽ Fútbol', mlb:'⚾ Béisbol', nba:'🏀 Baloncesto', nhl:'🏒 Hockey' };
-        container.innerHTML = sports.map(s => `<button class="sport-tab ${s === currentSport ? 'active' : ''}" data-sport="${s}">${names[s]}</button>`).join('');
-        document.querySelectorAll('.sport-tab').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.sport-tab').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentSport = btn.getAttribute('data-sport');
-                if (currentSport === 'futbol') currentLeague = "La Liga";
+        container.innerHTML = sports.map(s => `<div class="sport-chip ${s === currentSport ? 'active' : ''}" data-sport="${s}"><i class="fas ${s==='futbol'?'fa-futbol':s==='mlb'?'fa-baseball-ball':s==='nba'?'fa-basketball-ball':'fa-hockey-puck'}"></i> ${names[s]}</div>`).join('');
+        document.querySelectorAll('.sport-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.sport-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentSport = chip.getAttribute('data-sport');
                 renderGames();
+                updateBodySportClass();
             });
         });
     }
 
-    document.getElementById('homeLink')?.addEventListener('click', () => { currentMain = 'picks'; document.querySelector('.main-tab[data-main="picks"]').click(); renderCurrentView(); });
-    document.getElementById('resultsLink')?.addEventListener('click', () => { currentMain = 'resultados'; document.querySelector('.main-tab[data-main="resultados"]').click(); renderCurrentView(); });
-    document.getElementById('parlaysLink')?.addEventListener('click', () => { currentMain = 'parlays'; document.querySelector('.main-tab[data-main="parlays"]').click(); renderCurrentView(); });
-    document.querySelectorAll('.main-tab').forEach(btn => {
+    // Eventos navegación
+    document.querySelectorAll('.nav-tab').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentMain = btn.getAttribute('data-main');
             renderCurrentView();
@@ -620,7 +665,7 @@
     const savedUser = localStorage.getItem('thia_user');
     if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
     updateUserUI();
-    initSportTabs();
+    initSportFilters();
     renderCurrentView();
 </script>
 </body>
