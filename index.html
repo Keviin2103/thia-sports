@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | ESPN Style | Picks 10/04/2026</title>
+    <title>ThIA Sports | ESPN Style | Picks 11/04/2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -16,7 +16,6 @@
             min-height: 100vh;
             position: relative;
         }
-        /* Fondo dinámico por deporte (se aplica clase al body según deporte activo) */
         body::before {
             content: "";
             position: fixed;
@@ -37,9 +36,6 @@
         body.sport-mlb::before {
             background-image: url('https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=2070&auto=format');
         }
-        body.sport-nba::before {
-            background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format');
-        }
         body.sport-nhl::before {
             background-image: url('https://images.unsplash.com/photo-1515704089429-fd06e6661ddd?q=80&w=2070&auto=format');
         }
@@ -54,7 +50,6 @@
             z-index: -1;
         }
 
-        /* Barra superior tipo ESPN */
         .top-bar {
             background: #1e1f24;
             border-bottom: 4px solid #facc15;
@@ -99,7 +94,6 @@
             gap: 1rem;
         }
 
-        /* Navegación principal tipo pestañas ESPN */
         .nav-tabs {
             display: flex;
             justify-content: center;
@@ -126,14 +120,12 @@
         }
         .nav-tab:not(.active):hover { color: #facc15; background: #2c2e36; }
 
-        /* Contenedor principal */
         .container {
             max-width: 1400px;
             margin: 2rem auto;
             padding: 0 1.5rem;
         }
 
-        /* Filtros deportivos (chip style) */
         .sport-filters {
             display: flex;
             gap: 0.8rem;
@@ -155,14 +147,12 @@
             align-items: center;
             gap: 8px;
         }
-        .sport-chip i { font-size: 1rem; }
         .sport-chip.active {
             background: #facc15;
             color: #0a0c10;
             border-color: #facc15;
         }
 
-        /* Grid de tarjetas */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -237,6 +227,7 @@
             border-left: 4px solid;
         }
         .pick-main { border-left-color: #facc15; }
+        .pick-secondary { border-left-color: #3b82f6; }
         .pick-prop { border-left-color: #a855f7; }
         .confidence {
             display: inline-block;
@@ -255,7 +246,6 @@
             color: #aaa;
         }
 
-        /* Estadísticas y resultados */
         .stats-row {
             display: flex;
             gap: 1.5rem;
@@ -290,7 +280,6 @@
         }
         .results-table th { color: #facc15; }
 
-        /* Parlays */
         .parlays-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -373,7 +362,7 @@
 <body class="sport-futbol">
 <div class="top-bar">
     <div class="logo"><span>ThIA</span><span> Sports</span></div>
-    <div class="date-badge"><i class="far fa-calendar-alt"></i> 10 ABR 2026 | VEN</div>
+    <div class="date-badge"><i class="far fa-calendar-alt"></i> 11 ABR 2026 | VEN</div>
     <div class="user-area" id="authArea">
         <button id="showAuthBtn"><i class="fas fa-lock"></i> Acceder</button>
     </div>
@@ -397,7 +386,7 @@
             </table>
         </div>
         <div style="margin-top: 2rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem;">
-            <h4><i class="fas fa-brain"></i> Mejoras ThIA-SA v3.1</h4>
+            <h4><i class="fas fa-brain"></i> Mejoras ThIA-SA v4.2</h4>
             <div id="leccionesList" style="font-size:0.75rem; color:#ccc;"></div>
         </div>
     </div>
@@ -405,9 +394,105 @@
         <div id="parlaysContainer" class="parlays-grid"></div>
     </div>
 </div>
-<footer>ThIA Sports · Sistema Predictivo · Datos simulados para 10/04/2026</footer>
+<footer>ThIA Sports · Sistema ThIA-SA v4.2 · EV+ · 11/04/2026</footer>
 
 <script>
+    // ========== DATOS FÚTBOL (completos) ==========
+    const futbolPicks = [
+        { partido: "Real Sociedad vs Alavés", principal: { pick: "Real Sociedad ML", cuota: 1.53, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Over 1.5 goles", cuota: 1.36, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Mikel Oyarzabal", prop: "Over 0.5 SOT", cuota: 1.80, stake: "0.5%" } },
+        { partido: "Elche vs Valencia", principal: { pick: "Under 2.5 goles", cuota: 1.70, stake: "1.0%", confianza: "Media" }, secundaria: { pick: "Valencia DNB", cuota: 1.65, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Hugo Duro", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%" } },
+        { partido: "Barcelona vs Espanyol", principal: { pick: "Barcelona -2.5", cuota: 1.85, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "Barcelona ML", cuota: 1.28, stake: "0.5%", confianza: "Muy Alta" }, prop_jugador: { jugador: "Robert Lewandowski", prop: "Over 1.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Sevilla vs Atlético Madrid", principal: { pick: "Atlético Madrid DNB", cuota: 1.60, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.65, stake: "0.5%", confianza: "Media-Alta" }, prop_jugador: { jugador: "Antoine Griezmann", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Arsenal vs Bournemouth", principal: { pick: "Arsenal -1.75", cuota: 1.85, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "Arsenal ML", cuota: 1.30, stake: "0.5%", confianza: "Muy Alta" }, prop_jugador: { jugador: "Bukayo Saka", prop: "Over 1.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Brentford vs Everton", principal: { pick: "Over 2.5 goles", cuota: 1.75, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Brentford DNB", cuota: 1.57, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Jarrod Bowen", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Burnley vs Brighton", principal: { pick: "Brighton ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Kaoru Mitoma", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Liverpool vs Fulham", principal: { pick: "Liverpool -1.5", cuota: 1.85, stake: "2.0%", confianza: "Alta" }, secundaria: { pick: "Over 3.0 goles", cuota: 1.80, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Mohamed Salah", prop: "Over 1.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Cagliari vs Cremonese", principal: { pick: "Cagliari ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.60, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Roberto Piccoli", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Torino vs Verona", principal: { pick: "Torino ML", cuota: 1.62, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Torino -1.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Antonio Sanabria", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "AC Milan vs Udinese", principal: { pick: "AC Milan -1.5", cuota: 1.85, stake: "2.0%", confianza: "Alta" }, secundaria: { pick: "Milan ML", cuota: 1.45, stake: "0.5%", confianza: "Alta" }, prop_jugador: { jugador: "Rafael Leão", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Atalanta vs Juventus", principal: { pick: "Under 2.5 goles", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Juventus DNB", cuota: 1.60, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Dušan Vlahović", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Heidenheim vs Union Berlin", principal: { pick: "Under 2.5 goles", cuota: 1.70, stake: "1.0%", confianza: "Media" }, secundaria: { pick: "Union Berlin DNB", cuota: 1.65, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Andrej Ilić", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%" } },
+        { partido: "Dortmund vs Leverkusen", principal: { pick: "Dortmund ML", cuota: 1.80, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 3.0 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Serhou Guirassy", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "RB Leipzig vs Mönchengladbach", principal: { pick: "Leipzig -1.5", cuota: 1.85, stake: "2.0%", confianza: "Alta" }, secundaria: { pick: "Leipzig ML", cuota: 1.50, stake: "0.5%", confianza: "Alta" }, prop_jugador: { jugador: "Benjamin Šeško", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Wolfsburg vs Eintracht Frankfurt", principal: { pick: "Frankfurt DNB", cuota: 1.60, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Omar Marmoush", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "St. Pauli vs Bayern Munich", principal: { pick: "Bayern -2.5", cuota: 1.85, stake: "2.5%", confianza: "Muy Alta" }, secundaria: { pick: "Over 3.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Alta" }, prop_jugador: { jugador: "Harry Kane", prop: "Over 1.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Toronto FC vs Cincinnati", principal: { pick: "Under 2.5 goles", cuota: 1.70, stake: "1.0%", confianza: "Media" }, secundaria: { pick: "Cincinnati DNB", cuota: 1.65, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Lorenzo Insigne", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Austin vs LA Galaxy", principal: { pick: "LA Galaxy DNB", cuota: 1.60, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Riqui Puig", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "CF Montréal vs Philadelphia", principal: { pick: "Philadelphia ML", cuota: 1.70, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Dániel Gazdag", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Portland vs LAFC", principal: { pick: "LAFC DNB", cuota: 1.55, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Dénis Bouanga", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Charlotte vs Nashville", principal: { pick: "Nashville DNB", cuota: 1.60, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Hany Mukhtar", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Inter Miami vs NY Red Bulls", principal: { pick: "Inter Miami ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Messi anytime goal", cuota: 1.80, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Lionel Messi", prop: "Over 0.5 SOT", cuota: 1.70, stake: "0.5%" } },
+        { partido: "New England vs D.C. United", principal: { pick: "New England ML", cuota: 1.65, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Carles Gil", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Vancouver vs NYCFC", principal: { pick: "Vancouver ML", cuota: 1.70, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Ryan Gauld", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Chicago vs Atlanta", principal: { pick: "Chicago ML", cuota: 1.75, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Xherdan Shaqiri", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "FC Dallas vs St. Louis", principal: { pick: "FC Dallas ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Jesús Ferreira", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Sporting KC vs San Jose", principal: { pick: "San Jose DNB", cuota: 1.60, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Cristian Espinoza", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Colorado vs Houston", principal: { pick: "Colorado ML", cuota: 1.70, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Diego Rubio", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "San Diego vs Minnesota", principal: { pick: "San Diego ML", cuota: 1.80, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.75, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Minnesota forward", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Auxerre vs Nantes", principal: { pick: "Under 2.5 goles", cuota: 1.70, stake: "1.0%", confianza: "Media" }, secundaria: { pick: "Auxerre DNB", cuota: 1.65, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Auxerre striker", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Rennes vs Angers", principal: { pick: "Rennes ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Rennes -1.5", cuota: 1.85, stake: "0.5%", confianza: "Media-Alta" }, prop_jugador: { jugador: "Arnaud Kalimuendo", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "FC Utrecht vs Telstar", principal: { pick: "Utrecht ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Over 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Utrecht striker", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Sparta vs PSV", principal: { pick: "PSV ML", cuota: 1.85, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "PSV -1.25", cuota: 1.85, stake: "0.5%", confianza: "Alta" }, prop_jugador: { jugador: "Luuk de Jong", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Groningen vs Go Ahead Eagles", principal: { pick: "Groningen DNB", cuota: 1.60, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 2.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Groningen attacker", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Heracles vs Ajax", principal: { pick: "Ajax -2.0", cuota: 1.80, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "Over 3.5 goles", cuota: 1.70, stake: "0.5%", confianza: "Alta" }, prop_jugador: { jugador: "Brian Brobbey", prop: "Over 1.5 SOT", cuota: 1.85, stake: "0.5%" } }
+    ];
+
+    // ========== MLB ACTUALIZADA (pitchers reales 11/04/2026) ==========
+    const mlbPicks = [
+        { partido: "Diamondbacks vs Phillies", lanzadores: "B. Pfaadt (0-0, 6.75) vs T. Walker (0-2, 9.31)", principal: { pick: "Over 8.5 carreras", cuota: 1.85, stake: "2.0%", confianza: "Alta" }, secundaria: { pick: "Diamondbacks ML", cuota: 2.10, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Taijuan Walker", prop: "Under 4.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Marlins vs Tigers", lanzadores: "J. Junk (0-1, 3.09) vs C. Mize (0-1, 5.23)", principal: { pick: "Tigers ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Tigers -1.5", cuota: 1.85, stake: "0.5%", confianza: "Media-Alta" }, prop_jugador: { jugador: "Casey Mize", prop: "Over 4.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Pirates vs Cubs", lanzadores: "B. Ashcraft (1-1, 2.25) vs E. Cabrera (1-0, 0.00)", principal: { pick: "Cubs ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Cubs -1.5", cuota: 1.90, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Edward Cabrera", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Twins vs Blue Jays", lanzadores: "J. Ryan (1-1, 4.40) vs E. Lauer (1-1, 4.91)", principal: { pick: "Under 8.5 carreras", cuota: 1.85, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Twins ML", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Joe Ryan", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Angels vs Reds", lanzadores: "G. Klassen (0-0, 6.75) vs B. Williamson (1-1, 4.76)", principal: { pick: "Reds ML", cuota: 1.65, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Reds -1.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Brandon Williamson", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Athletics vs Mets", lanzadores: "J. Lopez (0-1, 6.48) vs K. Senga (0-1, 3.09)", principal: { pick: "Mets ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Mets -1.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Kodai Senga", prop: "Over 6.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "White Sox vs Royals", lanzadores: "E. Fedde (0-2, 4.09) vs M. Wacha (1-0, 0.69)", principal: { pick: "Royals ML", cuota: 1.60, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Royals -1.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Michael Wacha", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Yankees vs Rays", lanzadores: "M. Fried (2-0, 1.35) vs N. Martinez (0-0, 2.25)", principal: { pick: "Under 8.0 carreras", cuota: 1.85, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Yankees ML", cuota: 1.65, stake: "0.5%", confianza: "Media-Alta" }, prop_jugador: { jugador: "Max Fried", prop: "Over 6.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Nationals vs Brewers", lanzadores: "F. Griffin (1-0, 2.70) vs K. Harrison (1-0, 2.61)", principal: { pick: "Brewers ML", cuota: 1.22, stake: "2.5%", confianza: "Muy Alta" }, secundaria: { pick: "Brewers -1.5", cuota: 1.60, stake: "1.0%", confianza: "Alta" }, prop_jugador: { jugador: "Kyle Harrison", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Giants vs Orioles", lanzadores: "L. Webb (1-1, 5.00) vs C. Bassitt (0-2, 14.21)", principal: { pick: "Giants ML", cuota: 1.85, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 8.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Logan Webb", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Red Sox vs Cardinals", lanzadores: "J. Suarez (0-1, 8.64) vs K. Leahy (1-1, 5.40)", principal: { pick: "Cardinals ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Over 9.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Kyle Leahy", prop: "Under 4.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Guardians vs Braves", lanzadores: "P. Messick (1-0, 0.82) vs M. Pérez (0-0, 3.86)", principal: { pick: "Braves ML", cuota: 1.37, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "Braves -1.5", cuota: 1.80, stake: "1.0%", confianza: "Alta" }, prop_jugador: { jugador: "Martín Pérez", prop: "Over 4.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Rockies vs Padres", lanzadores: "R. Feltner (1-0, 4.32) vs G. Márquez (1-1, 4.50)", principal: { pick: "Under 7.5 carreras", cuota: 1.85, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Padres ML", cuota: 1.30, stake: "0.5%", confianza: "Alta" }, prop_jugador: { jugador: "Germán Márquez", prop: "Over 5.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Rangers vs Dodgers", lanzadores: "J. Leiter (1-0, 2.45) vs G. Sheehan (1-0, 8.00)", principal: { pick: "Dodgers ML", cuota: 1.43, stake: "2.0%", confianza: "Alta" }, secundaria: { pick: "Dodgers -1.5", cuota: 1.80, stake: "1.0%", confianza: "Media-Alta" }, prop_jugador: { jugador: "Gavin Sheehan", prop: "Over 6.5 Ks", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Astros vs Mariners", lanzadores: "L. McCullers Jr. (1-0, 3.27) vs L. Castillo (0-0, 2.79)", principal: { pick: "Under 7.5 carreras", cuota: 1.85, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Mariners ML", cuota: 1.65, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Luis Castillo", prop: "Over 6.5 Ks", cuota: 1.85, stake: "0.5%" } }
+    ];
+
+    // ========== NHL ==========
+    const nhlPicks = [
+        { partido: "Lightning vs Bruins", principal: { pick: "Bruins ML", cuota: 1.80, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "David Pastrňák", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%" } },
+        { partido: "Senators vs Islanders", principal: { pick: "Islanders ML", cuota: 1.75, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Mathew Barzal", prop: "Over 0.5 puntos", cuota: 1.80, stake: "0.5%" } },
+        { partido: "Capitals vs Penguins", principal: { pick: "Penguins ML", cuota: 1.70, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Over 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Sidney Crosby", prop: "Over 0.5 puntos", cuota: 1.70, stake: "0.5%" } },
+        { partido: "Oilers vs Kings", principal: { pick: "Kings ML", cuota: 1.85, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Under 5.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Anze Kopitar", prop: "Over 0.5 puntos", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Devils vs Red Wings", principal: { pick: "Red Wings ML", cuota: 1.70, stake: "1.5%", confianza: "Media" }, secundaria: { pick: "Over 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Dylan Larkin", prop: "Over 0.5 puntos", cuota: 1.80, stake: "0.5%" } },
+        { partido: "Blues vs Blackhawks", principal: { pick: "Blues ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Blues -1.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Robert Thomas", prop: "Over 0.5 puntos", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Wild vs Predators", principal: { pick: "Wild ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Under 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Kirill Kaprizov", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%" } },
+        { partido: "Rangers vs Stars", principal: { pick: "Stars ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Stars -1.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Jason Robertson", prop: "Over 0.5 puntos", cuota: 1.80, stake: "0.5%" } },
+        { partido: "Hurricanes vs Mammoth", principal: { pick: "Hurricanes ML", cuota: 1.28, stake: "2.5%", confianza: "Muy Alta" }, secundaria: { pick: "Hurricanes -1.5", cuota: 1.70, stake: "1.0%", confianza: "Alta" }, prop_jugador: { jugador: "Sebastian Aho", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%" } },
+        { partido: "Panthers vs Maple Leafs", principal: { pick: "Maple Leafs ML", cuota: 1.65, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Over 6.5", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Auston Matthews", prop: "Over 0.5 goles", cuota: 2.00, stake: "0.5%" } },
+        { partido: "Blue Jackets vs Canadiens", principal: { pick: "Canadiens ML", cuota: 1.55, stake: "1.5%", confianza: "Alta" }, secundaria: { pick: "Under 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Nick Suzuki", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%" } },
+        { partido: "Flyers vs Jets", principal: { pick: "Jets ML", cuota: 1.60, stake: "1.5%", confianza: "Media-Alta" }, secundaria: { pick: "Jets -1.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Mark Scheifele", prop: "Over 0.5 puntos", cuota: 1.80, stake: "0.5%" } },
+        { partido: "Flames vs Kraken", principal: { pick: "Kraken ML", cuota: 1.75, stake: "1.0%", confianza: "Media" }, secundaria: { pick: "Under 6.0", cuota: 1.85, stake: "0.5%", confianza: "Media" }, prop_jugador: { jugador: "Jordan Eberle", prop: "Over 0.5 puntos", cuota: 1.85, stake: "0.5%" } },
+        { partido: "Golden Knights vs Avalanche", principal: { pick: "Avalanche ML", cuota: 1.54, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "Avalanche -1.5", cuota: 1.85, stake: "1.0%", confianza: "Alta" }, prop_jugador: { jugador: "Nathan MacKinnon", prop: "Over 1.5 puntos", cuota: 1.80, stake: "0.5%" } },
+        { partido: "Canucks vs Sharks", principal: { pick: "Sharks ML", cuota: 1.41, stake: "2.0%", confianza: "Muy Alta" }, secundaria: { pick: "Sharks -1.5", cuota: 1.85, stake: "1.0%", confianza: "Alta" }, prop_jugador: { jugador: "Macklin Celebrini", prop: "Over 0.5 puntos", cuota: 1.80, stake: "0.5%" } }
+    ];
+
+    // ========== PARLAYS ==========
+    const parlaysData = [
+        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Brewers vs Nationals | Brewers ML (1.22)"], odds: "1.22", stake: "3%", desc: "Máxima confianza, EV+ altísimo" },
+        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NHL | Hurricanes ML (1.28)", "MLB | Braves ML (1.37)"], odds: "1.75", stake: "2%", desc: "Combinación segura de dos picks" },
+        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Dodgers ML (1.43)", "NHL | Avalanche ML (1.54)", "Fútbol | PSV ML (1.85)", "MLB | Brewers ML (1.22)"], odds: "4.99", stake: "1.5%", desc: "Equilibrio seguridad-pago" },
+        { name: "MILLONARIO 6 PICKS", type: "gold", picks: ["NHL | Sharks ML (1.41)", "Fútbol | Bayern -2.5 (1.85)", "MLB | Braves ML (1.37)", "NHL | Hurricanes ML (1.28)", "Fútbol | Ajax -2.0 (1.80)"], odds: "15.94", stake: "0.5-1%", desc: "Alto pago con picks sólidos" }
+    ];
+
+    const mejoras = [
+        "✅ R77: No apostar ML solo por altura extrema",
+        "✅ R78: Champions Over 2.5 si ambos ofensivos",
+        "✅ R79: Cautela con brasileños visitantes en Libertadores",
+        "✅ R80: No apostar contra SP visitante con ERA<2.00",
+        "✅ R83: Duelo de ases = Under",
+        "✅ R90: Evitar Yankees en abril",
+        "✅ R93: Evitar Leafs favoritos en abril"
+    ];
+
     // ---------- AUTENTICACIÓN ----------
     let currentUser = null;
     function handleGoogleCredential(response) {
@@ -480,80 +565,10 @@
         document.getElementById('showAuthBtn')?.addEventListener('click', showLoginModal);
     }
 
-    // Emojis/iconos por equipo y deporte
     function getTeamIcon(team, sport) {
-        const icons = { futbol:"⚽", nba:"🏀", mlb:"⚾", nhl:"🏒" };
+        const icons = { futbol:"⚽", mlb:"⚾", nhl:"🏒" };
         return icons[sport] || "🏆";
     }
-
-    // DATOS (igual que original)
-    const futbolPicks = [
-        { partido: "Real Madrid vs Girona", awayTeam: "Girona", homeTeam: "Real Madrid", time: "12:30 PM", principal: "Real Madrid ML (1.28) stake 2%", confianza: "Alta", prop: "Vinicius over 0.5 SOT (1.70)" },
-        { partido: "West Ham vs Wolves", awayTeam: "Wolves", homeTeam: "West Ham", time: "1:00 PM", principal: "West Ham DNB (1.55) stake 1.5%", confianza: "Media", prop: "Bowen over 0.5 SOT (1.80)" },
-        { partido: "Roma vs Pisa", awayTeam: "Pisa", homeTeam: "Roma", time: "1:00 PM", principal: "Roma ML (1.32) stake 2%", confianza: "Alta" },
-        { partido: "Augsburg vs Hoffenheim", awayTeam: "Hoffenheim", homeTeam: "Augsburg", time: "2:30 PM", principal: "Hoffenheim DNB (1.60) stake 1.5%", confianza: "Media" },
-        { partido: "Paris FC vs Monaco", awayTeam: "Monaco", homeTeam: "Paris FC", time: "3:00 PM", principal: "Monaco ML (2.00) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Marseille vs Metz", awayTeam: "Metz", homeTeam: "Marseille", time: "3:00 PM", principal: "Marseille ML (1.25) stake 2%", confianza: "Alta" },
-        { partido: "Twente vs Volendam", awayTeam: "Volendam", homeTeam: "Twente", time: "3:45 PM", principal: "Twente ML (1.41) stake 2%", confianza: "Alta" }
-    ];
-    const mlbPicks = [
-        { partido: "Pirates vs Cubs", awayTeam: "Pirates", homeTeam: "Cubs", time: "1:20 PM", principal: "Cubs ML (1.52) stake 1.5%", confianza: "Media-Alta", prop: "Imanaga over 5.5 Ks (1.85)" },
-        { partido: "D-backs vs Phillies", awayTeam: "D-backs", homeTeam: "Phillies", time: "4:05 PM", principal: "Diamondbacks ML (1.69) stake 1.5%", confianza: "Media" },
-        { partido: "Marlins vs Tigers", awayTeam: "Marlins", homeTeam: "Tigers", time: "4:10 PM", principal: "Tigers ML (1.39) stake 2%", confianza: "Alta" },
-        { partido: "Angels vs Reds", awayTeam: "Angels", homeTeam: "Reds", time: "4:10 PM", principal: "Reds ML (1.43) stake 2%", confianza: "Alta" },
-        { partido: "Twins vs Blue Jays", awayTeam: "Twins", homeTeam: "Blue Jays", time: "7:07 PM", principal: "Blue Jays ML (1.85) stake 1.5%", confianza: "Media" },
-        { partido: "Athletics vs Mets", awayTeam: "Athletics", homeTeam: "Mets", time: "7:10 PM", principal: "Mets ML (1.45) stake 2%", confianza: "Alta" },
-        { partido: "Yankees vs Rays", awayTeam: "Yankees", homeTeam: "Rays", time: "7:10 PM", principal: "Yankees ML (1.82) stake 1.5%", confianza: "Media" },
-        { partido: "Guardians vs Braves", awayTeam: "Guardians", homeTeam: "Braves", time: "7:20 PM", principal: "Braves ML (1.37) stake 2%", confianza: "Alta" },
-        { partido: "Giants vs Orioles", awayTeam: "Giants", homeTeam: "Orioles", time: "7:35 PM", principal: "Orioles ML (1.56) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "White Sox vs Royals", awayTeam: "White Sox", homeTeam: "Royals", time: "8:10 PM", principal: "Royals ML (1.61) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Nationals vs Brewers", awayTeam: "Nationals", homeTeam: "Brewers", time: "8:10 PM", principal: "Brewers ML (1.22) stake 2%", confianza: "Muy Alta" },
-        { partido: "Red Sox vs Cardinals", awayTeam: "Red Sox", homeTeam: "Cardinals", time: "8:15 PM", principal: "Cardinals ML (1.41) stake 2%", confianza: "Alta" },
-        { partido: "Rockies vs Padres", awayTeam: "Rockies", homeTeam: "Padres", time: "8:40 PM", principal: "Padres ML (1.30) stake 2%", confianza: "Muy Alta", prop: "Buehler over 6.5 Ks (1.85)" },
-        { partido: "Astros vs Mariners", awayTeam: "Astros", homeTeam: "Mariners", time: "9:40 PM", principal: "Mariners ML (1.52) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Rangers vs Dodgers", awayTeam: "Rangers", homeTeam: "Dodgers", time: "10:10 PM", principal: "Dodgers ML (1.43) stake 2%", confianza: "Alta" }
-    ];
-    const nbaPicks = [
-        { partido: "Pistons vs Hornets", awayTeam: "Hornets", homeTeam: "Pistons", time: "7:00 PM", principal: "Pistons ML (1.56) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Heat vs Wizards", awayTeam: "Wizards", homeTeam: "Heat", time: "7:30 PM", principal: "Heat ML (1.30) stake 2%", confianza: "Alta" },
-        { partido: "Cavaliers vs Hawks", awayTeam: "Hawks", homeTeam: "Cavaliers", time: "7:30 PM", principal: "Cavaliers ML (1.72) stake 1.5%", confianza: "Media" },
-        { partido: "Pelicans vs Celtics", awayTeam: "Pelicans", homeTeam: "Celtics", time: "7:30 PM", principal: "Celtics ML (1.22) stake 2%", confianza: "Muy Alta", prop: "Tatum over 28.5 pts (1.85)" },
-        { partido: "76ers vs Pacers", awayTeam: "Pacers", homeTeam: "76ers", time: "7:30 PM", principal: "76ers ML (1.41) stake 2%", confianza: "Alta" },
-        { partido: "Raptors vs Knicks", awayTeam: "Knicks", homeTeam: "Raptors", time: "7:30 PM", principal: "Knicks ML (1.56) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Magic vs Bulls", awayTeam: "Bulls", homeTeam: "Magic", time: "7:00 PM", principal: "Magic ML (1.52) stake 1.5%", confianza: "Alta" },
-        { partido: "Nets vs Bucks", awayTeam: "Nets", homeTeam: "Bucks", time: "8:00 PM", principal: "Bucks ML (1.32) stake 2%", confianza: "Muy Alta" },
-        { partido: "Mavericks vs Spurs", awayTeam: "Spurs", homeTeam: "Mavericks", time: "8:30 PM", principal: "Spurs ML (1.28) stake 2%", confianza: "Muy Alta", prop: "Wembanyama over 3.5 blocks (1.90)" },
-        { partido: "Thunder vs Nuggets", awayTeam: "Nuggets", homeTeam: "Thunder", time: "8:30 PM", principal: "Thunder ML (1.75) stake 1.5%", confianza: "Media" },
-        { partido: "Timberwolves vs Rockets", awayTeam: "Rockets", homeTeam: "Timberwolves", time: "8:30 PM", principal: "Rockets ML (1.82) stake 1.5%", confianza: "Media" },
-        { partido: "Grizzlies vs Jazz", awayTeam: "Jazz", homeTeam: "Grizzlies", time: "9:00 PM", principal: "Grizzlies ML (1.47) stake 2%", confianza: "Alta" },
-        { partido: "Clippers vs Blazers", awayTeam: "Blazers", homeTeam: "Clippers", time: "10:00 PM", principal: "Clippers ML (1.61) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Warriors vs Kings", awayTeam: "Kings", homeTeam: "Warriors", time: "10:00 PM", principal: "Warriors ML (1.85) stake 1.5%", confianza: "Media" },
-        { partido: "Suns vs Lakers", awayTeam: "Lakers", homeTeam: "Suns", time: "10:30 PM", principal: "Lakers ML (1.64) stake 1.5%", confianza: "Media-Alta" }
-    ];
-    const nhlPicks = [
-        { partido: "Maple Leafs vs Islanders", awayTeam: "Islanders", homeTeam: "Maple Leafs", time: "7:00 PM", principal: "Over 5.5 goles (1.85) stake 1.5%", confianza: "Media", prop: "Nylander over 0.5 puntos (1.75)" },
-        { partido: "Blue Jackets vs Sabres", awayTeam: "Sabres", homeTeam: "Blue Jackets", time: "7:00 PM", principal: "Sabres ML (1.43) stake 2%", confianza: "Alta" },
-        { partido: "Lightning vs Canadiens", awayTeam: "Canadiens", homeTeam: "Lightning", time: "7:00 PM", principal: "Lightning ML (1.54) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Panthers vs Senators", awayTeam: "Senators", homeTeam: "Panthers", time: "7:00 PM", principal: "Senators ML (1.85) stake 1.5%", confianza: "Media" },
-        { partido: "Flyers vs Red Wings", awayTeam: "Red Wings", homeTeam: "Flyers", time: "7:00 PM", principal: "Red Wings ML (1.75) stake 1.5%", confianza: "Media" },
-        { partido: "Penguins vs Devils", awayTeam: "Devils", homeTeam: "Penguins", time: "7:00 PM", principal: "Devils ML (1.89) stake 1.5%", confianza: "Media" },
-        { partido: "Jets vs Blues", awayTeam: "Blues", homeTeam: "Jets", time: "8:00 PM", principal: "Jets ML (1.64) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Hurricanes vs Blackhawks", awayTeam: "Blackhawks", homeTeam: "Hurricanes", time: "7:00 PM", principal: "Hurricanes ML (1.27) stake 2%", confianza: "Muy Alta" },
-        { partido: "Wild vs Stars", awayTeam: "Stars", homeTeam: "Wild", time: "8:00 PM", principal: "Under 6.0 goles (1.85) stake 1.5%", confianza: "Media", prop: "Robertson over 0.5 goles (2.00)" },
-        { partido: "Flames vs Avalanche", awayTeam: "Avalanche", homeTeam: "Flames", time: "9:00 PM", principal: "Avalanche ML (1.28) stake 2%", confianza: "Muy Alta" },
-        { partido: "Predators vs Mammoth", awayTeam: "Mammoth", homeTeam: "Predators", time: "8:00 PM", principal: "Mammoth ML (1.69) stake 1.5%", confianza: "Media" },
-        { partido: "Sharks vs Ducks", awayTeam: "Ducks", homeTeam: "Sharks", time: "10:30 PM", principal: "Ducks ML (1.79) stake 1.5%", confianza: "Media" },
-        { partido: "Golden Knights vs Kraken", awayTeam: "Kraken", homeTeam: "Golden Knights", time: "10:00 PM", principal: "Golden Knights ML (1.59) stake 1.5%", confianza: "Media-Alta" },
-        { partido: "Canucks vs Kings", awayTeam: "Kings", homeTeam: "Canucks", time: "10:00 PM", principal: "Kings ML (1.39) stake 2%", confianza: "Alta" }
-    ];
-
-    const parlaysData = [
-        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Padres vs Rockies | Padres ML (1.30)"], odds: "1.30", stake: "2-3%", desc: "Máxima confianza del día" },
-        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Celtics ML (1.22)", "NHL | Hurricanes ML (1.27)"], odds: "1.55", stake: "1.5%", desc: "Dos picks muy seguros" },
-        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["Fútbol | Real Madrid ML (1.28)", "MLB | Brewers ML (1.22)", "NBA | Bucks ML (1.32)", "NHL | Avalanche ML (1.28)"], odds: "2.75", stake: "1%", desc: "Favoritos sólidos" },
-        { name: "MILLONARIO TODOS", type: "gold", picks: ["Real Madrid ML", "Celtics ML", "Brewers ML", "Avalanche ML", "Padres ML"], odds: "> 10000", stake: "0.1%", desc: "Entretenimiento" }
-    ];
-    const mejoras = ["✅ R77: No apostar ML solo por altura extrema", "✅ R78: Champions Over 2.5", "✅ R79: Cautela con brasileños visitantes", "✅ R80: No apostar contra SP visitante con ERA<2.00", "✅ R83: Duelo de ases = Under"];
 
     let currentSport = "futbol";
     let currentMain = "picks";
@@ -562,28 +577,36 @@
         let games = [];
         if (currentSport === "futbol") games = futbolPicks;
         else if (currentSport === "mlb") games = mlbPicks;
-        else if (currentSport === "nba") games = nbaPicks;
         else games = nhlPicks;
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
-        if (!games.length) { container.innerHTML = '<div style="text-align:center;">Sin juegos</div>'; return; }
+        if (!games.length) { container.innerHTML = '<div style="text-align:center;">Sin juegos disponibles</div>'; return; }
         let html = '';
         for (let g of games) {
-            const awayIcon = getTeamIcon(g.awayTeam, currentSport);
-            const homeIcon = getTeamIcon(g.homeTeam, currentSport);
+            const parts = g.partido.split(' vs ');
+            const awayTeam = parts[0] || "Visitante";
+            const homeTeam = parts[1] || "Local";
+            const awayIcon = getTeamIcon(awayTeam, currentSport);
+            const homeIcon = getTeamIcon(homeTeam, currentSport);
+            const confianzaText = g.principal.confianza ? `<span class="confidence">Confianza: ${g.principal.confianza}</span>` : '';
+            const lanzadoresHtml = g.lanzadores ? `<div style="font-size:0.7rem; color:#aaa; padding:0 1rem;">📊 ${g.lanzadores}</div>` : '';
+            const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake}<br><span class="confidence">Confianza: ${g.secundaria.confianza}</span></div>` : '';
+            const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake}</div>` : '';
             html += `<div class="game-card">
                 <div class="card-header">
                     <span class="league">${currentSport.toUpperCase()}</span>
-                    <span><i class="far fa-clock"></i> ${g.time} VEN</span>
+                    <span><i class="far fa-clock"></i> Horario aproximado</span>
                 </div>
                 <div class="matchup">
-                    <div class="team"><div class="team-logo">${awayIcon}</div><div class="team-name">${g.awayTeam}</div></div>
+                    <div class="team"><div class="team-logo">${awayIcon}</div><div class="team-name">${awayTeam}</div></div>
                     <div class="vs-circle">VS</div>
-                    <div class="team"><div class="team-logo">${homeIcon}</div><div class="team-name">${g.homeTeam}</div></div>
+                    <div class="team"><div class="team-logo">${homeIcon}</div><div class="team-name">${homeTeam}</div></div>
                 </div>
+                ${lanzadoresHtml}
                 ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
-                    <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal}<br><span class="confidence">Confianza: ${g.confianza}</span></div>
-                    ${g.prop ? `<div class="pick-card pick-prop"><strong>🎲 PROP:</strong> ${g.prop}</div>` : ''}
+                    <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake}<br>${confianzaText}</div>
+                    ${secundariaHtml}
+                    ${propHtml}
                 `}
             </div>`;
         }
@@ -638,9 +661,9 @@
 
     function initSportFilters() {
         const container = document.getElementById('sportFilters');
-        const sports = ['futbol', 'mlb', 'nba', 'nhl'];
-        const names = { futbol:'⚽ Fútbol', mlb:'⚾ Béisbol', nba:'🏀 Baloncesto', nhl:'🏒 Hockey' };
-        container.innerHTML = sports.map(s => `<div class="sport-chip ${s === currentSport ? 'active' : ''}" data-sport="${s}"><i class="fas ${s==='futbol'?'fa-futbol':s==='mlb'?'fa-baseball-ball':s==='nba'?'fa-basketball-ball':'fa-hockey-puck'}"></i> ${names[s]}</div>`).join('');
+        const sports = ['futbol', 'mlb', 'nhl'];
+        const names = { futbol:'⚽ Fútbol', mlb:'⚾ Béisbol', nhl:'🏒 Hockey' };
+        container.innerHTML = sports.map(s => `<div class="sport-chip ${s === currentSport ? 'active' : ''}" data-sport="${s}"><i class="fas ${s==='futbol'?'fa-futbol':s==='mlb'?'fa-baseball-ball':'fa-hockey-puck'}"></i> ${names[s]}</div>`).join('');
         document.querySelectorAll('.sport-chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 document.querySelectorAll('.sport-chip').forEach(c => c.classList.remove('active'));
@@ -652,7 +675,6 @@
         });
     }
 
-    // Eventos navegación
     document.querySelectorAll('.nav-tab').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
