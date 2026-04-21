@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        /* ========== ESTILOS (mismos que versiones anteriores) ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
@@ -149,16 +148,12 @@
             border-color: #facc15;
         }
 
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 1.8rem;
-        }
+        /* ========== HORIZONTAL SCROLL SECTIONS ========== */
         .league-section {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
         .league-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #facc15;
             margin-bottom: 1rem;
@@ -166,14 +161,41 @@
             border-bottom: 2px solid #facc15;
             display: inline-block;
         }
+        .scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding-bottom: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: #facc15 #2c2e36;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scroll-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background: #2c2e36;
+            border-radius: 10px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #facc15;
+            border-radius: 10px;
+        }
+        .games-horizontal {
+            display: inline-flex;
+            gap: 1.5rem;
+            padding-right: 1rem;
+        }
         .game-card {
-            background: rgba(20, 22, 28, 0.85);
+            background: rgba(20, 22, 28, 0.95);
             backdrop-filter: blur(8px);
             border-radius: 24px;
             border: 1px solid rgba(250, 204, 21, 0.3);
-            overflow: hidden;
+            width: 380px;
+            flex-shrink: 0;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            white-space: normal;
         }
         .game-card:hover {
             transform: translateY(-5px);
@@ -247,14 +269,6 @@
             border-radius: 20px;
             margin-left: 0.5rem;
         }
-        .confidence {
-            display: inline-block;
-            font-size: 0.7rem;
-            background: #2c2e36;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-top: 6px;
-        }
         .premium-lock {
             text-align: center;
             padding: 1rem;
@@ -288,7 +302,7 @@
             width: 100%;
             background: rgba(0,0,0,0.4);
             border-radius: 20px;
-            overflow: hidden;
+            overflow-x: auto;
             margin-bottom: 2rem;
         }
         .results-table th, .results-table td {
@@ -373,10 +387,9 @@
             color: #5b6e8c;
         }
         @media (max-width: 640px) {
-            .games-grid { grid-template-columns: 1fr; }
-            .matchup { flex-direction: column; }
-            .vs-circle { margin: 0.5rem 0; }
-            .team-logo { width: 50px; height: 50px; }
+            .game-card { width: 320px; }
+            .team-logo { width: 45px; height: 45px; }
+            .vs-circle { width: 35px; height: 35px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -396,7 +409,7 @@
 <div class="container">
     <div id="picksSection">
         <div class="sport-filters" id="sportFilters"></div>
-        <div id="gamesContainer" class="games-grid"></div>
+        <div id="gamesContainer"></div>
     </div>
     <div id="resultsSection" class="hidden">
         <div class="stats-row" id="statsSummary"></div>
@@ -426,8 +439,10 @@
 <footer>ThIA Sports · Sistema ThIA-SA v5.6 · Reglas post-autopsia · 21/04/2026</footer>
 
 <script>
-    // ========== MAPA DE LOGOS (ESPN CDN + fallbacks) ==========
+    // ========== MAPA DE LOGOS CORREGIDO (ESPN CDN + FALLBACK EMOJI) ==========
     function getTeamLogo(teamName, sport) {
+        // Normalizar nombres (quitar acentos, espacios extra)
+        const normalized = teamName.trim();
         const logos = {
             // MLB
             "Astros": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/hou.png",
@@ -472,7 +487,7 @@
             "Lightning": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/tb.png",
             "Bruins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/bos.png",
             "Sabres": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/buf.png",
-            "Mammoth": null,
+            "Mammoth": null, // no logo
             "Golden Knights": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/vgk.png",
             "Kings": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/la.png",
             "Avalanche": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/col.png",
@@ -494,12 +509,13 @@
             "Academia Puerto Cabello": null,
             "Trujillanos": null
         };
-        if (logos[teamName]) return logos[teamName];
+        if (logos[normalized]) return logos[normalized];
+        // Fallback: emoji según deporte
         return null;
     }
 
-    // ========== DATOS 21/04/2026 (con horarios aproximados Venezuela) ==========
-    // MLB
+    // ========== DATOS 21/04/2026 (con horarios Venezuela) ==========
+    // MLB (15 partidos)
     const mlbPicks = [
         { partido: "Astros vs Guardians", hora: "6:10 PM VEN", principal: { pick: "Guardians ML", cuota: 1.65, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "José Ramírez", prop: "Over 0.5 RBI", cuota: 2.10, stake: "0.5%", ev: "+10.0%" } },
         { partido: "Reds vs Rays", hora: "6:50 PM VEN", principal: { pick: "Under 8.0", cuota: 1.91, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Reds ML", cuota: 1.91, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Yandy Díaz", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } },
@@ -553,7 +569,7 @@
         { partido: "Academia Puerto Cabello vs Trujillanos", hora: "7:00 PM VEN", principal: { pick: "Academia ML", cuota: 1.40, stake: "1.0%", ev: "+9.0%" }, secundaria: { pick: "Over 2.5", cuota: 1.87, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Delantero Academia", prop: "Over 0.5 goles", cuota: 1.80, stake: "0.5%", ev: "+8.0%" } }
     ];
 
-    // ========== RESULTADOS ANTIGUOS (historial) ==========
+    // ========== RESULTADOS ANTIGUOS ==========
     const oldResults = [
         { fecha: "2026-04-20", deporte: "MLB", pick: "Guardians ML vs Astros", cuota: 1.65, estado: "hit" },
         { fecha: "2026-04-20", deporte: "NBA", pick: "Celtics -5.5 vs 76ers", cuota: 1.91, estado: "hit" },
@@ -563,7 +579,7 @@
         { fecha: "2026-04-18", deporte: "MLB", pick: "Tigers ML vs Red Sox", cuota: 1.61, estado: "hit" }
     ];
 
-    // Agrupar fútbol por ligas
+    // Agrupar fútbol
     const futbolLeagues = [
         { name: "🇪🇸 LaLiga", data: laligaPicks },
         { name: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", data: premierPicks },
@@ -572,7 +588,7 @@
         { name: "🇻🇪 Liga FUTVE", data: venezuelaPicks }
     ];
 
-    // ========== PARLAYS ==========
+    // Parlays
     const parlaysData = [
         { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Phillies @ Cubs | Cubs ML (1.61)"], odds: "1.61", stake: "3%", desc: "Máxima confianza del día" },
         { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Celtics vs 76ers | Celtics -5.5 (1.91)", "MLB | Padres @ Rockies | Under 10.5 (1.91)"], odds: "3.65", stake: "2%", desc: "Dos picks ofensivos" },
@@ -669,7 +685,6 @@
     let currentSport = "futbol";
     let currentMain = "picks";
 
-    // Función para renderizar cada deporte
     function renderGames() {
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
@@ -678,7 +693,10 @@
             let html = '';
             for (const league of futbolLeagues) {
                 if (league.data.length === 0) continue;
-                html += `<div class="league-section"><div class="league-title">${league.name}</div><div class="games-grid">`;
+                html += `<div class="league-section">
+                    <div class="league-title">${league.name}</div>
+                    <div class="scroll-container">
+                        <div class="games-horizontal">`;
                 for (let g of league.data) {
                     const parts = g.partido.split(' vs ');
                     const awayTeam = parts[0];
@@ -695,14 +713,14 @@
                         </div>
                         <div class="matchup">
                             <div class="team">
-                                ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                                <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'block'}">⚽</div>
+                                ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                                <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div>
                                 <div class="team-name">${awayTeam}</div>
                             </div>
                             <div class="vs-circle">VS</div>
                             <div class="team">
-                                ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                                <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'block'}">⚽</div>
+                                ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                                <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div>
                                 <div class="team-name">${homeTeam}</div>
                             </div>
                         </div>
@@ -713,12 +731,12 @@
                         `}
                     </div>`;
                 }
-                html += `</div></div>`;
+                html += `</div></div></div>`;
             }
             container.innerHTML = html;
         }
         else if (currentSport === "mlb") {
-            let html = `<div class="games-grid">`;
+            let html = `<div class="league-section"><div class="league-title">⚾ MLB</div><div class="scroll-container"><div class="games-horizontal">`;
             for (let g of mlbPicks) {
                 const parts = g.partido.split(' vs ');
                 const awayTeam = parts[0];
@@ -735,14 +753,14 @@
                     </div>
                     <div class="matchup">
                         <div class="team">
-                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'block'}">⚾</div>
+                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚾</div>
                             <div class="team-name">${awayTeam}</div>
                         </div>
                         <div class="vs-circle">VS</div>
                         <div class="team">
-                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'block'}">⚾</div>
+                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚾</div>
                             <div class="team-name">${homeTeam}</div>
                         </div>
                     </div>
@@ -753,11 +771,11 @@
                     `}
                 </div>`;
             }
-            html += `</div>`;
+            html += `</div></div></div>`;
             container.innerHTML = html;
         }
         else if (currentSport === "nba") {
-            let html = `<div class="games-grid">`;
+            let html = `<div class="league-section"><div class="league-title">🏀 NBA Playoffs</div><div class="scroll-container"><div class="games-horizontal">`;
             for (let g of nbaPicks) {
                 const parts = g.partido.split(' vs ');
                 const awayTeam = parts[0];
@@ -774,14 +792,14 @@
                     </div>
                     <div class="matchup">
                         <div class="team">
-                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'block'}">🏀</div>
+                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏀</div>
                             <div class="team-name">${awayTeam}</div>
                         </div>
                         <div class="vs-circle">VS</div>
                         <div class="team">
-                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'block'}">🏀</div>
+                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏀</div>
                             <div class="team-name">${homeTeam}</div>
                         </div>
                     </div>
@@ -792,11 +810,11 @@
                     `}
                 </div>`;
             }
-            html += `</div>`;
+            html += `</div></div></div>`;
             container.innerHTML = html;
         }
         else if (currentSport === "nhl") {
-            let html = `<div class="games-grid">`;
+            let html = `<div class="league-section"><div class="league-title">🏒 NHL Playoffs</div><div class="scroll-container"><div class="games-horizontal">`;
             for (let g of nhlPicks) {
                 const parts = g.partido.split(' vs ');
                 const awayTeam = parts[0];
@@ -813,14 +831,14 @@
                     </div>
                     <div class="matchup">
                         <div class="team">
-                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'block'}">🏒</div>
+                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏒</div>
                             <div class="team-name">${awayTeam}</div>
                         </div>
                         <div class="vs-circle">VS</div>
                         <div class="team">
-                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'block'}">🏒</div>
+                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏒</div>
                             <div class="team-name">${homeTeam}</div>
                         </div>
                     </div>
@@ -831,13 +849,12 @@
                     `}
                 </div>`;
             }
-            html += `</div>`;
+            html += `</div></div></div>`;
             container.innerHTML = html;
         }
     }
 
     function renderResults() {
-        // Estadísticas del día (simuladas)
         const totalPicks = 5;
         const hits = 4;
         const fails = 1;
