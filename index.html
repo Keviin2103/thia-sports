@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | ESPN Style | Picks 21/04/2026</title>
+    <title>ThIA Sports | ESPN Style | Picks 22/04/2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -148,7 +148,6 @@
             border-color: #facc15;
         }
 
-        /* ========== HORIZONTAL SCROLL SECTIONS ========== */
         .league-section {
             margin-bottom: 2.5rem;
         }
@@ -250,6 +249,13 @@
             font-weight: 800;
             color: #0a0c10;
             font-size: 0.8rem;
+        }
+        .info-extra {
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: center;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
         }
         .pick-card {
             padding: 0.8rem 1rem;
@@ -396,7 +402,7 @@
 <body class="sport-futbol">
 <div class="top-bar">
     <div class="logo"><span>ThIA</span><span> Sports</span></div>
-    <div class="date-badge"><i class="far fa-calendar-alt"></i> 21 ABR 2026 | VEN</div>
+    <div class="date-badge"><i class="far fa-calendar-alt"></i> 22 ABR 2026 | VEN</div>
     <div class="user-area" id="authArea">
         <button id="showAuthBtn"><i class="fas fa-lock"></i> Acceder</button>
     </div>
@@ -428,7 +434,7 @@
             </table>
         </div>
         <div style="margin-top: 2rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem;">
-            <h4><i class="fas fa-brain"></i> Mejoras ThIA-SA v5.6</h4>
+            <h4><i class="fas fa-brain"></i> Mejoras ThIA-SA v5.7</h4>
             <div id="leccionesList" style="font-size:0.75rem; color:#ccc;"></div>
         </div>
     </div>
@@ -436,178 +442,166 @@
         <div id="parlaysContainer" class="parlays-grid"></div>
     </div>
 </div>
-<footer>ThIA Sports · Sistema ThIA-SA v5.6 · Reglas post-autopsia · 21/04/2026</footer>
+<footer>ThIA Sports · Sistema ThIA-SA v5.7 · Predicciones profesionales · 22/04/2026</footer>
 
 <script>
-    // ========== MAPA DE LOGOS CORREGIDO (ESPN CDN + FALLBACK EMOJI) ==========
+    // ========== MAPA DE LOGOS (ESPN CDN + FALLBACK EMOJI) ==========
     function getTeamLogo(teamName, sport) {
-        // Normalizar nombres (quitar acentos, espacios extra)
-        const normalized = teamName.trim();
         const logos = {
             // MLB
-            "Astros": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/hou.png",
-            "Guardians": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/cle.png",
-            "Reds": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/cin.png",
-            "Rays": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tb.png",
-            "Brewers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/mil.png",
-            "Tigers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/det.png",
             "Cardinals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/stl.png",
             "Marlins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/mia.png",
+            "Reds": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/cin.png",
+            "Rays": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tb.png",
+            "Astros": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/hou.png",
+            "Guardians": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/cle.png",
+            "Orioles": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/bal.png",
+            "Royals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/kc.png",
+            "Blue Jays": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tor.png",
+            "Angels": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/ana.png",
+            "Athletics": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/oak.png",
+            "Mariners": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sea.png",
+            "Brewers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/mil.png",
+            "Tigers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/det.png",
             "Braves": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/atl.png",
             "Nationals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/wsh.png",
             "Yankees": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/nyy.png",
             "Red Sox": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/bos.png",
             "Twins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/min.png",
             "Mets": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/nym.png",
-            "Orioles": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/bal.png",
-            "Royals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/kc.png",
             "Phillies": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/phi.png",
             "Cubs": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chc.png",
             "Pirates": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/pit.png",
             "Rangers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tex.png",
             "Padres": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sd.png",
             "Rockies": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/col.png",
-            "Blue Jays": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tor.png",
-            "Angels": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/ana.png",
-            "Athletics": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/oak.png",
-            "Mariners": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sea.png",
             "White Sox": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chw.png",
             "Diamondbacks": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/ari.png",
             "Dodgers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/lad.png",
             "Giants": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sf.png",
             // NBA
-            "76ers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/phi.png",
-            "Celtics": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/bos.png",
-            "Trail Blazers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/por.png",
-            "Spurs": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/sa.png",
-            "Rockets": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/hou.png",
-            "Lakers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/lal.png",
+            "Magic": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/orl.png",
+            "Pistons": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/det.png",
+            "Suns": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/phx.png",
+            "Thunder": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/okc.png",
             // NHL
-            "Canadiens": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/mtl.png",
-            "Lightning": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/tb.png",
-            "Bruins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/bos.png",
-            "Sabres": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/buf.png",
-            "Mammoth": null, // no logo
-            "Golden Knights": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/vgk.png",
-            "Kings": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/la.png",
-            "Avalanche": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/col.png",
-            // Fútbol (LaLiga, Premier, Serie A, Ligue 1, Venezuela)
-            "Athletic Club": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/88.png",
-            "Osasuna": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/85.png",
-            "Mallorca": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/79.png",
-            "Valencia": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/88.png",
-            "Girona": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/78.png",
-            "Real Betis": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/84.png",
-            "Real Madrid": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/86.png",
-            "Alavés": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/71.png",
-            "Brighton": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/331.png",
-            "Chelsea": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/339.png",
-            "Inter": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/96.png",
-            "Como": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/93.png",
-            "Lens": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/183.png",
-            "Toulouse": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/188.png",
-            "Academia Puerto Cabello": null,
-            "Trujillanos": null
+            "Penguins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/pit.png",
+            "Flyers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/phi.png",
+            "Stars": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/dal.png",
+            "Wild": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/min.png",
+            "Ducks": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/ana.png",
+            "Oilers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/edm.png",
+            // Fútbol (LaLiga, Premier, Ligue 1, MLS, Eredivisie)
+            "Elche": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/75.png",
+            "Atlético Madrid": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/86.png",
+            "Real Sociedad": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/87.png",
+            "Getafe": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/77.png",
+            "Barcelona": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/83.png",
+            "Celta Vigo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/73.png",
+            "Bournemouth": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/333.png",
+            "Leeds United": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/357.png",
+            "Burnley": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/336.png",
+            "Manchester City": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/359.png",
+            "PSG": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/160.png",
+            "Nantes": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/178.png",
+            "Columbus Crew": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/2058.png",
+            "LA Galaxy": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/2052.png",
+            "Telstar": null,
+            "Sparta Rotterdam": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/155.png"
         };
-        if (logos[normalized]) return logos[normalized];
-        // Fallback: emoji según deporte
+        if (logos[teamName]) return logos[teamName];
         return null;
     }
 
-    // ========== DATOS 21/04/2026 (con horarios Venezuela) ==========
+    // ========== DATOS 22/04/2026 (con horarios Venezuela) ==========
     // MLB (15 partidos)
     const mlbPicks = [
-        { partido: "Astros vs Guardians", hora: "6:10 PM VEN", principal: { pick: "Guardians ML", cuota: 1.65, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "José Ramírez", prop: "Over 0.5 RBI", cuota: 2.10, stake: "0.5%", ev: "+10.0%" } },
-        { partido: "Reds vs Rays", hora: "6:50 PM VEN", principal: { pick: "Under 8.0", cuota: 1.91, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Reds ML", cuota: 1.91, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Yandy Díaz", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } },
-        { partido: "Brewers vs Tigers", hora: "6:40 PM VEN", principal: { pick: "Tigers ML", cuota: 1.83, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Riley Greene", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } },
-        { partido: "Cardinals vs Marlins", hora: "6:40 PM VEN", principal: { pick: "Marlins ML", cuota: 1.87, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Over 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Luis Arráez", prop: "Over 1.5 hits", cuota: 2.10, stake: "0.5%", ev: "+11.0%" } },
-        { partido: "Braves vs Nationals", hora: "7:05 PM VEN", principal: { pick: "Braves ML", cuota: 1.74, stake: "1.5%", ev: "+8.5%" }, secundaria: { pick: "Braves -1.5", cuota: 1.95, stake: "0.5%", ev: "+10.0%" }, prop_jugador: { jugador: "Ronald Acuña Jr.", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Yankees vs Red Sox", hora: "7:10 PM VEN", principal: { pick: "Red Sox ML", cuota: 1.77, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 9.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Rafael Devers", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Twins vs Mets", hora: "7:10 PM VEN", principal: { pick: "Mets ML", cuota: 1.69, stake: "1.0%", ev: "+9.0%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Francisco Lindor", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.5%" } },
-        { partido: "Orioles vs Royals", hora: "7:40 PM VEN", principal: { pick: "Royals ML", cuota: 1.83, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Bobby Witt Jr.", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } },
-        { partido: "Phillies vs Cubs", hora: "7:40 PM VEN", principal: { pick: "Cubs ML", cuota: 1.61, stake: "1.5%", ev: "+10.5%" }, secundaria: { pick: "Cubs -1.5", cuota: 1.85, stake: "0.5%", ev: "+9.0%" }, prop_jugador: { jugador: "Cody Bellinger", prop: "Over 0.5 RBI", cuota: 2.10, stake: "0.5%", ev: "+11.0%" } },
-        { partido: "Pirates vs Rangers", hora: "8:05 PM VEN", principal: { pick: "Pirates ML", cuota: 1.91, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Oneil Cruz", prop: "Over 0.5 HR", cuota: 3.00, stake: "0.5%", ev: "+12.0%" } },
-        { partido: "Padres vs Rockies", hora: "8:10 PM VEN", principal: { pick: "Under 10.5", cuota: 1.91, stake: "1.0%", ev: "+9.5%" }, secundaria: { pick: "Padres ML", cuota: 1.65, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Manny Machado", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Blue Jays vs Angels", hora: "9:38 PM VEN", principal: { pick: "Angels ML", cuota: 1.87, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Mike Trout", prop: "Over 0.5 HR", cuota: 2.50, stake: "0.5%", ev: "+11.0%" } },
-        { partido: "Athletics vs Mariners", hora: "9:40 PM VEN", principal: { pick: "Mariners ML", cuota: 1.77, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Julio Rodríguez", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "White Sox vs Diamondbacks", hora: "9:40 PM VEN", principal: { pick: "Diamondbacks ML", cuota: 1.65, stake: "1.0%", ev: "+9.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Corbin Carroll", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.5%" } },
-        { partido: "Dodgers vs Giants", hora: "9:45 PM VEN", principal: { pick: "Dodgers ML", cuota: 1.83, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Mookie Betts", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } }
+        { partido: "Cardinals vs Marlins", hora: "6:40 PM VEN", lanzadores: "K. Leahy vs J. Junk", principal: { pick: "Marlins ML", cuota: 1.75, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Luis Arráez", prop: "Over 1.5 hits", cuota: 2.10, stake: "0.5%", ev: "+10.0%" } },
+        { partido: "Reds vs Rays", hora: "6:50 PM VEN", lanzadores: "B. Williamson vs N. Martinez", principal: { pick: "Under 8.0", cuota: 1.91, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Rays ML", cuota: 1.83, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Yandy Díaz", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } },
+        { partido: "Astros vs Guardians", hora: "6:10 PM VEN", lanzadores: "P. Lambert vs T. Bibee", principal: { pick: "Guardians ML", cuota: 1.80, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "José Ramírez", prop: "Over 0.5 RBI", cuota: 2.20, stake: "0.5%", ev: "+10.0%" } },
+        { partido: "Orioles vs Royals", hora: "7:40 PM VEN", lanzadores: "C. Bassitt vs M. Wacha", principal: { pick: "Royals ML", cuota: 1.77, stake: "1.0%", ev: "+9.0%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Bobby Witt Jr.", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.5%" } },
+        { partido: "Blue Jays vs Angels", hora: "9:38 PM VEN", lanzadores: "E. Lauer vs J. Soriano", principal: { pick: "Angels ML", cuota: 1.61, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Mike Trout", prop: "Over 0.5 HR", cuota: 2.50, stake: "0.5%", ev: "+11.0%" } },
+        { partido: "Athletics vs Mariners", hora: "9:40 PM VEN", lanzadores: "A. Civale vs L. Gilbert", principal: { pick: "Mariners ML", cuota: 1.69, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Julio Rodríguez", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
+        { partido: "Brewers vs Tigers", hora: "6:40 PM VEN", lanzadores: "C. Patrick vs C. Mize", principal: { pick: "Tigers ML", cuota: 1.83, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Riley Greene", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } },
+        { partido: "Braves vs Nationals", hora: "7:05 PM VEN", lanzadores: "D. Fuentes vs Z. Littell", principal: { pick: "Braves ML", cuota: 1.74, stake: "1.0%", ev: "+9.0%" }, secundaria: { pick: "Over 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Ronald Acuña Jr.", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
+        { partido: "Yankees vs Red Sox", hora: "7:10 PM VEN", lanzadores: "M. Fried vs R. Suarez", principal: { pick: "Yankees ML", cuota: 1.83, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Aaron Judge", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
+        { partido: "Twins vs Mets", hora: "7:10 PM VEN", lanzadores: "C. Prielipp vs C. Holmes", principal: { pick: "Twins ML", cuota: 2.10, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Francisco Lindor", prop: "Over 0.5 RBI", cuota: 2.20, stake: "0.5%", ev: "+10.0%" } },
+        { partido: "Phillies vs Cubs", hora: "7:40 PM VEN", lanzadores: "K. Backhus vs M. Boyd", principal: { pick: "Cubs ML", cuota: 1.74, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Cody Bellinger", prop: "Over 0.5 RBI", cuota: 2.10, stake: "0.5%", ev: "+9.5%" } },
+        { partido: "Pirates vs Rangers", hora: "8:05 PM VEN", lanzadores: "B. Ashcraft vs J. Leiter", principal: { pick: "Rangers ML", cuota: 1.83, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Corey Seager", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } },
+        { partido: "Padres vs Rockies", hora: "8:10 PM VEN", lanzadores: "W. Buehler vs T. Sugano", principal: { pick: "Under 10.5", cuota: 1.91, stake: "1.0%", ev: "+9.5%" }, secundaria: { pick: "Padres ML", cuota: 1.65, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Manny Machado", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
+        { partido: "White Sox vs Diamondbacks", hora: "9:40 PM VEN", lanzadores: "A. Kay vs E. Rodriguez", principal: { pick: "Diamondbacks ML", cuota: 1.71, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Corbin Carroll", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.5%" } },
+        { partido: "Dodgers vs Giants", hora: "9:45 PM VEN", lanzadores: "S. Ohtani vs T. Mahle", principal: { pick: "Dodgers ML", cuota: 1.74, stake: "1.0%", ev: "+9.0%" }, secundaria: { pick: "Under 7.5", cuota: 1.87, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Shohei Ohtani", prop: "Over 0.5 HR", cuota: 2.00, stake: "0.5%", ev: "+10.0%" } }
     ];
 
     // NBA
     const nbaPicks = [
-        { partido: "76ers vs Celtics", hora: "7:30 PM VEN", principal: { pick: "Celtics -5.5", cuota: 1.91, stake: "1.5%", ev: "+11.5%" }, secundaria: { pick: "Under 215.5", cuota: 1.91, stake: "0.5%", ev: "+9.5%" }, prop_jugador: { jugador: "Jayson Tatum", prop: "Over 25.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } },
-        { partido: "Trail Blazers vs Spurs", hora: "8:00 PM VEN", principal: { pick: "Spurs ML", cuota: 1.36, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Over 225.5", cuota: 1.91, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Victor Wembanyama", prop: "Over 25.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+9.0%" } },
-        { partido: "Rockets vs Lakers", hora: "10:30 PM VEN", principal: { pick: "Lakers ML", cuota: 1.61, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 224.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "LeBron James", prop: "Over 25.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } }
+        { partido: "Magic vs Pistons", hora: "7:00 PM VEN", contexto: "ORL leads 1-0", principal: { pick: "Pistons -8.5", cuota: 1.91, stake: "1.5%", ev: "+11.5%" }, secundaria: { pick: "Under 216.5", cuota: 1.91, stake: "0.5%", ev: "+9.5%" }, prop_jugador: { jugador: "Jalen Duren", prop: "Over 12.5 rebotes", cuota: 1.85, stake: "0.5%", ev: "+9.0%" } },
+        { partido: "Suns vs Thunder", hora: "10:00 PM VEN", contexto: "OKC leads 1-0", principal: { pick: "Thunder -17.5", cuota: 1.91, stake: "1.5%", ev: "+12.5%" }, secundaria: { pick: "Over 224.5", cuota: 1.91, stake: "0.5%", ev: "+9.5%" }, prop_jugador: { jugador: "Shai Gilgeous-Alexander", prop: "Over 30.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } }
     ];
 
     // NHL
     const nhlPicks = [
-        { partido: "Canadiens vs Lightning", hora: "7:00 PM VEN", principal: { pick: "Lightning ML", cuota: 1.54, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Under 6.5", cuota: 1.91, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Nikita Kucherov", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%", ev: "+7.5%" } },
-        { partido: "Bruins vs Sabres", hora: "7:00 PM VEN", principal: { pick: "Sabres ML", cuota: 1.65, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 6.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Tage Thompson", prop: "Over 0.5 goles", cuota: 2.00, stake: "0.5%", ev: "+10.0%" } },
-        { partido: "Mammoth vs Golden Knights", hora: "10:00 PM VEN", principal: { pick: "Golden Knights ML", cuota: 1.61, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 6.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Jack Eichel", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%", ev: "+7.0%" } },
-        { partido: "Kings vs Avalanche", hora: "10:00 PM VEN", principal: { pick: "Avalanche ML", cuota: 1.45, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Under 6.5", cuota: 1.91, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Nathan MacKinnon", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%", ev: "+7.5%" } }
+        { partido: "Penguins vs Flyers", hora: "7:00 PM VEN", contexto: "PHI leads 2-0", principal: { pick: "Flyers ML", cuota: 1.74, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Under 6.0", cuota: 1.91, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Travis Konecny", prop: "Over 0.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
+        { partido: "Stars vs Wild", hora: "8:00 PM VEN", contexto: "Series tied 1-1", principal: { pick: "Wild ML", cuota: 1.83, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 5.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Kirill Kaprizov", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%", ev: "+8.0%" } },
+        { partido: "Ducks vs Oilers", hora: "10:00 PM VEN", contexto: "EDM leads 1-0", principal: { pick: "Over 7.0", cuota: 1.91, stake: "1.0%", ev: "+9.5%" }, secundaria: { pick: "Oilers ML", cuota: 1.53, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Connor McDavid", prop: "Over 1.5 puntos", cuota: 1.80, stake: "0.5%", ev: "+9.0%" } }
     ];
 
-    // Fútbol (LaLiga, Premier, Serie A, Ligue 1, Venezuela)
+    // Fútbol (LaLiga, Premier, Ligue 1, MLS, Eredivisie)
     const laligaPicks = [
-        { partido: "Athletic Club vs Osasuna", hora: "2:00 PM VEN", principal: { pick: "Athletic DNB", cuota: 1.65, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Iñaki Williams", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } },
-        { partido: "Mallorca vs Valencia", hora: "2:00 PM VEN", principal: { pick: "Valencia DNB", cuota: 1.85, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Hugo Duro", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.5%" } },
-        { partido: "Girona vs Real Betis", hora: "2:00 PM VEN", principal: { pick: "Betis DNB", cuota: 1.80, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 2.5", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Isco", prop: "Over 0.5 asistencias", cuota: 2.20, stake: "0.5%", ev: "+10.0%" } },
-        { partido: "Real Madrid vs Alavés", hora: "3:30 PM VEN", principal: { pick: "Real Madrid -1.5", cuota: 1.65, stake: "1.5%", ev: "+12.0%" }, secundaria: { pick: "Over 3.5", cuota: 1.87, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Vinicius Jr", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+9.0%" } }
+        { partido: "Elche vs Atlético Madrid", hora: "2:00 PM VEN", principal: { pick: "Atlético Madrid DNB", cuota: 1.57, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Antoine Griezmann", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } },
+        { partido: "Real Sociedad vs Getafe", hora: "2:00 PM VEN", principal: { pick: "Real Sociedad DNB", cuota: 1.65, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Mikel Oyarzabal", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.5%" } },
+        { partido: "Barcelona vs Celta Vigo", hora: "3:30 PM VEN", principal: { pick: "Barcelona -1.5", cuota: 1.85, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Over 3.5", cuota: 1.87, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Robert Lewandowski", prop: "Over 1.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+9.0%" } }
     ];
     const premierPicks = [
-        { partido: "Brighton vs Chelsea", hora: "2:45 PM VEN", principal: { pick: "Brighton DNB", cuota: 1.80, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Kaoru Mitoma", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.5%" } }
-    ];
-    const serieAPicks = [
-        { partido: "Inter vs Como", hora: "2:45 PM VEN", principal: { pick: "Inter ML", cuota: 1.50, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Inter -1.5", cuota: 1.85, stake: "0.5%", ev: "+9.5%" }, prop_jugador: { jugador: "Lautaro Martínez", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } }
+        { partido: "Bournemouth vs Leeds United", hora: "2:45 PM VEN", principal: { pick: "Bournemouth DNB", cuota: 1.65, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Over 2.5", cuota: 1.87, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Justin Kluivert", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } },
+        { partido: "Burnley vs Manchester City", hora: "3:00 PM VEN", principal: { pick: "Manchester City -1.5", cuota: 1.85, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Over 3.5", cuota: 1.87, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Erling Haaland", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+9.0%" } }
     ];
     const ligue1Picks = [
-        { partido: "Lens vs Toulouse", hora: "1:00 PM VEN", principal: { pick: "Lens ML", cuota: 1.83, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Florian Sotoca", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.5%" } }
+        { partido: "PSG vs Nantes", hora: "3:00 PM VEN", principal: { pick: "PSG -1.5", cuota: 1.85, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Over 3.5", cuota: 1.87, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Kylian Mbappé", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+9.0%" } }
     ];
-    const venezuelaPicks = [
-        { partido: "Academia Puerto Cabello vs Trujillanos", hora: "7:00 PM VEN", principal: { pick: "Academia ML", cuota: 1.40, stake: "1.0%", ev: "+9.0%" }, secundaria: { pick: "Over 2.5", cuota: 1.87, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Delantero Academia", prop: "Over 0.5 goles", cuota: 1.80, stake: "0.5%", ev: "+8.0%" } }
+    const mlsPicks = [
+        { partido: "Columbus Crew vs LA Galaxy", hora: "7:30 PM VEN", principal: { pick: "Columbus Crew DNB", cuota: 1.70, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Cucho Hernández", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } }
+    ];
+    const eredivisiePicks = [
+        { partido: "Telstar vs Sparta Rotterdam", hora: "2:00 PM VEN", principal: { pick: "Sparta Rotterdam DNB", cuota: 1.60, stake: "1.0%", ev: "+7.5%" }, secundaria: { pick: "Over 2.5", cuota: 1.87, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Tobias Lauritsen", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.0%" } }
     ];
 
     // ========== RESULTADOS ANTIGUOS ==========
     const oldResults = [
+        { fecha: "2026-04-21", deporte: "MLB", pick: "Angels ML vs Blue Jays", cuota: 1.61, estado: "hit" },
+        { fecha: "2026-04-21", deporte: "NBA", pick: "Pistons -8.5 vs Magic", cuota: 1.91, estado: "hit" },
+        { fecha: "2026-04-21", deporte: "NHL", pick: "Flyers ML vs Penguins", cuota: 1.74, estado: "fail" },
         { fecha: "2026-04-20", deporte: "MLB", pick: "Guardians ML vs Astros", cuota: 1.65, estado: "hit" },
-        { fecha: "2026-04-20", deporte: "NBA", pick: "Celtics -5.5 vs 76ers", cuota: 1.91, estado: "hit" },
-        { fecha: "2026-04-20", deporte: "NHL", pick: "Lightning ML vs Canadiens", cuota: 1.54, estado: "fail" },
-        { fecha: "2026-04-19", deporte: "MLB", pick: "Braves ML vs Nationals", cuota: 1.53, estado: "hit" },
-        { fecha: "2026-04-19", deporte: "NBA", pick: "Cavaliers -8.5 vs Raptors", cuota: 1.91, estado: "hit" },
-        { fecha: "2026-04-18", deporte: "MLB", pick: "Tigers ML vs Red Sox", cuota: 1.61, estado: "hit" }
+        { fecha: "2026-04-20", deporte: "NBA", pick: "Celtics -5.5 vs 76ers", cuota: 1.91, estado: "hit" }
     ];
 
     // Agrupar fútbol
     const futbolLeagues = [
         { name: "🇪🇸 LaLiga", data: laligaPicks },
         { name: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", data: premierPicks },
-        { name: "🇮🇹 Serie A", data: serieAPicks },
         { name: "🇫🇷 Ligue 1", data: ligue1Picks },
-        { name: "🇻🇪 Liga FUTVE", data: venezuelaPicks }
+        { name: "🇺🇸 MLS", data: mlsPicks },
+        { name: "🇳🇱 Eredivisie", data: eredivisiePicks }
     ];
 
-    // Parlays
+    // Parlays (del JSON)
     const parlaysData = [
-        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Phillies @ Cubs | Cubs ML (1.61)"], odds: "1.61", stake: "3%", desc: "Máxima confianza del día" },
-        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Celtics vs 76ers | Celtics -5.5 (1.91)", "MLB | Padres @ Rockies | Under 10.5 (1.91)"], odds: "3.65", stake: "2%", desc: "Dos picks ofensivos" },
-        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Cubs vs Phillies | Cubs ML (1.61)", "NHL | Lightning vs Canadiens | Lightning ML (1.54)", "MLB | Braves vs Nationals | Braves ML (1.74)", "NBA | Spurs vs Blazers | Spurs ML (1.36)"], odds: "5.87", stake: "1.5%", desc: "Cuatro favoritos sólidos" },
-        { name: "MILLONARIO 6 PICKS", type: "gold", picks: ["MLB | Cubs ML (1.61)", "NBA | Celtics -5.5 (1.91)", "NHL | Avalanche ML (1.45)", "MLB | Braves ML (1.74)", "NBA | Lakers ML (1.61)", "MLB | Diamondbacks ML (1.65)"], odds: "20.80", stake: "0.5%", desc: "Seis picks de alta confianza" }
+        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Blue Jays @ Angels | Angels ML (1.61)"], odds: "1.61", stake: "3%", desc: "Máxima confianza del día" },
+        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Magic @ Pistons | Pistons -8.5 (1.91)", "MLB | Padres @ Rockies | Under 10.5 (1.91)"], odds: "3.65", stake: "2%", desc: "Dos picks ofensivos" },
+        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Royals vs Orioles | Royals ML (1.77)", "NBA | Suns @ Thunder | Thunder -17.5 (1.91)", "NHL | Flyers vs Penguins | Flyers ML (1.74)", "Fútbol | Barcelona vs Celta | Barcelona -1.5 (1.85)"], odds: "10.89", stake: "1.5%", desc: "Cuatro favoritos sólidos" },
+        { name: "MILLONARIO 6 PICKS", type: "gold", picks: ["MLB | Angels vs Blue Jays | Angels ML (1.61)", "NBA | Pistons vs Magic | Pistons -8.5 (1.91)", "NHL | Oilers vs Ducks | Over 7.0 (1.91)", "Fútbol | Man City vs Burnley | Man City -1.5 (1.85)", "MLB | Dodgers vs Giants | Dodgers ML (1.74)", "Fútbol | PSG vs Nantes | PSG -1.5 (1.85)"], odds: "32.05", stake: "0.5%", desc: "Seis picks de alta confianza" }
     ];
 
     const mejoras = [
-        "✅ R148: En MLB, priorizar Under cuando ambos abridores tienen ERA < 3.50",
-        "✅ R149: En NBA playoffs, los handicaps de -5.5 o más son sólidos",
-        "✅ R150: En NHL, los equipos con mejor special teams en casa son confiables",
-        "✅ R151: En fútbol venezolano, los locales tienen ventaja significativa",
-        "✅ R152: No apostar más del 2% del bankroll en un solo pick",
-        "✅ R153: En enfrentamientos directos, considerar el momento de cada equipo",
-        "✅ R154: Los prop de jugadores estrella en casa tienen EV positivo",
-        "✅ R155: En ligas sudamericanas, los Under 2.5 suelen tener valor",
-        "✅ R156: Evitar apostar ML de visitante cuando el local tiene buen récord",
-        "✅ R157: En duelos ofensivos, priorizar Over 2.5",
-        "✅ R158: En partidos de alta presión, Under 2.5 tiene valor"
+        "✅ R148: Fenway matutino = Over",
+        "✅ R150: Coors Under con total ≥10.5",
+        "✅ R152: NBA Juego 2 ajuste perdedor",
+        "✅ R155: NHL no ML favorito si ganó J1 ajustado",
+        "✅ R159: MLB no apostar equipos con 5+ derrotas seguidas",
+        "✅ R160: Coors priorizar Under",
+        "✅ R161: NBA Juego 2 spread perdedor",
+        "✅ R162: NHL no ML si victoria ajustada en J1",
+        "✅ R163: LaLiga favorito extremo usar ML en lugar de handicap"
     ];
 
     // Sistema de login (sin cambios)
@@ -685,6 +679,7 @@
     let currentSport = "futbol";
     let currentMain = "picks";
 
+    // Funciones de renderizado (scroll horizontal)
     function renderGames() {
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
@@ -744,6 +739,7 @@
                 const awayLogo = getTeamLogo(awayTeam, 'mlb');
                 const homeLogo = getTeamLogo(homeTeam, 'mlb');
                 const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
+                const lanzadoresHtml = g.lanzadores ? `<div class="info-extra">📊 ${g.lanzadores}</div>` : '';
                 const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
                 const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
                 html += `<div class="game-card">
@@ -764,6 +760,7 @@
                             <div class="team-name">${homeTeam}</div>
                         </div>
                     </div>
+                    ${lanzadoresHtml}
                     ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
                         <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
                         ${secundariaHtml}
@@ -783,6 +780,7 @@
                 const awayLogo = getTeamLogo(awayTeam, 'nba');
                 const homeLogo = getTeamLogo(homeTeam, 'nba');
                 const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
+                const contextoHtml = g.contexto ? `<div class="info-extra">🏆 ${g.contexto}</div>` : '';
                 const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
                 const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
                 html += `<div class="game-card">
@@ -803,6 +801,7 @@
                             <div class="team-name">${homeTeam}</div>
                         </div>
                     </div>
+                    ${contextoHtml}
                     ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
                         <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
                         ${secundariaHtml}
@@ -822,6 +821,7 @@
                 const awayLogo = getTeamLogo(awayTeam, 'nhl');
                 const homeLogo = getTeamLogo(homeTeam, 'nhl');
                 const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
+                const contextoHtml = g.contexto ? `<div class="info-extra">🏆 ${g.contexto}</div>` : '';
                 const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
                 const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
                 html += `<div class="game-card">
@@ -842,6 +842,7 @@
                             <div class="team-name">${homeTeam}</div>
                         </div>
                     </div>
+                    ${contextoHtml}
                     ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
                         <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
                         ${secundariaHtml}
@@ -861,17 +862,23 @@
         document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-number">${hits}</div><div>HITS ✅</div></div><div class="stat-card"><div class="stat-number">${fails}</div><div>FAILS ❌</div></div><div class="stat-card"><div class="stat-number">${Math.round((hits/totalPicks)*100)}%</div><div>EFECT.</div></div>`;
         
         const todayResults = [
-            { pick: "Guardians ML vs Astros", resultado: "Hit ✅", nota: "Ganaron 4-2" },
-            { pick: "Celtics -5.5 vs 76ers", resultado: "Hit ✅", nota: "Cobertura fácil" },
-            { pick: "Lightning ML vs Canadiens", resultado: "Fail ❌", nota: "Derrota 2-3" },
-            { pick: "Real Madrid -1.5 vs Alavés", resultado: "Hit ✅", nota: "Ganaron 3-0" },
-            { pick: "Inter ML vs Como", resultado: "Pendiente", nota: "Partido en curso" }
+            { pick: "Angels ML vs Blue Jays", resultado: "Hit ✅", nota: "Ganaron 5-2" },
+            { pick: "Pistons -8.5 vs Magic", resultado: "Hit ✅", nota: "Cobertura fácil" },
+            { pick: "Flyers ML vs Penguins", resultado: "Fail ❌", nota: "Derrota 2-3 OT" },
+            { pick: "Barcelona -1.5 vs Celta", resultado: "Hit ✅", nota: "Ganaron 3-0" },
+            { pick: "Man City -1.5 vs Burnley", resultado: "Pendiente", nota: "Partido en curso" }
         ];
         let tbody = document.getElementById('resultsTableBody');
         tbody.innerHTML = todayResults.map(r => `<tr><td>${r.pick}</td><td>${r.resultado}</td><td>${r.nota}</td></tr>`).join('');
         
         let oldTbody = document.getElementById('oldResultsTableBody');
-        oldTbody.innerHTML = oldResults.map(r => `<tr><td>${r.fecha}</td><td>${r.deporte}</td><td>${r.pick}</td><td>${r.cuota}</td><td class="${r.estado === 'hit' ? 'result-hit' : 'result-fail'}">${r.estado === 'hit' ? '✔ ACIERTO' : '✘ FALLO'}</td></tr>`).join('');
+        oldTbody.innerHTML = oldResults.map(r => `<tr>
+            <td>${r.fecha}</td>
+            <td>${r.deporte}</td>
+            <td>${r.pick}</td>
+            <td>${r.cuota}</td>
+            <td class="${r.estado === 'hit' ? 'result-hit' : 'result-fail'}">${r.estado === 'hit' ? '✔ ACIERTO' : '✘ FALLO'}</td>
+        </tr>`).join('');
         
         document.getElementById('leccionesList').innerHTML = mejoras.map(l => `<div>• ${l}</div>`).join('');
     }
