@@ -2,13 +2,12 @@ name: Actualizar picks diariamente
 
 on:
   schedule:
-    - cron: '0 10 * * *'      # Todos los días a las 10:00 UTC (6:00 AM Venezuela)
-  workflow_dispatch:          # Permite ejecutar manualmente
+    - cron: '0 11 * * *'   # 11:00 UTC = 7:00 AM Venezuela
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v4
@@ -23,8 +22,6 @@ jobs:
 
       - name: Ejecutar script generate_data.py
         run: python generate_data.py
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
 
       - name: Commit y push del data.js actualizado
         run: |
