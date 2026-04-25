@@ -1,13 +1,11 @@
 import requests
 import json
-import os
 from datetime import datetime, timezone, timedelta
 
-# ========== CONFIGURACIÓN ==========
-ODDS_API_KEY = os.environ.get('ODDS_API_KEY')  # Se usará después para cuotas reales
-
-# Lista de ligas de fútbol con sus slugs de ESPN
-FOOTBALL_LEAGUES = {
+# ==================================================
+# 1. CONFIGURACIÓN: Ligas de fútbol (ESPN slugs)
+# ==================================================
+SOCCER_LEAGUES = {
     'eng.1': 'Premier League',
     'esp.2': 'LaLiga',
     'ita.1': 'Serie A',
@@ -20,9 +18,10 @@ FOOTBALL_LEAGUES = {
     'uefa.europa': 'Europa League',
 }
 
-# ========== 1. OBTENER PARTIDOS DE ESPN ==========
-def fetch_espn_soccer_games(league_slug):
-    """Obtiene los partidos del día para una liga específica de ESPN"""
+# ==================================================
+# 2. FUNCIÓN PARA OBTENER PARTIDOS DESDE ESPN
+# ==================================================
+def fetch_espn_games(league_slug):
     url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league_slug}/scoreboard"
     try:
         resp = requests.get(url, timeout=10)
@@ -42,110 +41,123 @@ def fetch_espn_soccer_games(league_slug):
                     })
             return games
         else:
+            print(f"Error ESPN {league_slug}: {resp.status_code}")
             return []
     except Exception as e:
-        print(f"Error ESPN {league_slug}: {e}")
+        print(f"Excepción ESPN {league_slug}: {e}")
         return []
 
-# ========== 2. FUNCIÓN AUXILIAR DE HORARIO ==========
-def convert_to_venezuela_time(utc_date_str):
-    """Convierte una fecha UTC a hora local de Venezuela (UTC-4)"""
-    if not utc_date_str:
-        return "Hora pendiente"
+# ==================================================
+# 3. CONVERSIÓN DE FECHA UTC A HORA DE VENEZUELA (UTC-4)
+# ==================================================
+def convertir_hora_venezuela(utc_date_str):
     try:
-        # Limpiar el formato
         utc_date_str = utc_date_str.replace('Z', '+00:00')
         utc_time = datetime.fromisoformat(utc_date_str)
         venezuela_tz = timezone(timedelta(hours=-4))
         local_time = utc_time.astimezone(venezuela_tz)
-        return local_time.strftime('%I:%M %p')  # Formato 12h (ej. "03:00 PM")
+        return local_time.strftime('%I:%M %p')  # Ejemplo: "03:00 PM"
     except:
         return "Hora pendiente"
 
-# ========== 3. APLICAR REGLAS (ejemplo) ==========
-def apply_rules(home_team, away_team):
-    """Genera picks principal, secundario y prop de jugador (ejemplo)"""
-    # Pick principal: Apostar al local con cuota 1.85
-    principal = {
+# ==================================================
+# 4. FUNCIONES PARA GENERAR PICKS (ejemplos)
+# ==================================================
+def generar_principal(home_team, away_team):
+    # Aquí puedes poner tus reglas reales (R144, R159, etc.)
+    # Ejemplo: apostar al local con cuota fija 1.85
+    return {
         'pick': f"{home_team} ML",
         'cuota': 1.85,
         'ev': '+8.5%',
         'stake': '1.5%',
         'regla': 'Ejemplo: local favorito'
     }
-    
-    # Pick secundario: Over 2.5 goles (cuota 1.85)
-    secundario = {
+
+def generar_secundaria(home_team, away_team):
+    # Ejemplo de pick secundario (Over 2.5 goles)
+    return {
         'pick': 'Over 2.5 goles',
         'cuota': 1.85,
         'ev': '+7.5%',
         'stake': '1.0%',
         'regla': 'Ejemplo: partido ofensivo'
     }
-    
-    # Prop de jugador: Jugador destacado (genérico)
-    prop = {
+
+def generar_prop(home_team, away_team):
+    # Ejemplo de prop de jugador
+    return {
         'jugador': 'Jugador Destacado',
         'prop': 'Over 0.5 goles',
         'cuota': 2.10,
         'stake': '0.5%',
         'ev': '+9.0%'
     }
-    
-    return principal, secundario, prop
 
-# ========== 4. GENERAR PICKS ==========
-def generate_picks():
-    picks = {}
-    # Inicializamos las listas para cada liga
-    for league_name in FOOTBALL_LEAGUES.values():
-        # Convertir nombre a clave segura (sin espacios, en minúsculas)
-        key = league_name.lower().replace(' ', '_')
-        picks[key] = []
-    
-    for slug, league_name in FOOTBALL_LEAGUES.items():
+# ==================================================
+# 5. GENERAR TODOS LOS PICKS (FÚTBOL + MLB/NBA/NHL)
+# ==================================================
+def generar_todos_los_picks():
+    # Estructura completa que espera tu index.html
+    picks = {
+        'mlb': [],          # Aquí irán partidos de MLB (puedes añadirlos después)
+        'nba': [],          # Aquí irán partidos de NBA
+        'nhl': [],          # Aquí irán partidos de NHL
+        'laliga': [],       # Para LaLiga y otras ligas europeas
+        'eredivisie': []    # Para el resto de ligas (puedes renombrar)
+    }
+
+    # ---------- FÚTBOL (todas las ligas) ----------
+    for slug, league_name in SOCCER_LEAGUES.items():
         print(f"Obteniendo {league_name}...")
-        games = fetch_espn_soccer_games(slug)
+        games = fetch_espn_games(slug)
         for game in games:
-            principal, secundario, prop = apply_rules(game['home_team'], game['away_team'])
-            hora_local = convert_to_venezuela_time(game['date'])
-            
+            hora_local = convertir_hora_venezuela(game['date'])
+            principal = generar_principal(game['home_team'], game['away_team'])
+            secundaria = generar_secundaria(game['home_team'], game['away_team'])
+            prop = generar_prop(game['home_team'], game['away_team'])
+
             pick_info = {
                 'partido': f"{game['away_team']} vs {game['home_team']}",
                 'hora': hora_local,
                 'principal': principal,
-                'secundaria': secundario,
+                'secundaria': secundaria,
                 'prop_jugador': prop
             }
-            key = league_name.lower().replace(' ', '_')
-            picks[key].append(pick_info)
-    
+            # Clasificación según el nombre de la liga (ajústalo a tu dashboard)
+            if 'LaLiga' in league_name or 'Serie A' in league_name or 'Bundesliga' in league_name:
+                picks['laliga'].append(pick_info)
+            else:
+                picks['eredivisie'].append(pick_info)
+
+    # ---------- MLB (béisbol) ----------
+    # Puedes ampliar con statsapi después. Por ahora queda vacío.
+    # ---------- NBA ----------
+    # Puedes ampliar con nba_api después.
+    # ---------- NHL ----------
+    # Puedes ampliar con nhl-api-py después.
+
     return picks
 
-# ========== 5. GUARDAR EN data.js ==========
-def save_js(picks):
-    # Datos estáticos (resultados antiguos, mejoras, parlays)
+# ==================================================
+# 6. GUARDAR EN data.js
+# ==================================================
+def guardar_js(picks):
     old_results = []
-    mejoras = ["✅ Sistema ThIA-SA v5.8 activo", "✅ Integradas todas las ligas de fútbol", "✅ Horario corregido a Venezuela"]
+    mejoras = [
+        "✅ Sistema ThIA-SA v5.8 - Datos reales desde ESPN",
+        "✅ Ligas incluidas: Premier, LaLiga, Serie A, Bundesliga, Ligue 1, Eredivisie, Primeira Liga, MLS, Champions, Europa League",
+        "✅ Horario ajustado a Venezuela (UTC-4)",
+        "✅ Picks secundarios y props de ejemplo (personalizables)"
+    ]
     parlays = []
-    
-    js_content = f"""// Generado automáticamente el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-// Datos de fútbol
-const premier_league = {json.dumps(picks.get('premier_league', []), indent=2)};
-const laliga = {json.dumps(picks.get('laliga', []), indent=2)};
-const serie_a = {json.dumps(picks.get('serie_a', []), indent=2)};
-const ligue_1 = {json.dumps(picks.get('ligue_1', []), indent=2)};
-const eredivisie = {json.dumps(picks.get('eredivisie', []), indent=2)};
-const primeira_liga = {json.dumps(picks.get('primeira_liga', []), indent=2)};
-const bundesliga = {json.dumps(picks.get('bundesliga', []), indent=2)};
-const mls = {json.dumps(picks.get('mls', []), indent=2)};
-const champions_league = {json.dumps(picks.get('champions_league', []), indent=2)};
-const europa_league = {json.dumps(picks.get('europa_league', []), indent=2)};
 
-// Datos de otros deportes (se pueden añadir después)
-const nhlPicks = [];
-const nbaPicks = [];
-const mlbPicks = [];
+    js_content = f"""// Generado automáticamente el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+const nhlPicks = {json.dumps(picks['nhl'], indent=2)};
+const nbaPicks = {json.dumps(picks['nba'], indent=2)};
+const mlbPicks = {json.dumps(picks['mlb'], indent=2)};
+const laligaPicks = {json.dumps(picks['laliga'], indent=2)};
+const eredivisiePicks = {json.dumps(picks['eredivisie'], indent=2)};
 const oldResults = {json.dumps(old_results, indent=2)};
 const mejores = {json.dumps(mejoras, indent=2)};
 const parlaysData = {json.dumps(parlays, indent=2)};
@@ -155,9 +167,11 @@ const todayResultsArray = [];
         f.write(js_content)
     print("✅ data.js generado correctamente.")
 
-# ========== 6. MAIN ==========
+# ==================================================
+# 7. MAIN
+# ==================================================
 if __name__ == "__main__":
-    print("Obteniendo partidos de fútbol desde ESPN...")
-    picks = generate_picks()
-    save_js(picks)
+    print("Obteniendo datos reales de ESPN...")
+    todos_los_picks = generar_todos_los_picks()
+    guardar_js(todos_los_picks)
     print("Proceso completado.")
