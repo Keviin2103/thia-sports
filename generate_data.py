@@ -11,6 +11,7 @@ def fetch_espn_games(sport):
     }
     url = urls.get(sport)
     if not url:
+        print(f"Deporte {sport} no soportado")
         return []
     try:
         resp = requests.get(url, timeout=10)
@@ -21,58 +22,98 @@ def fetch_espn_games(sport):
                 comp = event['competitions'][0]
                 home = comp['competitors'][0]['team']['displayName']
                 away = comp['competitors'][1]['team']['displayName']
-                games.append({'home_team': home, 'away_team': away, 'date': event['date']})
+                game_date = event['date']
+                games.append({
+                    'home_team': home,
+                    'away_team': away,
+                    'date': game_date
+                })
+            print(f"  {len(games)} partidos encontrados en {sport}")
             return games
         else:
+            print(f"  Error HTTP {resp.status_code} en {sport}")
             return []
-    except:
+    except Exception as e:
+        print(f"  Excepción en {sport}: {e}")
         return []
 
-def apply_rules(home, away):
-    # Regla de ejemplo: siempre apostar al local (solo para tener picks)
-    # Aquí después pondrás tus reglas reales (R144, R159, etc.)
-    return {
-        'pick': f"{home} ML",
+def apply_rules(home_team, away_team):
+    """
+    Aquí aplicas TUS reglas (R144, R159, etc.)
+    Por ahora es un ejemplo: siempre apuesta al local.
+    Tú luego lo reemplazarás con tu lógica real.
+    """
+    # Ejemplo: pick principal (local ML)
+    principal = {
+        'pick': f"{home_team} ML",
         'cuota': 1.85,
         'ev': '+8.5%',
         'stake': '1.5%',
-        'regla': 'Ejemplo'
+        'regla': 'Ejemplo: local favorito'
     }
+    secundaria = None    # Aquí puedes poner otra apuesta
+    prop_jugador = None  # Aquí puedes poner un prop
+    return principal, secundaria, prop_jugador
 
 def generate_picks():
-    picks = {'mlb': [], 'nba': [], 'nhl': [], 'laliga': [], 'eredivisie': []}
-    for espn_sport, key in [('mlb','mlb'), ('nba','nba'), ('nhl','nhl'), ('soccer','laliga')]:
+    picks = {
+        'mlb': [],
+        'nba': [],
+        'nhl': [],
+        'laliga': [],
+        'eredivisie': []
+    }
+    # Mapeo: (deporte_espn, clave_destino)
+    sports_map = [
+        ('mlb', 'mlb'),
+        ('nba', 'nba'),
+        ('nhl', 'nhl'),
+        ('soccer', 'laliga')   # soccer -> laliga, pero puedes cambiarlo
+    ]
+    for espn_sport, key in sports_map:
+        print(f"Obteniendo {espn_sport}...")
         games = fetch_espn_games(espn_sport)
         for game in games:
-            principal = apply_rules(game['home_team'], game['away_team'])
+            principal, secundaria, prop = apply_rules(game['home_team'], game['away_team'])
             picks[key].append({
                 'partido': f"{game['away_team']} vs {game['home_team']}",
                 'hora': game['date'][11:16] + " VEN",
                 'principal': principal,
-                'secundaria': None,
-                'prop_jugador': None
+                'secundaria': secundaria,
+                'prop_jugador': prop
             })
     return picks
 
 def save_js(picks):
-    old_results = []
-    mejoras = ["✅ Sistema ThIA-SA v5.8 activo"]
-    parlays = []
-    js = f"""// Generado el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-const nhlPicks = {json.dumps(picks['nhl'])};
-const nbaPicks = {json.dumps(picks['nba'])};
-const mlbPicks = {json.dumps(picks['mlb'])};
-const laligaPicks = {json.dumps(picks['laliga'])};
-const eredivisiePicks = {json.dumps(picks['eredivisie'])};
-const oldResults = {json.dumps(old_results)};
-const mejores = {json.dumps(mejoras)};
-const parlaysData = {json.dumps(parlays)};
+    # Datos estáticos (puedes mantenerlos así o cargarlos desde otro lado)
+    old_results = [
+        {"fecha": "2026-04-22", "deporte": "MLB", "pick": "Angels ML vs Blue Jays", "cuota": 1.61, "estado": "hit"}
+    ]
+    mejoras = [
+        "✅ Sistema ThIA-SA v5.8 activo",
+        "✅ Picks generados con datos reales de ESPN"
+    ]
+    parlays = [
+        {"name": "DIRECTA DEL DÍA", "type": "green", "picks": ["MLB | Yankees ML (1.61)"], "odds": "1.61", "stake": "3%", "desc": "Riesgo bajo"}
+    ]
+
+    js_content = f"""// Generado automáticamente el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+const nhlPicks = {json.dumps(picks['nhl'], indent=2)};
+const nbaPicks = {json.dumps(picks['nba'], indent=2)};
+const mlbPicks = {json.dumps(picks['mlb'], indent=2)};
+const laligaPicks = {json.dumps(picks['laliga'], indent=2)};
+const eredivisiePicks = {json.dumps(picks['eredivisie'], indent=2)};
+const oldResults = {json.dumps(old_results, indent=2)};
+const mejores = {json.dumps(mejoras, indent=2)};
+const parlaysData = {json.dumps(parlays, indent=2)};
 const todayResultsArray = [];
 """
-    with open('data.js', 'w') as f:
-        f.write(js)
-    print("✅ data.js generado")
+    with open('data.js', 'w', encoding='utf-8') as f:
+        f.write(js_content)
+    print("✅ data.js generado correctamente")
 
 if __name__ == "__main__":
+    print("Obteniendo datos reales de ESPN...")
     picks = generate_picks()
     save_js(picks)
+    print("Proceso completado.")
