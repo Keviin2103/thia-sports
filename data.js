@@ -1,99 +1,6 @@
-// Generado automáticamente el 2026-04-26 02:57:06
-const nhlPicks = [
-  {
-    "partido": "Carolina Hurricanes vs Ottawa Senators",
-    "hora": "03:00 PM",
-    "principal": {
-      "pick": "Ottawa Senators ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  },
-  {
-    "partido": "Dallas Stars vs Minnesota Wild",
-    "hora": "05:30 PM",
-    "principal": {
-      "pick": "Minnesota Wild ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  },
-  {
-    "partido": "Pittsburgh Penguins vs Philadelphia Flyers",
-    "hora": "08:00 PM",
-    "principal": {
-      "pick": "Philadelphia Flyers ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  }
-];
-const nbaPicks = [
-  {
-    "partido": "Detroit Pistons vs Orlando Magic",
-    "hora": "01:00 PM",
-    "principal": {
-      "pick": "Orlando Magic ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  },
-  {
-    "partido": "Oklahoma City Thunder vs Phoenix Suns",
-    "hora": "03:30 PM",
-    "principal": {
-      "pick": "Phoenix Suns ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  },
-  {
-    "partido": "New York Knicks vs Atlanta Hawks",
-    "hora": "06:00 PM",
-    "principal": {
-      "pick": "Atlanta Hawks ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  },
-  {
-    "partido": "Denver Nuggets vs Minnesota Timberwolves",
-    "hora": "08:30 PM",
-    "principal": {
-      "pick": "Minnesota Timberwolves ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Valor por defecto"
-    },
-    "secundaria": null,
-    "prop_jugador": null
-  }
-];
+// Generado automáticamente el 2026-04-26 13:14:04
+const nhlPicks = [];
+const nbaPicks = [];
 const mlbPicks = [
   {
     "partido": "Boston Red Sox vs Baltimore Orioles",
@@ -103,7 +10,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -116,7 +23,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -129,7 +36,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -142,7 +49,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -155,7 +62,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -168,7 +75,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -181,7 +88,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -194,7 +101,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -207,7 +114,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -220,7 +127,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -233,7 +140,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -246,7 +153,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -259,7 +166,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -272,7 +179,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -285,7 +192,7 @@ const mlbPicks = [
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Valor por defecto"
+      "regla": "Valor por defecto (hook para reglas reales)"
     },
     "secundaria": null,
     "prop_jugador": null
@@ -296,114 +203,14 @@ const leaguesData = [
     "name": "Premier League",
     "games": [
       {
-        "partido": "Aston Villa vs Fulham",
-        "hora": "07:30 AM",
+        "partido": "Brentford vs Manchester United",
+        "hora": "03:00 PM",
         "principal": {
-          "pick": "Fulham ML",
+          "pick": "Manchester United ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
-      },
-      {
-        "partido": "Crystal Palace vs Liverpool",
-        "hora": "10:00 AM",
-        "principal": {
-          "pick": "Liverpool ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
-      },
-      {
-        "partido": "Everton vs West Ham United",
-        "hora": "10:00 AM",
-        "principal": {
-          "pick": "West Ham United ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
-      },
-      {
-        "partido": "Tottenham Hotspur vs Wolverhampton Wanderers",
-        "hora": "10:00 AM",
-        "principal": {
-          "pick": "Wolverhampton Wanderers ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
-      },
-      {
-        "partido": "Newcastle United vs Arsenal",
-        "hora": "12:30 PM",
-        "principal": {
-          "pick": "Arsenal ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -426,14 +233,39 @@ const leaguesData = [
     "name": "LaLiga",
     "games": [
       {
-        "partido": "Real Sociedad II vs Real Valladolid",
+        "partido": "Sporting Gij\u00f3n vs C\u00f3rdoba",
+        "hora": "08:00 AM",
+        "principal": {
+          "pick": "C\u00f3rdoba ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
+      },
+      {
+        "partido": "Almer\u00eda vs Granada",
         "hora": "10:15 AM",
         "principal": {
-          "pick": "Real Valladolid ML",
+          "pick": "Granada ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -451,14 +283,39 @@ const leaguesData = [
         }
       },
       {
-        "partido": "Deportivo La Coru\u00f1a vs Burgos",
+        "partido": "Cultural Leonesa vs Mirand\u00e9s",
+        "hora": "10:15 AM",
+        "principal": {
+          "pick": "Mirand\u00e9s ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
+      },
+      {
+        "partido": "Real Zaragoza vs Huesca",
         "hora": "12:30 PM",
         "principal": {
-          "pick": "Burgos ML",
+          "pick": "Huesca ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -476,14 +333,39 @@ const leaguesData = [
         }
       },
       {
-        "partido": "Castell\u00f3n vs M\u00e1laga",
-        "hora": "03:00 PM",
+        "partido": "FC Andorra vs Legan\u00e9s",
+        "hora": "12:30 PM",
         "principal": {
-          "pick": "M\u00e1laga ML",
+          "pick": "Legan\u00e9s ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
+      },
+      {
+        "partido": "Racing Santander vs Ceuta",
+        "hora": "03:00 PM",
+        "principal": {
+          "pick": "Ceuta ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -506,14 +388,39 @@ const leaguesData = [
     "name": "Serie A",
     "games": [
       {
-        "partido": "Pisa vs Parma",
+        "partido": "Sassuolo vs Fiorentina",
+        "hora": "06:30 AM",
+        "principal": {
+          "pick": "Fiorentina ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
+      },
+      {
+        "partido": "Como vs Genoa",
         "hora": "09:00 AM",
         "principal": {
-          "pick": "Parma ML",
+          "pick": "Genoa ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -531,14 +438,14 @@ const leaguesData = [
         }
       },
       {
-        "partido": "AS Roma vs Bologna",
+        "partido": "Internazionale vs Torino",
         "hora": "12:00 PM",
         "principal": {
-          "pick": "Bologna ML",
+          "pick": "Torino ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -556,14 +463,14 @@ const leaguesData = [
         }
       },
       {
-        "partido": "Lecce vs Hellas Verona",
+        "partido": "Juventus vs AC Milan",
         "hora": "02:45 PM",
         "principal": {
-          "pick": "Hellas Verona ML",
+          "pick": "AC Milan ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": {
           "pick": "Over 2.5 goles",
@@ -586,43 +493,129 @@ const leaguesData = [
     "name": "Ligue 1",
     "games": [
       {
-        "partido": "AJ Auxerre vs Lyon",
+        "partido": "Strasbourg vs Lorient",
         "hora": "09:00 AM",
         "principal": {
-          "pick": "Lyon ML",
+          "pick": "Lorient ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
-        "secundaria": null,
-        "prop_jugador": null
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
       },
       {
-        "partido": "Paris Saint-Germain vs Angers",
-        "hora": "01:00 PM",
+        "partido": "Metz vs Le Havre AC",
+        "hora": "11:15 AM",
         "principal": {
-          "pick": "Angers ML",
+          "pick": "Le Havre AC ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
-        "secundaria": null,
-        "prop_jugador": null
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
       },
       {
-        "partido": "AS Monaco vs Toulouse",
-        "hora": "03:05 PM",
+        "partido": "Lille vs Paris FC",
+        "hora": "11:15 AM",
         "principal": {
-          "pick": "Toulouse ML",
+          "pick": "Paris FC ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
-        "secundaria": null,
-        "prop_jugador": null
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
+      },
+      {
+        "partido": "Nantes vs Stade Rennais",
+        "hora": "11:15 AM",
+        "principal": {
+          "pick": "Stade Rennais ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
+      },
+      {
+        "partido": "Nice vs Marseille",
+        "hora": "02:45 PM",
+        "principal": {
+          "pick": "Marseille ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
       }
     ]
   },
@@ -630,53 +623,27 @@ const leaguesData = [
     "name": "Eredivisie",
     "games": [
       {
-        "partido": "FC Groningen vs Feyenoord Rotterdam",
-        "hora": "10:30 AM",
+        "partido": "FC Utrecht vs Excelsior",
+        "hora": "06:15 AM",
         "principal": {
-          "pick": "Feyenoord Rotterdam ML",
+          "pick": "Excelsior ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
       },
       {
-        "partido": "Fortuna Sittard vs Heerenveen",
-        "hora": "12:45 PM",
+        "partido": "FC Volendam vs Heracles Almelo",
+        "hora": "08:30 AM",
         "principal": {
-          "pick": "Heerenveen ML",
+          "pick": "Heracles Almelo ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Ajax Amsterdam vs NAC Breda",
-        "hora": "02:00 PM",
-        "principal": {
-          "pick": "NAC Breda ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "NEC Nijmegen vs FC Twente",
-        "hora": "03:00 PM",
-        "principal": {
-          "pick": "FC Twente ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
@@ -687,40 +654,53 @@ const leaguesData = [
     "name": "Primeira Liga",
     "games": [
       {
-        "partido": "C.D. Nacional vs Tondela",
+        "partido": "FC Famalicao vs Estoril",
         "hora": "10:30 AM",
         "principal": {
-          "pick": "Tondela ML",
+          "pick": "Estoril ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
       },
       {
-        "partido": "Moreirense vs Benfica",
+        "partido": "FC Porto vs Estrela",
         "hora": "01:00 PM",
         "principal": {
-          "pick": "Benfica ML",
+          "pick": "Estrela ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
       },
       {
-        "partido": "Rio Ave vs Vit\u00f3ria de Guimaraes",
-        "hora": "03:30 PM",
+        "partido": "Braga vs Santa Clara",
+        "hora": "01:00 PM",
         "principal": {
-          "pick": "Vit\u00f3ria de Guimaraes ML",
+          "pick": "Santa Clara ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
+        },
+        "secundaria": null,
+        "prop_jugador": null
+      },
+      {
+        "partido": "Sporting CP vs AVS",
+        "hora": "03:30 PM",
+        "principal": {
+          "pick": "AVS ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
@@ -731,82 +711,54 @@ const leaguesData = [
     "name": "Bundesliga",
     "games": [
       {
-        "partido": "St. Pauli vs 1. FC Heidenheim 1846",
+        "partido": "Werder Bremen vs VfB Stuttgart",
         "hora": "09:30 AM",
         "principal": {
-          "pick": "1. FC Heidenheim 1846 ML",
+          "pick": "VfB Stuttgart ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
-        "secundaria": null,
-        "prop_jugador": null
+        "secundaria": {
+          "pick": "Over 2.5 goles",
+          "cuota": 1.85,
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
+        },
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
       },
       {
-        "partido": "Eintracht Frankfurt vs FC Augsburg",
-        "hora": "09:30 AM",
+        "partido": "SC Freiburg vs Borussia Dortmund",
+        "hora": "11:30 AM",
         "principal": {
-          "pick": "FC Augsburg ML",
+          "pick": "Borussia Dortmund ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Bayer Leverkusen vs FC Cologne",
-        "hora": "09:30 AM",
-        "principal": {
-          "pick": "FC Cologne ML",
+        "secundaria": {
+          "pick": "Over 2.5 goles",
           "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "ev": "+7.5%",
+          "stake": "1.0%",
+          "regla": "Partido ofensivo"
         },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Bayern Munich vs Mainz",
-        "hora": "09:30 AM",
-        "principal": {
-          "pick": "Mainz ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Borussia M\u00f6nchengladbach vs VfL Wolfsburg",
-        "hora": "09:30 AM",
-        "principal": {
-          "pick": "VfL Wolfsburg ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "TSG Hoffenheim vs Hamburg SV",
-        "hora": "12:30 PM",
-        "principal": {
-          "pick": "Hamburg SV ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
+        "prop_jugador": {
+          "jugador": "Jugador destacado",
+          "prop": "Over 0.5 goles",
+          "cuota": 2.1,
+          "stake": "0.5%",
+          "ev": "+9.0%"
+        }
       }
     ]
   },
@@ -814,183 +766,14 @@ const leaguesData = [
     "name": "MLS",
     "games": [
       {
-        "partido": "Atlanta United FC vs Toronto FC",
-        "hora": "01:00 PM",
+        "partido": "Real Salt Lake vs LA Galaxy",
+        "hora": "07:00 PM",
         "principal": {
-          "pick": "Toronto FC ML",
+          "pick": "LA Galaxy ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "New York City FC vs CF Montr\u00e9al",
-        "hora": "02:30 PM",
-        "principal": {
-          "pick": "CF Montr\u00e9al ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "LAFC vs Minnesota United FC",
-        "hora": "04:45 PM",
-        "principal": {
-          "pick": "Minnesota United FC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Philadelphia Union vs Columbus Crew",
-        "hora": "07:30 PM",
-        "principal": {
-          "pick": "Columbus Crew ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Orlando City SC vs D.C. United",
-        "hora": "07:30 PM",
-        "principal": {
-          "pick": "D.C. United ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Red Bull New York vs FC Cincinnati",
-        "hora": "07:30 PM",
-        "principal": {
-          "pick": "FC Cincinnati ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "New England Revolution vs Inter Miami CF",
-        "hora": "07:30 PM",
-        "principal": {
-          "pick": "Inter Miami CF ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Houston Dynamo FC vs Austin FC",
-        "hora": "08:30 PM",
-        "principal": {
-          "pick": "Austin FC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Sporting Kansas City vs Chicago Fire FC",
-        "hora": "08:30 PM",
-        "principal": {
-          "pick": "Chicago Fire FC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Charlotte FC vs Nashville SC",
-        "hora": "08:30 PM",
-        "principal": {
-          "pick": "Nashville SC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "San Jose Earthquakes vs St. Louis CITY SC",
-        "hora": "08:30 PM",
-        "principal": {
-          "pick": "St. Louis CITY SC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Portland Timbers vs San Diego FC",
-        "hora": "09:30 PM",
-        "principal": {
-          "pick": "San Diego FC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "FC Dallas vs Seattle Sounders FC",
-        "hora": "10:30 PM",
-        "principal": {
-          "pick": "Seattle Sounders FC ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Colorado Rapids vs Vancouver Whitecaps",
-        "hora": "10:30 PM",
-        "principal": {
-          "pick": "Vancouver Whitecaps ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
@@ -1008,7 +791,7 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
@@ -1026,7 +809,7 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
@@ -1039,7 +822,7 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Valor por defecto"
+          "regla": "Valor por defecto (hook para reglas reales)"
         },
         "secundaria": null,
         "prop_jugador": null
@@ -1049,10 +832,10 @@ const leaguesData = [
 ];
 const oldResults = [];
 const mejores = [
-  "\u2705 Datos en tiempo real desde ESPN sin dependencias externas",
-  "\u2705 Ligas de f\u00fatbol separadas por nombre real",
-  "\u2705 Horario ajustado a Venezuela (UTC-4)",
-  "\u2705 MLB, NBA, NHL tambi\u00e9n desde ESPN"
+  "\u2705 Sistema ThIA-SA v6.0 - Profesional",
+  "\u2705 Fuentes: ESPN + API-Football (f\u00fatbol) | ESPN + statsapi (MLB)",
+  "\u2705 Horario Venezuela (UTC-4)",
+  "\u2705 Preparado para reglas reales de apuestas"
 ];
 const parlaysData = [];
 const todayResultsArray = {
