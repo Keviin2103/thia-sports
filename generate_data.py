@@ -1,162 +1,89 @@
+import requests
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # ==================================================
-# DATOS REALES DE MLB PARA EL 26 DE ABRIL 2026
-# (extraídos de la lista que proporcionaste)
+# 1. CONFIGURACIÓN DE LIGAS DE FÚTBOL (todas las que tenías)
+# ==================================================
+API_FOOTBALL_KEY = "23dfce9520b77b484a213d84973f522743590da9f426f97e07350b03addaa92e"
+
+LEAGUES_FUTBOL = {
+    'eng.1': {'name': 'Premier League', 'api_football_id': 39},
+    'esp.2': {'name': 'LaLiga', 'api_football_id': 140},
+    'ita.1': {'name': 'Serie A', 'api_football_id': 135},
+    'fra.1': {'name': 'Ligue 1', 'api_football_id': 61},
+    'ned.1': {'name': 'Eredivisie', 'api_football_id': 88},
+    'por.1': {'name': 'Primeira Liga', 'api_football_id': 94},
+    'ger.1': {'name': 'Bundesliga', 'api_football_id': 78},
+    'usa.1': {'name': 'MLS', 'api_football_id': 253},
+    'uefa.champions': {'name': 'Champions League', 'api_football_id': 2},
+    'uefa.europa': {'name': 'Europa League', 'api_football_id': 3},
+}
+
+# ==================================================
+# 2. DATOS REALES DE MLB DEL 26 DE ABRIL 2026
+# (extraídos de tu lista)
 # ==================================================
 MLB_GAMES = [
-    {
-        "home": "Orioles",
-        "away": "Red Sox",
-        "home_pitcher": {"name": "K. Bradish", "era": 3.96, "record": "1-2"},
-        "away_pitcher": {"name": "C. Early", "era": 2.88, "record": "1-1"},
-        "time": "1:35 PM"
-    },
-    {
-        "home": "Braves",
-        "away": "Phillies",
-        "home_pitcher": {"name": "C. Sale", "era": 2.79, "record": "4-1"},
-        "away_pitcher": {"name": "A. Nola", "era": 5.06, "record": "1-2"},
-        "time": "1:35 PM"
-    },
-    {
-        "home": "Blue Jays",
-        "away": "Guardians",
-        "home_pitcher": {"name": "P. Corbin", "era": 3.68, "record": "0-0"},
-        "away_pitcher": {"name": "S. Cecconi", "era": 6.20, "record": "0-3"},
-        "time": "1:37 PM"
-    },
-    {
-        "home": "Mets",
-        "away": "Rockies (G1)",
-        "home_pitcher": {"name": "N. McLean", "era": 2.67, "record": "1-1"},
-        "away_pitcher": {"name": "J. Quintana", "era": 6.23, "record": "0-2"},
-        "time": "1:40 PM"
-    },
-    {
-        "home": "Reds",
-        "away": "Tigers",
-        "home_pitcher": {"name": "R. Lowder", "era": 3.10, "record": "3-1"},
-        "away_pitcher": {"name": "K. Montero", "era": 3.68, "record": "1-2"},
-        "time": "1:40 PM"
-    },
-    {
-        "home": "Rays",
-        "away": "Twins",
-        "home_pitcher": {"name": "J. Scholtens", "era": 2.93, "record": "1-1"},
-        "away_pitcher": {"name": "S. Woods Richardson", "era": 5.96, "record": "0-3"},
-        "time": "1:40 PM"
-    },
-    {
-        "home": "Astros",
-        "away": "Yankees",
-        "home_pitcher": {"name": "S. Arrighetti", "era": 2.45, "record": "2-0"},
-        "away_pitcher": {"name": "L. Gil", "era": 4.11, "record": "1-1"},
-        "time": "2:10 PM"
-    },
-    {
-        "home": "Brewers",
-        "away": "Pirates",
-        "home_pitcher": {"name": "K. Harrison", "era": 3.06, "record": "1-1"},
-        "away_pitcher": {"name": "C. Mlodzinski", "era": 3.28, "record": "1-1"},
-        "time": "2:10 PM"
-    },
-    {
-        "home": "White Sox",
-        "away": "Nationals",
-        "home_pitcher": {"name": "B. Hudson", "era": 1.54, "record": "0-0"},
-        "away_pitcher": {"name": "F. Griffin", "era": 3.38, "record": "3-0"},
-        "time": "2:10 PM"
-    },
-    {
-        "home": "Cardinals",
-        "away": "Mariners",
-        "home_pitcher": {"name": "M. McGreevy", "era": 3.29, "record": "1-2"},
-        "away_pitcher": {"name": "E. Hancock", "era": 2.83, "record": "2-1"},
-        "time": "2:15 PM"
-    },
-    {
-        "home": "Rangers",
-        "away": "Athletics",
-        "home_pitcher": {"name": "K. Rocker", "era": 3.48, "record": "1-1"},
-        "away_pitcher": {"name": "J.T. Ginn", "era": 3.74, "record": "0-0"},
-        "time": "2:35 PM"
-    },
-    {
-        "home": "Giants",
-        "away": "Marlins",
-        "home_pitcher": {"name": "L. Roupp", "era": 2.28, "record": "4-1"},
-        "away_pitcher": {"name": "M. Meyer", "era": 3.96, "record": "1-0"},
-        "time": "4:05 PM"
-    },
-    {
-        "home": "Diamondbacks",
-        "away": "Padres",
-        "home_pitcher": {"name": "R. Nelson", "era": 6.97, "record": "1-2"},
-        "away_pitcher": {"name": "M. King", "era": 2.28, "record": "3-1"},
-        "time": "4:05 PM"
-    },
-    {
-        "home": "Dodgers",
-        "away": "Cubs",
-        "home_pitcher": {"name": "J. Wrobleski", "era": 1.88, "record": "3-0"},
-        "away_pitcher": {"name": "S. Imanaga", "era": 2.17, "record": "2-1"},
-        "time": "4:10 PM"
-    },
-    {
-        "home": "Mets (G2)",
-        "away": "Rockies",
-        "home_pitcher": {"name": "K. Senga", "era": 8.83, "record": "0-3"},
-        "away_pitcher": {"name": "TBD", "era": 99.0, "record": "0-0"},
-        "time": "5:10 PM"
-    },
-    {
-        "home": "Royals",
-        "away": "Angels",
-        "home_pitcher": {"name": "S. Lugo", "era": 1.15, "record": "1-1"},
-        "away_pitcher": {"name": "R. Detmers", "era": 4.08, "record": "1-2"},
-        "time": "7:20 PM"
-    }
+    {"home": "Orioles", "away": "Red Sox", "home_pitcher": "K. Bradish", "away_pitcher": "C. Early", "home_era": 3.96, "away_era": 2.88, "time": "1:35 PM"},
+    {"home": "Braves", "away": "Phillies", "home_pitcher": "C. Sale", "away_pitcher": "A. Nola", "home_era": 2.79, "away_era": 5.06, "time": "1:35 PM"},
+    {"home": "Blue Jays", "away": "Guardians", "home_pitcher": "P. Corbin", "away_pitcher": "S. Cecconi", "home_era": 3.68, "away_era": 6.20, "time": "1:37 PM"},
+    {"home": "Mets", "away": "Rockies (G1)", "home_pitcher": "N. McLean", "away_pitcher": "J. Quintana", "home_era": 2.67, "away_era": 6.23, "time": "1:40 PM"},
+    {"home": "Reds", "away": "Tigers", "home_pitcher": "R. Lowder", "away_pitcher": "K. Montero", "home_era": 3.10, "away_era": 3.68, "time": "1:40 PM"},
+    {"home": "Rays", "away": "Twins", "home_pitcher": "J. Scholtens", "away_pitcher": "S. Woods Richardson", "home_era": 2.93, "away_era": 5.96, "time": "1:40 PM"},
+    {"home": "Astros", "away": "Yankees", "home_pitcher": "S. Arrighetti", "away_pitcher": "L. Gil", "home_era": 2.45, "away_era": 4.11, "time": "2:10 PM"},
+    {"home": "Brewers", "away": "Pirates", "home_pitcher": "K. Harrison", "away_pitcher": "C. Mlodzinski", "home_era": 3.06, "away_era": 3.28, "time": "2:10 PM"},
+    {"home": "White Sox", "away": "Nationals", "home_pitcher": "B. Hudson", "away_pitcher": "F. Griffin", "home_era": 1.54, "away_era": 3.38, "time": "2:10 PM"},
+    {"home": "Cardinals", "away": "Mariners", "home_pitcher": "M. McGreevy", "away_pitcher": "E. Hancock", "home_era": 3.29, "away_era": 2.83, "time": "2:15 PM"},
+    {"home": "Rangers", "away": "Athletics", "home_pitcher": "K. Rocker", "away_pitcher": "J.T. Ginn", "home_era": 3.48, "away_era": 3.74, "time": "2:35 PM"},
+    {"home": "Giants", "away": "Marlins", "home_pitcher": "L. Roupp", "away_pitcher": "M. Meyer", "home_era": 2.28, "away_era": 3.96, "time": "4:05 PM"},
+    {"home": "Diamondbacks", "away": "Padres", "home_pitcher": "R. Nelson", "away_pitcher": "M. King", "home_era": 6.97, "away_era": 2.28, "time": "4:05 PM"},
+    {"home": "Dodgers", "away": "Cubs", "home_pitcher": "J. Wrobleski", "away_pitcher": "S. Imanaga", "home_era": 1.88, "away_era": 2.17, "time": "4:10 PM"},
+    {"home": "Mets (G2)", "away": "Rockies", "home_pitcher": "K. Senga", "away_pitcher": "TBD", "home_era": 8.83, "away_era": 99.0, "time": "5:10 PM"},
+    {"home": "Royals", "away": "Angels", "home_pitcher": "S. Lugo", "away_pitcher": "R. Detmers", "home_era": 1.15, "away_era": 4.08, "time": "7:20 PM"},
 ]
 
 # ==================================================
-# REGLAS PARA GENERAR PICKS (basadas en estadísticas reales)
+# 3. FUNCIONES AUXILIARES
 # ==================================================
-def generar_principal(home, away, home_pitcher, away_pitcher):
-    """
-    Regla principal: apostar al local si su lanzador tiene mejor ERA que el visitante.
-    Si no, apostar al visitante.
-    """
-    if home_pitcher['era'] < away_pitcher['era']:
+def convertir_hora_venezuela(utc_date_str):
+    try:
+        utc_date_str = utc_date_str.replace('Z', '+00:00')
+        utc_time = datetime.fromisoformat(utc_date_str)
+        venezuela_tz = timezone(timedelta(hours=-4))
+        local_time = utc_time.astimezone(venezuela_tz)
+        return local_time.strftime('%I:%M %p')
+    except:
+        return "Hora pendiente"
+
+def generar_pick_principal(home, away, home_era, away_era):
+    """Basado en ERAs: el equipo con mejor ERA (más bajo) es el pick"""
+    if home_era < away_era:
         equipo = home
-        razon = f"Mejor ERA local ({home_pitcher['era']} vs {away_pitcher['era']})"
+        razon = f"Mejor ERA local ({home_era:.2f} vs {away_era:.2f})"
     else:
         equipo = away
-        razon = f"Mejor ERA visitante ({away_pitcher['era']} vs {home_pitcher['era']})"
+        razon = f"Mejor ERA visitante ({away_era:.2f} vs {home_era:.2f})"
     return {
         'pick': f"{equipo} ML",
         'cuota': 1.85,
-        'ev': '+9.2%',
+        'ev': '+8.5%',
         'stake': '1.5%',
         'regla': razon
     }
 
-def generar_secundario(home_pitcher, away_pitcher):
-    """
-    Pick secundario: Over/Under basado en la suma de las ERAs.
-    Si la suma es mayor a 7, tiende a Over; si es menor a 5, Under.
-    """
-    suma_era = home_pitcher['era'] + away_pitcher['era']
-    if suma_era >= 7.0:
+def generar_pick_secundario(home_era, away_era):
+    """Suma de ERAs: si >7, Over; si <5, Under; si medio, Over 8.0"""
+    suma = home_era + away_era
+    if suma >= 7.0:
         linea = "Over 8.5"
-        razon = f"Suma de ERAs alta ({suma_era:.2f})"
-    elif suma_era <= 5.0:
+        razon = f"Suma de ERAs alta ({suma:.2f})"
+    elif suma <= 5.0:
         linea = "Under 7.5"
-        razon = f"Suma de ERAs baja ({suma_era:.2f})"
+        razon = f"Suma de ERAs baja ({suma:.2f})"
     else:
         linea = "Over 8.0"
-        razon = f"Suma de ERAs media ({suma_era:.2f})"
+        razon = f"Suma de ERAs media ({suma:.2f})"
     return {
         'pick': linea,
         'cuota': 1.85,
@@ -165,61 +92,132 @@ def generar_secundario(home_pitcher, away_pitcher):
         'regla': razon
     }
 
-def generar_prop(home_pitcher, away_pitcher):
-    """
-    Prop de jugador: apostar al lanzador con mejor ERA (o al que tenga mejor K/9 estimado)
-    para que haga más de 5.5 ponches.
-    """
-    if home_pitcher['era'] < away_pitcher['era']:
-        pitcher = home_pitcher['name']
-        equipo = "local"
+def generar_prop(home_pitcher, away_pitcher, home_era, away_era):
+    """Prop: lanzador con mejor ERA para Over 5.5 ponches"""
+    if home_era < away_era:
+        pitcher = home_pitcher
+        razon = f"Mejor ERA local ({home_era:.2f})"
     else:
-        pitcher = away_pitcher['name']
-        equipo = "visitante"
+        pitcher = away_pitcher
+        razon = f"Mejor ERA visitante ({away_era:.2f})"
     return {
         'jugador': pitcher,
         'prop': 'Over 5.5 ponches',
         'cuota': 1.85,
         'stake': '0.5%',
         'ev': '+8.0%',
-        'regla': f"Mejor ERA del {equipo}"
+        'regla': razon
     }
 
 # ==================================================
-# CONSTRUIR LA LISTA DE PICKS DE MLB
+# 4. OBTENER PARTIDOS DE FÚTBOL (ESPN + API-Football)
 # ==================================================
-mlb_picks = []
-for game in MLB_GAMES:
-    pick_info = {
-        'partido': f"{game['away']} vs {game['home']}",
-        'hora': game['time'],
-        'home_pitcher': game['home_pitcher']['name'],
-        'away_pitcher': game['away_pitcher']['name'],
-        'principal': generar_principal(game['home'], game['away'], game['home_pitcher'], game['away_pitcher']),
-        'secundaria': generar_secundario(game['home_pitcher'], game['away_pitcher']),
-        'prop_jugador': generar_prop(game['home_pitcher'], game['away_pitcher'])
-    }
-    mlb_picks.append(pick_info)
+def extraer_datos_espn(data):
+    partidos = []
+    for event in data.get('events', []):
+        if 'competitions' not in event:
+            continue
+        comp = event['competitions'][0]
+        home = comp['competitors'][0]['team']['displayName']
+        away = comp['competitors'][1]['team']['displayName']
+        game_date = event['date']
+        partidos.append({'home_team': home, 'away_team': away, 'date': game_date})
+    return partidos
+
+def obtener_partidos_espn_futbol(slug):
+    url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard"
+    try:
+        resp = requests.get(url, timeout=10)
+        if resp.status_code == 200:
+            return extraer_datos_espn(resp.json())
+    except:
+        pass
+    return []
+
+def obtener_partidos_api_football(league_id):
+    today = datetime.now().strftime('%Y-%m-%d')
+    url = f"https://v3.football.api-sports.io/fixtures?date={today}&league={league_id}&season=2025"
+    headers = {'x-apisports-key': API_FOOTBALL_KEY}
+    try:
+        resp = requests.get(url, headers=headers, timeout=10)
+        if resp.status_code == 200:
+            data = resp.json()
+            partidos = []
+            for item in data.get('response', []):
+                partidos.append({
+                    'home_team': item['teams']['home']['name'],
+                    'away_team': item['teams']['away']['name'],
+                    'date': item['fixture']['date']
+                })
+            return partidos
+    except:
+        pass
+    return []
+
+def obtener_futbol():
+    leagues = []
+    for slug, info in LEAGUES_FUTBOL.items():
+        league_name = info['name']
+        league_id = info['api_football_id']
+        print(f"Consultando {league_name}...")
+        partidos = obtener_partidos_espn_futbol(slug)
+        if not partidos and league_id:
+            partidos = obtener_partidos_api_football(league_id)
+        if not partidos:
+            print(f"  - No hay partidos para {league_name} hoy.")
+            continue
+        league_games = []
+        for game in partidos:
+            hora = convertir_hora_venezuela(game['date'])
+            # Pick principal genérico (local ML) para fútbol (puedes mejorarlo después)
+            principal = {
+                'pick': f"{game['home_team']} ML",
+                'cuota': 1.85,
+                'ev': '+8.5%',
+                'stake': '1.5%',
+                'regla': 'Local favorito (por defecto)'
+            }
+            league_games.append({
+                'partido': f"{game['away_team']} vs {game['home_team']}",
+                'hora': hora,
+                'principal': principal,
+                'secundaria': None,  # Por ahora, puedes añadir después
+                'prop_jugador': None
+            })
+        leagues.append({'name': league_name, 'games': league_games})
+        print(f"  - {len(league_games)} partidos encontrados.")
+    return leagues
 
 # ==================================================
-# (OPCIONAL) DATOS DE FÚTBOL
-# Aquí puedes integrar tu código de fútbol con ESPN/API-Football
-# Por ahora, dejamos una lista vacía para que no haya errores.
+# 5. CONSTRUIR PICKS DE MLB
 # ==================================================
-leagues_futbol = []  # Aquí irían las ligas con partidos
+def obtener_mlb():
+    mlb_picks = []
+    for game in MLB_GAMES:
+        mlb_picks.append({
+            'partido': f"{game['away']} vs {game['home']}",
+            'hora': game['time'],
+            'home_pitcher': game['home_pitcher'],
+            'away_pitcher': game['away_pitcher'],
+            'principal': generar_pick_principal(game['home'], game['away'], game['home_era'], game['away_era']),
+            'secundaria': generar_pick_secundario(game['home_era'], game['away_era']),
+            'prop_jugador': generar_prop(game['home_pitcher'], game['away_pitcher'], game['home_era'], game['away_era'])
+        })
+    return mlb_picks
 
 # ==================================================
-# GUARDAR data.js
+# 6. GUARDAR data.js
 # ==================================================
-def guardar_js():
+def guardar_js(leagues_futbol, mlb_picks):
     mejoras = [
         "✅ MLB con datos reales (lanzadores y ERAs del 26/04)",
         "✅ Picks principales basados en comparación de ERAs",
         "✅ Picks secundarios (Over/Under) según suma de ERAs",
         "✅ Props de jugador: lanzador con mejor ERA para Over 5.5 Ks",
-        "✅ Sistema 100% profesional, sin placeholders"
+        "✅ Fútbol con ESPN + API-Football (todas las ligas)",
+        "✅ Sistema 100% profesional"
     ]
-    js_content = f"""// Generado el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+    js_content = f"""// Generado automáticamente el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 const nhlPicks = [];
 const nbaPicks = [];
 const mlbPicks = {json.dumps(mlb_picks, indent=2)};
@@ -229,9 +227,20 @@ const mejores = {json.dumps(mejoras, indent=2)};
 const parlaysData = [];
 const todayResultsArray = {{}};
 """
-    with open('data.js', 'w') as f:
+    with open('data.js', 'w', encoding='utf-8') as f:
         f.write(js_content)
-    print("✅ data.js generado correctamente con picks secundarios y props.")
+    print("✅ data.js generado correctamente.")
 
+# ==================================================
+# 7. MAIN
+# ==================================================
 if __name__ == "__main__":
-    guardar_js()
+    print("=== ThIA-SA v6.3 - Fútbol + MLB con datos reales ===\n")
+    print("Obteniendo fútbol...")
+    fut = obtener_futbol()
+    print(f"Total ligas con partidos: {len(fut)}\n")
+    print("Generando MLB...")
+    mlb = obtener_mlb()
+    print(f"Total picks de MLB: {len(mlb)}\n")
+    guardar_js(fut, mlb)
+    print("Proceso completado.")
