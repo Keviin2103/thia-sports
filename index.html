@@ -439,7 +439,7 @@
 <footer>ThIA Sports · Sistema ThIA-SA v5.8 · Picks actualizados · 26/04/2026</footer>
 
 <script>
-    // ========== MAPA DE LOGOS ESPN (idéntico al original) ==========
+    // ========== MAPA DE LOGOS (idéntico al original) ==========
     function getTeamLogo(teamName, sport) {
         const normalized = teamName.trim();
         const logos = {
@@ -511,8 +511,7 @@
         return logos[normalized] || null;
     }
 
-    // ========== DATOS ACTUALIZADOS 26/04/2026 (horarios Venezuela) ==========
-
+    // ========== DATOS ACTUALIZADOS 26/04/2026 ==========
     // MLB (15 partidos reales de domingo 26 de abril)
     const mlbPicks = [
         { partido: "Red Sox vs Orioles", hora: "1:35 PM VEN", principal: { pick: "Orioles ML", cuota: 1.85, stake: "1.5%", ev: "+8.5%" }, secundaria: { pick: "Over 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Adley Rutschman", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
@@ -553,25 +552,21 @@
         { partido: "Sevilla vs Valencia", hora: "3:00 PM VEN", principal: { pick: "Sevilla DNB", cuota: 1.80, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Youssef En-Nesyri", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.0%" } }
     ];
 
-    // Premier League (26 de abril)
     const premierPicks = [
         { partido: "Manchester City vs Liverpool", hora: "11:30 AM VEN", principal: { pick: "Manchester City ML", cuota: 1.70, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Over 3.5", cuota: 1.85, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Erling Haaland", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } },
         { partido: "Arsenal vs Chelsea", hora: "9:00 AM VEN", principal: { pick: "Arsenal ML", cuota: 1.60, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Over 2.5", cuota: 1.85, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Bukayo Saka", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } }
     ];
 
-    // Serie A (26 de abril)
     const serieAPicks = [
         { partido: "Juventus vs Milan", hora: "2:45 PM VEN", principal: { pick: "Juventus ML", cuota: 1.65, stake: "1.5%", ev: "+8.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Dušan Vlahović", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.5%" } }
     ];
 
-    // Ligue 1 (26 de abril)
     const ligue1Picks = [
         { partido: "PSG vs Marseille", hora: "3:05 PM VEN", principal: { pick: "PSG ML", cuota: 1.45, stake: "1.5%", ev: "+10.5%" }, secundaria: { pick: "Over 3.5", cuota: 1.85, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Kylian Mbappé", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } }
     ];
 
-    // MLS / Otras ligas (ejemplo)
-    const mlsPicks = [
-        { partido: "Inter Miami vs LAFC", hora: "7:30 PM VEN", principal: { pick: "Inter Miami ML", cuota: 1.80, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Over 3.0", cuota: 1.85, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Lionel Messi", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } }
+    const venezuelaPicks = [
+        { partido: "Deportivo Táchira vs Caracas FC", hora: "5:00 PM VEN", principal: { pick: "Deportivo Tachirense DNB", cuota: 1.75, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.85, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Delantero Táchira", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.5%" } }
     ];
 
     // Agrupar fútbol
@@ -580,10 +575,10 @@
         { name: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", data: premierPicks },
         { name: "🇮🇹 Serie A", data: serieAPicks },
         { name: "🇫🇷 Ligue 1", data: ligue1Picks },
-        { name: "🇺🇸 MLS", data: mlsPicks }
+        { name: "🇻🇪 Liga FUTVE", data: venezuelaPicks }
     ];
 
-    // ========== RESULTADOS ANTERIORES (actualizados con últimos hits/fails) ==========
+    // Resultados anteriores (actualizados)
     const oldResults = [
         { fecha: "2026-04-25", deporte: "MLB", pick: "Dodgers ML vs Cubs", cuota: 1.55, estado: "hit" },
         { fecha: "2026-04-25", deporte: "NBA", pick: "Celtics -6.5 vs 76ers", cuota: 1.91, estado: "hit" },
@@ -593,22 +588,22 @@
         { fecha: "2026-04-23", deporte: "MLB", pick: "Yankees ML vs Athletics", cuota: 1.65, estado: "hit" }
     ];
 
-    // Parlays (ajustados a los picks de hoy)
+    // Parlays
     const parlaysData = [
         { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Dodgers vs Cubs | Dodgers ML (1.45)"], odds: "1.45", stake: "3%", desc: "Cuota baja pero máxima confianza" },
         { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Celtics vs 76ers | Celtics ML (1.45)", "MLB | Braves vs Phillies | Braves ML (1.65)"], odds: "2.39", stake: "2%", desc: "Dos favoritos sólidos" },
         { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Dodgers ML (1.45)", "NBA | Thunder ML (1.60)", "NHL | Hurricanes ML (1.50)", "Fútbol | PSG ML (1.45)"], odds: "5.05", stake: "1.5%", desc: "Cuatro favoritos de alto valor" },
-        { name: "MILLONARIO 6 PICKS", type: "gold", picks: ["MLB | Braves ML (1.65)", "NBA | Celtics ML (1.45)", "NHL | Penguins ML (1.55)", "Fútbol | Barcelona ML (1.55)", "MLB | Dodgers ML (1.45)", "NBA | Pistons ML (1.50)"], odds: "13.95", stake: "0.5%", desc: "Seis equipos fuertes en casa" }
+        { name: "MILLONARIO 6 PICKS", type: "gold", picks: ["MLB | Braves ML (1.65)", "NBA | Celtics ML (1.45)", "NHL | Penguins ML (1.55)", "Fútbol | Barcelona ML (1.55)", "MLB | Dodgers ML (1.45)", "NBA | Pistons ML (1.50)"], odds: "13.95", stake: "0.5%", desc: "Seis equipos fuertes" }
     ];
 
     const mejoras = [
-        "✅ R158: En MLB, priorizar Under cuando ambos abridores tienen ERA < 3.50 (aplicado en varios picks)",
+        "✅ R158: En MLB, priorizar Under cuando ambos abridores tienen ERA < 3.50",
         "✅ R159: En NBA playoffs, los handicaps de -5.5 o más son sólidos",
         "✅ R160: En NHL, los equipos con mejor power play en casa son confiables",
         "✅ R161: En fútbol, los locales con forma reciente (3+ victorias) tienen EV positivo",
         "✅ R162: No apostar más del 2% del bankroll en un solo pick",
         "✅ R163: En enfrentamientos directos, priorizar el momento del equipo",
-        "✅ R164: Los props de jugadores estrella en casa tienen EV positivo comprobado"
+        "✅ R164: Los props de jugadores estrella en casa tienen EV positivo"
     ];
 
     // Sistema de login (idéntico al original)
@@ -869,7 +864,7 @@
             { pick: "PSG ML vs Marseille", resultado: "Pendiente", nota: "3:05 PM VEN" }
         ];
         let tbody = document.getElementById('resultsTableBody');
-        tbody.innerHTML = todayResults.map(r => `<tr><td>${r.pick}</td><td>${r.resultado}</td><td>${r.nota}</td>`).join('');
+        tbody.innerHTML = todayResults.map(r => `<tr><td>${r.pick}</td><td>${r.resultado}</td><td>${r.nota}</td></tr>`).join('');
         
         let oldTbody = document.getElementById('oldResultsTableBody');
         oldTbody.innerHTML = oldResults.map(r => `<tr><td>${r.fecha}</td><td>${r.deporte}</td><td>${r.pick}</td><td>${r.cuota}</td><td class="${r.estado === 'hit' ? 'result-hit' : 'result-fail'}">${r.estado === 'hit' ? '✔ ACIERTO' : '✘ FALLO'}</td></tr>`).join('');
