@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime, timezone, timedelta
 
-# ========== 1. CONFIGURACIÓN ==========
+# ========== 1. CONFIGURACIÓN DE LIGAS DE FÚTBOL ==========
 SOCCER_LEAGUES = {
     'eng.1': 'Premier League',
     'esp.2': 'LaLiga',
@@ -16,7 +16,7 @@ SOCCER_LEAGUES = {
     'uefa.europa': 'Europa League',
 }
 
-# ========== 2. FUNCIONES ==========
+# ========== 2. FUNCIONES PARA OBTENER FÚTBOL (ya las tenías) ==========
 def obtener_fecha_actual_venezuela():
     venezuela_tz = timezone(timedelta(hours=-4))
     return datetime.now(venezuela_tz).strftime('%Y-%m-%d')
@@ -50,24 +50,82 @@ def convertir_hora_venezuela(utc_date_str):
     except:
         return "Hora pendiente"
 
-def generar_principal(home, away):
+def generar_principal_futbol(home, away):
     return {
         'pick': f"{home} ML",
         'cuota': 1.85,
         'ev': '+8.5%',
         'stake': '1.5%',
-        'regla': 'Ejemplo'
+        'regla': 'Ejemplo (local favorito)'
     }
 
+# ========== 3. NUEVA FUNCIÓN PARA OBTENER MLB DESDE ESPN ==========
+def fetch_mlb_games_espn():
+    """Obtiene los juegos de MLB del día actual desde la API pública de ESPN."""
+    hoy = datetime.now().strftime('%Y%m%d')
+    url = f"https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates={hoy}"
+    juegos = []
+    try:
+        resp = requests.get(url, timeout=10)
+        if resp.status_code == 200:
+            data = resp.json()
+            for event in data.get('events', []):
+                if 'competitions' in event:
+                    comp = event['competitions'][0]
+                    home = comp['competitors'][0]['team']['displayName']
+                    away = comp['competitors'][1]['team']['displayName']
+                    # Lanzadores probables (si están disponibles)
+                    home_pitcher = comp['competitors'][0].get('probable', {}).get('athlete', {}).get('displayName', 'Por definir')
+                    away_pitcher = comp['competitors'][1].get('probable', {}).get('athlete', {}).get('displayName', 'Por definir')
+                    game_date = event['date']
+                    status = event['status']['type']['description']
+                    juegos.append({
+                        'home': home,
+                        'away': away,
+                        'home_pitcher': home_pitcher,
+                        'away_pitcher': away_pitcher,
+                        'date': game_date,
+                        'status': status
+                    })
+            return juegos
+        else:
+            print(f"Error MLB: {resp.status_code}")
+            return []
+    except Exception as e:
+        print(f"Excepción MLB: {e}")
+        return []
+
+def generar_principal_mlb(home, away, home_pitcher, away_pitcher):
+    # Aquí puedes aplicar tus reglas de MLB (R144, R160, etc.)
+    # Por ahora, un pick de ejemplo (local ML) con los lanzadores mostrados en la descripción.
+    return {
+        'pick': f"{home} ML",
+        'cuota': 1.85,
+        'ev': '+8.5%',
+        'stake': '1.5%',
+        'regla': f'Local favorito (Lanzador: {home_pitcher})',
+        'home_pitcher': home_pitcher,
+        'away_pitcher': away_pitcher
+    }
+
+# ========== 4. GENERAR TODOS LOS PICKS (FÚTBOL + MLB) ==========
 def generar_todos_los_picks():
-    picks = {'laliga': [], 'eredivisie': []}
+    picks = {
+        'mlb': [],
+        'nba': [],
+        'nhl': [],
+        'laliga': [],
+        'eredivisie': []
+    }
+
+    # ----- FÚTBOL (igual que antes) -----
     for slug, league_name in SOCCER_LEAGUES.items():
-        juegos = fetch_espn_games(slug)
-        for juego in juegos:
-            hora_local = convertir_hora_venezuela(juego['date'])
-            principal = generar_principal(juego['home'], juego['away'])
+        games = fetch_espn_games(slug)
+        for game in games:
+            hora_local = convertir_hora_venezuela(game['date'])
+            principal = generar_principal_futbol(game['home'], game['away'])
             item = {
-                'partido': f"{juego['away']} vs {juego['home']}",
+                'partido': f"{game['away']} vs {game['home']}",
                 'hora': hora_local,
                 'principal': principal,
                 'secundaria': None,
@@ -79,27 +137,51 @@ def generar_todos_los_picks():
                 picks['laliga'].append(item)
             else:
                 picks['eredivisie'].append(item)
+
+    # ----- MLB (nuevo) -----
+    mlb_games = fetch_mlb_games_espn()
+    for game in mlb_games:
+        hora_local = convertir_hora_venezuela(game['date'])
+        principal = generar_principal_mlb(
+            game['home'], game['away'],
+            game['home_pitcher'], game['away_pitcher']
+        )
+        picks['mlb'].append({
+            'partido': f"{game['away']} vs {game['home']}",
+            'hora': hora_local,
+            'principal': principal,
+            'secundaria': None,
+            'prop_jugador': None
+        })
+
+    # ----- NBA y NHL se pueden añadir después, por ahora vacíos -----
     return picks
 
+# ========== 5. GUARDAR data.js ==========
 def guardar_js(picks):
-    mejora = ["✅ Sistema ThIA-SA - Datos ESPN", "✅ Ligas europeas completas", "✅ Horario Venezuela"]
-    js = f"""// Generado el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-const nhlPicks = [];
-const nbaPicks = [];
-const mlbPicks = [];
+    mejoras = [
+        "✅ Sistema ThIA-SA v5.9 - Datos reales desde ESPN",
+        "✅ Ligas de fútbol europeas completas",
+        "✅ MLB integrada (lanzadores incluidos)",
+        "✅ Horario ajustado a Venezuela"
+    ]
+    js_content = f"""// Generado automáticamente el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+const nhlPicks = {json.dumps(picks['nhl'], indent=2)};
+const nbaPicks = {json.dumps(picks['nba'], indent=2)};
+const mlbPicks = {json.dumps(picks['mlb'], indent=2)};
 const laligaPicks = {json.dumps(picks['laliga'], indent=2)};
 const eredivisiePicks = {json.dumps(picks['eredivisie'], indent=2)};
 const oldResults = [];
-const mejores = {json.dumps(mejora, indent=2)};
+const mejores = {json.dumps(mejoras, indent=2)};
 const parlaysData = [];
 const todayResultsArray = {{}};
 """
-    with open('data.js', 'w') as f:
-        f.write(js)
+    with open('data.js', 'w', encoding='utf-8') as f:
+        f.write(js_content)
     print("✅ data.js generado correctamente.")
 
 if __name__ == "__main__":
-    print("Obteniendo datos de ESPN...")
-    picks = generar_todos_los_picks()
-    guardar_js(picks)
+    print("Obteniendo datos de ESPN (fútbol + MLB)...")
+    todos_los_picks = generar_todos_los_picks()
+    guardar_js(todos_los_picks)
     print("Proceso completado.")
