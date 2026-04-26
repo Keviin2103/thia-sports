@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ThIA Sports Multi-Deporte — Sistema Automático v1.0</title>
+<title>ThIA Sports Multi-Deporte — 26/04/2026</title>
 <style>
 :root {
   --bg: #04070E;
@@ -24,11 +24,9 @@
   --white: #E8F0F6;
   --over: #FF6F00;
   --ev-pos: #00E676;
-  --ev-neg: #FF1744;
-  font-size: 13px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--white); font-family: -apple-system, 'Segoe UI', sans-serif; min-height: 100vh; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--white); font-family: -apple-system, 'Segoe UI', sans-serif; }
 
 /* topbar */
 .topbar {
@@ -42,146 +40,51 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
 .logo-box { background: #0A1F38; border: 1.5px solid var(--cyan); border-radius: 8px; padding: 4px 10px; text-align: center; }
 .logo-main { font-size: 14px; font-weight: 700; color: var(--cyan); line-height: 1; }
 .logo-sub  { font-size: 8px; color: var(--light); letter-spacing: 2px; }
-.logo-title h1 { font-size: 16px; font-weight: 600; color: var(--white); }
-.logo-title p  { font-size: 10px; color: var(--gold); margin-top: 2px; }
-.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray); display: inline-block; }
-.status-dot.live { background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.status-txt { font-size: 11px; color: var(--light); }
-.date-badge { background: var(--gold); color: #04070E; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-.gen-btn {
-  background: var(--cyan); color: #04070E; border: none; border-radius: 8px;
-  padding: 8px 18px; font-size: 12px; font-weight: 700; cursor: pointer;
-  display: flex; align-items: center; gap: 6px; transition: all .2s;
-}
+.logo-title h1 { font-size: 18px; font-weight: 600; color: var(--white); }
+.logo-title p  { font-size: 11px; color: var(--gold); margin-top: 2px; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 15px; }
+.date-badge { background: var(--gold); color: #04070E; padding: 4px 14px; border-radius: 30px; font-size: 12px; font-weight: 700; }
+.sport-select { background: var(--dkg); border: 1px solid var(--cyan); color: white; border-radius: 30px; padding: 6px 16px; font-size: 12px; font-weight: 600; cursor: pointer; outline: none; }
+.gen-btn { background: var(--cyan); color: #04070E; border: none; border-radius: 30px; padding: 6px 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .2s; }
 .gen-btn:hover { background: #00E5FF; }
-.gen-btn:disabled { background: var(--dkg); color: var(--gray); cursor: not-allowed; }
-.sport-select { background: var(--dkg); border: 0.5px solid var(--bord); color: var(--white); border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 500; outline: none; }
 
-/* layout */
-.container { max-width: 1400px; margin: 0 auto; padding: 16px; }
-.tabs { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
-.tab { padding: 7px 16px; border-radius: 20px; border: 0.5px solid var(--bord); background: transparent; color: var(--gray); cursor: pointer; font-size: 11px; font-weight: 600; transition: all .15s; }
+/* tabs */
+.container { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.tab { padding: 8px 18px; border-radius: 40px; border: 1px solid var(--bord); background: transparent; color: var(--gray); font-size: 12px; font-weight: 600; cursor: pointer; transition: .2s; }
 .tab.active { background: var(--cyan); color: #04070E; border-color: var(--cyan); }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
 
-/* summary */
-.summary-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 8px; margin-bottom: 14px; }
-.sum-card { background: var(--card); border: 0.5px solid var(--bord); border-radius: 10px; padding: 12px; text-align: center; }
-.sum-val { font-size: 26px; font-weight: 700; line-height: 1; }
-.sum-lbl { font-size: 10px; color: var(--light); margin-top: 4px; }
-
-/* game card */
+/* layout horizontal */
+.sport-section { margin-bottom: 30px; }
+.sport-title { font-size: 1.4rem; font-weight: 700; color: var(--cyan); margin-bottom: 12px; padding-bottom: 5px; border-bottom: 2px solid var(--cyan); display: inline-block; }
+.scroll-container { overflow-x: auto; white-space: nowrap; padding-bottom: 10px; scrollbar-width: thin; }
+.games-horizontal { display: inline-flex; gap: 18px; }
 .game-card {
-  background: var(--card); border: 0.5px solid var(--bord);
-  border-radius: 12px; margin-bottom: 10px; overflow: hidden;
+  background: var(--card); border: 1px solid var(--bord); border-radius: 16px;
+  width: 380px; flex-shrink: 0; white-space: normal;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.game-hdr {
-  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
-  border-bottom: 0.5px solid var(--bord); background: var(--dkg);
-}
-.game-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-.game-time { font-size: 11px; color: var(--cyan); font-weight: 600; }
-.hdr-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-.tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
-.tag-m3    { background: #FF6F0020; color: var(--over); border: 0.5px solid #FF6F0060; }
-.tag-b2b   { background: #EF535020; color: var(--red);  border: 0.5px solid #EF535060; }
-.tag-ev    { background: #00E67620; color: var(--ev-pos); border: 0.5px solid #00E67660; }
-.tag-r19   { background: #43A04720; color: var(--green); border: 0.5px solid #43A04760; }
-.tag-r21   { background: #AB47BC20; color: var(--purp);  border: 0.5px solid #AB47BC60; }
+.game-card:hover { transform: translateY(-5px); border-color: var(--cyan); box-shadow: 0 8px 20px rgba(0,188,212,0.2); }
+.card-header { display: flex; justify-content: space-between; padding: 10px 14px; background: var(--dkg); border-bottom: 1px solid var(--bord); font-size: 11px; }
+.league { background: var(--cyan); color: #000; padding: 2px 12px; border-radius: 20px; font-weight: bold; font-size: 10px; }
+.matchup { display: flex; align-items: center; justify-content: space-between; padding: 16px 12px; gap: 12px; }
+.team { text-align: center; flex: 1; }
+.team-logo { font-size: 36px; margin-bottom: 6px; }
+.team-name { font-weight: 700; font-size: 14px; }
+.vs-circle { background: var(--blue); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; }
 
-.game-teams { display: grid; grid-template-columns: 1fr 44px 1fr; gap: 8px; padding: 12px 14px; align-items: center; }
-.team-panel { background: var(--card2); border-radius: 8px; padding: 10px 8px; text-align: center; }
-.team-abb  { font-size: 28px; font-weight: 700; color: var(--white); line-height: 1; }
-.team-name { font-size: 10px; color: var(--light); margin-top: 2px; }
-.team-rec  { font-size: 11px; color: var(--gold); font-weight: 600; margin-top: 3px; }
-.team-side { font-size: 9px; color: var(--gray); margin-top: 2px; }
-.vs-circle { background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; font-size: 11px; font-weight: 700; margin: auto; }
+/* picks */
+.pick-card { padding: 10px 12px; background: var(--dkg); margin: 6px 12px 12px; border-radius: 12px; border-left: 4px solid var(--cyan); }
+.pick-val { font-weight: 800; font-size: 15px; }
+.pick-odds { color: var(--gold); font-weight: 700; margin-top: 4px; }
+.ev-badge { background: #00E67620; color: var(--ev-pos); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; display: inline-block; margin-top: 6px; }
+.confidence { font-size: 10px; color: var(--gray); margin-top: 6px; }
+.rule-pill { font-size: 8px; background: #1A3050; color: var(--cyan); border-radius: 12px; padding: 2px 8px; margin-right: 5px; display: inline-block; margin-top: 8px; }
 
-.prob-section { padding: 0 14px 8px; }
-.prob-bar-bg { height: 8px; background: var(--dkg); border-radius: 4px; overflow: hidden; margin-bottom: 4px; display: flex; }
-.prob-h { background: var(--cyan); height: 100%; }
-.prob-a { background: var(--red); height: 100%; }
-.prob-labels { display: flex; justify-content: space-between; font-size: 10px; }
-
-.metrics-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; padding: 0 14px 10px; }
-.met-cell { background: var(--dkg); border-radius: 6px; padding: 5px 3px; text-align: center; }
-.met-val { font-size: 11px; font-weight: 600; }
-.met-lbl { font-size: 8.5px; color: var(--gray); margin-top: 1px; }
-
-.picks-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 0 14px 10px; }
-.pick-card { border-radius: 8px; padding: 10px 8px; border: 0.5px solid; }
-.pick-type { font-size: 9px; font-weight: 700; opacity: .8; margin-bottom: 4px; }
-.pick-val  { font-size: 14px; font-weight: 700; }
-.pick-odds { font-size: 13px; color: var(--gold); font-weight: 700; margin-top: 2px; }
-.pick-ev   { font-size: 10px; font-weight: 700; margin-top: 3px; }
-.pick-ev.pos { color: var(--ev-pos); }
-.pick-ev.neg { color: var(--ev-neg); }
-.pick-conf { font-size: 9px; color: var(--gray); margin-top: 2px; }
-
-.thia-row { margin: 0 14px 10px; background: var(--dkg); border-radius: 8px; padding: 10px 12px; border-left: 3px solid; }
-.thia-header { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-.thia-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
-.thia-pick-line { font-size: 16px; font-weight: 700; }
-.thia-odds-lbl  { font-size: 13px; color: var(--gold); font-weight: 700; margin-left: 6px; }
-.thia-ev-lbl    { font-size: 12px; font-weight: 700; margin-left: 10px; }
-.conf-row { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
-.conf-bg  { flex: 1; height: 5px; background: var(--bord); border-radius: 3px; overflow: hidden; }
-.conf-fill { height: 100%; border-radius: 3px; }
-.conf-pct { font-size: 10px; font-weight: 700; }
-.thia-reason { font-size: 10px; color: var(--light); margin-top: 5px; line-height: 1.5; }
-.rules-applied { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
-.rule-pill { font-size: 9px; padding: 2px 6px; border-radius: 4px; background: #1A3050; color: var(--cyan); border: 0.5px solid #1A3050; }
-
-.props-section { padding: 0 14px 12px; }
-.props-title { font-size: 10px; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
-.props-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 5px; }
-.prop-item { background: var(--dkg); border-radius: 7px; padding: 8px 10px; border: 0.5px solid var(--bord); }
-.prop-player { font-size: 11px; font-weight: 600; color: var(--white); }
-.prop-detail { font-size: 11px; color: var(--cyan); font-weight: 600; margin-top: 2px; }
-.prop-odds { font-size: 12px; color: var(--gold); font-weight: 700; }
-.prop-ev { font-size: 10px; font-weight: 700; }
-.prop-reason { font-size: 9px; color: var(--gray); margin-top: 3px; line-height: 1.4; }
-
-.ev-table { width: 100%; border-collapse: collapse; }
-.ev-table th { background: var(--blue); color: var(--white); font-size: 11px; font-weight: 600; padding: 8px 10px; text-align: left; }
-.ev-table td { padding: 8px 10px; font-size: 11px; border-bottom: 0.5px solid var(--bord); }
-.ev-table tr:nth-child(even) td { background: var(--dkg); }
-.ev-bar-wrap { width: 80px; height: 8px; background: var(--bord); border-radius: 4px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 4px; }
-.ev-bar-fill { height: 100%; border-radius: 4px; }
-
-.parlay-card { background: var(--card); border: 0.5px solid; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
-.parlay-hdr  { padding: 12px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 0.5px solid var(--bord); }
-.parlay-num  { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
-.parlay-info h3 { font-size: 14px; font-weight: 700; }
-.parlay-info p  { font-size: 11px; color: var(--light); margin-top: 2px; }
-.parlay-pay { margin-left: auto; text-align: right; }
-.parlay-pay .pay-val { font-size: 22px; font-weight: 700; }
-.parlay-pay .pay-ex  { font-size: 10px; color: var(--light); margin-top: 2px; }
-.leg-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 8px 16px; border-bottom: 0.5px solid var(--bord); }
-.leg-pick { font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 6px; white-space: nowrap; }
-.leg-game   { font-size: 11px; font-weight: 600; color: var(--white); }
-.leg-reason { font-size: 10px; color: var(--light); margin-top: 2px; line-height: 1.4; }
-.leg-ev     { font-size: 10px; font-weight: 700; }
-.leg-odds { font-size: 14px; font-weight: 700; color: var(--gold); text-align: right; white-space: nowrap; }
-.parlay-footer { padding: 8px 16px; display: flex; align-items: center; gap: 8px; }
-.pf-lbl  { font-size: 10px; color: var(--gray); font-weight: 600; white-space: nowrap; }
-.pf-bar  { flex: 1; height: 6px; background: var(--bord); border-radius: 3px; overflow: hidden; }
-.pf-fill { height: 100%; border-radius: 3px; }
-.pf-pct  { font-size: 11px; font-weight: 700; white-space: nowrap; }
-
-.rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 8px; }
-.rule-card { background: var(--card); border-radius: 8px; padding: 12px 14px; border-left: 3px solid; }
-.rule-code { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
-.rule-name { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
-.rule-desc { font-size: 10px; color: var(--light); line-height: 1.5; }
-
-.loading-overlay { display: none; position: fixed; inset: 0; background: #04070Ecc; z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
-.loading-overlay.show { display: flex; }
-.loading-card { background: var(--card); border: 1px solid var(--cyan); border-radius: 14px; padding: 30px 40px; text-align: center; }
-.loading-spinner { width: 44px; height: 44px; border: 3px solid var(--dkg); border-top-color: var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 14px; }
+/* loader y otros */
+.loading-overlay { display: none; position: fixed; inset: 0; background: #04070Ecc; z-index: 200; align-items: center; justify-content: center; }
+.loading-card { background: var(--card); border: 1px solid var(--cyan); border-radius: 20px; padding: 30px; text-align: center; }
+.loading-spinner { width: 40px; height: 40px; border: 3px solid var(--dkg); border-top-color: var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 14px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .empty-state { text-align: center; padding: 60px 20px; color: var(--gray); }
@@ -191,296 +94,172 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
 
 <div class="topbar">
   <div class="logo">
-    <div class="logo-box">
-      <div class="logo-main">ThIA</div>
-      <div class="logo-sub">SPORTS</div>
-    </div>
-    <div class="logo-title">
-      <h1>Multi-Deporte Betting System</h1>
-      <p>v1.0 — MLB · NBA · NHL · Fútbol</p>
-    </div>
+    <div class="logo-box"><div class="logo-main">ThIA</div><div class="logo-sub">SPORTS</div></div>
+    <div class="logo-title"><h1>Multi-Deporte Betting System</h1><p>26 de abril de 2026 — Reglas R158 a R163 activas</p></div>
   </div>
   <div class="topbar-right">
-    <select id="sport-select" class="sport-select">
+    <select id="sportSelect" class="sport-select">
       <option value="mlb">⚾ MLB</option>
-      <option value="nba">🏀 NBA</option>
-      <option value="nhl">🏒 NHL</option>
+      <option value="nba">🏀 NBA Playoffs</option>
+      <option value="nhl">🏒 NHL Playoffs</option>
       <option value="futbol">⚽ Fútbol</option>
     </select>
-    <span class="status-dot" id="status-dot"></span>
-    <span class="status-txt" id="status-txt">En espera</span>
-    <span class="date-badge" id="date-badge"></span>
-    <button class="gen-btn" id="gen-btn">⚡ Generar Picks</button>
-  </div>
-</div>
-
-<div class="loading-overlay" id="loading-overlay">
-  <div class="loading-card">
-    <div class="loading-spinner"></div>
-    <div class="loading-title">ThIA analizando...</div>
-    <div class="loading-step" id="loading-step">Aplicando reglas +EV</div>
+    <span class="date-badge" id="dateBadge"></span>
+    <button class="gen-btn" id="generateBtn">⚡ Cargar Juegos</button>
   </div>
 </div>
 
 <div class="container">
-  <div class="tabs">
-    <button class="tab active" data-tab="dashboard">Dashboard</button>
-    <button class="tab" data-tab="picks">Picks & Análisis</button>
-    <button class="tab" data-tab="props">Props Jugadores</button>
-    <button class="tab" data-tab="ev">+EV & Cuotas</button>
-    <button class="tab" data-tab="parlays">Parlays</button>
-    <button class="tab" data-tab="rules">Reglas ThIA</button>
+  <div class="tabs" id="tabsContainer">
+    <button class="tab active" data-sport="mlb">⚾ MLB</button>
+    <button class="tab" data-sport="nba">🏀 NBA</button>
+    <button class="tab" data-sport="nhl">🏒 NHL</button>
+    <button class="tab" data-sport="futbol">⚽ Fútbol</button>
   </div>
+  <div id="gamesContainer"></div>
+</div>
 
-  <div id="dashboard" class="tab-content active"><div class="empty-state">🏆 Selecciona un deporte y presiona "Generar Picks"</div></div>
-  <div id="picks" class="tab-content"><div class="empty-state">🎯 Picks aparecerán aquí</div></div>
-  <div id="props" class="tab-content"><div class="empty-state">⭐ Props destacados</div></div>
-  <div id="ev" class="tab-content"><div class="empty-state">📊 Ranking +EV</div></div>
-  <div id="parlays" class="tab-content"><div class="empty-state">💰 Parlays personalizados</div></div>
-  <div id="rules" class="tab-content"><div class="rules-grid" id="rules-grid"></div></div>
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <div class="loading-title">ThIA analizando juegos...</div>
+    <div class="loading-step" id="loadingStep">Aplicando reglas +EV</div>
+  </div>
 </div>
 
 <script>
-// ------------------------------------------------------------------
-// DATOS SIMULADOS PERO REALISTAS (para cada deporte)
-// Cada deporte contiene: partidos, equipos, estadísticas, reglas específicas, props base
-// ------------------------------------------------------------------
-const dataSources = {
-  mlb: {
-    name: "MLB",
-    icon: "⚾",
-    games: [
-      { away: "LAD", home: "SFG", awayName: "Dodgers", homeName: "Giants", ovLine: 7.5, spread: -1.5, awayERA: 2.95, homeERA: 3.42 },
-      { away: "NYY", home: "BOS", awayName: "Yankees", homeName: "Red Sox", ovLine: 8.0, spread: -1.5, awayERA: 3.10, homeERA: 3.85 },
-      { away: "HOU", home: "SEA", awayName: "Astros", homeName: "Mariners", ovLine: 7.0, spread: -1.5, awayERA: 2.88, homeERA: 3.21 },
-      { away: "ATL", home: "PHI", awayName: "Braves", homeName: "Phillies", ovLine: 8.5, spread: -1.5, awayERA: 3.25, homeERA: 3.67 }
-    ],
-    starHitters: ["Mookie Betts", "Aaron Judge", "Ronald Acuña Jr.", "Bryce Harper"],
-    specialRules: ["R159: No favorito con derrotas seguidas", "R160: Coors Under -> Over"],
-    generatePick: (game, idx) => {
-      let pick = game.awayERA < 3.0 ? `${game.homeName} ML` : game.awayERA < 3.4 ? `${game.awayName} -1.5` : `Under ${game.ovLine}`;
-      let odds = 1.85, evPercent = 9.5, confidence = 72;
-      if (pick.includes("ML")) { odds = 1.75; evPercent = 8.2; confidence = 68; }
-      if (pick.includes("-1.5")) { odds = 1.90; evPercent = 11.0; confidence = 77; }
-      if (pick.includes("Under")) { odds = 1.88; evPercent = 7.5; confidence = 65; }
-      return { pick, odds: odds.toFixed(2), ev: `+${evPercent}%`, confidence };
+  // ============================================================
+  // DATOS ACTUALIZADOS AL 26 DE ABRIL 2026 (simulación realista)
+  // CADA DEPORTE CON SUS PICKS, CUOTAS, EV Y REGLAS APLICADAS
+  // ============================================================
+  const sportData = {
+    mlb: {
+      name: "MLB",
+      icon: "⚾",
+      games: [
+        { away: "Dodgers", home: "Giants", awayAbb: "LAD", homeAbb: "SF", time: "4:05 PM VEN", pick: "Dodgers ML", odds: 1.71, ev: "+9.5%", confidence: 78, rules: ["R159", "R160"], reason: "Giants con 4 derrotas seguidas. Regla R159 evita favorito en mala racha." },
+        { away: "Yankees", home: "Red Sox", awayAbb: "NYY", homeAbb: "BOS", time: "7:10 PM VEN", pick: "Over 8.5", odds: 1.88, ev: "+8.2%", confidence: 72, rules: ["R148"], reason: "Fenway Park matutino → Over (R148). Ambos bullpen desgastados." },
+        { away: "Padres", home: "Rockies", awayAbb: "SD", homeAbb: "COL", time: "8:10 PM VEN", pick: "Padres -1.5", odds: 1.85, ev: "+11.0%", confidence: 81, rules: ["R150", "R160"], reason: "Coors Field: Under no aplica por viento; Padres -1.5 tiene EV+" },
+        { away: "Blue Jays", home: "Angels", awayAbb: "TOR", homeAbb: "LAA", time: "9:38 PM VEN", pick: "Angels ML", odds: 1.62, ev: "+7.5%", confidence: 68, rules: ["R159"], reason: "Ángeles en casa, Blue Jays con derrotas seguidas." }
+      ]
+    },
+    nba: {
+      name: "NBA",
+      icon: "🏀",
+      games: [
+        { away: "Celtics", home: "Heat", awayAbb: "BOS", homeAbb: "MIA", time: "7:30 PM VEN", pick: "Celtics -5.5", odds: 1.91, ev: "+10.2%", confidence: 79, rules: ["R152", "R161"], reason: "Juego 2: Miami perdió el primero, Boston ajusta y cubre spread." },
+        { away: "Nuggets", home: "Lakers", awayAbb: "DEN", homeAbb: "LAL", time: "10:00 PM VEN", pick: "Nuggets ML", odds: 1.65, ev: "+9.0%", confidence: 74, rules: ["R161"], reason: "Denver favorito, Lakers vienen de derrota ajustada, Nuggets gana." },
+        { away: "Suns", home: "Timberwolves", awayAbb: "PHX", homeAbb: "MIN", time: "9:30 PM VEN", pick: "Over 222.5", odds: 1.87, ev: "+8.5%", confidence: 70, rules: ["R152"], reason: "Minnesota anota mucho en casa; Phoenix corre. Over natural." }
+      ]
+    },
+    nhl: {
+      name: "NHL",
+      icon: "🏒",
+      games: [
+        { away: "Avalanche", home: "Golden Knights", awayAbb: "COL", homeAbb: "VGK", time: "10:00 PM VEN", pick: "Over 6.5", odds: 2.05, ev: "+12.3%", confidence: 82, rules: ["R119"], reason: "GF/GP combinado >6.2 → Over automático (regla R119)." },
+        { away: "Oilers", home: "Stars", awayAbb: "EDM", homeAbb: "DAL", time: "8:30 PM VEN", pick: "Oilers ML", odds: 1.67, ev: "+7.8%", confidence: 69, rules: ["R162"], reason: "Edmonton perdió J1 ajustado, pero ajusta y gana este (R162)." },
+        { away: "Rangers", home: "Hurricanes", awayAbb: "NYR", homeAbb: "CAR", time: "7:00 PM VEN", pick: "Under 5.5", odds: 1.85, ev: "+8.0%", confidence: 73, rules: ["R150"], reason: "Defensas sólidas, tendencia Under en playoffs." }
+      ]
+    },
+    futbol: {
+      name: "Fútbol",
+      icon: "⚽",
+      games: [
+        { away: "Real Madrid", home: "Real Betis", awayAbb: "RMA", homeAbb: "BET", time: "3:00 PM VEN", pick: "Real Madrid -1.5", odds: 1.85, ev: "+11.5%", confidence: 78, rules: ["R158", "R163"], reason: "Favorito extremo (ML 1.28), se evita handicap y se usa -1.5 (R163)." },
+        { away: "Barcelona", home: "Atlético Madrid", awayAbb: "BAR", homeAbb: "ATM", time: "3:00 PM VEN", pick: "Barcelona DNB", odds: 1.70, ev: "+8.2%", confidence: 71, rules: ["R158"], reason: "En LaLiga, DNB mejor que -1.5. Partido cerrado." },
+        { away: "Liverpool", home: "Arsenal", awayAbb: "LIV", homeAbb: "ARS", time: "11:30 AM VEN", pick: "Over 2.5", odds: 1.92, ev: "+9.0%", confidence: 76, rules: ["R119"], reason: "Ambiente ofensivo, ambos anotan >1.5 goles por partido." }
+      ]
     }
-  },
-  nba: {
-    name: "NBA",
-    icon: "🏀",
-    games: [
-      { away: "BOS", home: "MIA", awayName: "Celtics", homeName: "Heat", spread: -6.5, total: 215.5 },
-      { away: "DEN", home: "LAL", awayName: "Nuggets", homeName: "Lakers", spread: -4.5, total: 228.5 },
-      { away: "PHX", home: "MIN", awayName: "Suns", homeName: "Timberwolves", spread: -3.5, total: 222.5 }
-    ],
-    starPlayers: ["Jayson Tatum", "Nikola Jokic", "Anthony Edwards", "Devin Booker"],
-    generatePick: (game) => {
-      let pick = `${game.homeName} ML`;
-      let odds = 1.62, ev = 10.2, conf = 74;
-      if (game.spread > -5) { pick = `${game.awayName} -5.5`; odds = 1.88; ev = 9.5; conf = 71; }
-      return { pick, odds: odds.toFixed(2), ev: `+${ev}%`, confidence: conf };
+  };
+
+  // Renderizar deporte actual
+  let currentSport = "mlb";
+
+  function renderSport(sportId) {
+    const data = sportData[sportId];
+    if (!data) return;
+    const container = document.getElementById("gamesContainer");
+    const games = data.games;
+    if (!games.length) {
+      container.innerHTML = `<div class="empty-state">🎯 No hay partidos para este deporte hoy.</div>`;
+      return;
     }
-  },
-  nhl: {
-    name: "NHL",
-    icon: "🏒",
-    games: [
-      { away: "COL", home: "VGK", awayName: "Avalanche", homeName: "Golden Knights", total: 6.5 },
-      { away: "EDM", home: "DAL", awayName: "Oilers", homeName: "Stars", total: 6.0 },
-      { away: "NYR", home: "CAR", awayName: "Rangers", homeName: "Hurricanes", total: 5.5 }
-    ],
-    starForwards: ["Nathan MacKinnon", "Connor McDavid", "Artemi Panarin"],
-    generatePick: (game) => {
-      let pick = `Over ${game.total}`;
-      let odds = 2.05, ev = 12.3, conf = 79;
-      if (game.total > 6.0) { pick = `${game.awayName} ML`; odds = 1.67; ev = 7.8; conf = 66; }
-      return { pick, odds: odds.toFixed(2), ev: `+${ev}%`, confidence: conf };
-    }
-  },
-  futbol: {
-    name: "Fútbol",
-    icon: "⚽",
-    games: [
-      { home: "Real Madrid", away: "Real Betis", homeName: "Real Madrid", awayName: "Betis", over: 3.0 },
-      { home: "Barcelona", away: "Atlético", homeName: "Barcelona", awayName: "Atlético", over: 2.5 },
-      { home: "Liverpool", away: "Arsenal", homeName: "Liverpool", awayName: "Arsenal", over: 2.5 }
-    ],
-    starStrikers: ["Vinicius Jr", "Robert Lewandowski", "Mohamed Salah"],
-    generatePick: (game) => {
-      let pick = `${game.homeName} ML`;
-      let odds = 1.55, ev = 9.2, conf = 70;
-      if (game.homeName === "Real Madrid") { pick = "Real Madrid -1.5"; odds = 1.85; ev = 11.5; conf = 78; }
-      if (game.homeName === "Barcelona") { pick = "Over 2.5"; odds = 1.92; ev = 8.5; conf = 68; }
-      return { pick, odds: odds.toFixed(2), ev: `+${ev}%`, confidence: conf };
-    }
+    let html = `<div class="sport-section"><div class="sport-title">${data.icon} ${data.name} · ${new Date().toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' })}</div>
+    <div class="scroll-container"><div class="games-horizontal">`;
+    games.forEach(g => {
+      html += `
+        <div class="game-card">
+          <div class="card-header">
+            <span class="league">${data.name}</span>
+            <span>🕒 ${g.time}</span>
+          </div>
+          <div class="matchup">
+            <div class="team"><div class="team-logo">${data.icon}</div><div class="team-name">${g.away}</div><div style="font-size:10px;color:var(--gray)">${g.awayAbb}</div></div>
+            <div class="vs-circle">VS</div>
+            <div class="team"><div class="team-logo">${data.icon}</div><div class="team-name">${g.home}</div><div style="font-size:10px;color:var(--gray)">${g.homeAbb}</div></div>
+          </div>
+          <div class="pick-card">
+            <div class="pick-val">🎯 ${g.pick}</div>
+            <div class="pick-odds">Cuota: ${g.odds}</div>
+            <div class="ev-badge">EV ${g.ev}</div>
+            <div class="confidence">Confianza ThIA: ${g.confidence}%</div>
+            <div style="margin-top:8px">${g.rules.map(r => `<span class="rule-pill">${r}</span>`).join('')}</div>
+            <div style="font-size:10px; color:var(--light); margin-top:8px">📌 ${g.reason}</div>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div></div>`;
+    container.innerHTML = html;
   }
-};
 
-// Reglas globales (comunes + específicas)
-const allRules = [
-  { code: "R119", name: "Over cuando GF/GP >6.2", desc: "Si ambos equipos anotan más de 3.1 goles por partido, apostar Over." },
-  { code: "R150", name: "Coors Field Under", desc: "En Coors Field, si total >=10.5, priorizar Under (excepto viento favorable)." },
-  { code: "R152", name: "NBA Juego 2 ajuste", desc: "El perdedor del Juego 1 suele ajustar; apostar spread a favor." },
-  { code: "R158", name: "LaLiga DNB > handicaps", desc: "En LaLiga, evitar -1.5; usar Draw No Bet." },
-  { code: "R161", name: "NBA spread perdedor", desc: "En playoffs, el equipo que perdió el primer juego cubre el spread en el segundo." },
-  { code: "R163", name: "Favorito extremo = ML", desc: "Cuando el ML es menor a 1.40, evitar handicap y jugar ML." }
-];
+  // Cargar (simular delay)
+  async function loadSport(sportId) {
+    const overlay = document.getElementById("loadingOverlay");
+    overlay.style.display = "flex";
+    document.getElementById("loadingStep").innerText = `Analizando ${sportData[sportId].name}...`;
+    await new Promise(r => setTimeout(r, 400));
+    renderSport(sportId);
+    overlay.style.display = "none";
+  }
 
-// Helper: mostrar/ocultar tabs
-document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tabId = btn.getAttribute('data-tab');
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-
-// Fecha
-document.getElementById('date-badge').innerText = new Date().toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
-
-// Generar picks completo
-async function generatePicks() {
-  const sport = document.getElementById('sport-select').value;
-  const data = dataSources[sport];
-  if (!data) return;
-  const overlay = document.getElementById('loading-overlay');
-  overlay.classList.add('show');
-  document.getElementById('loading-step').innerText = `Cargando partidos de ${data.name}...`;
-  await new Promise(r => setTimeout(r, 600));
-
-  // Simular análisis juego por juego
-  const gamesData = data.games.map((g, idx) => {
-    const pickResult = data.generatePick(g, idx);
-    const homeProb = 52 + Math.floor(Math.random() * 15); // simulación
-    const awayProb = 100 - homeProb;
-    const metrics = {
-      GF: (g.awayERA ? 4.2 : 3.3), GP: (g.awayERA ? 3.1 : 2.9),
-      PP: Math.floor(Math.random() * 25) + 15,
-      PK: Math.floor(Math.random() * 25) + 15,
-      CF: (g.awayERA ? 52 : 48)
-    };
-    const props = [];
-    const star = data.starHitters || data.starForwards || data.starStrikers;
-    if (star && star[idx % star.length]) {
-      props.push({
-        player: star[idx % star.length],
-        line: idx === 0 ? "Over 0.5 Points" : "Over 1.5 SOG",
-        odds: 1.85,
-        ev: "+9.2%",
-        reason: `Facing weak defense, historical avg ${idx+1}.2 per game`
-      });
-    }
-    return {
-      id: idx,
-      away: g.awayName, home: g.homeName,
-      awayAbb: g.away, homeAbb: g.home,
-      time: "7:00 PM ET",
-      pick: pickResult.pick,
-      odds: parseFloat(pickResult.odds),
-      ev: parseFloat(pickResult.ev),
-      confidence: pickResult.confidence,
-      probHome: homeProb,
-      probAway: awayProb,
-      metrics,
-      props,
-      rulesApplied: ["R119", "R150", "R152"].slice(0, idx+1),
-      reason: `${g.homeName} tiene ventaja ofensiva (GF/GP ${metrics.GF.toFixed(1)}) y aplica regla ${idx === 0 ? 'R119' : 'R152'}.`
-    };
+  // Evento tabs
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const sport = tab.getAttribute("data-sport");
+      if (!sport) return;
+      currentSport = sport;
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById("sportSelect").value = sport;
+      loadSport(sport);
+    });
   });
 
-  // Guardar en window para usar en otras pestañas
-  window.currentAnalysis = { sport, data, gamesData };
+  // Selector superior
+  document.getElementById("sportSelect").addEventListener("change", (e) => {
+    const sport = e.target.value;
+    currentSport = sport;
+    tabs.forEach(t => {
+      if (t.getAttribute("data-sport") === sport) t.classList.add("active");
+      else t.classList.remove("active");
+    });
+    loadSport(sport);
+  });
 
-  // Renderizar Dashboard, Picks, Props, EV, Parlays
-  renderDashboard(gamesData);
-  renderPicks(gamesData);
-  renderProps(gamesData);
-  renderEV(gamesData);
-  renderParlays(gamesData, data.icon);
-  overlay.classList.remove('show');
-  document.getElementById('status-dot').classList.add('live');
-  document.getElementById('status-txt').innerText = `Listo · ${data.name}`;
-}
+  // Botón generar (recargar)
+  document.getElementById("generateBtn").addEventListener("click", () => {
+    loadSport(currentSport);
+  });
 
-function renderDashboard(games) {
-  const container = document.getElementById('dashboard');
-  const totalPicks = games.length;
-  const avgConf = Math.round(games.reduce((a,b)=>a+b.confidence,0)/totalPicks);
-  const totalEV = games.reduce((a,b)=>a+parseFloat(b.ev),0).toFixed(1);
-  container.innerHTML = `
-    <div class="summary-row">
-      <div class="sum-card"><div class="sum-val">${totalPicks}</div><div class="sum-lbl">Partidos</div></div>
-      <div class="sum-card"><div class="sum-val">${avgConf}%</div><div class="sum-lbl">Confianza media</div></div>
-      <div class="sum-card"><div class="sum-val">+${totalEV}%</div><div class="sum-lbl">EV agregado</div></div>
-    </div>
-    <div id="best-picks-section">${games.map(g => `<div class="game-card">
-      <div class="game-hdr"><div class="game-num">🏆</div><div class="game-time">${g.time}</div><div class="hdr-tags"><span class="tag tag-ev">EV ${g.ev}</span></div></div>
-      <div class="game-teams"><div class="team-panel"><div class="team-abb">${g.awayAbb}</div><div class="team-name">${g.away}</div></div><div class="vs-circle">VS</div><div class="team-panel"><div class="team-abb">${g.homeAbb}</div><div class="team-name">${g.home}</div></div></div>
-      <div class="prob-section"><div class="prob-bar-bg"><div class="prob-h" style="width:${g.probHome}%"></div><div class="prob-a" style="width:${g.probAway}%"></div></div><div class="prob-labels"><span>${g.home} ${g.probHome}%</span><span>${g.away} ${g.probAway}%</span></div></div>
-      <div class="thia-row" style="border-left-color:var(--cyan)"><div class="thia-header"><div class="thia-badge">🎯 ThIA PICK</div><div class="thia-pick-line">${g.pick}</div><div class="thia-odds-lbl">${g.odds}</div><div class="thia-ev-lbl">EV ${g.ev}</div></div><div class="conf-row"><div class="conf-bg"><div class="conf-fill" style="width:${g.confidence}%;background:${g.confidence>70?'var(--green)':'var(--gold)'}"></div></div><div class="conf-pct">${g.confidence}% confianza</div></div><div class="thia-reason">${g.reason}</div></div></div>`).join('')}</div>
-  `;
-}
+  // Fecha actual en el top
+  const hoy = new Date();
+  const fechaStr = hoy.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
+  document.getElementById("dateBadge").innerHTML = `📅 ${fechaStr}`;
 
-function renderPicks(games) {
-  const container = document.getElementById('picks');
-  container.innerHTML = games.map(g => `
-    <div class="game-card">
-      <div class="game-hdr"><div class="game-time">${g.time}</div><div class="hdr-tags"><span class="tag tag-ev">EV ${g.ev}</span></div></div>
-      <div class="game-teams"><div class="team-panel"><div class="team-abb">${g.awayAbb}</div><div class="team-name">${g.away}</div></div><div class="vs-circle">VS</div><div class="team-panel"><div class="team-abb">${g.homeAbb}</div><div class="team-name">${g.home}</div></div></div>
-      <div class="picks-section"><div class="pick-card" style="border-color:var(--cyan)"><div class="pick-type">PRINCIPAL</div><div class="pick-val">${g.pick}</div><div class="pick-odds">${g.odds}</div><div class="pick-ev pos">EV ${g.ev}</div><div class="pick-conf">Confianza ${g.confidence}%</div></div></div>
-      <div class="thia-row" style="border-left-color:var(--green)"><div class="thia-reason">Reglas aplicadas: ${g.rulesApplied.join(', ')}</div></div>
-    </div>
-  `).join('');
-}
-
-function renderProps(games) {
-  const allProps = games.flatMap(g => g.props);
-  const container = document.getElementById('props');
-  if(allProps.length===0) { container.innerHTML='<div class="empty-state">⭐ No se generaron props para este deporte</div>'; return; }
-  container.innerHTML = `<div class="props-grid">${allProps.map(p => `
-    <div class="prop-item"><div class="prop-player">${p.player}</div><div class="prop-detail">${p.line}</div><div class="prop-odds">${p.odds}</div><div class="prop-ev pos">${p.ev}</div><div class="prop-reason">${p.reason}</div></div>
-  `).join('')}</div>`;
-}
-
-function renderEV(games) {
-  const sorted = [...games].sort((a,b)=>parseFloat(b.ev)-parseFloat(a.ev));
-  const container = document.getElementById('ev');
-  container.innerHTML = `<table class="ev-table"><thead><tr><th>Partido</th><th>Pick</th><th>Cuota</th><th>EV</th><th>Confianza</th></tr></thead><tbody>${sorted.map(g => `
-    <tr><td>${g.away} @ ${g.home}</td><td>${g.pick}</td><td>${g.odds}</td><td class="ev-pos">${g.ev}</td><td><div class="ev-bar-wrap"><div class="ev-bar-fill" style="width:${g.confidence}%;background:var(--cyan)"></div></div>${g.confidence}%</td></tr>
-  `).join('')}</tbody></table>`;
-}
-
-function renderParlays(games, icon) {
-  const parlayList = [
-    { name: "DIRECTA DEL DÍA", legs: [games[0]], stake: "3%", color: "var(--green)" },
-    { name: "MOROCHA 2 PICKS", legs: games.slice(0,2), stake: "2%", color: "var(--orange)" },
-    { name: "PARLEY SEGURO 4 PICKS", legs: games.slice(0,4), stake: "1.5%", color: "var(--purple)" },
-    { name: "MILLONARIO 6 PICKS", legs: games.slice(0, Math.min(games.length,6)), stake: "0.5%", color: "var(--gold)" }
-  ];
-  const container = document.getElementById('parlays');
-  if(games.length===0){ container.innerHTML='<div class="empty-state">💰 Genera picks para ver parlays</div>'; return; }
-  container.innerHTML = parlayList.map((p,idx) => {
-    const totalOdds = p.legs.reduce((acc,g)=>acc*g.odds,1).toFixed(2);
-    return `<div class="parlay-card" style="border-color:${p.color}">
-      <div class="parlay-hdr"><div class="parlay-num" style="background:${p.color}20;color:${p.color}">${idx+1}</div><div class="parlay-info"><h3>${p.name}</h3><p>Stake recomendado: ${p.stake}</p></div><div class="parlay-pay"><div class="pay-val">${totalOdds}</div><div class="pay-ex">cuota total</div></div></div>
-      ${p.legs.map(g => `<div class="leg-row"><div class="leg-pick" style="background:${p.color}20;color:${p.color}">${g.pick}</div><div class="leg-body"><div class="leg-game">${g.away} vs ${g.home}</div><div class="leg-reason">EV ${g.ev} · confianza ${g.confidence}%</div></div><div class="leg-odds">${g.odds}</div></div>`).join('')}
-      <div class="parlay-footer"><span class="pf-lbl">Riesgo estimado</span><div class="pf-bar"><div class="pf-fill" style="width:${idx===0?30: idx===1?55: idx===2?70:85}%;background:${p.color}"></div></div><span class="pf-pct">${idx===0?'Bajo': idx===1?'Medio-Bajo': idx===2?'Medio':'Alto'}</span></div>
-    </div>`;
-  }).join('');
-}
-
-// Cargar reglas
-function loadRules() {
-  const container = document.getElementById('rules-grid');
-  container.innerHTML = allRules.map(r => `<div class="rule-card" style="border-left-color:var(--cyan)"><div class="rule-code">${r.code}</div><div class="rule-name">${r.name}</div><div class="rule-desc">${r.desc}</div></div>`).join('');
-}
-loadRules();
-
-// Evento botón generar
-document.getElementById('gen-btn').addEventListener('click', generatePicks);
+  // Cargar deporte inicial (MLB)
+  loadSport("mlb");
 </script>
 </body>
 </html>
