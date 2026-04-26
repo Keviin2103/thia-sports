@@ -20,7 +20,7 @@ jobs:
       - name: Instalar dependencias
         run: |
           pip install --upgrade pip
-          pip install requests pandas nba_api statsapi nhl-api-py
+          pip install requests pandas nba_api mlb-statsapi nhl-api-py
 
       - name: Ejecutar script generate_data.py
         run: python generate_data.py
