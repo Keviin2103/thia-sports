@@ -1,453 +1,453 @@
-// Generado automáticamente el 2026-04-26 15:53:57
+// Generado automáticamente el 2026-04-26 16:49:35
 const nhlPicks = [];
 const nbaPicks = [];
 const mlbPicks = [
   {
-    "partido": "Red Sox vs Orioles",
-    "hora": "1:35 PM",
-    "home_pitcher": "K. Bradish",
-    "away_pitcher": "C. Early",
-    "principal": {
-      "pick": "Red Sox ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA visitante (2.88 vs 3.96)"
-    },
-    "secundaria": {
-      "pick": "Over 8.0",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs media (6.84)"
-    },
-    "prop_jugador": {
-      "jugador": "C. Early",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA visitante (2.88)"
-    }
-  },
-  {
-    "partido": "Phillies vs Braves",
-    "hora": "1:35 PM",
-    "home_pitcher": "C. Sale",
-    "away_pitcher": "A. Nola",
-    "principal": {
-      "pick": "Braves ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (2.79 vs 5.06)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs alta (7.85)"
-    },
-    "prop_jugador": {
-      "jugador": "C. Sale",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (2.79)"
-    }
-  },
-  {
-    "partido": "Guardians vs Blue Jays",
-    "hora": "1:37 PM",
-    "home_pitcher": "P. Corbin",
-    "away_pitcher": "S. Cecconi",
-    "principal": {
-      "pick": "Blue Jays ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (3.68 vs 6.20)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs alta (9.88)"
-    },
-    "prop_jugador": {
-      "jugador": "P. Corbin",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (3.68)"
-    }
-  },
-  {
-    "partido": "Rockies (G1) vs Mets",
-    "hora": "1:40 PM",
-    "home_pitcher": "N. McLean",
-    "away_pitcher": "J. Quintana",
-    "principal": {
-      "pick": "Mets ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (2.67 vs 6.23)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs alta (8.90)"
-    },
-    "prop_jugador": {
-      "jugador": "N. McLean",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (2.67)"
-    }
-  },
-  {
-    "partido": "Tigers vs Reds",
-    "hora": "1:40 PM",
-    "home_pitcher": "R. Lowder",
-    "away_pitcher": "K. Montero",
-    "principal": {
-      "pick": "Reds ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (3.10 vs 3.68)"
-    },
-    "secundaria": {
-      "pick": "Over 8.0",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs media (6.78)"
-    },
-    "prop_jugador": {
-      "jugador": "R. Lowder",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (3.10)"
-    }
-  },
-  {
-    "partido": "Twins vs Rays",
-    "hora": "1:40 PM",
-    "home_pitcher": "J. Scholtens",
-    "away_pitcher": "S. Woods Richardson",
-    "principal": {
-      "pick": "Rays ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (2.93 vs 5.96)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs alta (8.89)"
-    },
-    "prop_jugador": {
-      "jugador": "J. Scholtens",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (2.93)"
-    }
-  },
-  {
-    "partido": "Yankees vs Astros",
-    "hora": "2:10 PM",
-    "home_pitcher": "S. Arrighetti",
-    "away_pitcher": "L. Gil",
-    "principal": {
-      "pick": "Astros ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (2.45 vs 4.11)"
-    },
-    "secundaria": {
-      "pick": "Over 8.0",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs media (6.56)"
-    },
-    "prop_jugador": {
-      "jugador": "S. Arrighetti",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (2.45)"
-    }
-  },
-  {
-    "partido": "Pirates vs Brewers",
-    "hora": "2:10 PM",
-    "home_pitcher": "K. Harrison",
-    "away_pitcher": "C. Mlodzinski",
-    "principal": {
-      "pick": "Brewers ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (3.06 vs 3.28)"
-    },
-    "secundaria": {
-      "pick": "Over 8.0",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs media (6.34)"
-    },
-    "prop_jugador": {
-      "jugador": "K. Harrison",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (3.06)"
-    }
-  },
-  {
-    "partido": "Nationals vs White Sox",
-    "hora": "2:10 PM",
-    "home_pitcher": "B. Hudson",
-    "away_pitcher": "F. Griffin",
-    "principal": {
-      "pick": "White Sox ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (1.54 vs 3.38)"
-    },
-    "secundaria": {
-      "pick": "Under 7.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs baja (4.92)"
-    },
-    "prop_jugador": {
-      "jugador": "B. Hudson",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (1.54)"
-    }
-  },
-  {
-    "partido": "Mariners vs Cardinals",
-    "hora": "2:15 PM",
-    "home_pitcher": "M. McGreevy",
-    "away_pitcher": "E. Hancock",
-    "principal": {
-      "pick": "Mariners ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA visitante (2.83 vs 3.29)"
-    },
-    "secundaria": {
-      "pick": "Over 8.0",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs media (6.12)"
-    },
-    "prop_jugador": {
-      "jugador": "E. Hancock",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA visitante (2.83)"
-    }
-  },
-  {
-    "partido": "Athletics vs Rangers",
-    "hora": "2:35 PM",
-    "home_pitcher": "K. Rocker",
-    "away_pitcher": "J.T. Ginn",
-    "principal": {
-      "pick": "Rangers ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (3.48 vs 3.74)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs alta (7.22)"
-    },
-    "prop_jugador": {
-      "jugador": "K. Rocker",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (3.48)"
-    }
-  },
-  {
-    "partido": "Marlins vs Giants",
-    "hora": "4:05 PM",
-    "home_pitcher": "L. Roupp",
-    "away_pitcher": "M. Meyer",
-    "principal": {
-      "pick": "Giants ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (2.28 vs 3.96)"
-    },
-    "secundaria": {
-      "pick": "Over 8.0",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs media (6.24)"
-    },
-    "prop_jugador": {
-      "jugador": "L. Roupp",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (2.28)"
-    }
-  },
-  {
-    "partido": "Padres vs Diamondbacks",
-    "hora": "4:05 PM",
-    "home_pitcher": "R. Nelson",
-    "away_pitcher": "M. King",
-    "principal": {
-      "pick": "Padres ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA visitante (2.28 vs 6.97)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs alta (9.25)"
-    },
-    "prop_jugador": {
-      "jugador": "M. King",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA visitante (2.28)"
-    }
-  },
-  {
-    "partido": "Cubs vs Dodgers",
-    "hora": "4:10 PM",
-    "home_pitcher": "J. Wrobleski",
-    "away_pitcher": "S. Imanaga",
-    "principal": {
-      "pick": "Dodgers ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Mejor ERA local (1.88 vs 2.17)"
-    },
-    "secundaria": {
-      "pick": "Under 7.5",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Suma de ERAs baja (4.05)"
-    },
-    "prop_jugador": {
-      "jugador": "J. Wrobleski",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Mejor ERA local (1.88)"
-    }
-  },
-  {
-    "partido": "Rockies vs Mets (G2)",
-    "hora": "5:10 PM",
-    "home_pitcher": "K. Senga",
+    "partido": "Boston Red Sox vs Baltimore Orioles",
+    "hora": "01:35 PM",
+    "home_pitcher": "TBD",
     "away_pitcher": "TBD",
     "principal": {
-      "pick": "Mets (G2) ML",
+      "pick": "Baltimore Orioles ML",
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Mejor ERA local (8.83 vs 99.00)"
+      "regla": "Local favorito (mejorable)"
     },
     "secundaria": {
-      "pick": "Over 8.5",
+      "pick": "Over 8.5 carreras",
       "cuota": 1.85,
       "ev": "+7.5%",
       "stake": "1.0%",
-      "regla": "Suma de ERAs alta (107.83)"
+      "regla": "Duelo ofensivo esperado"
     },
     "prop_jugador": {
-      "jugador": "K. Senga",
+      "jugador": "Lanzador abridor",
       "prop": "Over 5.5 ponches",
       "cuota": 1.85,
       "stake": "0.5%",
       "ev": "+8.0%",
-      "regla": "Mejor ERA local (8.83)"
+      "regla": "Lanzador con buen K/9"
     }
   },
   {
-    "partido": "Angels vs Royals",
-    "hora": "7:20 PM",
-    "home_pitcher": "S. Lugo",
-    "away_pitcher": "R. Detmers",
+    "partido": "Philadelphia Phillies vs Atlanta Braves",
+    "hora": "01:35 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
     "principal": {
-      "pick": "Royals ML",
+      "pick": "Atlanta Braves ML",
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
-      "regla": "Mejor ERA local (1.15 vs 4.08)"
+      "regla": "Local favorito (mejorable)"
     },
     "secundaria": {
-      "pick": "Over 8.0",
+      "pick": "Over 8.5 carreras",
       "cuota": 1.85,
       "ev": "+7.5%",
       "stake": "1.0%",
-      "regla": "Suma de ERAs media (5.23)"
+      "regla": "Duelo ofensivo esperado"
     },
     "prop_jugador": {
-      "jugador": "S. Lugo",
+      "jugador": "Lanzador abridor",
       "prop": "Over 5.5 ponches",
       "cuota": 1.85,
       "stake": "0.5%",
       "ev": "+8.0%",
-      "regla": "Mejor ERA local (1.15)"
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Cleveland Guardians vs Toronto Blue Jays",
+    "hora": "01:37 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Toronto Blue Jays ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Colorado Rockies vs New York Mets",
+    "hora": "01:40 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "New York Mets ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Detroit Tigers vs Cincinnati Reds",
+    "hora": "01:40 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Cincinnati Reds ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Minnesota Twins vs Tampa Bay Rays",
+    "hora": "01:40 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Tampa Bay Rays ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "New York Yankees vs Houston Astros",
+    "hora": "02:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Houston Astros ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Pittsburgh Pirates vs Milwaukee Brewers",
+    "hora": "02:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Milwaukee Brewers ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Washington Nationals vs Chicago White Sox",
+    "hora": "02:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Chicago White Sox ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Seattle Mariners vs St. Louis Cardinals",
+    "hora": "02:15 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "St. Louis Cardinals ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Athletics vs Texas Rangers",
+    "hora": "02:35 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Texas Rangers ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Miami Marlins vs San Francisco Giants",
+    "hora": "04:05 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "San Francisco Giants ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "San Diego Padres vs Arizona Diamondbacks",
+    "hora": "04:05 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Arizona Diamondbacks ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Los Angeles Angels vs Kansas City Royals",
+    "hora": "04:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Kansas City Royals ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Chicago Cubs vs Los Angeles Dodgers",
+    "hora": "04:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Los Angeles Dodgers ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Colorado Rockies vs New York Mets",
+    "hora": "05:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "New York Mets ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
     }
   }
 ];
@@ -463,22 +463,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -493,22 +481,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Almer\u00eda vs Granada",
@@ -518,22 +494,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Cultural Leonesa vs Mirand\u00e9s",
@@ -543,22 +507,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Real Zaragoza vs Huesca",
@@ -568,22 +520,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "FC Andorra vs Legan\u00e9s",
@@ -593,22 +533,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Racing Santander vs Ceuta",
@@ -618,22 +546,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -648,22 +564,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Como vs Genoa",
@@ -673,22 +577,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Internazionale vs Torino",
@@ -698,22 +590,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Juventus vs AC Milan",
@@ -723,22 +603,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -753,22 +621,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Metz vs Le Havre AC",
@@ -778,22 +634,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Lille vs Paris FC",
@@ -803,22 +647,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Nantes vs Stade Rennais",
@@ -828,22 +660,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Nice vs Marseille",
@@ -853,22 +673,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -883,22 +691,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "FC Volendam vs Heracles Almelo",
@@ -908,22 +704,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -938,22 +722,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "FC Porto vs Estrela",
@@ -963,22 +735,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Braga vs Santa Clara",
@@ -988,22 +748,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Sporting CP vs AVS",
@@ -1013,22 +761,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -1043,22 +779,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "SC Freiburg vs Borussia Dortmund",
@@ -1068,22 +792,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -1098,22 +810,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -1128,22 +828,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   },
@@ -1158,22 +846,10 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       },
       {
         "partido": "Aston Villa vs Nottingham Forest",
@@ -1183,33 +859,20 @@ const leaguesData = [
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
-          "regla": "Local favorito (valor por defecto)"
+          "regla": "Local favorito"
         },
-        "secundaria": {
-          "pick": "Over 2.5 goles",
-          "cuota": 1.85,
-          "ev": "+7.5%",
-          "stake": "1.0%",
-          "regla": "Partido ofensivo"
-        },
-        "prop_jugador": {
-          "jugador": "Jugador destacado",
-          "prop": "Over 0.5 goles",
-          "cuota": 2.1,
-          "stake": "0.5%",
-          "ev": "+9.0%"
-        }
+        "secundaria": null,
+        "prop_jugador": null
       }
     ]
   }
 ];
 const oldResults = [];
 const mejores = [
-  "\u2705 MLB con datos reales (lanzadores y ERAs del 26/04)",
-  "\u2705 Picks principales basados en comparaci\u00f3n de ERAs",
-  "\u2705 Picks secundarios (Over/Under) seg\u00fan suma de ERAs",
-  "\u2705 Props de jugador: lanzador con mejor ERA para Over 5.5 Ks",
-  "\u2705 F\u00fatbol con ESPN + API-Football (todas las ligas europeas)"
+  "\u2705 F\u00fatbol: datos reales desde ESPN + API-Football",
+  "\u2705 MLB: datos reales desde ESPN + statsapi",
+  "\u2705 MLB: picks secundarios y props generados autom\u00e1ticamente",
+  "\u2705 Horario Venezuela (UTC-4)"
 ];
 const parlaysData = [];
 const todayResultsArray = {};
