@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        /* ... (todos los estilos igual que antes) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
@@ -429,7 +428,7 @@
 
 <script src="data.js"></script>
 <script>
-    // ========== FUNCIÓN DE LOGOS (sin cambios) ==========
+    // ========== FUNCIONES AUXILIARES ==========
     function getTeamLogo(teamName, sport) {
         const logos = {
             "Sabres": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/buf.png",
@@ -469,7 +468,7 @@
         return logos[teamName] || null;
     }
 
-    // ========== DATOS GLOBALES ==========
+    // ========== VARIABLES GLOBALES ==========
     let currentUser = null;
     let currentSport = "futbol";
     let currentMain = "picks";
@@ -483,11 +482,15 @@
     function renderGames() {
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
+
         if (currentSport === "futbol") {
             let html = '';
             for (const league of futbolLeagues) {
                 if (league.data.length === 0) continue;
-                html += `<div class="league-section"><div class="league-title">${league.name}</div><div class="scroll-container"><div class="games-horizontal">`;
+                html += `<div class="league-section">
+                            <div class="league-title">${league.name}</div>
+                            <div class="scroll-container">
+                                <div class="games-horizontal">`;
                 for (let g of league.data) {
                     const parts = g.partido.split(' vs ');
                     const awayTeam = parts[0];
@@ -497,45 +500,152 @@
                     const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
                     const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
                     const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
-                    html += `<div class="game-card"><div class="card-header"><span class="league">${league.name}</span><span><i class="far fa-clock"></i> ${g.hora}</span></div><div class="matchup"><div class="team">${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}<div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div><div class="team-name">${awayTeam}</div></div><div class="vs-circle">VS</div><div class="team">${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}<div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div><div class="team-name">${homeTeam}</div></div></div>${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `<div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>${secundariaHtml}${propHtml}</div>`;
+                    html += `<div class="game-card">
+                                <div class="card-header">
+                                    <span class="league">${league.name}</span>
+                                    <span><i class="far fa-clock"></i> ${g.hora}</span>
+                                </div>
+                                <div class="matchup">
+                                    <div class="team">
+                                        ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                                        <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div>
+                                        <div class="team-name">${awayTeam}</div>
+                                    </div>
+                                    <div class="vs-circle">VS</div>
+                                    <div class="team">
+                                        ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+                                        <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div>
+                                        <div class="team-name">${homeTeam}</div>
+                                    </div>
+                                </div>
+                                ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
+                                <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
+                                ${secundariaHtml}
+                                ${propHtml}
+                                `}
+                            </div>`;
                 }
                 html += `</div></div></div>`;
             }
             container.innerHTML = html;
         } else if (currentSport === "mlb") {
+            let mlbData = (typeof mlbPicks !== 'undefined') ? mlbPicks : [];
+            if (mlbData.length === 0) {
+                container.innerHTML = '<div class="league-section"><div class="league-title">⚾ MLB</div><div class="scroll-container"><div class="games-horizontal">No hay partidos de MLB hoy.</div></div></div>';
+                return;
+            }
             let html = `<div class="league-section"><div class="league-title">⚾ MLB</div><div class="scroll-container"><div class="games-horizontal">`;
-            for (let g of (typeof mlbPicks !== 'undefined' ? mlbPicks : [])) {
-                const parts = g.partido.split(' vs ');
-                const awayTeam = parts[0], homeTeam = parts[1];
-                const awayLogo = getTeamLogo(awayTeam, 'mlb'), homeLogo = getTeamLogo(homeTeam, 'mlb');
-                html += `<div class="game-card"><div class="card-header"><span class="league">MLB</span><span><i class="far fa-clock"></i> ${g.hora}</span></div><div class="matchup"><div class="team">${awayLogo ? `<img src="${awayLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="team-name">${awayTeam}</div></div><div class="vs-circle">VS</div><div class="team">${homeLogo ? `<img src="${homeLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="team-name">${homeTeam}</div></div></div>${!currentUser ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión</div>` : `<div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : ''}</div>`}</div>`;
+            for (let g of mlbData) {
+                const parts = (g.partido || '').split(' vs ');
+                if (parts.length < 2) continue;
+                const awayTeam = parts[0];
+                const homeTeam = parts[1];
+                const awayLogo = getTeamLogo(awayTeam, 'mlb');
+                const homeLogo = getTeamLogo(homeTeam, 'mlb');
+                const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
+                html += `<div class="game-card">
+                            <div class="card-header">
+                                <span class="league">MLB</span>
+                                <span><i class="far fa-clock"></i> ${g.hora || 'Hora pendiente'}</span>
+                            </div>
+                            <div class="matchup">
+                                <div class="team">
+                                    ${awayLogo ? `<img src="${awayLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                    <div class="team-name">${awayTeam}</div>
+                                </div>
+                                <div class="vs-circle">VS</div>
+                                <div class="team">
+                                    ${homeLogo ? `<img src="${homeLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                    <div class="team-name">${homeTeam}</div>
+                                </div>
+                            </div>
+                            ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión</div>` : `
+                            <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
+                            `}
+                        </div>`;
             }
             html += `</div></div></div>`;
             container.innerHTML = html;
         } else if (currentSport === "nba") {
+            let nbaData = (typeof nbaPicks !== 'undefined') ? nbaPicks : [];
+            if (nbaData.length === 0) {
+                container.innerHTML = '<div class="league-section"><div class="league-title">🏀 NBA Playoffs</div><div class="scroll-container"><div class="games-horizontal">No hay partidos de NBA hoy.</div></div></div>';
+                return;
+            }
             let html = `<div class="league-section"><div class="league-title">🏀 NBA Playoffs</div><div class="scroll-container"><div class="games-horizontal">`;
-            for (let g of (typeof nbaPicks !== 'undefined' ? nbaPicks : [])) {
-                const parts = g.partido.split(' vs ');
-                const awayTeam = parts[0], homeTeam = parts[1];
-                const awayLogo = getTeamLogo(awayTeam, 'nba'), homeLogo = getTeamLogo(homeTeam, 'nba');
-                html += `<div class="game-card"><div class="card-header"><span class="league">NBA</span><span><i class="far fa-clock"></i> ${g.hora}</span></div><div class="matchup"><div class="team">${awayLogo ? `<img src="${awayLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="team-name">${awayTeam}</div></div><div class="vs-circle">VS</div><div class="team">${homeLogo ? `<img src="${homeLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="team-name">${homeTeam}</div></div></div>${!currentUser ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión</div>` : `<div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : ''}</div>`}</div>`;
+            for (let g of nbaData) {
+                const parts = (g.partido || '').split(' vs ');
+                if (parts.length < 2) continue;
+                const awayTeam = parts[0];
+                const homeTeam = parts[1];
+                const awayLogo = getTeamLogo(awayTeam, 'nba');
+                const homeLogo = getTeamLogo(homeTeam, 'nba');
+                const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
+                html += `<div class="game-card">
+                            <div class="card-header">
+                                <span class="league">NBA Playoffs</span>
+                                <span><i class="far fa-clock"></i> ${g.hora || 'Hora pendiente'}</span>
+                            </div>
+                            <div class="matchup">
+                                <div class="team">
+                                    ${awayLogo ? `<img src="${awayLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                    <div class="team-name">${awayTeam}</div>
+                                </div>
+                                <div class="vs-circle">VS</div>
+                                <div class="team">
+                                    ${homeLogo ? `<img src="${homeLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                    <div class="team-name">${homeTeam}</div>
+                                </div>
+                            </div>
+                            ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión</div>` : `
+                            <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
+                            `}
+                        </div>`;
             }
             html += `</div></div></div>`;
             container.innerHTML = html;
         } else if (currentSport === "nhl") {
+            let nhlData = (typeof nhlPicks !== 'undefined') ? nhlPicks : [];
+            if (nhlData.length === 0) {
+                container.innerHTML = '<div class="league-section"><div class="league-title">🏒 NHL Playoffs</div><div class="scroll-container"><div class="games-horizontal">No hay partidos de NHL hoy.</div></div></div>';
+                return;
+            }
             let html = `<div class="league-section"><div class="league-title">🏒 NHL Playoffs</div><div class="scroll-container"><div class="games-horizontal">`;
-            for (let g of (typeof nhlPicks !== 'undefined' ? nhlPicks : [])) {
-                const parts = g.partido.split(' vs ');
-                const awayTeam = parts[0], homeTeam = parts[1];
-                const awayLogo = getTeamLogo(awayTeam, 'nhl'), homeLogo = getTeamLogo(homeTeam, 'nhl');
-                html += `<div class="game-card"><div class="card-header"><span class="league">NHL</span><span><i class="far fa-clock"></i> ${g.hora}</span></div><div class="matchup"><div class="team">${awayLogo ? `<img src="${awayLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="team-name">${awayTeam}</div></div><div class="vs-circle">VS</div><div class="team">${homeLogo ? `<img src="${homeLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="team-name">${homeTeam}</div></div></div>${!currentUser ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión</div>` : `<div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : ''}</div>`}</div>`;
+            for (let g of nhlData) {
+                const parts = (g.partido || '').split(' vs ');
+                if (parts.length < 2) continue;
+                const awayTeam = parts[0];
+                const homeTeam = parts[1];
+                const awayLogo = getTeamLogo(awayTeam, 'nhl');
+                const homeLogo = getTeamLogo(homeTeam, 'nhl');
+                const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
+                html += `<div class="game-card">
+                            <div class="card-header">
+                                <span class="league">NHL Playoffs</span>
+                                <span><i class="far fa-clock"></i> ${g.hora || 'Hora pendiente'}</span>
+                            </div>
+                            <div class="matchup">
+                                <div class="team">
+                                    ${awayLogo ? `<img src="${awayLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                    <div class="team-name">${awayTeam}</div>
+                                </div>
+                                <div class="vs-circle">VS</div>
+                                <div class="team">
+                                    ${homeLogo ? `<img src="${homeLogo}" class="team-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                    <div class="team-name">${homeTeam}</div>
+                                </div>
+                            </div>
+                            ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión</div>` : `
+                            <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
+                            `}
+                        </div>`;
             }
             html += `</div></div></div>`;
             container.innerHTML = html;
         }
     }
 
-    // ========== RENDER RESULTADOS (EN VIVO) ==========
+    // ========== RENDER RESULTADOS ==========
     function renderResults() {
         const tableBody = document.getElementById('resultsTableBody');
         if (!tableBody) return;
@@ -548,13 +658,13 @@
         const deportes = ['nba', 'mlb', 'nhl', 'soccer'];
         for (const dep of deportes) {
             const partidos = todayResultsArray[dep] || [];
-            partidos.forEach(p => {
+            for (const p of partidos) {
                 html += `<tr>
-                             <td>${p.matchup}</td>
-                            <td class="${p.is_live ? 'result-hit' : ''}">${p.status}</td>
-                             <td>${p.score}</td>
-                          </tr>`;
-            });
+                            <td>${p.matchup || ''}</td>
+                            <td class="${p.is_live ? 'result-hit' : ''}">${p.status || ''}</td>
+                            <td>${p.score || ''}</td>
+                         </tr>`;
+            }
         }
         if (html === '') html = '<tr><td colspan="3">No hay partidos hoy o no se pudieron cargar resultados.</td></tr>';
         tableBody.innerHTML = html;
