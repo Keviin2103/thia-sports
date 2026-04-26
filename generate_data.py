@@ -3,7 +3,7 @@ import json
 from datetime import datetime, timezone, timedelta
 
 # ==================================================
-# 1. CONFIGURACIÓN DE LIGAS (slug ESPN -> nombre real)
+# 1. CONFIGURACIÓN DE LIGAS
 # ==================================================
 LEAGUE_NAMES = {
     'eng.1': 'Premier League',
@@ -18,9 +18,6 @@ LEAGUE_NAMES = {
     'uefa.europa': 'Europa League',
 }
 
-# ==================================================
-# 2. FUNCIONES AUXILIARES
-# ==================================================
 def convertir_hora_venezuela(utc_date_str):
     try:
         utc_date_str = utc_date_str.replace('Z', '+00:00')
@@ -31,153 +28,145 @@ def convertir_hora_venezuela(utc_date_str):
     except:
         return "Hora pendiente"
 
-def fetch_espn_general(url):
-    """Obtiene partidos desde cualquier endpoint de ESPN (fútbol, MLB, NBA, NHL)"""
+def fetch_espn_json(url):
     try:
         resp = requests.get(url, timeout=10)
         if resp.status_code == 200:
-            data = resp.json()
-            games = []
-            for event in data.get('events', []):
-                if 'competitions' in event:
-                    comp = event['competitions'][0]
-                    home = comp['competitors'][0]['team']['displayName']
-                    away = comp['competitors'][1]['team']['displayName']
-                    date_str = event['date']
-                    stadium = comp['venue']['fullName'] if 'venue' in comp else ''
-                    games.append({
-                        'home_team': home,
-                        'away_team': away,
-                        'date': date_str,
-                        'stadium': stadium
-                    })
-            return games
+            return resp.json()
+        else:
+            print(f"Error {url}: {resp.status_code}")
+            return None
     except Exception as e:
-        print(f"Error en {url}: {e}")
-    return []
+        print(f"Excepción en {url}: {e}")
+        return None
 
-# ==================================================
-# 3. GENERAR PICKS (estructura simple, después personalizas)
-# ==================================================
-def generar_picks_deportivos(home_team, away_team, sport, stadium=''):
-    principal = {
+def obtener_partidos_desde_espn(url):
+    data = fetch_espn_json(url)
+    if not data:
+        return []
+    games = []
+    for event in data.get('events', []):
+        if 'competitions' in event:
+            comp = event['competitions'][0]
+            home = comp['competitors'][0]['team']['displayName']
+            away = comp['competitors'][1]['team']['displayName']
+            date_str = event['date']
+            stadium = comp['venue']['fullName'] if 'venue' in comp else ''
+            games.append({
+                'home_team': home,
+                'away_team': away,
+                'date': date_str,
+                'stadium': stadium
+            })
+    return games
+
+def generar_principal(home_team, away_team, sport):
+    return {
         'pick': f"{home_team} ML",
         'cuota': 1.85,
         'ev': '+8.5%',
         'stake': '1.5%',
         'regla': 'Valor por defecto'
     }
-    secundaria = None
-    prop = None
+
+def generar_secundaria(home_team, away_team, sport):
     if 'Premier' in sport or 'LaLiga' in sport or 'Serie A' in sport:
-        secundaria = {
+        return {
             'pick': 'Over 2.5 goles',
             'cuota': 1.85,
             'ev': '+7.5%',
             'stake': '1.0%',
             'regla': 'Partido ofensivo'
         }
-        prop = {
+    return None
+
+def generar_prop(home_team, away_team, sport):
+    if 'Premier' in sport or 'LaLiga' in sport or 'Serie A' in sport:
+        return {
             'jugador': 'Jugador destacado',
             'prop': 'Over 0.5 goles',
             'cuota': 2.10,
             'stake': '0.5%',
             'ev': '+9.0%'
         }
-    return principal, secundaria, prop
+    return None
 
-# ==================================================
-# 4. OBTENER PARTIDOS DE TODOS LOS DEPORTES
-# ==================================================
 def obtener_futbol_por_ligas():
     leagues = []
     for slug, league_name in LEAGUE_NAMES.items():
         url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard"
-        games = fetch_espn_general(url)
+        games = obtener_partidos_desde_espn(url)
+        print(f"{league_name}: {len(games)} partidos")
         if not games:
             continue
         league_games = []
         for game in games:
             hora = convertir_hora_venezuela(game['date'])
-            principal, sec, prop = generar_picks_deportivos(game['home_team'], game['away_team'], league_name, game.get('stadium',''))
             league_games.append({
                 'partido': f"{game['away_team']} vs {game['home_team']}",
                 'hora': hora,
-                'principal': principal,
-                'secundaria': sec,
-                'prop_jugador': prop
+                'principal': generar_principal(game['home_team'], game['away_team'], league_name),
+                'secundaria': generar_secundaria(game['home_team'], game['away_team'], league_name),
+                'prop_jugador': generar_prop(game['home_team'], game['away_team'], league_name)
             })
-        leagues.append({
-            'name': league_name,
-            'games': league_games
-        })
+        leagues.append({'name': league_name, 'games': league_games})
     return leagues
 
 def obtener_mlb():
     url = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
-    games = fetch_espn_general(url)
+    games = obtener_partidos_desde_espn(url)
     result = []
     for game in games:
         hora = convertir_hora_venezuela(game['date'])
-        principal, sec, prop = generar_picks_deportivos(game['home_team'], game['away_team'], 'MLB', game.get('stadium',''))
         result.append({
             'partido': f"{game['away_team']} vs {game['home_team']}",
             'hora': hora,
-            'principal': principal,
-            'secundaria': sec,
-            'prop_jugador': prop
+            'principal': generar_principal(game['home_team'], game['away_team'], 'MLB'),
+            'secundaria': None,
+            'prop_jugador': None
         })
     return result
 
 def obtener_nba():
     url = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
-    games = fetch_espn_general(url)
+    games = obtener_partidos_desde_espn(url)
     result = []
     for game in games:
         hora = convertir_hora_venezuela(game['date'])
-        principal, sec, prop = generar_picks_deportivos(game['home_team'], game['away_team'], 'NBA', game.get('stadium',''))
         result.append({
             'partido': f"{game['away_team']} vs {game['home_team']}",
             'hora': hora,
-            'principal': principal,
-            'secundaria': sec,
-            'prop_jugador': prop
+            'principal': generar_principal(game['home_team'], game['away_team'], 'NBA'),
+            'secundaria': None,
+            'prop_jugador': None
         })
     return result
 
 def obtener_nhl():
     url = "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard"
-    games = fetch_espn_general(url)
+    games = obtener_partidos_desde_espn(url)
     result = []
     for game in games:
         hora = convertir_hora_venezuela(game['date'])
-        principal, sec, prop = generar_picks_deportivos(game['home_team'], game['away_team'], 'NHL', game.get('stadium',''))
         result.append({
             'partido': f"{game['away_team']} vs {game['home_team']}",
             'hora': hora,
-            'principal': principal,
-            'secundaria': sec,
-            'prop_jugador': prop
+            'principal': generar_principal(game['home_team'], game['away_team'], 'NHL'),
+            'secundaria': None,
+            'prop_jugador': None
         })
     return result
 
-# ==================================================
-# 5. RESULTADOS EN VIVO (opcional, por ahora vacío)
-# ==================================================
 def obtener_resultados_en_vivo():
     return {'mlb': [], 'nba': [], 'nhl': [], 'soccer': []}
 
-# ==================================================
-# 6. GUARDAR data.js
-# ==================================================
 def guardar_js(leagues, mlb, nba, nhl, resultados_vivo):
     mejoras = [
-        "✅ Datos en tiempo real desde ESPN sin dependencias externas",
-        "✅ Ligas de fútbol separadas por nombre real",
-        "✅ Horario ajustado a Venezuela (UTC-4)",
-        "✅ MLB, NBA, NHL también desde ESPN"
+        "✅ Datos desde ESPN (con fallback a vacío si no hay partidos)",
+        "✅ Ligas de fútbol organizadas por nombre",
+        "✅ Horario Venezuela (UTC-4)"
     ]
-    js_content = f"""// Generado automáticamente el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+    js_content = f"""// Generado el {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 const nhlPicks = {json.dumps(nhl, indent=2)};
 const nbaPicks = {json.dumps(nba, indent=2)};
 const mlbPicks = {json.dumps(mlb, indent=2)};
@@ -191,11 +180,8 @@ const todayResultsArray = {json.dumps(resultados_vivo, indent=2)};
         f.write(js_content)
     print("✅ data.js generado correctamente.")
 
-# ==================================================
-# 7. MAIN
-# ==================================================
 if __name__ == "__main__":
-    print("Obteniendo datos deportivos desde ESPN...")
+    print("Iniciando obtención de datos...")
     leagues = obtener_futbol_por_ligas()
     mlb = obtener_mlb()
     nba = obtener_nba()
