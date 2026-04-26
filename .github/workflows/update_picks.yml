@@ -2,7 +2,7 @@ name: Actualizar picks diariamente
 
 on:
   schedule:
-    - cron: '0 5 * * *'   # 1:00 AM Venezuela
+    - cron: '0 5 * * *'   # 1:00 AM Venezuela (UTC-4) → 5:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -15,12 +15,12 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Instalar dependencias
         run: |
           pip install --upgrade pip
-          pip install requests pandas
+          pip install requests pandas nba_api statsapi nhl-api-py
 
       - name: Ejecutar script generate_data.py
         run: python generate_data.py
@@ -28,7 +28,7 @@ jobs:
       - name: Commit y push del data.js actualizado
         run: |
           git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config user.email "github-actions@github.com"
           git add data.js
           git diff --quiet && git diff --staged --quiet || git commit -m "Actualización automática de picks"
           git push
