@@ -2,7 +2,7 @@ name: Actualizar picks diariamente
 
 on:
   schedule:
-    - cron: '0 5 * * *'   # 1:00 AM Venezuela (UTC-4) → 5:00 UTC
+    - cron: '0 5 * * *'   # 1:00 AM Venezuela
   workflow_dispatch:
 
 jobs:
@@ -18,9 +18,7 @@ jobs:
           python-version: '3.10'
 
       - name: Instalar dependencias
-        run: |
-          pip install --upgrade pip
-          pip install requests pandas nba_api mlb-statsapi nhl-api-py
+        run: pip install requests
 
       - name: Ejecutar script generate_data.py
         run: python generate_data.py
