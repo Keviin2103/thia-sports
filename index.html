@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
+        /* ... (todos los estilos igual que antes) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
@@ -478,7 +479,7 @@
         { name: "🇳🇱 Eredivisie", data: typeof eredivisiePicks !== 'undefined' ? eredivisiePicks : [] }
     ];
 
-    // ========== RENDER PICKS (sin cambios relevantes) ==========
+    // ========== RENDER PICKS ==========
     function renderGames() {
         const container = document.getElementById('gamesContainer');
         const acceso = currentUser !== null;
@@ -496,7 +497,7 @@
                     const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
                     const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
                     const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
-                    html += `<div class="game-card"><div class="card-header"><span class="league">${league.name}</span><span><i class="far fa-clock"></i> ${g.hora}</span></div><div class="matchup"><div class="team">${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}<div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div><div class="team-name">${awayTeam}</div></div><div class="vs-circle">VS</div><div class="team">${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}<div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div><div class="team-name">${homeTeam}</div></div></div>${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `<div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>${secundariaHtml}${propHtml}`}</div>`;
+                    html += `<div class="game-card"><div class="card-header"><span class="league">${league.name}</span><span><i class="far fa-clock"></i> ${g.hora}</span></div><div class="matchup"><div class="team">${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}<div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div><div class="team-name">${awayTeam}</div></div><div class="vs-circle">VS</div><div class="team">${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}<div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div><div class="team-name">${homeTeam}</div></div></div>${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `<div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>${secundariaHtml}${propHtml}</div>`;
                 }
                 html += `</div></div></div>`;
             }
@@ -549,17 +550,16 @@
             const partidos = todayResultsArray[dep] || [];
             partidos.forEach(p => {
                 html += `<tr>
-                            <td>${p.matchup}</td>
+                             <td>${p.matchup}</td>
                             <td class="${p.is_live ? 'result-hit' : ''}">${p.status}</td>
-                            <td>${p.score}</td>
-                         </tr>`;
+                             <td>${p.score}</td>
+                          </tr>`;
             });
         }
         if (html === '') html = '<tr><td colspan="3">No hay partidos hoy o no se pudieron cargar resultados.</td></tr>';
         tableBody.innerHTML = html;
         const mejorasArray = (typeof mejores !== 'undefined' && mejores.length) ? mejores : ['✅ Sistema ThIA-SA v5.9 - Resultados en vivo'];
         document.getElementById('leccionesList').innerHTML = mejorasArray.map(m => `<div>• ${m}</div>`).join('');
-        const totalPicks = 0;
         document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-number">--</div><div>HITS ✅</div></div><div class="stat-card"><div class="stat-number">--</div><div>FAILS ❌</div></div><div class="stat-card"><div class="stat-number">--</div><div>EFECT.</div></div>`;
     }
 
@@ -608,7 +608,7 @@
         });
     }
 
-    // ========== LOGIN (sin cambios) ==========
+    // ========== LOGIN ==========
     function handleGoogleCredential(response) {
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
         currentUser = { email: payload.email, name: payload.name };
