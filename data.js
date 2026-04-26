@@ -1,4 +1,4 @@
-// Generado automáticamente el 2026-04-26 16:49:35
+// Generado automáticamente el 2026-04-26 22:14:18
 const nhlPicks = [];
 const nbaPicks = [];
 const mlbPicks = [
@@ -424,7 +424,7 @@ const mlbPicks = [
   },
   {
     "partido": "Colorado Rockies vs New York Mets",
-    "hora": "05:10 PM",
+    "hora": "04:55 PM",
     "home_pitcher": "TBD",
     "away_pitcher": "TBD",
     "principal": {
