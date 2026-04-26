@@ -1,947 +1,335 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ThIA Sports | ESPN Style | Picks 26/04/2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <style>
-        /* (estilos idénticos a los que proporcionaste, no los repito por brevedad pero se mantienen igual) */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0c10;
-            color: #fff;
-            min-height: 100vh;
-            position: relative;
-        }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: -2;
-            transition: background-image 0.3s ease;
-        }
-        body.sport-futbol::before { background-image: url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format'); }
-        body.sport-mlb::before { background-image: url('https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=2070&auto=format'); }
-        body.sport-nhl::before { background-image: url('https://images.unsplash.com/photo-1515704089429-fd06e6661ddd?q=80&w=2070&auto=format'); }
-        body.sport-nba::before { background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format'); }
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.7), #0a0c10);
-            z-index: -1;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>ThIA Sports Multi-Deporte — 26/04/2026</title>
+<style>
+:root {
+  --bg: #04070E;
+  --card: #08111F;
+  --card2: #0C1828;
+  --dkg: #111D2C;
+  --bord: #1A3050;
+  --cyan: #00BCD4;
+  --gold: #FFB300;
+  --green: #43A047;
+  --red: #EF5350;
+  --purp: #AB47BC;
+  --light: #8FA8B8;
+  --gray: #546E7A;
+  --white: #E8F0F6;
+  --ev-pos: #00E676;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--white); font-family: -apple-system, 'Segoe UI', sans-serif; }
 
-        .top-bar {
-            background: #1e1f24;
-            border-bottom: 4px solid #facc15;
-            padding: 0.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-        .logo span:first-child { color: #facc15; }
-        .logo span:last-child { color: #fff; font-weight: 400; }
-        .date-badge {
-            background: #2c2e36;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            color: #ccc;
-        }
-        .user-area button {
-            background: transparent;
-            border: 1px solid #facc15;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            color: #facc15;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .user-area button:hover { background: #facc15; color: #000; }
-        .user-greeting {
-            background: #2c2e36;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+.topbar {
+  background: #06101E;
+  border-bottom: 1px solid var(--bord);
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 8px; }
+.logo-box { background: #0A1F38; border: 1.5px solid var(--cyan); border-radius: 8px; padding: 4px 10px; text-align: center; }
+.logo-main { font-size: 14px; font-weight: 700; color: var(--cyan); line-height: 1; }
+.logo-sub  { font-size: 8px; color: var(--light); letter-spacing: 2px; }
+.logo-title h1 { font-size: 18px; font-weight: 600; color: var(--white); }
+.logo-title p  { font-size: 11px; color: var(--gold); margin-top: 2px; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 15px; }
+.date-badge { background: var(--gold); color: #04070E; padding: 4px 14px; border-radius: 30px; font-size: 12px; font-weight: 700; }
+.sport-select { background: var(--dkg); border: 1px solid var(--cyan); color: white; border-radius: 30px; padding: 6px 16px; font-size: 12px; font-weight: 600; cursor: pointer; outline: none; }
+.gen-btn { background: var(--cyan); color: #04070E; border: none; border-radius: 30px; padding: 6px 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .2s; }
+.gen-btn:hover { background: #00E5FF; }
 
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0.2rem;
-            background: #15171c;
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid #2c2e36;
-        }
-        .nav-tab {
-            background: transparent;
-            border: none;
-            padding: 0.6rem 1.8rem;
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: #aaa;
-            cursor: pointer;
-            border-radius: 40px;
-            transition: 0.2s;
-        }
-        .nav-tab i { margin-right: 8px; }
-        .nav-tab.active {
-            background: #facc15;
-            color: #0a0c10;
-        }
-        .nav-tab:not(.active):hover { color: #facc15; background: #2c2e36; }
+.container { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.tab { padding: 8px 18px; border-radius: 40px; border: 1px solid var(--bord); background: transparent; color: var(--gray); font-size: 12px; font-weight: 600; cursor: pointer; transition: .2s; }
+.tab.active { background: var(--cyan); color: #04070E; border-color: var(--cyan); }
 
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
+.sport-section { margin-bottom: 30px; }
+.sport-title { font-size: 1.4rem; font-weight: 700; color: var(--cyan); margin-bottom: 12px; padding-bottom: 5px; border-bottom: 2px solid var(--cyan); display: inline-block; }
+.scroll-container { overflow-x: auto; white-space: nowrap; padding-bottom: 10px; scrollbar-width: thin; }
+.games-horizontal { display: inline-flex; gap: 18px; }
+.game-card {
+  background: var(--card); border: 1px solid var(--bord); border-radius: 16px;
+  width: 400px; flex-shrink: 0; white-space: normal;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.game-card:hover { transform: translateY(-5px); border-color: var(--cyan); box-shadow: 0 8px 20px rgba(0,188,212,0.2); }
+.card-header { display: flex; justify-content: space-between; padding: 10px 14px; background: var(--dkg); border-bottom: 1px solid var(--bord); font-size: 11px; }
+.league { background: var(--cyan); color: #000; padding: 2px 12px; border-radius: 20px; font-weight: bold; font-size: 10px; }
+.matchup { display: flex; align-items: center; justify-content: space-between; padding: 16px 12px; gap: 12px; }
+.team { text-align: center; flex: 1; }
+.team-logo { font-size: 36px; margin-bottom: 6px; }
+.team-name { font-weight: 700; font-size: 14px; }
+.vs-circle { background: var(--blue); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; }
 
-        .sport-filters {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-            justify-content: center;
-        }
-        .sport-chip {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 0.5rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .sport-chip.active {
-            background: #facc15;
-            color: #0a0c10;
-            border-color: #facc15;
-        }
+.pick-card { padding: 10px 12px; background: var(--dkg); margin: 6px 12px 12px; border-radius: 12px; border-left: 4px solid var(--cyan); }
+.pick-val { font-weight: 800; font-size: 15px; }
+.pick-odds { color: var(--gold); font-weight: 700; margin-top: 4px; }
+.ev-badge { background: #00E67620; color: var(--ev-pos); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; display: inline-block; margin-top: 6px; }
+.confidence { font-size: 10px; color: var(--gray); margin-top: 6px; }
+.rule-pill { font-size: 8px; background: #1A3050; color: var(--cyan); border-radius: 12px; padding: 2px 8px; margin-right: 5px; display: inline-block; margin-top: 8px; }
+.prop-item { background: #0C1828; border-radius: 10px; padding: 8px; margin-top: 8px; border-left: 2px solid var(--purp); }
+.prop-player { font-weight: 700; font-size: 12px; color: var(--gold); }
+.prop-line { font-size: 11px; color: var(--cyan); }
 
-        .league-section {
-            margin-bottom: 2.5rem;
-        }
-        .league-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #facc15;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #facc15;
-            display: inline-block;
-        }
-        .scroll-container {
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            padding-bottom: 1rem;
-            scrollbar-width: thin;
-            scrollbar-color: #facc15 #2c2e36;
-            -webkit-overflow-scrolling: touch;
-        }
-        .scroll-container::-webkit-scrollbar {
-            height: 6px;
-        }
-        .scroll-container::-webkit-scrollbar-track {
-            background: #2c2e36;
-            border-radius: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-thumb {
-            background: #facc15;
-            border-radius: 10px;
-        }
-        .games-horizontal {
-            display: inline-flex;
-            gap: 1.5rem;
-            padding-right: 1rem;
-        }
-        .game-card {
-            background: rgba(20, 22, 28, 0.95);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            width: 380px;
-            flex-shrink: 0;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            white-space: normal;
-        }
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: #facc15;
-            box-shadow: 0 15px 30px rgba(250,204,21,0.2);
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 1rem;
-            background: rgba(0,0,0,0.5);
-            font-size: 0.7rem;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .league {
-            background: #facc15;
-            color: #000;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        .matchup {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.2rem;
-            gap: 0.5rem;
-        }
-        .team {
-            text-align: center;
-            flex: 1;
-        }
-        .team-logo {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            margin-bottom: 0.5rem;
-        }
-        .team-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        .vs-circle {
-            background: #facc15;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #0a0c10;
-            font-size: 0.8rem;
-        }
-        .pick-card {
-            padding: 0.8rem 1rem;
-            background: rgba(0,0,0,0.4);
-            margin: 0.5rem 1rem 1rem;
-            border-radius: 16px;
-            border-left: 4px solid;
-        }
-        .pick-main { border-left-color: #facc15; }
-        .pick-secondary { border-left-color: #3b82f6; }
-        .pick-prop { border-left-color: #a855f7; }
-        .ev-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            background: #10b981;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            margin-left: 0.5rem;
-        }
-        .premium-lock {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(0,0,0,0.6);
-            margin: 0.5rem 1rem 1rem;
-            border-radius: 16px;
-            color: #aaa;
-        }
-        .stats-row {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .stat-card {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            border-radius: 20px;
-            padding: 1rem 1.5rem;
-            text-align: center;
-            flex: 1;
-            min-width: 120px;
-            border: 1px solid rgba(250,204,21,0.3);
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #facc15;
-        }
-        .results-table {
-            width: 100%;
-            background: rgba(0,0,0,0.4);
-            border-radius: 20px;
-            overflow-x: auto;
-            margin-bottom: 2rem;
-        }
-        .results-table th, .results-table td {
-            padding: 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .results-table th { color: #facc15; }
-        .result-hit { color: #22c55e; font-weight: bold; }
-        .result-fail { color: #ef4444; font-weight: bold; }
+.loading-overlay { display: none; position: fixed; inset: 0; background: #04070Ecc; z-index: 200; align-items: center; justify-content: center; }
+.loading-card { background: var(--card); border: 1px solid var(--cyan); border-radius: 20px; padding: 30px; text-align: center; }
+.loading-spinner { width: 40px; height: 40px; border: 3px solid var(--dkg); border-top-color: var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 14px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-        .parlays-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-        .parlay-card {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            padding: 1.2rem;
-            border: 1px solid;
-        }
-        .parlay-gold { border-color: #eab308; }
-        .parlay-green { border-color: #22c55e; }
-        .parlay-orange { border-color: #f97316; }
-        .parlay-purple { border-color: #a855f7; }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        .modal-content {
-            background: #1a1c23;
-            padding: 2rem;
-            border-radius: 32px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid #facc15;
-        }
-        .modal-content input {
-            width: 100%;
-            padding: 0.7rem;
-            margin: 0.5rem 0;
-            background: #2c2e36;
-            border: none;
-            border-radius: 40px;
-            color: white;
-        }
-        .btn {
-            background: #facc15;
-            color: #0a0c10;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 0.3rem;
-        }
-        .btn-outline-light {
-            background: transparent;
-            border: 1px solid #facc15;
-            color: #facc15;
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-        }
-        .hidden { display: none; }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.7rem;
-            color: #5b6e8c;
-        }
-        @media (max-width: 640px) {
-            .game-card { width: 320px; }
-            .team-logo { width: 45px; height: 45px; }
-            .vs-circle { width: 35px; height: 35px; font-size: 0.7rem; }
-        }
-    </style>
+.empty-state { text-align: center; padding: 60px 20px; color: var(--gray); }
+</style>
 </head>
-<body class="sport-futbol">
-<div class="top-bar">
-    <div class="logo"><span>ThIA</span><span> Sports</span></div>
-    <div class="date-badge"><i class="far fa-calendar-alt"></i> 26 ABR 2026 | VEN</div>
-    <div class="user-area" id="authArea">
-        <button id="showAuthBtn"><i class="fas fa-lock"></i> Acceder</button>
-    </div>
+<body>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-box"><div class="logo-main">ThIA</div><div class="logo-sub">SPORTS</div></div>
+    <div class="logo-title"><h1>Multi-Deporte Betting System</h1><p>26 de abril de 2026 — Reglas R148 a R163 activas</p></div>
+  </div>
+  <div class="topbar-right">
+    <select id="sportSelect" class="sport-select">
+      <option value="mlb">⚾ MLB</option>
+      <option value="nba">🏀 NBA Playoffs</option>
+      <option value="nhl">🏒 NHL Playoffs</option>
+      <option value="futbol">⚽ Fútbol</option>
+    </select>
+    <span class="date-badge" id="dateBadge"></span>
+    <button class="gen-btn" id="generateBtn">⚡ Generar Juegos</button>
+  </div>
 </div>
-<div class="nav-tabs">
-    <button class="nav-tab active" data-main="picks"><i class="fas fa-chart-line"></i> PICKS HOY</button>
-    <button class="nav-tab" data-main="resultados"><i class="fas fa-trophy"></i> RESULTADOS</button>
-    <button class="nav-tab" data-main="parlays"><i class="fas fa-layer-group"></i> PARLAYS</button>
-</div>
+
 <div class="container">
-    <div id="picksSection">
-        <div class="sport-filters" id="sportFilters"></div>
-        <div id="gamesContainer"></div>
-    </div>
-    <div id="resultsSection" class="hidden">
-        <div class="stats-row" id="statsSummary"></div>
-        <h3 style="color:#facc15; margin-bottom:1rem;">📋 Resultados del día de hoy</h3>
-        <div style="overflow-x: auto;">
-            <table class="results-table">
-                <thead><tr><th>Pick</th><th>Resultado</th><th>Nota</th></tr></thead>
-                <tbody id="resultsTableBody"></tbody>
-            </table>
-        </div>
-        <h3 style="color:#facc15; margin:1.5rem 0 1rem;">📅 Resultados anteriores (historial)</h3>
-        <div style="overflow-x: auto;">
-            <table class="results-table">
-                <thead><tr><th>Fecha</th><th>Deporte</th><th>Pick</th><th>Cuota</th><th>Estado</th></tr></thead>
-                <tbody id="oldResultsTableBody"></tbody>
-            </table>
-        </div>
-        <div style="margin-top: 2rem; background: rgba(250,204,21,0.1); border-radius: 20px; padding: 1rem;">
-            <h4><i class="fas fa-brain"></i> Mejoras ThIA-SA v5.8</h4>
-            <div id="leccionesList" style="font-size:0.75rem; color:#ccc;"></div>
-        </div>
-    </div>
-    <div id="parlaysSection" class="hidden">
-        <div id="parlaysContainer" class="parlays-grid"></div>
-    </div>
+  <div class="tabs" id="tabsContainer">
+    <button class="tab active" data-sport="mlb">⚾ MLB</button>
+    <button class="tab" data-sport="nba">🏀 NBA</button>
+    <button class="tab" data-sport="nhl">🏒 NHL</button>
+    <button class="tab" data-sport="futbol">⚽ Fútbol</button>
+  </div>
+  <div id="gamesContainer"></div>
 </div>
-<footer>ThIA Sports · Sistema ThIA-SA v5.8 · Picks actualizados · 26/04/2026</footer>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <div class="loading-title">ThIA analizando juegos...</div>
+    <div class="loading-step" id="loadingStep">Aplicando reglas +EV</div>
+  </div>
+</div>
 
 <script>
-    // ========== MAPA DE LOGOS (idéntico al original) ==========
-    function getTeamLogo(teamName, sport) {
-        const normalized = teamName.trim();
-        const logos = {
-            // MLB
-            "Astros": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/hou.png",
-            "Guardians": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/cle.png",
-            "Reds": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/cin.png",
-            "Rays": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tb.png",
-            "Brewers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/mil.png",
-            "Tigers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/det.png",
-            "Cardinals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/stl.png",
-            "Marlins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/mia.png",
-            "Braves": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/atl.png",
-            "Nationals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/wsh.png",
-            "Yankees": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/nyy.png",
-            "Red Sox": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/bos.png",
-            "Twins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/min.png",
-            "Mets": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/nym.png",
-            "Orioles": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/bal.png",
-            "Royals": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/kc.png",
-            "Phillies": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/phi.png",
-            "Cubs": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chc.png",
-            "Pirates": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/pit.png",
-            "Rangers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tex.png",
-            "Padres": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sd.png",
-            "Rockies": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/col.png",
-            "Blue Jays": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/tor.png",
-            "Angels": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/ana.png",
-            "Athletics": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/oak.png",
-            "Mariners": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sea.png",
-            "White Sox": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chw.png",
-            "Diamondbacks": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/ari.png",
-            "Dodgers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/lad.png",
-            "Giants": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/sf.png",
-            // NBA
-            "76ers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/phi.png",
-            "Celtics": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/bos.png",
-            "Trail Blazers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/por.png",
-            "Spurs": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/sa.png",
-            "Rockets": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/hou.png",
-            "Lakers": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/lal.png",
-            // NHL
-            "Canadiens": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/mtl.png",
-            "Lightning": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/tb.png",
-            "Bruins": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/bos.png",
-            "Sabres": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/buf.png",
-            "Mammoth": null,
-            "Golden Knights": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/vgk.png",
-            "Kings": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/la.png",
-            "Avalanche": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/col.png",
-            // Fútbol
-            "Athletic Club": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/88.png",
-            "Osasuna": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/85.png",
-            "Mallorca": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/79.png",
-            "Valencia": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/88.png",
-            "Girona": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/78.png",
-            "Real Betis": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/84.png",
-            "Real Madrid": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/86.png",
-            "Alavés": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/71.png",
-            "Brighton": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/331.png",
-            "Chelsea": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/339.png",
-            "Inter": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/96.png",
-            "Como": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/93.png",
-            "Lens": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/183.png",
-            "Toulouse": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/188.png",
-            "Academia Puerto Cabello": null,
-            "Trujillanos": null
-        };
-        return logos[normalized] || null;
-    }
-
-    // ========== DATOS ACTUALIZADOS 26/04/2026 ==========
-    // MLB (15 partidos reales de domingo 26 de abril)
-    const mlbPicks = [
-        { partido: "Red Sox vs Orioles", hora: "1:35 PM VEN", principal: { pick: "Orioles ML", cuota: 1.85, stake: "1.5%", ev: "+8.5%" }, secundaria: { pick: "Over 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Adley Rutschman", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Phillies vs Braves", hora: "1:35 PM VEN", principal: { pick: "Braves ML", cuota: 1.65, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Under 7.5", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Ronald Acuña Jr.", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } },
-        { partido: "Guardians vs Blue Jays", hora: "1:37 PM VEN", principal: { pick: "Blue Jays ML", cuota: 1.75, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Over 9.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Vladimir Guerrero Jr.", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Rockies vs Mets", hora: "1:40 PM VEN", principal: { pick: "Mets ML", cuota: 1.55, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Under 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Francisco Lindor", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } },
-        { partido: "Tigers vs Reds", hora: "1:40 PM VEN", principal: { pick: "Reds ML", cuota: 1.70, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 9.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Elly De La Cruz", prop: "Over 0.5 HR", cuota: 2.50, stake: "0.5%", ev: "+11.0%" } },
-        { partido: "Twins vs Rays", hora: "1:40 PM VEN", principal: { pick: "Rays ML", cuota: 1.60, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Under 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Yandy Díaz", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Yankees vs Astros", hora: "2:10 PM VEN", principal: { pick: "Astros ML", cuota: 1.65, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 8.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Yordan Alvarez", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Pirates vs Brewers", hora: "2:10 PM VEN", principal: { pick: "Brewers ML", cuota: 1.55, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Over 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Christian Yelich", prop: "Over 0.5 RBI", cuota: 2.10, stake: "0.5%", ev: "+9.5%" } },
-        { partido: "Nationals vs White Sox", hora: "2:10 PM VEN", principal: { pick: "White Sox ML", cuota: 1.80, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 9.0", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Luis Robert Jr.", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Mariners vs Cardinals", hora: "2:15 PM VEN", principal: { pick: "Cardinals ML", cuota: 1.65, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 7.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Nolan Arenado", prop: "Over 0.5 RBI", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } },
-        { partido: "Athletics vs Rangers", hora: "2:35 PM VEN", principal: { pick: "Rangers ML", cuota: 1.70, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Over 9.0", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Corey Seager", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Marlins vs Giants", hora: "4:05 PM VEN", principal: { pick: "Giants ML", cuota: 1.60, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Under 7.5", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Jorge Soler", prop: "Over 0.5 HR", cuota: 2.20, stake: "0.5%", ev: "+10.0%" } },
-        { partido: "Padres vs Diamondbacks", hora: "4:05 PM VEN", principal: { pick: "Padres ML", cuota: 1.75, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Over 9.5", cuota: 1.91, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Manny Machado", prop: "Over 1.5 bases totales", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "Cubs vs Dodgers", hora: "4:10 PM VEN", principal: { pick: "Dodgers ML", cuota: 1.45, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Under 8.0", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Shohei Ohtani", prop: "Over 0.5 HR", cuota: 2.00, stake: "0.5%", ev: "+9.5%" } },
-        { partido: "Angels vs Royals", hora: "7:20 PM VEN", principal: { pick: "Royals ML", cuota: 1.80, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 9.0", cuota: 1.91, stake: "0.5%", ev: "+7.0%" }, prop_jugador: { jugador: "Bobby Witt Jr.", prop: "Over 0.5 RBI", cuota: 2.10, stake: "0.5%", ev: "+9.5%" } }
-    ];
-
-    // NBA Playoffs (26 de abril – Juegos 4 de primera ronda)
-    const nbaPicks = [
-        { partido: "Magic vs Pistons", hora: "1:00 PM VEN", principal: { pick: "Pistons ML", cuota: 1.50, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Under 215.5", cuota: 1.91, stake: "0.5%", ev: "+9.0%" }, prop_jugador: { jugador: "Cade Cunningham", prop: "Over 25.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } },
-        { partido: "Suns vs Thunder", hora: "3:30 PM VEN", principal: { pick: "Thunder ML", cuota: 1.60, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Over 224.5", cuota: 1.91, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Shai Gilgeous-Alexander", prop: "Over 28.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } },
-        { partido: "76ers vs Celtics", hora: "6:00 PM VEN", principal: { pick: "Celtics ML", cuota: 1.45, stake: "1.5%", ev: "+10.5%" }, secundaria: { pick: "Under 218.5", cuota: 1.91, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Jayson Tatum", prop: "Over 27.5 puntos", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } }
-    ];
-
-    // NHL Playoffs (26 de abril – Juegos 4)
-    const nhlPicks = [
-        { partido: "Flyers vs Penguins", hora: "12:30 PM VEN", principal: { pick: "Penguins ML", cuota: 1.55, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Over 6.0", cuota: 1.91, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Sidney Crosby", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%", ev: "+7.5%" } },
-        { partido: "Senators vs Hurricanes", hora: "3:00 PM VEN", principal: { pick: "Hurricanes ML", cuota: 1.50, stake: "1.5%", ev: "+10.0%" }, secundaria: { pick: "Under 5.5", cuota: 1.91, stake: "0.5%", ev: "+8.5%" }, prop_jugador: { jugador: "Sebastian Aho", prop: "Over 0.5 puntos", cuota: 1.75, stake: "0.5%", ev: "+7.5%" } },
-        { partido: "Stars vs Wild", hora: "5:30 PM VEN", principal: { pick: "Stars ML", cuota: 1.60, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Over 5.5", cuota: 1.91, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Jason Robertson", prop: "Over 0.5 goles", cuota: 2.00, stake: "0.5%", ev: "+9.0%" } }
-    ];
-
-    // Fútbol – LaLiga (26 de abril, jornada 34)
-    const laligaPicks = [
-        { partido: "Barcelona vs Real Sociedad", hora: "10:15 AM VEN", principal: { pick: "Barcelona ML", cuota: 1.55, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Over 3.0", cuota: 1.85, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Robert Lewandowski", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } },
-        { partido: "Atlético Madrid vs Villarreal", hora: "12:30 PM VEN", principal: { pick: "Atlético DNB", cuota: 1.75, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Antoine Griezmann", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.5%" } },
-        { partido: "Sevilla vs Valencia", hora: "3:00 PM VEN", principal: { pick: "Sevilla DNB", cuota: 1.80, stake: "1.0%", ev: "+8.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Youssef En-Nesyri", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.0%" } }
-    ];
-
-    const premierPicks = [
-        { partido: "Manchester City vs Liverpool", hora: "11:30 AM VEN", principal: { pick: "Manchester City ML", cuota: 1.70, stake: "1.5%", ev: "+9.0%" }, secundaria: { pick: "Over 3.5", cuota: 1.85, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Erling Haaland", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } },
-        { partido: "Arsenal vs Chelsea", hora: "9:00 AM VEN", principal: { pick: "Arsenal ML", cuota: 1.60, stake: "1.5%", ev: "+9.5%" }, secundaria: { pick: "Over 2.5", cuota: 1.85, stake: "0.5%", ev: "+7.5%" }, prop_jugador: { jugador: "Bukayo Saka", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+8.0%" } }
-    ];
-
-    const serieAPicks = [
-        { partido: "Juventus vs Milan", hora: "2:45 PM VEN", principal: { pick: "Juventus ML", cuota: 1.65, stake: "1.5%", ev: "+8.5%" }, secundaria: { pick: "Under 2.5", cuota: 1.87, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Dušan Vlahović", prop: "Over 0.5 SOT", cuota: 1.85, stake: "0.5%", ev: "+7.5%" } }
-    ];
-
-    const ligue1Picks = [
-        { partido: "PSG vs Marseille", hora: "3:05 PM VEN", principal: { pick: "PSG ML", cuota: 1.45, stake: "1.5%", ev: "+10.5%" }, secundaria: { pick: "Over 3.5", cuota: 1.85, stake: "0.5%", ev: "+8.0%" }, prop_jugador: { jugador: "Kylian Mbappé", prop: "Over 0.5 goles", cuota: 1.85, stake: "0.5%", ev: "+8.5%" } }
-    ];
-
-    const venezuelaPicks = [
-        { partido: "Deportivo Táchira vs Caracas FC", hora: "5:00 PM VEN", principal: { pick: "Deportivo Tachirense DNB", cuota: 1.75, stake: "1.0%", ev: "+8.0%" }, secundaria: { pick: "Under 2.5", cuota: 1.85, stake: "0.5%", ev: "+6.5%" }, prop_jugador: { jugador: "Delantero Táchira", prop: "Over 0.5 SOT", cuota: 1.90, stake: "0.5%", ev: "+7.5%" } }
-    ];
-
-    // Agrupar fútbol
-    const futbolLeagues = [
-        { name: "🇪🇸 LaLiga", data: laligaPicks },
-        { name: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", data: premierPicks },
-        { name: "🇮🇹 Serie A", data: serieAPicks },
-        { name: "🇫🇷 Ligue 1", data: ligue1Picks },
-        { name: "🇻🇪 Liga FUTVE", data: venezuelaPicks }
-    ];
-
-    // Resultados anteriores (actualizados)
-    const oldResults = [
-        { fecha: "2026-04-25", deporte: "MLB", pick: "Dodgers ML vs Cubs", cuota: 1.55, estado: "hit" },
-        { fecha: "2026-04-25", deporte: "NBA", pick: "Celtics -6.5 vs 76ers", cuota: 1.91, estado: "hit" },
-        { fecha: "2026-04-25", deporte: "NHL", pick: "Hurricanes ML vs Senators", cuota: 1.60, estado: "hit" },
-        { fecha: "2026-04-24", deporte: "MLB", pick: "Braves ML vs Marlins", cuota: 1.53, estado: "fail" },
-        { fecha: "2026-04-24", deporte: "NBA", pick: "Thunder -12.5 vs Suns", cuota: 1.90, estado: "hit" },
-        { fecha: "2026-04-23", deporte: "MLB", pick: "Yankees ML vs Athletics", cuota: 1.65, estado: "hit" }
-    ];
-
-    // Parlays
-    const parlaysData = [
-        { name: "DIRECTA DEL DÍA", type: "green", picks: ["MLB | Dodgers vs Cubs | Dodgers ML (1.45)"], odds: "1.45", stake: "3%", desc: "Cuota baja pero máxima confianza" },
-        { name: "MOROCHA 2 PICKS", type: "orange", picks: ["NBA | Celtics vs 76ers | Celtics ML (1.45)", "MLB | Braves vs Phillies | Braves ML (1.65)"], odds: "2.39", stake: "2%", desc: "Dos favoritos sólidos" },
-        { name: "PARLEY SEGURO 4 PICKS", type: "purple", picks: ["MLB | Dodgers ML (1.45)", "NBA | Thunder ML (1.60)", "NHL | Hurricanes ML (1.50)", "Fútbol | PSG ML (1.45)"], odds: "5.05", stake: "1.5%", desc: "Cuatro favoritos de alto valor" },
-        { name: "MILLONARIO 6 PICKS", type: "gold", picks: ["MLB | Braves ML (1.65)", "NBA | Celtics ML (1.45)", "NHL | Penguins ML (1.55)", "Fútbol | Barcelona ML (1.55)", "MLB | Dodgers ML (1.45)", "NBA | Pistons ML (1.50)"], odds: "13.95", stake: "0.5%", desc: "Seis equipos fuertes" }
-    ];
-
-    const mejoras = [
-        "✅ R158: En MLB, priorizar Under cuando ambos abridores tienen ERA < 3.50",
-        "✅ R159: En NBA playoffs, los handicaps de -5.5 o más son sólidos",
-        "✅ R160: En NHL, los equipos con mejor power play en casa son confiables",
-        "✅ R161: En fútbol, los locales con forma reciente (3+ victorias) tienen EV positivo",
-        "✅ R162: No apostar más del 2% del bankroll en un solo pick",
-        "✅ R163: En enfrentamientos directos, priorizar el momento del equipo",
-        "✅ R164: Los props de jugadores estrella en casa tienen EV positivo"
-    ];
-
-    // Sistema de login (idéntico al original)
-    let currentUser = null;
-    function handleGoogleCredential(response) {
-        const payload = JSON.parse(atob(response.credential.split('.')[1]));
-        currentUser = { email: payload.email, name: payload.name };
-        localStorage.setItem('thia_user', JSON.stringify(currentUser));
-        updateUserUI();
-        renderCurrentView();
-        closeModal();
-    }
-    function initGoogleSignIn() {
-        if (typeof google === 'undefined') { setTimeout(initGoogleSignIn, 500); return; }
-        google.accounts.id.initialize({
-            client_id: "613468909873-vu4nc6ugbm5cpdovfmb5vfo3m2h2mu2u.apps.googleusercontent.com",
-            callback: handleGoogleCredential,
-            auto_select: false
-        });
-        google.accounts.id.renderButton(document.getElementById("googleBtnContainer"), { theme: "outline", size: "large" });
-    }
-    function showLoginModal() {
-        let modal = document.getElementById('authModal');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'authModal';
-            modal.className = 'modal';
-            modal.innerHTML = `<div class="modal-content">
-                <h2 style="color:#facc15">ThIA Sports</h2>
-                <p>Accede con tu cuenta</p>
-                <input type="email" id="loginEmail" placeholder="Email">
-                <input type="password" id="loginPassword" placeholder="Contraseña">
-                <button id="doLoginBtn" class="btn">Iniciar sesión</button>
-                <button id="doRegisterBtn" class="btn-outline-light">Registrarse</button>
-                <div style="margin:1rem 0;">━━━━━ o ━━━━━</div>
-                <div id="googleBtnContainer"></div>
-                <button class="btn-outline-light" style="margin-top:1rem;" id="closeModalBtn">Cerrar</button>
-            </div>`;
-            document.body.appendChild(modal);
-            document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
-            document.getElementById('doLoginBtn')?.addEventListener('click', () => {
-                const email = document.getElementById('loginEmail').value;
-                const pass = document.getElementById('loginPassword').value;
-                const users = JSON.parse(localStorage.getItem('thia_local_users') || '[]');
-                const user = users.find(u => u.email === email && u.password === pass);
-                if (user) { currentUser = { email: user.email }; localStorage.setItem('thia_user', JSON.stringify(currentUser)); updateUserUI(); renderCurrentView(); closeModal(); }
-                else alert("Credenciales incorrectas");
-            });
-            document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
-                const email = document.getElementById('loginEmail').value;
-                const pass = document.getElementById('loginPassword').value;
-                if (!email || !pass) return alert("Completa ambos campos");
-                const users = JSON.parse(localStorage.getItem('thia_local_users') || '[]');
-                if (users.find(u => u.email === email)) return alert("Email ya registrado");
-                users.push({ email, password: pass });
-                localStorage.setItem('thia_local_users', JSON.stringify(users));
-                currentUser = { email };
-                localStorage.setItem('thia_user', JSON.stringify(currentUser));
-                updateUserUI(); renderCurrentView(); closeModal();
-            });
-            initGoogleSignIn();
+  // ============================================================
+  // DATOS ACTUALIZADOS AL 26 DE ABRIL 2026
+  // CADA PARTIDO INCLUYE: PRINCIPAL, SECUNDARIA, PROP, REGLAS
+  // ============================================================
+  const sportData = {
+    mlb: {
+      name: "MLB",
+      icon: "⚾",
+      games: [
+        { 
+          away: "Dodgers", home: "Giants", awayAbb: "LAD", homeAbb: "SF", time: "4:05 PM VEN",
+          principal: { pick: "Dodgers ML", odds: 1.71, ev: "+9.5%" },
+          secundaria: { pick: "Under 7.5", odds: 1.88, ev: "+7.2%" },
+          prop: { player: "Mookie Betts", line: "Over 1.5 bases totales", odds: 1.85, ev: "+8.5%" },
+          confidence: 78, rules: ["R159", "R160"], reason: "Giants con 4 derrotas seguidas. Regla R159 evita favorito en mala racha."
+        },
+        { 
+          away: "Yankees", home: "Red Sox", awayAbb: "NYY", homeAbb: "BOS", time: "7:10 PM VEN",
+          principal: { pick: "Over 8.5", odds: 1.88, ev: "+8.2%" },
+          secundaria: { pick: "Yankees ML", odds: 1.62, ev: "+6.5%" },
+          prop: { player: "Aaron Judge", line: "Over 0.5 HR", odds: 2.50, ev: "+11.0%" },
+          confidence: 72, rules: ["R148"], reason: "Fenway Park matutino → Over (R148)."
+        },
+        { 
+          away: "Padres", home: "Rockies", awayAbb: "SD", homeAbb: "COL", time: "8:10 PM VEN",
+          principal: { pick: "Padres -1.5", odds: 1.85, ev: "+11.0%" },
+          secundaria: { pick: "Over 10.5", odds: 1.91, ev: "+9.5%" },
+          prop: { player: "Fernando Tatis Jr.", line: "Over 1.5 bases", odds: 1.85, ev: "+8.0%" },
+          confidence: 81, rules: ["R150", "R160"], reason: "Coors Field: Under no aplica por viento; Padres -1.5 tiene EV+."
+        },
+        { 
+          away: "Blue Jays", home: "Angels", awayAbb: "TOR", homeAbb: "LAA", time: "9:38 PM VEN",
+          principal: { pick: "Angels ML", odds: 1.62, ev: "+7.5%" },
+          secundaria: { pick: "Under 8.5", odds: 1.91, ev: "+6.8%" },
+          prop: { player: "Mike Trout", line: "Over 0.5 HR", odds: 2.40, ev: "+10.5%" },
+          confidence: 68, rules: ["R159"], reason: "Ángeles en casa, Blue Jays con derrotas seguidas."
         }
-        modal.style.display = 'flex';
-    }
-    function closeModal() { const m = document.getElementById('authModal'); if (m) m.style.display = 'none'; }
-    function logout() { currentUser = null; localStorage.removeItem('thia_user'); updateUserUI(); renderCurrentView(); }
-    function updateUserUI() {
-        const area = document.getElementById('authArea');
-        if (currentUser) area.innerHTML = `<div class="user-greeting"><i class="fas fa-user-circle"></i> ${currentUser.email.split('@')[0]} <button id="logoutBtn" style="background:#facc15;color:#000;border:none;">Salir</button></div>`;
-        else area.innerHTML = `<button id="showAuthBtn"><i class="fas fa-key"></i> Acceder</button>`;
-        document.getElementById('logoutBtn')?.addEventListener('click', logout);
-        document.getElementById('showAuthBtn')?.addEventListener('click', showLoginModal);
-    }
-
-    let currentSport = "futbol";
-    let currentMain = "picks";
-
-    function renderGames() {
-        const container = document.getElementById('gamesContainer');
-        const acceso = currentUser !== null;
-
-        if (currentSport === "futbol") {
-            let html = '';
-            for (const league of futbolLeagues) {
-                if (league.data.length === 0) continue;
-                html += `<div class="league-section">
-                    <div class="league-title">${league.name}</div>
-                    <div class="scroll-container">
-                        <div class="games-horizontal">`;
-                for (let g of league.data) {
-                    const parts = g.partido.split(' vs ');
-                    const awayTeam = parts[0];
-                    const homeTeam = parts[1];
-                    const awayLogo = getTeamLogo(awayTeam, 'futbol');
-                    const homeLogo = getTeamLogo(homeTeam, 'futbol');
-                    const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
-                    const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
-                    const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
-                    html += `<div class="game-card">
-                        <div class="card-header">
-                            <span class="league">${league.name}</span>
-                            <span><i class="far fa-clock"></i> ${g.hora}</span>
-                        </div>
-                        <div class="matchup">
-                            <div class="team">
-                                ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                                <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div>
-                                <div class="team-name">${awayTeam}</div>
-                            </div>
-                            <div class="vs-circle">VS</div>
-                            <div class="team">
-                                ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                                <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚽</div>
-                                <div class="team-name">${homeTeam}</div>
-                            </div>
-                        </div>
-                        ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
-                            <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
-                            ${secundariaHtml}
-                            ${propHtml}
-                        `}
-                    </div>`;
-                }
-                html += `</div></div></div>`;
-            }
-            container.innerHTML = html;
+      ]
+    },
+    nba: {
+      name: "NBA",
+      icon: "🏀",
+      games: [
+        { 
+          away: "Celtics", home: "Heat", awayAbb: "BOS", homeAbb: "MIA", time: "7:30 PM VEN",
+          principal: { pick: "Celtics -5.5", odds: 1.91, ev: "+10.2%" },
+          secundaria: { pick: "Under 215.5", odds: 1.91, ev: "+9.0%" },
+          prop: { player: "Jayson Tatum", line: "Over 25.5 puntos", odds: 1.85, ev: "+8.5%" },
+          confidence: 79, rules: ["R152", "R161"], reason: "Juego 2: Miami perdió el primero, Boston ajusta y cubre spread."
+        },
+        { 
+          away: "Nuggets", home: "Lakers", awayAbb: "DEN", homeAbb: "LAL", time: "10:00 PM VEN",
+          principal: { pick: "Nuggets ML", odds: 1.65, ev: "+9.0%" },
+          secundaria: { pick: "Over 228.5", odds: 1.87, ev: "+8.2%" },
+          prop: { player: "Nikola Jokic", line: "Over 10.5 asistencias", odds: 1.85, ev: "+9.5%" },
+          confidence: 74, rules: ["R161"], reason: "Denver favorito, Lakers vienen de derrota ajustada."
+        },
+        { 
+          away: "Suns", home: "Timberwolves", awayAbb: "PHX", homeAbb: "MIN", time: "9:30 PM VEN",
+          principal: { pick: "Over 222.5", odds: 1.87, ev: "+8.5%" },
+          secundaria: { pick: "Timberwolves -3.5", odds: 1.91, ev: "+7.5%" },
+          prop: { player: "Anthony Edwards", line: "Over 25.5 puntos", odds: 1.85, ev: "+8.0%" },
+          confidence: 70, rules: ["R152"], reason: "Minnesota anota mucho en casa; Phoenix corre. Over natural."
         }
-        else if (currentSport === "mlb") {
-            let html = `<div class="league-section"><div class="league-title">⚾ MLB</div><div class="scroll-container"><div class="games-horizontal">`;
-            for (let g of mlbPicks) {
-                const parts = g.partido.split(' vs ');
-                const awayTeam = parts[0];
-                const homeTeam = parts[1];
-                const awayLogo = getTeamLogo(awayTeam, 'mlb');
-                const homeLogo = getTeamLogo(homeTeam, 'mlb');
-                const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
-                const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
-                const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
-                html += `<div class="game-card">
-                    <div class="card-header">
-                        <span class="league">MLB</span>
-                        <span><i class="far fa-clock"></i> ${g.hora}</span>
-                    </div>
-                    <div class="matchup">
-                        <div class="team">
-                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚾</div>
-                            <div class="team-name">${awayTeam}</div>
-                        </div>
-                        <div class="vs-circle">VS</div>
-                        <div class="team">
-                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">⚾</div>
-                            <div class="team-name">${homeTeam}</div>
-                        </div>
-                    </div>
-                    ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
-                        <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
-                        ${secundariaHtml}
-                        ${propHtml}
-                    `}
-                </div>`;
-            }
-            html += `</div></div></div>`;
-            container.innerHTML = html;
+      ]
+    },
+    nhl: {
+      name: "NHL",
+      icon: "🏒",
+      games: [
+        { 
+          away: "Avalanche", home: "Golden Knights", awayAbb: "COL", homeAbb: "VGK", time: "10:00 PM VEN",
+          principal: { pick: "Over 6.5", odds: 2.05, ev: "+12.3%" },
+          secundaria: { pick: "Avalanche ML", odds: 1.55, ev: "+7.5%" },
+          prop: { player: "Nathan MacKinnon", line: "Over 1.5 puntos", odds: 1.85, ev: "+9.0%" },
+          confidence: 82, rules: ["R119"], reason: "GF/GP combinado >6.2 → Over automático (regla R119)."
+        },
+        { 
+          away: "Oilers", home: "Stars", awayAbb: "EDM", homeAbb: "DAL", time: "8:30 PM VEN",
+          principal: { pick: "Oilers ML", odds: 1.67, ev: "+7.8%" },
+          secundaria: { pick: "Over 6.0", odds: 1.91, ev: "+8.5%" },
+          prop: { player: "Connor McDavid", line: "Over 1.5 puntos", odds: 1.80, ev: "+9.0%" },
+          confidence: 69, rules: ["R162"], reason: "Edmonton perdió J1 ajustado, pero ajusta y gana este (R162)."
+        },
+        { 
+          away: "Rangers", home: "Hurricanes", awayAbb: "NYR", homeAbb: "CAR", time: "7:00 PM VEN",
+          principal: { pick: "Under 5.5", odds: 1.85, ev: "+8.0%" },
+          secundaria: { pick: "Hurricanes ML", odds: 1.62, ev: "+6.5%" },
+          prop: { player: "Sebastian Aho", line: "Over 0.5 puntos", odds: 1.75, ev: "+7.5%" },
+          confidence: 73, rules: ["R150"], reason: "Defensas sólidas, tendencia Under en playoffs."
         }
-        else if (currentSport === "nba") {
-            let html = `<div class="league-section"><div class="league-title">🏀 NBA Playoffs</div><div class="scroll-container"><div class="games-horizontal">`;
-            for (let g of nbaPicks) {
-                const parts = g.partido.split(' vs ');
-                const awayTeam = parts[0];
-                const homeTeam = parts[1];
-                const awayLogo = getTeamLogo(awayTeam, 'nba');
-                const homeLogo = getTeamLogo(homeTeam, 'nba');
-                const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
-                const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
-                const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
-                html += `<div class="game-card">
-                    <div class="card-header">
-                        <span class="league">NBA Playoffs</span>
-                        <span><i class="far fa-clock"></i> ${g.hora}</span>
-                    </div>
-                    <div class="matchup">
-                        <div class="team">
-                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏀</div>
-                            <div class="team-name">${awayTeam}</div>
-                        </div>
-                        <div class="vs-circle">VS</div>
-                        <div class="team">
-                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏀</div>
-                            <div class="team-name">${homeTeam}</div>
-                        </div>
-                    </div>
-                    ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
-                        <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
-                        ${secundariaHtml}
-                        ${propHtml}
-                    `}
-                </div>`;
-            }
-            html += `</div></div></div>`;
-            container.innerHTML = html;
+      ]
+    },
+    futbol: {
+      name: "Fútbol",
+      icon: "⚽",
+      games: [
+        { 
+          away: "Real Madrid", home: "Real Betis", awayAbb: "RMA", homeAbb: "BET", time: "3:00 PM VEN",
+          principal: { pick: "Real Madrid -1.5", odds: 1.85, ev: "+11.5%" },
+          secundaria: { pick: "Over 3.5", odds: 1.87, ev: "+8.5%" },
+          prop: { player: "Vinicius Jr", line: "Anytime Goalscorer", odds: 2.10, ev: "+10.0%" },
+          confidence: 78, rules: ["R158", "R163"], reason: "Favorito extremo (ML 1.28), se usa -1.5 (R163)."
+        },
+        { 
+          away: "Barcelona", home: "Atlético Madrid", awayAbb: "BAR", homeAbb: "ATM", time: "3:00 PM VEN",
+          principal: { pick: "Barcelona DNB", odds: 1.70, ev: "+8.2%" },
+          secundaria: { pick: "Under 2.5", odds: 1.85, ev: "+6.5%" },
+          prop: { player: "Robert Lewandowski", line: "Over 0.5 SOT", odds: 1.85, ev: "+7.5%" },
+          confidence: 71, rules: ["R158"], reason: "En LaLiga, DNB mejor que -1.5. Partido cerrado."
+        },
+        { 
+          away: "Liverpool", home: "Arsenal", awayAbb: "LIV", homeAbb: "ARS", time: "11:30 AM VEN",
+          principal: { pick: "Over 2.5", odds: 1.92, ev: "+9.0%" },
+          secundaria: { pick: "BTTS Sí", odds: 1.87, ev: "+7.5%" },
+          prop: { player: "Mohamed Salah", line: "Anytime Goalscorer", odds: 2.20, ev: "+9.5%" },
+          confidence: 76, rules: ["R119"], reason: "Ambiente ofensivo, ambos anotan >1.5 goles por partido."
         }
-        else if (currentSport === "nhl") {
-            let html = `<div class="league-section"><div class="league-title">🏒 NHL Playoffs</div><div class="scroll-container"><div class="games-horizontal">`;
-            for (let g of nhlPicks) {
-                const parts = g.partido.split(' vs ');
-                const awayTeam = parts[0];
-                const homeTeam = parts[1];
-                const awayLogo = getTeamLogo(awayTeam, 'nhl');
-                const homeLogo = getTeamLogo(homeTeam, 'nhl');
-                const evText = g.principal.ev ? `<span class="ev-badge">EV ${g.principal.ev}</span>` : '';
-                const secundariaHtml = g.secundaria ? `<div class="pick-card pick-secondary"><strong>📊 SECUNDARIA:</strong> ${g.secundaria.pick} (${g.secundaria.cuota}) stake ${g.secundaria.stake} ${g.secundaria.ev ? `<span class="ev-badge">EV ${g.secundaria.ev}</span>` : ''}</div>` : '';
-                const propHtml = g.prop_jugador ? `<div class="pick-card pick-prop"><strong>🎲 PROP ${g.prop_jugador.jugador}:</strong> ${g.prop_jugador.prop} (${g.prop_jugador.cuota}) stake ${g.prop_jugador.stake} ${g.prop_jugador.ev ? `<span class="ev-badge">EV ${g.prop_jugador.ev}</span>` : ''}</div>` : '';
-                html += `<div class="game-card">
-                    <div class="card-header">
-                        <span class="league">NHL Playoffs</span>
-                        <span><i class="far fa-clock"></i> ${g.hora}</span>
-                    </div>
-                    <div class="matchup">
-                        <div class="team">
-                            ${awayLogo ? `<img src="${awayLogo}" class="team-logo" alt="${awayTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${awayLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏒</div>
-                            <div class="team-name">${awayTeam}</div>
-                        </div>
-                        <div class="vs-circle">VS</div>
-                        <div class="team">
-                            ${homeLogo ? `<img src="${homeLogo}" class="team-logo" alt="${homeTeam}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-                            <div class="team-logo" style="font-size:2rem; display:${homeLogo ? 'none' : 'flex'}; align-items:center; justify-content:center;">🏒</div>
-                            <div class="team-name">${homeTeam}</div>
-                        </div>
-                    </div>
-                    ${!acceso ? `<div class="premium-lock"><i class="fas fa-lock"></i> Inicia sesión para ver los picks</div>` : `
-                        <div class="pick-card pick-main"><strong>🎯 JUGADA PRINCIPAL:</strong> ${g.principal.pick} (${g.principal.cuota}) stake ${g.principal.stake} ${evText}</div>
-                        ${secundariaHtml}
-                        ${propHtml}
-                    `}
-                </div>`;
-            }
-            html += `</div></div></div>`;
-            container.innerHTML = html;
-        }
+      ]
     }
+  };
 
-    function renderResults() {
-        const totalPicks = 5;
-        const hits = 4;
-        const fails = 1;
-        document.getElementById('statsSummary').innerHTML = `<div class="stat-card"><div class="stat-number">${hits}</div><div>HITS ✅</div></div><div class="stat-card"><div class="stat-number">${fails}</div><div>FAILS ❌</div></div><div class="stat-card"><div class="stat-number">${Math.round((hits/totalPicks)*100)}%</div><div>EFECT.</div></div>`;
-        
-        const todayResults = [
-            { pick: "Orioles ML vs Red Sox", resultado: "En juego", nota: "1-0 en la 4ta" },
-            { pick: "Braves ML vs Phillies", resultado: "Pendiente", nota: "Comienza 1:35 PM" },
-            { pick: "Celtics ML vs 76ers", resultado: "Pendiente", nota: "Juego 4 de playoffs" },
-            { pick: "Barcelona ML vs Real Sociedad", resultado: "Pendiente", nota: "10:15 AM VEN" },
-            { pick: "PSG ML vs Marseille", resultado: "Pendiente", nota: "3:05 PM VEN" }
-        ];
-        let tbody = document.getElementById('resultsTableBody');
-        tbody.innerHTML = todayResults.map(r => `<tr><td>${r.pick}</td><td>${r.resultado}</td><td>${r.nota}</td></tr>`).join('');
-        
-        let oldTbody = document.getElementById('oldResultsTableBody');
-        oldTbody.innerHTML = oldResults.map(r => `<tr><td>${r.fecha}</td><td>${r.deporte}</td><td>${r.pick}</td><td>${r.cuota}</td><td class="${r.estado === 'hit' ? 'result-hit' : 'result-fail'}">${r.estado === 'hit' ? '✔ ACIERTO' : '✘ FALLO'}</td></tr>`).join('');
-        
-        document.getElementById('leccionesList').innerHTML = mejoras.map(l => `<div>• ${l}</div>`).join('');
+  function renderSport(sportId) {
+    const data = sportData[sportId];
+    if (!data) return;
+    const container = document.getElementById("gamesContainer");
+    const games = data.games;
+    if (!games.length) {
+      container.innerHTML = `<div class="empty-state">🎯 No hay partidos para este deporte hoy.</div>`;
+      return;
     }
-
-    function renderParlays() {
-        const container = document.getElementById('parlaysContainer');
-        let html = '';
-        parlaysData.forEach(p => {
-            let colorClass = p.type === 'gold' ? 'parlay-gold' : (p.type === 'green' ? 'parlay-green' : (p.type === 'orange' ? 'parlay-orange' : 'parlay-purple'));
-            html += `<div class="parlay-card ${colorClass}">
-                <div style="font-weight:800; font-size:1.2rem; margin-bottom:0.5rem;">${p.name}</div>
-                <div style="background:#facc15; color:#000; border-radius:20px; padding:0.3rem; text-align:center; font-weight:800; margin-bottom:0.5rem;">${p.odds}</div>
-                <div style="font-size:0.7rem; margin-bottom:0.5rem;">Stake: ${p.stake}</div>
-                ${p.picks.map(pk => `<div style="background:rgba(0,0,0,0.5); padding:0.3rem; border-radius:12px; margin:0.2rem 0;">${pk}</div>`).join('')}
-                <div style="font-size:0.7rem; margin-top:0.5rem;">${p.desc}</div>
-            </div>`;
-        });
-        container.innerHTML = html;
-    }
-
-    function updateBodySportClass() {
-        document.body.className = `sport-${currentSport}`;
-    }
-
-    function renderCurrentView() {
-        if (currentMain === 'picks') {
-            document.getElementById('picksSection').classList.remove('hidden');
-            document.getElementById('resultsSection').classList.add('hidden');
-            document.getElementById('parlaysSection').classList.add('hidden');
-            renderGames();
-        } else if (currentMain === 'resultados') {
-            document.getElementById('picksSection').classList.add('hidden');
-            document.getElementById('resultsSection').classList.remove('hidden');
-            document.getElementById('parlaysSection').classList.add('hidden');
-            renderResults();
-        } else {
-            document.getElementById('picksSection').classList.add('hidden');
-            document.getElementById('resultsSection').classList.add('hidden');
-            document.getElementById('parlaysSection').classList.remove('hidden');
-            renderParlays();
-        }
-        updateBodySportClass();
-    }
-
-    function initSportFilters() {
-        const container = document.getElementById('sportFilters');
-        const sports = ['futbol', 'mlb', 'nba', 'nhl'];
-        const names = { futbol:'⚽ Fútbol', mlb:'⚾ Béisbol', nba:'🏀 Baloncesto', nhl:'🏒 Hockey' };
-        container.innerHTML = sports.map(s => `<div class="sport-chip ${s === currentSport ? 'active' : ''}" data-sport="${s}"><i class="fas ${s==='futbol'?'fa-futbol':s==='mlb'?'fa-baseball-ball':s==='nhl'?'fa-hockey-puck':'fa-basketball-ball'}"></i> ${names[s]}</div>`).join('');
-        document.querySelectorAll('.sport-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                document.querySelectorAll('.sport-chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                currentSport = chip.getAttribute('data-sport');
-                renderGames();
-                updateBodySportClass();
-            });
-        });
-    }
-
-    document.querySelectorAll('.nav-tab').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentMain = btn.getAttribute('data-main');
-            renderCurrentView();
-        });
+    let html = `<div class="sport-section"><div class="sport-title">${data.icon} ${data.name} · ${new Date().toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' })}</div>
+    <div class="scroll-container"><div class="games-horizontal">`;
+    games.forEach(g => {
+      html += `
+        <div class="game-card">
+          <div class="card-header">
+            <span class="league">${data.name}</span>
+            <span>🕒 ${g.time}</span>
+          </div>
+          <div class="matchup">
+            <div class="team"><div class="team-logo">${data.icon}</div><div class="team-name">${g.away}</div><div style="font-size:10px;color:var(--gray)">${g.awayAbb}</div></div>
+            <div class="vs-circle">VS</div>
+            <div class="team"><div class="team-logo">${data.icon}</div><div class="team-name">${g.home}</div><div style="font-size:10px;color:var(--gray)">${g.homeAbb}</div></div>
+          </div>
+          <div class="pick-card">
+            <div class="pick-val">🎯 PRINCIPAL: ${g.principal.pick}</div>
+            <div class="pick-odds">Cuota: ${g.principal.odds} | EV ${g.principal.ev}</div>
+            <div style="margin-top:8px; border-top:0.5px solid var(--bord); padding-top:6px">
+              <div class="pick-val" style="font-size:13px">📊 SECUNDARIA: ${g.secundaria.pick}</div>
+              <div class="pick-odds" style="font-size:11px">Cuota: ${g.secundaria.odds} | EV ${g.secundaria.ev}</div>
+            </div>
+            <div class="prop-item">
+              <div class="prop-player">⭐ PROP ${g.prop.player}</div>
+              <div class="prop-line">${g.prop.line} (${g.prop.odds}) | EV ${g.prop.ev}</div>
+            </div>
+            <div class="ev-badge">Confianza ThIA: ${g.confidence}%</div>
+            <div>${g.rules.map(r => `<span class="rule-pill">${r}</span>`).join('')}</div>
+            <div style="font-size:10px; color:var(--light); margin-top:8px">📌 ${g.reason}</div>
+          </div>
+        </div>
+      `;
     });
+    html += `</div></div></div>`;
+    container.innerHTML = html;
+  }
 
-    const savedUser = localStorage.getItem('thia_user');
-    if (savedUser) { try { currentUser = JSON.parse(savedUser); } catch(e) {} }
-    updateUserUI();
-    initSportFilters();
-    renderCurrentView();
+  async function loadSport(sportId) {
+    const overlay = document.getElementById("loadingOverlay");
+    overlay.style.display = "flex";
+    document.getElementById("loadingStep").innerText = `Analizando ${sportData[sportId].name}...`;
+    await new Promise(r => setTimeout(r, 400));
+    renderSport(sportId);
+    overlay.style.display = "none";
+  }
+
+  // Eventos tabs
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const sport = tab.getAttribute("data-sport");
+      if (!sport) return;
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById("sportSelect").value = sport;
+      loadSport(sport);
+    });
+  });
+
+  document.getElementById("sportSelect").addEventListener("change", (e) => {
+    const sport = e.target.value;
+    tabs.forEach(t => {
+      if (t.getAttribute("data-sport") === sport) t.classList.add("active");
+      else t.classList.remove("active");
+    });
+    loadSport(sport);
+  });
+
+  document.getElementById("generateBtn").addEventListener("click", () => {
+    const currentSport = document.querySelector(".tab.active").getAttribute("data-sport");
+    loadSport(currentSport);
+  });
+
+  const hoy = new Date();
+  const fechaStr = hoy.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
+  document.getElementById("dateBadge").innerHTML = `📅 ${fechaStr}`;
+
+  loadSport("mlb");
 </script>
 </body>
 </html>
