@@ -1,4 +1,4 @@
-// Generado automáticamente el 2026-04-26 22:14:18
+// Generado automáticamente el 2026-04-27 11:28:07
 const nhlPicks = [];
 const nbaPicks = [];
 const mlbPicks = [
@@ -474,75 +474,10 @@ const leaguesData = [
     "name": "LaLiga",
     "games": [
       {
-        "partido": "Sporting Gij\u00f3n vs C\u00f3rdoba",
-        "hora": "08:00 AM",
+        "partido": "Las Palmas vs C\u00e1diz",
+        "hora": "02:30 PM",
         "principal": {
-          "pick": "C\u00f3rdoba ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Almer\u00eda vs Granada",
-        "hora": "10:15 AM",
-        "principal": {
-          "pick": "Granada ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Cultural Leonesa vs Mirand\u00e9s",
-        "hora": "10:15 AM",
-        "principal": {
-          "pick": "Mirand\u00e9s ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Real Zaragoza vs Huesca",
-        "hora": "12:30 PM",
-        "principal": {
-          "pick": "Huesca ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "FC Andorra vs Legan\u00e9s",
-        "hora": "12:30 PM",
-        "principal": {
-          "pick": "Legan\u00e9s ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Racing Santander vs Ceuta",
-        "hora": "03:00 PM",
-        "principal": {
-          "pick": "Ceuta ML",
+          "pick": "C\u00e1diz ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
@@ -557,10 +492,10 @@ const leaguesData = [
     "name": "Serie A",
     "games": [
       {
-        "partido": "Sassuolo vs Fiorentina",
-        "hora": "06:30 AM",
+        "partido": "Atalanta vs Cagliari",
+        "hora": "12:30 PM",
         "principal": {
-          "pick": "Fiorentina ML",
+          "pick": "Cagliari ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
@@ -570,36 +505,10 @@ const leaguesData = [
         "prop_jugador": null
       },
       {
-        "partido": "Como vs Genoa",
-        "hora": "09:00 AM",
-        "principal": {
-          "pick": "Genoa ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Internazionale vs Torino",
-        "hora": "12:00 PM",
-        "principal": {
-          "pick": "Torino ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Juventus vs AC Milan",
+        "partido": "Udinese vs Lazio",
         "hora": "02:45 PM",
         "principal": {
-          "pick": "AC Milan ML",
+          "pick": "Lazio ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
@@ -715,49 +624,10 @@ const leaguesData = [
     "name": "Primeira Liga",
     "games": [
       {
-        "partido": "FC Famalicao vs Estoril",
-        "hora": "10:30 AM",
+        "partido": "Casa Pia vs Gil Vicente",
+        "hora": "03:15 PM",
         "principal": {
-          "pick": "Estoril ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "FC Porto vs Estrela",
-        "hora": "01:00 PM",
-        "principal": {
-          "pick": "Estrela ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Braga vs Santa Clara",
-        "hora": "01:00 PM",
-        "principal": {
-          "pick": "Santa Clara ML",
-          "cuota": 1.85,
-          "ev": "+8.5%",
-          "stake": "1.5%",
-          "regla": "Local favorito"
-        },
-        "secundaria": null,
-        "prop_jugador": null
-      },
-      {
-        "partido": "Sporting CP vs AVS",
-        "hora": "03:30 PM",
-        "principal": {
-          "pick": "AVS ML",
+          "pick": "Gil Vicente ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
