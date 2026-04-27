@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>ThIA Sports Multi-Deporte — 26/04/2026</title>
+<title>ThIA Sports Multi-Deporte — 27/04/2026</title>
 <style>
 :root {
   --bg: #04070E;
@@ -89,14 +89,13 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
 <div class="topbar">
   <div class="logo">
     <div class="logo-box"><div class="logo-main">ThIA</div><div class="logo-sub">SPORTS</div></div>
-    <div class="logo-title"><h1>Multi-Deporte Betting System</h1><p>26 de abril de 2026 — Reglas R148 a R163 activas</p></div>
+    <div class="logo-title"><h1>Multi-Deporte Betting System</h1><p>27 de abril de 2026 — Análisis EV+</p></div>
   </div>
   <div class="topbar-right">
     <select id="sportSelect" class="sport-select">
-      <option value="mlb">⚾ MLB</option>
+      <option value="futbol">⚽ Fútbol</option>
       <option value="nba">🏀 NBA Playoffs</option>
       <option value="nhl">🏒 NHL Playoffs</option>
-      <option value="futbol">⚽ Fútbol</option>
     </select>
     <span class="date-badge" id="dateBadge"></span>
     <button class="gen-btn" id="generateBtn">⚡ Generar Juegos</button>
@@ -105,10 +104,9 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
 
 <div class="container">
   <div class="tabs" id="tabsContainer">
-    <button class="tab active" data-sport="mlb">⚾ MLB</button>
+    <button class="tab active" data-sport="futbol">⚽ Fútbol</button>
     <button class="tab" data-sport="nba">🏀 NBA</button>
     <button class="tab" data-sport="nhl">🏒 NHL</button>
-    <button class="tab" data-sport="futbol">⚽ Fútbol</button>
   </div>
   <div id="gamesContainer"></div>
 </div>
@@ -123,41 +121,41 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
 
 <script>
   // ============================================================
-  // DATOS ACTUALIZADOS AL 26 DE ABRIL 2026
-  // CADA PARTIDO INCLUYE: PRINCIPAL, SECUNDARIA, PROP, REGLAS
+  // DATOS ACTUALIZADOS AL 27 DE ABRIL 2026
+  // (sin MLB por falta de lanzadores confirmados)
   // ============================================================
   const sportData = {
-    mlb: {
-      name: "MLB",
-      icon: "⚾",
+    futbol: {
+      name: "Fútbol",
+      icon: "⚽",
       games: [
-        { 
-          away: "Dodgers", home: "Giants", awayAbb: "LAD", homeAbb: "SF", time: "4:05 PM VEN",
-          principal: { pick: "Dodgers ML", odds: 1.71, ev: "+9.5%" },
-          secundaria: { pick: "Under 7.5", odds: 1.88, ev: "+7.2%" },
-          prop: { player: "Mookie Betts", line: "Over 1.5 bases totales", odds: 1.85, ev: "+8.5%" },
-          confidence: 78, rules: ["R159", "R160"], reason: "Giants con 4 derrotas seguidas. Regla R159 evita favorito en mala racha."
+        { // Espanyol vs Levante (LaLiga)
+          away: "Espanyol", home: "Levante", awayAbb: "ESP", homeAbb: "LEV", time: "2:00 PM VEN",
+          principal: { pick: "Levante Moneyline", odds: 2.10, ev: "+20.1%" },
+          secundaria: { pick: "Over 2.5 goles", odds: 1.91, ev: "+8.1%" },
+          prop: { player: "Dani Gómez", line: "Anotará en cualquier momento", odds: 2.40, ev: "+17.4%" },
+          confidence: 84, rules: ["R158", "R163"], reason: "Espanyol no gana en LaLiga en últimos 15 partidos. Levante +EV alto."
         },
-        { 
-          away: "Yankees", home: "Red Sox", awayAbb: "NYY", homeAbb: "BOS", time: "7:10 PM VEN",
-          principal: { pick: "Over 8.5", odds: 1.88, ev: "+8.2%" },
-          secundaria: { pick: "Yankees ML", odds: 1.62, ev: "+6.5%" },
-          prop: { player: "Aaron Judge", line: "Over 0.5 HR", odds: 2.50, ev: "+11.0%" },
-          confidence: 72, rules: ["R148"], reason: "Fenway Park matutino → Over (R148)."
+        { // Cagliari vs Atalanta (Serie A)
+          away: "Cagliari", home: "Atalanta", awayAbb: "CAG", homeAbb: "ATA", time: "12:30 PM VEN",
+          principal: { pick: "Atalanta Moneyline", odds: 1.45, ev: "+8.3%" },
+          secundaria: { pick: "Under 2.5 goles", odds: 2.02, ev: "+7.5%" },
+          prop: { player: "Mario Pašalić", line: "Anotará en cualquier momento", odds: 2.88, ev: "+11.8%" },
+          confidence: 71, rules: ["R158"], reason: "Atalanta favorito lógico, Under por tendencia defensiva local."
         },
-        { 
-          away: "Padres", home: "Rockies", awayAbb: "SD", homeAbb: "COL", time: "8:10 PM VEN",
-          principal: { pick: "Padres -1.5", odds: 1.85, ev: "+11.0%" },
-          secundaria: { pick: "Over 10.5", odds: 1.91, ev: "+9.5%" },
-          prop: { player: "Fernando Tatis Jr.", line: "Over 1.5 bases", odds: 1.85, ev: "+8.0%" },
-          confidence: 81, rules: ["R150", "R160"], reason: "Coors Field: Under no aplica por viento; Padres -1.5 tiene EV+."
+        { // Lazio vs Udinese (Serie A)
+          away: "Lazio", home: "Udinese", awayAbb: "LAZ", homeAbb: "UDI", time: "12:30 PM VEN",
+          principal: { pick: "Empate", odds: 3.40, ev: "+16.1%" },
+          secundaria: { pick: "Under 2.5 goles", odds: 1.95, ev: "+5.4%" },
+          prop: { player: "Sandi Lovrić", line: "Over 1.5 tiros totales", odds: 1.87, ev: "+9.3%" },
+          confidence: 68, rules: ["R158"], reason: "Partido cerrado, tendencia a empates y Under."
         },
-        { 
-          away: "Blue Jays", home: "Angels", awayAbb: "TOR", homeAbb: "LAA", time: "9:38 PM VEN",
-          principal: { pick: "Angels ML", odds: 1.62, ev: "+7.5%" },
-          secundaria: { pick: "Under 8.5", odds: 1.91, ev: "+6.8%" },
-          prop: { player: "Mike Trout", line: "Over 0.5 HR", odds: 2.40, ev: "+10.5%" },
-          confidence: 68, rules: ["R159"], reason: "Ángeles en casa, Blue Jays con derrotas seguidas."
+        { // Manchester United vs Brentford (Premier League)
+          away: "Manchester United", home: "Brentford", awayAbb: "MUN", homeAbb: "BRE", time: "3:00 PM VEN",
+          principal: { pick: "Brentford +1.0 (Asian Handicap)", odds: 1.80, ev: "+12.2%" },
+          secundaria: { pick: "Under 2.5 goles", odds: 2.38, ev: "+9.1%" },
+          prop: { player: "Bruno Fernandes", line: "Over 0.5 asistencias", odds: 2.80, ev: "+14.5%" },
+          confidence: 76, rules: ["R119", "R163"], reason: "Brentford ha empatado sus últimos 5 partidos; handicap +1 muy seguro."
         }
       ]
     },
@@ -165,26 +163,26 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
       name: "NBA",
       icon: "🏀",
       games: [
-        { 
-          away: "Celtics", home: "Heat", awayAbb: "BOS", homeAbb: "MIA", time: "7:30 PM VEN",
-          principal: { pick: "Celtics -5.5", odds: 1.91, ev: "+10.2%" },
-          secundaria: { pick: "Under 215.5", odds: 1.91, ev: "+9.0%" },
-          prop: { player: "Jayson Tatum", line: "Over 25.5 puntos", odds: 1.85, ev: "+8.5%" },
-          confidence: 79, rules: ["R152", "R161"], reason: "Juego 2: Miami perdió el primero, Boston ajusta y cubre spread."
+        { // Pistons @ Magic (Juego 4)
+          away: "Pistons", home: "Magic", awayAbb: "DET", homeAbb: "ORL", time: "7:00 PM VEN",
+          principal: { pick: "Magic -6.5", odds: 1.91, ev: "+9.4%" },
+          secundaria: { pick: "Under 201.5", odds: 1.91, ev: "+6.2%" },
+          prop: { player: "Paolo Banchero", line: "Over 8.5 rebotes", odds: 2.05, ev: "+10.8%" },
+          confidence: 78, rules: ["R152", "R161"], reason: "Magic lidera 2-1, en casa ajustan y cubren spread."
         },
-        { 
-          away: "Nuggets", home: "Lakers", awayAbb: "DEN", homeAbb: "LAL", time: "10:00 PM VEN",
-          principal: { pick: "Nuggets ML", odds: 1.65, ev: "+9.0%" },
-          secundaria: { pick: "Over 228.5", odds: 1.87, ev: "+8.2%" },
-          prop: { player: "Nikola Jokic", line: "Over 10.5 asistencias", odds: 1.85, ev: "+9.5%" },
-          confidence: 74, rules: ["R161"], reason: "Denver favorito, Lakers vienen de derrota ajustada."
+        { // Suns @ Thunder (Juego 4)
+          away: "Suns", home: "Thunder", awayAbb: "PHX", homeAbb: "OKC", time: "9:30 PM VEN",
+          principal: { pick: "Thunder -10.5", odds: 1.91, ev: "+11.3%" },
+          secundaria: { pick: "Over 212.5", odds: 1.95, ev: "+7.4%" },
+          prop: { player: "Shai Gilgeous-Alexander", line: "Over 32.5 puntos+asistencias", odds: 1.87, ev: "+9.6%" },
+          confidence: 82, rules: ["R161"], reason: "Thunder barre 3-0, en casa liquidan con margen amplio."
         },
-        { 
-          away: "Suns", home: "Timberwolves", awayAbb: "PHX", homeAbb: "MIN", time: "9:30 PM VEN",
-          principal: { pick: "Over 222.5", odds: 1.87, ev: "+8.5%" },
-          secundaria: { pick: "Timberwolves -3.5", odds: 1.91, ev: "+7.5%" },
-          prop: { player: "Anthony Edwards", line: "Over 25.5 puntos", odds: 1.85, ev: "+8.0%" },
-          confidence: 70, rules: ["R152"], reason: "Minnesota anota mucho en casa; Phoenix corre. Over natural."
+        { // Timberwolves @ Nuggets (Juego 5)
+          away: "Timberwolves", home: "Nuggets", awayAbb: "MIN", homeAbb: "DEN", time: "10:00 PM VEN",
+          principal: { pick: "Nikola Jokic Over 30.5 puntos", odds: 1.95, ev: "+11.7%" },
+          secundaria: { pick: "Nuggets -3.5", odds: 1.91, ev: "+8.5%" },
+          prop: { player: "Anthony Edwards", line: "Over 26.5 puntos", odds: 1.91, ev: "+8.3%" },
+          confidence: 79, rules: ["R152"], reason: "Wolves lidera 3-1 pero Jokic debe responder. Prop de puntos más seguro que spread."
         }
       ]
     },
@@ -192,53 +190,19 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
       name: "NHL",
       icon: "🏒",
       games: [
-        { 
-          away: "Avalanche", home: "Golden Knights", awayAbb: "COL", homeAbb: "VGK", time: "10:00 PM VEN",
-          principal: { pick: "Over 6.5", odds: 2.05, ev: "+12.3%" },
-          secundaria: { pick: "Avalanche ML", odds: 1.55, ev: "+7.5%" },
-          prop: { player: "Nathan MacKinnon", line: "Over 1.5 puntos", odds: 1.85, ev: "+9.0%" },
-          confidence: 82, rules: ["R119"], reason: "GF/GP combinado >6.2 → Over automático (regla R119)."
+        { // Flyers @ Penguins (Juego 5)
+          away: "Flyers", home: "Penguins", awayAbb: "PHI", homeAbb: "PIT", time: "7:00 PM VEN",
+          principal: { pick: "Penguins -1.5", odds: 2.45, ev: "+12.1%" },
+          secundaria: { pick: "Under 5.5", odds: 1.87, ev: "+5.9%" },
+          prop: { player: "Sidney Crosby", line: "Over 0.5 puntos", odds: 1.65, ev: "+10.3%" },
+          confidence: 75, rules: ["R119", "R162"], reason: "Serie 2-2, Pittsburgh en casa toma ventaja con margen."
         },
-        { 
-          away: "Oilers", home: "Stars", awayAbb: "EDM", homeAbb: "DAL", time: "8:30 PM VEN",
-          principal: { pick: "Oilers ML", odds: 1.67, ev: "+7.8%" },
-          secundaria: { pick: "Over 6.0", odds: 1.91, ev: "+8.5%" },
-          prop: { player: "Connor McDavid", line: "Over 1.5 puntos", odds: 1.80, ev: "+9.0%" },
-          confidence: 69, rules: ["R162"], reason: "Edmonton perdió J1 ajustado, pero ajusta y gana este (R162)."
-        },
-        { 
-          away: "Rangers", home: "Hurricanes", awayAbb: "NYR", homeAbb: "CAR", time: "7:00 PM VEN",
-          principal: { pick: "Under 5.5", odds: 1.85, ev: "+8.0%" },
-          secundaria: { pick: "Hurricanes ML", odds: 1.62, ev: "+6.5%" },
-          prop: { player: "Sebastian Aho", line: "Over 0.5 puntos", odds: 1.75, ev: "+7.5%" },
-          confidence: 73, rules: ["R150"], reason: "Defensas sólidas, tendencia Under en playoffs."
-        }
-      ]
-    },
-    futbol: {
-      name: "Fútbol",
-      icon: "⚽",
-      games: [
-        { 
-          away: "Real Madrid", home: "Real Betis", awayAbb: "RMA", homeAbb: "BET", time: "3:00 PM VEN",
-          principal: { pick: "Real Madrid -1.5", odds: 1.85, ev: "+11.5%" },
-          secundaria: { pick: "Over 3.5", odds: 1.87, ev: "+8.5%" },
-          prop: { player: "Vinicius Jr", line: "Anytime Goalscorer", odds: 2.10, ev: "+10.0%" },
-          confidence: 78, rules: ["R158", "R163"], reason: "Favorito extremo (ML 1.28), se usa -1.5 (R163)."
-        },
-        { 
-          away: "Barcelona", home: "Atlético Madrid", awayAbb: "BAR", homeAbb: "ATM", time: "3:00 PM VEN",
-          principal: { pick: "Barcelona DNB", odds: 1.70, ev: "+8.2%" },
-          secundaria: { pick: "Under 2.5", odds: 1.85, ev: "+6.5%" },
-          prop: { player: "Robert Lewandowski", line: "Over 0.5 SOT", odds: 1.85, ev: "+7.5%" },
-          confidence: 71, rules: ["R158"], reason: "En LaLiga, DNB mejor que -1.5. Partido cerrado."
-        },
-        { 
-          away: "Liverpool", home: "Arsenal", awayAbb: "LIV", homeAbb: "ARS", time: "11:30 AM VEN",
-          principal: { pick: "Over 2.5", odds: 1.92, ev: "+9.0%" },
-          secundaria: { pick: "BTTS Sí", odds: 1.87, ev: "+7.5%" },
-          prop: { player: "Mohamed Salah", line: "Anytime Goalscorer", odds: 2.20, ev: "+9.5%" },
-          confidence: 76, rules: ["R119"], reason: "Ambiente ofensivo, ambos anotan >1.5 goles por partido."
+        { // Golden Knights @ Mammoth (Juego 4)
+          away: "Golden Knights", home: "Mammoth", awayAbb: "VGK", homeAbb: "UTA", time: "10:00 PM VEN",
+          principal: { pick: "Mammoth Moneyline", odds: 1.95, ev: "+9.5%" },
+          secundaria: { pick: "Over 6.0", odds: 2.00, ev: "+7.8%" },
+          prop: { player: "Dylan Guenther", line: "Over 2.5 tiros a puerta", odds: 1.71, ev: "+11.4%" },
+          confidence: 72, rules: ["R119"], reason: "Utah lidera 2-1, aprovecha localía y ritmo ofensivo."
         }
       ]
     }
@@ -253,7 +217,7 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
       container.innerHTML = `<div class="empty-state">🎯 No hay partidos para este deporte hoy.</div>`;
       return;
     }
-    let html = `<div class="sport-section"><div class="sport-title">${data.icon} ${data.name} · ${new Date().toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' })}</div>
+    let html = `<div class="sport-section"><div class="sport-title">${data.icon} ${data.name} · 27 de abril de 2026</div>
     <div class="scroll-container"><div class="games-horizontal">`;
     games.forEach(g => {
       html += `
@@ -329,7 +293,8 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
   const fechaStr = hoy.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
   document.getElementById("dateBadge").innerHTML = `📅 ${fechaStr}`;
 
-  loadSport("mlb");
+  // Cargar fútbol por defecto
+  loadSport("futbol");
 </script>
 </body>
 </html>
