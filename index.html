@@ -18,36 +18,38 @@
             background: var(--dark);
             color: #fff;
             min-height: 100vh;
+            line-height: 1.5;
         }
         .top-bar {
             background: #11131a;
-            border-bottom: 4px solid var(--gold);
-            padding: 1rem 2rem;
+            border-bottom: 5px solid var(--gold);
+            padding: 1.2rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .logo { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .logo { font-size: 2.1rem; font-weight: 800; letter-spacing: -1px; }
         .logo span:first-child { color: var(--gold); }
-        .date { color: #ccc; font-size: 1.05rem; }
+        .date { color: #ddd; font-size: 1.05rem; }
 
         .main-tabs {
             display: flex;
             background: #15171c;
             padding: 1rem;
-            gap: 12px;
+            gap: 10px;
             overflow-x: auto;
-            border-bottom: 1px solid #333;
+            white-space: nowrap;
         }
         .main-tab {
-            padding: 12px 26px;
+            padding: 12px 24px;
             border-radius: 50px;
             background: #1f222a;
             border: none;
-            color: #aaa;
+            color: #ccc;
             font-weight: 600;
             cursor: pointer;
-            white-space: nowrap;
         }
         .main-tab.active {
             background: var(--gold);
@@ -57,8 +59,8 @@
         .sub-tabs {
             display: flex;
             background: #1a1c23;
-            padding: 1rem 1.5rem;
-            gap: 10px;
+            padding: 1rem;
+            gap: 8px;
             flex-wrap: wrap;
         }
         .sub-tab {
@@ -66,7 +68,7 @@
             border-radius: 30px;
             background: #2a2d35;
             border: none;
-            color: #ccc;
+            color: #ddd;
             cursor: pointer;
             font-size: 0.95rem;
         }
@@ -77,35 +79,34 @@
 
         .container {
             max-width: 1450px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+            margin: 1.8rem auto;
+            padding: 0 1rem;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.6rem;
         }
         .game-card {
             background: var(--card);
             border-radius: 20px;
-            border: 1px solid rgba(250, 204, 21, 0.3);
+            border: 1px solid rgba(250, 204, 21, 0.35);
             padding: 20px;
-            transition: all 0.25s ease;
+            transition: all 0.3s;
         }
         .game-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: var(--gold);
-            box-shadow: 0 10px 25px rgba(250,204,21,0.15);
         }
         .header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 14px;
             color: var(--gold);
             font-size: 0.95rem;
+            margin-bottom: 12px;
         }
         .partido {
-            font-size: 1.28rem;
+            font-size: 1.25rem;
             font-weight: 700;
             margin: 10px 0 16px;
             line-height: 1.3;
@@ -114,22 +115,20 @@
             color: #67e8f9;
             font-size: 1.18rem;
             font-weight: 700;
-            margin-bottom: 6px;
         }
         .cuota { color: var(--gold); font-weight: 600; }
         .secundario {
             margin-top: 14px;
             color: #ddd;
-            border-top: 1px solid #333;
+            border-top: 1px solid #444;
             padding-top: 14px;
         }
         .pitcher {
             margin-top: 14px;
-            color: #facc15;
             background: #222;
             padding: 10px 14px;
             border-radius: 10px;
-            font-size: 0.96rem;
+            color: #facc15;
         }
         .confidence {
             background: rgba(250,204,21,0.2);
@@ -138,7 +137,20 @@
             border-radius: 30px;
             display: inline-block;
             margin-top: 14px;
-            font-size: 0.92rem;
+        }
+
+        /* Mejora para móviles */
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.3rem;
+            }
+            .game-card {
+                padding: 18px;
+            }
+            .partido {
+                font-size: 1.18rem;
+            }
         }
     </style>
 </head>
@@ -157,14 +169,12 @@
 </div>
 
 <div class="container">
-    <!-- Sub-tabs para Fútbol -->
     <div id="subtabs-futbol" class="sub-tabs"></div>
-
     <div id="content"></div>
 </div>
 
 <script>
-// ==================== DATOS COMPLETOS DEL CONSENSO ====================
+// ==================== TODOS LOS PICKS ====================
 const picksData = {
   futbol: [
     {
@@ -172,19 +182,29 @@ const picksData = {
       "partido": "Braga vs SC Freiburg",
       "hora": "15:00",
       "principal": "Under 2.5 Goles",
-      "cuota_p": 1.75,
-      "secundario": "Freiburg Doble Oportunidad",
+      "cuota_p": 1.78,
+      "secundario": "Freiburg Empate No Apuesta",
       "cuota_s": 1.63,
-      "confianza": 76
+      "confianza": 75
+    },
+    {
+      "liga": "UEFA Europa League – Semifinal 1ra Pierna",
+      "partido": "Nottingham Forest vs Aston Villa",
+      "hora": "15:00",
+      "principal": "Under 2.5 Goles",
+      "cuota_p": 1.85,
+      "secundario": "BTTS No",
+      "cuota_s": 1.72,
+      "confianza": 79
     },
     {
       "liga": "UEFA Conference League – Semifinal 1ra Pierna",
       "partido": "Crystal Palace vs Shakhtar Donetsk",
       "hora": "15:00",
       "principal": "Crystal Palace ML",
-      "cuota_p": 1.82,
+      "cuota_p": 1.87,
       "secundario": "Under 2.5 Goles",
-      "cuota_s": 1.80,
+      "cuota_s": 1.82,
       "confianza": 76
     },
     {
@@ -195,93 +215,137 @@ const picksData = {
       "cuota_p": 1.95,
       "secundario": "Ambos Equipos Anotan - Sí",
       "cuota_s": 1.70,
-      "confianza": 72
+      "confianza": 74
     },
     {
-      "liga": "Copa Libertadores – Fase de Grupos",
+      "liga": "Copa Libertadores",
       "partido": "Bolivar vs Fluminense",
       "hora": "17:00",
       "principal": "Bolivar ML",
       "cuota_p": 2.05,
-      "secundario": "Under 2.5 Goles",
-      "cuota_s": 1.92,
-      "confianza": 76
+      "secundario": "Over 2.5 Goles",
+      "cuota_s": 2.30,
+      "confianza": 72
     },
     {
-      "liga": "Copa Libertadores – Fase de Grupos",
+      "liga": "Copa Libertadores",
       "partido": "Corinthians vs Peñarol",
       "hora": "19:00",
-      "principal": "Corinthians ML",
-      "cuota_p": 1.70,
+      "principal": "Corinthians -1.0 Asian Handicap",
+      "cuota_p": 1.95,
       "secundario": "Under 2.5 Goles",
       "cuota_s": 1.67,
-      "confianza": 74
+      "confianza": 73
     },
     {
-      "liga": "Copa Libertadores – Fase de Grupos",
+      "liga": "Copa Libertadores",
       "partido": "Independiente Medellín vs Cusco FC",
       "hora": "21:00",
       "principal": "Independiente Medellín ML",
       "cuota_p": 1.70,
       "secundario": "Under 2.5 Goles",
       "cuota_s": 1.85,
-      "confianza": 75
+      "confianza": 70
     },
     {
-      "liga": "Copa Sudamericana – Fase de Grupos",
+      "liga": "Copa Sudamericana",
       "partido": "RB Bragantino vs River Plate",
       "hora": "19:30",
       "principal": "Over 2.5 Goles",
       "cuota_p": 2.10,
       "secundario": "River Plate Doble Oportunidad",
       "cuota_s": 1.72,
-      "confianza": 73
+      "confianza": 74
     }
   ],
   mlb: [
     {
       "liga": "MLB",
-      "partido": "Pittsburgh Pirates vs St. Louis Cardinals",
+      "partido": "Detroit Tigers vs Atlanta Braves",
+      "hora": "12:15",
+      "principal": "Under 7.5 Runs",
+      "cuota_p": 1.90,
+      "secundario": "Atlanta Braves ML",
+      "cuota_s": 1.80,
+      "confianza": 78,
+      "pitchers": "Framber Valdez vs Bryce Elder"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Houston Astros vs Baltimore Orioles",
       "hora": "12:35",
-      "principal": "Pittsburgh Pirates -1.5 Run Line",
-      "cuota_p": 1.83,
-      "secundario": "NRFI (Sin Carrera 1era Entrada)",
+      "principal": "Baltimore Orioles ML",
+      "cuota_p": 1.88,
+      "secundario": "Under 8.0 Runs",
+      "cuota_s": 1.85,
+      "confianza": 70,
+      "pitchers": "Peter Lambert vs Brandon Young"
+    },
+    {
+      "liga": "MLB",
+      "partido": "St. Louis Cardinals vs Pittsburgh Pirates",
+      "hora": "12:35",
+      "principal": "Pittsburgh Pirates ML",
+      "cuota_p": 1.62,
+      "secundario": "NRFI",
       "cuota_s": 1.90,
-      "confianza": 84,
-      "pitchers": "Paul Skenes (PIT) vs Hunter Dobbins (STL)"
+      "confianza": 85,
+      "pitchers": "Hunter Dobbins vs Paul Skenes"
     },
     {
       "liga": "MLB",
       "partido": "Colorado Rockies vs Cincinnati Reds",
       "hora": "12:40",
-      "principal": "Cincinnati Reds ML",
-      "cuota_p": 1.59,
-      "secundario": "Over 9.0 Runs",
-      "cuota_s": 1.91,
-      "confianza": 79,
+      "principal": "Over 11.5 Runs",
+      "cuota_p": 1.92,
+      "secundario": "Cincinnati Reds ML",
+      "cuota_s": 2.05,
+      "confianza": 80,
       "pitchers": "Michael Lorenzen vs Andrew Abbott"
+    },
+    {
+      "liga": "MLB",
+      "partido": "San Francisco Giants vs Philadelphia Phillies",
+      "hora": "13:05",
+      "principal": "Philadelphia Phillies ML",
+      "cuota_p": 1.72,
+      "secundario": "Under 8.5 Runs",
+      "cuota_s": 1.85,
+      "confianza": 77,
+      "pitchers": "Adrian Houser vs Andrew Painter"
     },
     {
       "liga": "MLB",
       "partido": "Washington Nationals vs New York Mets",
       "hora": "13:10",
       "principal": "New York Mets ML",
-      "cuota_p": 1.60,
-      "secundario": "Freddy Peralta Over 6.5 Strikeouts",
-      "cuota_s": 1.82,
-      "confianza": 77,
-      "pitchers": "Freddy Peralta vs Miles Mikolas"
+      "cuota_p": 1.52,
+      "secundario": "Mets -1.5 Run Line",
+      "cuota_s": 2.00,
+      "confianza": 78,
+      "pitchers": "Miles Mikolas vs Freddy Peralta"
     },
     {
       "liga": "MLB",
-      "partido": "Milwaukee Brewers vs Arizona Diamondbacks",
+      "partido": "Arizona Diamondbacks vs Milwaukee Brewers",
       "hora": "13:40",
       "principal": "Milwaukee Brewers ML",
       "cuota_p": 1.75,
       "secundario": "Under 7.5 Runs",
       "cuota_s": 1.95,
-      "confianza": 78,
-      "pitchers": "Brandon Woodruff vs Michael Soroka"
+      "confianza": 76,
+      "pitchers": "Michael Soroka vs Brandon Woodruff"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Kansas City Royals vs Oakland Athletics",
+      "hora": "15:05",
+      "principal": "Over 9.0 Runs",
+      "cuota_p": 1.88,
+      "secundario": "Kansas City Royals ML",
+      "cuota_s": 1.92,
+      "confianza": 69,
+      "pitchers": "Noah Cameron vs Jeffrey Springs"
     },
     {
       "liga": "MLB",
@@ -291,73 +355,62 @@ const picksData = {
       "cuota_p": 1.90,
       "secundario": "Kevin Gausman Over 6.5 Strikeouts",
       "cuota_s": 1.85,
-      "confianza": 79,
+      "confianza": 81,
       "pitchers": "Kevin Gausman vs Bailey Ober"
-    },
-    {
-      "liga": "MLB",
-      "partido": "Detroit Tigers vs Atlanta Braves",
-      "hora": "12:15",
-      "principal": "Atlanta Braves ML",
-      "cuota_p": 1.82,
-      "secundario": "Under 7.5 Runs",
-      "cuota_s": 1.90,
-      "confianza": 74,
-      "pitchers": "Framber Valdez vs Bryce Elder"
     }
   ],
   nba: [
     {
-      "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
+      "liga": "NBA Playoffs 2026 – Game 6",
       "partido": "Atlanta Hawks vs New York Knicks",
       "hora": "19:00",
-      "principal": "Under 219.5 Puntos",
+      "principal": "Atlanta Hawks +5.5",
       "cuota_p": 1.90,
-      "secundario": "Atlanta Hawks +5.5",
-      "cuota_s": 1.90,
-      "confianza": 73
-    },
-    {
-      "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
-      "partido": "Philadelphia 76ers vs Boston Celtics",
-      "hora": "20:00",
-      "principal": "Under 217.5 Puntos",
-      "cuota_p": 1.90,
-      "secundario": "Philadelphia 76ers ML",
-      "cuota_s": 2.35,
+      "secundario": "Under 219.5 Puntos",
+      "cuota_s": 1.88,
       "confianza": 74
     },
     {
-      "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
+      "liga": "NBA Playoffs 2026 – Game 6",
+      "partido": "Philadelphia 76ers vs Boston Celtics",
+      "hora": "20:00",
+      "principal": "Philadelphia 76ers ML",
+      "cuota_p": 2.35,
+      "secundario": "Under 217.5 Puntos",
+      "cuota_s": 1.90,
+      "confianza": 75
+    },
+    {
+      "liga": "NBA Playoffs 2026 – Game 6",
       "partido": "Minnesota Timberwolves vs Denver Nuggets",
       "hora": "21:30",
-      "principal": "Under 214.5 Puntos",
-      "cuota_p": 1.88,
-      "secundario": "Denver Nuggets ML",
-      "cuota_s": 2.30,
-      "confianza": 71
+      "principal": "Denver Nuggets ML",
+      "cuota_p": 2.30,
+      "secundario": "Under 214.5 Puntos",
+      "cuota_s": 1.85,
+      "confianza": 73
     }
   ],
   nhl: [
     {
-      "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
+      "liga": "NHL Playoffs 2026 – Game 6",
       "partido": "Minnesota Wild vs Dallas Stars",
       "hora": "19:30",
       "principal": "Under 5.5 Goles",
       "cuota_p": 1.92,
       "secundario": "Minnesota Wild ML",
       "cuota_s": 1.81,
-      "confianza": 82
+      "confianza": 85
     },
     {
-      "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
+      "liga": "NHL Playoffs 2026 – Game 6",
       "partido": "Edmonton Oilers vs Anaheim Ducks",
       "hora": "22:00",
       "principal": "Over 7.0 Goles",
       "cuota_p": 1.91,
-      "secundario": "Anaheim Ducks ML",
+      "secundario": "Ducks ML",
       "cuota_s": 2.10,
-      "confianza": 72
+      "confianza": 76
     }
   ]
 };
@@ -368,14 +421,12 @@ function renderGames(sport) {
     let html = '';
 
     if (sport === "futbol") {
-        // Agrupar por liga
         const ligas = {};
         picksData.futbol.forEach(game => {
             if (!ligas[game.liga]) ligas[game.liga] = [];
             ligas[game.liga].push(game);
         });
 
-        // Crear sub-tabs
         let subHTML = '';
         Object.keys(ligas).forEach((liga, i) => {
             subHTML += `<button class="sub-tab ${i === 0 ? 'active' : ''}" data-liga="${liga}">${liga}</button>`;
@@ -383,20 +434,14 @@ function renderGames(sport) {
         document.getElementById('subtabs-futbol').innerHTML = subHTML;
         document.getElementById('subtabs-futbol').style.display = 'flex';
 
-        // Mostrar primera liga
-        html = createLigaHTML(Object.values(ligas)[0]);
+        html = createGridHTML(Object.values(ligas)[0]);
     } else {
         document.getElementById('subtabs-futbol').style.display = 'none';
-        const games = picksData[sport] || [];
-        html = `<h2 style="color:#facc15; margin-bottom:25px;">${sport.toUpperCase()} Picks - 30 Abril 2026</h2>`;
-        html += createGridHTML(games);
+        html = `<h2 style="color:#facc15; margin-bottom:25px;">${sport.toUpperCase()} Picks • 30 Abril 2026</h2>`;
+        html += createGridHTML(picksData[sport]);
     }
 
     container.innerHTML = html;
-}
-
-function createLigaHTML(games) {
-    return `<h2 style="color:#facc15; margin-bottom:20px;">${games[0].liga}</h2>` + createGridHTML(games);
 }
 
 function createGridHTML(games) {
@@ -410,12 +455,16 @@ function createGridHTML(games) {
                 <span>${game.hora}</span>
             </div>
             <div class="partido">${game.partido}</div>
+            
             <div class="principal">🎯 ${game.principal}</div>
             <div><span class="cuota">Cuota: ${game.cuota_p}</span></div>
+            
             <div class="secundario">
                 📊 Secundario: ${game.secundario} <span class="cuota">(${game.cuota_s})</span>
             </div>
+            
             ${pitcherHTML}
+            
             <div class="confidence">Confianza ThIA: ${game.confianza}%</div>
         </div>`;
     });
@@ -432,7 +481,7 @@ document.querySelectorAll('.main-tab').forEach(tab => {
     });
 });
 
-// Eventos Sub-tabs (Fútbol)
+// Eventos Sub-tabs Fútbol
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('sub-tab')) {
         document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
@@ -440,16 +489,17 @@ document.addEventListener('click', (e) => {
         
         const ligaName = e.target.getAttribute('data-liga');
         const ligaGames = picksData.futbol.filter(g => g.liga === ligaName);
-        document.getElementById('content').innerHTML = createLigaHTML(ligaGames);
+        document.getElementById('content').innerHTML = createGridHTML(ligaGames);
     }
 });
 
-// Fecha Actual
+// Fecha actual
 const hoy = new Date();
-document.getElementById('fecha-hoy').innerHTML = 
-    hoy.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+document.getElementById('fecha-hoy').innerHTML = hoy.toLocaleDateString('es-ES', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+});
 
-// Cargar por defecto
+// Iniciar con Fútbol
 renderGames('futbol');
 </script>
 
