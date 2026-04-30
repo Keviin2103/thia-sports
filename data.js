@@ -1,14 +1,210 @@
-// Generado automáticamente el 2026-04-29 11:17:25
+// Generado automáticamente el 2026-04-30 11:16:37
 const nhlPicks = [];
 const nbaPicks = [];
 const mlbPicks = [
   {
     "partido": "Tampa Bay Rays vs Cleveland Guardians",
-    "hora": "06:10 PM",
+    "hora": "01:10 PM",
     "home_pitcher": "TBD",
     "away_pitcher": "TBD",
     "principal": {
       "pick": "Cleveland Guardians ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Los Angeles Angels vs Chicago White Sox",
+    "hora": "01:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Chicago White Sox ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Seattle Mariners vs Minnesota Twins",
+    "hora": "01:40 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Minnesota Twins ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "New York Yankees vs Texas Rangers",
+    "hora": "02:35 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Texas Rangers ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Boston Red Sox vs Toronto Blue Jays",
+    "hora": "03:07 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Toronto Blue Jays ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Miami Marlins vs Los Angeles Dodgers",
+    "hora": "03:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Los Angeles Dodgers ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "Chicago Cubs vs San Diego Padres",
+    "hora": "04:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "San Diego Padres ML",
+      "cuota": 1.85,
+      "ev": "+8.5%",
+      "stake": "1.5%",
+      "regla": "Local favorito (mejorable)"
+    },
+    "secundaria": {
+      "pick": "Over 8.5 carreras",
+      "cuota": 1.85,
+      "ev": "+7.5%",
+      "stake": "1.0%",
+      "regla": "Duelo ofensivo esperado"
+    },
+    "prop_jugador": {
+      "jugador": "Lanzador abridor",
+      "prop": "Over 5.5 ponches",
+      "cuota": 1.85,
+      "stake": "0.5%",
+      "ev": "+8.0%",
+      "regla": "Lanzador con buen K/9"
+    }
+  },
+  {
+    "partido": "San Francisco Giants vs Philadelphia Phillies",
+    "hora": "06:10 PM",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "principal": {
+      "pick": "Philadelphia Phillies ML",
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
@@ -87,68 +283,12 @@ const mlbPicks = [
     }
   },
   {
-    "partido": "San Francisco Giants vs Philadelphia Phillies",
-    "hora": "06:40 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "Philadelphia Phillies ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
     "partido": "St. Louis Cardinals vs Pittsburgh Pirates",
     "hora": "06:40 PM",
     "home_pitcher": "TBD",
     "away_pitcher": "TBD",
     "principal": {
       "pick": "Pittsburgh Pirates ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
-    "partido": "Boston Red Sox vs Toronto Blue Jays",
-    "hora": "07:07 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "Toronto Blue Jays ML",
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
@@ -227,34 +367,6 @@ const mlbPicks = [
     }
   },
   {
-    "partido": "Los Angeles Angels vs Chicago White Sox",
-    "hora": "07:40 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "Chicago White Sox ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
     "partido": "Arizona Diamondbacks vs Milwaukee Brewers",
     "hora": "07:40 PM",
     "home_pitcher": "TBD",
@@ -283,124 +395,12 @@ const mlbPicks = [
     }
   },
   {
-    "partido": "Seattle Mariners vs Minnesota Twins",
-    "hora": "07:40 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "Minnesota Twins ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
-    "partido": "New York Yankees vs Texas Rangers",
-    "hora": "08:05 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "Texas Rangers ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
-    "partido": "Chicago Cubs vs San Diego Padres",
-    "hora": "09:40 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "San Diego Padres ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
     "partido": "Kansas City Royals vs Athletics",
     "hora": "09:40 PM",
     "home_pitcher": "TBD",
     "away_pitcher": "TBD",
     "principal": {
       "pick": "Athletics ML",
-      "cuota": 1.85,
-      "ev": "+8.5%",
-      "stake": "1.5%",
-      "regla": "Local favorito (mejorable)"
-    },
-    "secundaria": {
-      "pick": "Over 8.5 carreras",
-      "cuota": 1.85,
-      "ev": "+7.5%",
-      "stake": "1.0%",
-      "regla": "Duelo ofensivo esperado"
-    },
-    "prop_jugador": {
-      "jugador": "Lanzador abridor",
-      "prop": "Over 5.5 ponches",
-      "cuota": 1.85,
-      "stake": "0.5%",
-      "ev": "+8.0%",
-      "regla": "Lanzador con buen K/9"
-    }
-  },
-  {
-    "partido": "Miami Marlins vs Los Angeles Dodgers",
-    "hora": "10:10 PM",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "principal": {
-      "pick": "Los Angeles Dodgers ML",
       "cuota": 1.85,
       "ev": "+8.5%",
       "stake": "1.5%",
@@ -622,10 +622,62 @@ const leaguesData = [
     "name": "Primeira Liga",
     "games": [
       {
-        "partido": "Tondela vs Sporting CP",
-        "hora": "03:15 PM",
+        "partido": "Santa Clara vs Arouca",
+        "hora": "10:30 AM",
         "principal": {
-          "pick": "Sporting CP ML",
+          "pick": "Arouca ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Local favorito"
+        },
+        "secundaria": null,
+        "prop_jugador": null
+      },
+      {
+        "partido": "AVS vs C.D. Nacional",
+        "hora": "10:30 AM",
+        "principal": {
+          "pick": "C.D. Nacional ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Local favorito"
+        },
+        "secundaria": null,
+        "prop_jugador": null
+      },
+      {
+        "partido": "Estrela vs Moreirense",
+        "hora": "10:30 AM",
+        "principal": {
+          "pick": "Moreirense ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Local favorito"
+        },
+        "secundaria": null,
+        "prop_jugador": null
+      },
+      {
+        "partido": "Benfica vs FC Famalicao",
+        "hora": "01:00 PM",
+        "principal": {
+          "pick": "FC Famalicao ML",
+          "cuota": 1.85,
+          "ev": "+8.5%",
+          "stake": "1.5%",
+          "regla": "Local favorito"
+        },
+        "secundaria": null,
+        "prop_jugador": null
+      },
+      {
+        "partido": "Alverca vs FC Porto",
+        "hora": "03:30 PM",
+        "principal": {
+          "pick": "FC Porto ML",
           "cuota": 1.85,
           "ev": "+8.5%",
           "stake": "1.5%",
