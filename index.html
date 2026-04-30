@@ -1,332 +1,457 @@
- <!DOCTYPE html>
- <html lang="es">
- <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
--<title>ThIA Sports Multi-Deporte — 27/04/2026</title>
-+<title id="pageTitle">ThIA Sports Multi-Deporte</title>
- <style>
- :root {
-   --bg: #04070E;
-   --card: #08111F;
-   --card2: #0C1828;
-   --dkg: #111D2C;
-   --bord: #1A3050;
-   --cyan: #00BCD4;
-   --gold: #FFB300;
-   --green: #43A047;
-   --red: #EF5350;
-   --purp: #AB47BC;
-   --light: #8FA8B8;
-   --gray: #546E7A;
-   --white: #E8F0F6;
-   --ev-pos: #00E676;
- }
- * { margin: 0; padding: 0; box-sizing: border-box; }
- body { background: var(--bg); color: var(--white); font-family: -apple-system, 'Segoe UI', sans-serif; }
- 
- .topbar {
-   background: #06101E;
-   border-bottom: 1px solid var(--bord);
-   padding: 12px 20px;
-   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-@@ -67,51 +67,51 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
- .vs-circle { background: var(--blue); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; }
- 
- .pick-card { padding: 10px 12px; background: var(--dkg); margin: 6px 12px 12px; border-radius: 12px; border-left: 4px solid var(--cyan); }
- .pick-val { font-weight: 800; font-size: 15px; }
- .pick-odds { color: var(--gold); font-weight: 700; margin-top: 4px; }
- .ev-badge { background: #00E67620; color: var(--ev-pos); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; display: inline-block; margin-top: 6px; }
- .confidence { font-size: 10px; color: var(--gray); margin-top: 6px; }
- .rule-pill { font-size: 8px; background: #1A3050; color: var(--cyan); border-radius: 12px; padding: 2px 8px; margin-right: 5px; display: inline-block; margin-top: 8px; }
- .prop-item { background: #0C1828; border-radius: 10px; padding: 8px; margin-top: 8px; border-left: 2px solid var(--purp); }
- .prop-player { font-weight: 700; font-size: 12px; color: var(--gold); }
- .prop-line { font-size: 11px; color: var(--cyan); }
- 
- .loading-overlay { display: none; position: fixed; inset: 0; background: #04070Ecc; z-index: 200; align-items: center; justify-content: center; }
- .loading-card { background: var(--card); border: 1px solid var(--cyan); border-radius: 20px; padding: 30px; text-align: center; }
- .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--dkg); border-top-color: var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 14px; }
- @keyframes spin { to { transform: rotate(360deg); } }
- 
- .empty-state { text-align: center; padding: 60px 20px; color: var(--gray); }
- </style>
- </head>
- <body>
- 
- <div class="topbar">
-   <div class="logo">
-     <div class="logo-box"><div class="logo-main">ThIA</div><div class="logo-sub">SPORTS</div></div>
--    <div class="logo-title"><h1>Multi-Deporte Betting System</h1><p>27 de abril de 2026 — Análisis EV+</p></div>
-+    <div class="logo-title"><h1>Multi-Deporte Betting System</h1><p id="headerDateText">Análisis EV+</p></div>
-   </div>
-   <div class="topbar-right">
-     <select id="sportSelect" class="sport-select">
-       <option value="futbol">⚽ Fútbol</option>
-       <option value="nba">🏀 NBA Playoffs</option>
-       <option value="nhl">🏒 NHL Playoffs</option>
-     </select>
-     <span class="date-badge" id="dateBadge"></span>
-     <button class="gen-btn" id="generateBtn">⚡ Generar Juegos</button>
-   </div>
- </div>
- 
- <div class="container">
-   <div class="tabs" id="tabsContainer">
-     <button class="tab active" data-sport="futbol">⚽ Fútbol</button>
-     <button class="tab" data-sport="nba">🏀 NBA</button>
-     <button class="tab" data-sport="nhl">🏒 NHL</button>
-   </div>
-   <div id="gamesContainer"></div>
- </div>
- 
- <div class="loading-overlay" id="loadingOverlay">
-   <div class="loading-card">
-     <div class="loading-spinner"></div>
-     <div class="loading-title">ThIA analizando juegos...</div>
-@@ -186,115 +186,230 @@ body { background: var(--bg); color: var(--white); font-family: -apple-system, '
-         }
-       ]
-     },
-     nhl: {
-       name: "NHL",
-       icon: "🏒",
-       games: [
-         { // Flyers @ Penguins (Juego 5)
-           away: "Flyers", home: "Penguins", awayAbb: "PHI", homeAbb: "PIT", time: "7:00 PM VEN",
-           principal: { pick: "Penguins -1.5", odds: 2.45, ev: "+12.1%" },
-           secundaria: { pick: "Under 5.5", odds: 1.87, ev: "+5.9%" },
-           prop: { player: "Sidney Crosby", line: "Over 0.5 puntos", odds: 1.65, ev: "+10.3%" },
-           confidence: 75, rules: ["R119", "R162"], reason: "Serie 2-2, Pittsburgh en casa toma ventaja con margen."
-         },
-         { // Golden Knights @ Mammoth (Juego 4)
-           away: "Golden Knights", home: "Mammoth", awayAbb: "VGK", homeAbb: "UTA", time: "10:00 PM VEN",
-           principal: { pick: "Mammoth Moneyline", odds: 1.95, ev: "+9.5%" },
-           secundaria: { pick: "Over 6.0", odds: 2.00, ev: "+7.8%" },
-           prop: { player: "Dylan Guenther", line: "Over 2.5 tiros a puerta", odds: 1.71, ev: "+11.4%" },
-           confidence: 72, rules: ["R119"], reason: "Utah lidera 2-1, aprovecha localía y ritmo ofensivo."
-         }
-       ]
-     }
-   };
- 
-+
-+
-+  const autoRulesBySport = {
-+    futbol: ["R158", "R163", "R119"],
-+    nba: ["R152", "R161", "R148"],
-+    nhl: ["R119", "R162", "R141"]
-+  };
-+
-+  function hashString(value) {
-+    return [...value].reduce((acc, ch) => ((acc << 5) - acc) + ch.charCodeAt(0), 0);
-+  }
-+
-+  function seededNumber(seed, min, max) {
-+    const x = Math.abs(Math.sin(seed) * 10000);
-+    return min + (x - Math.floor(x)) * (max - min);
-+  }
-+
-+  function buildAutoPick(game, sportId) {
-+    const seedBase = hashString(`${sportId}-${game.away}-${game.home}-${game.time}`);
-+    const principalOdds = seededNumber(seedBase, 1.65, 2.35).toFixed(2);
-+    const secondaryOdds = seededNumber(seedBase + 17, 1.70, 2.20).toFixed(2);
-+    const propOdds = seededNumber(seedBase + 31, 1.75, 2.80).toFixed(2);
-+    const confidence = Math.round(seededNumber(seedBase + 41, 66, 88));
-+
-+    const principalBySport = {
-+      futbol: `${game.home} Moneyline`,
-+      nba: `${game.home} -4.5`,
-+      nhl: `${game.home} Moneyline`
-+    };
-+
-+    const secondaryBySport = {
-+      futbol: "Over 2.5 goles",
-+      nba: "Over 214.5 puntos",
-+      nhl: "Over 5.5 goles"
-+    };
-+
-+    const propBySport = {
-+      futbol: { player: `${game.home} ataque`, line: "Over 4.5 tiros al arco" },
-+      nba: { player: `${game.home} líder`, line: "Over 24.5 puntos" },
-+      nhl: { player: `${game.home} primera línea`, line: "Over 2.5 tiros a puerta" }
-+    };
-+
-+    const principal = {
-+      pick: principalBySport[sportId],
-+      odds: Number(principalOdds),
-+      ev: `+${seededNumber(seedBase + 7, 6.5, 14.8).toFixed(1)}%`
-+    };
-+
-+    const secundaria = {
-+      pick: secondaryBySport[sportId],
-+      odds: Number(secondaryOdds),
-+      ev: `+${seededNumber(seedBase + 11, 4.8, 11.2).toFixed(1)}%`
-+    };
-+
-+    const propBase = propBySport[sportId];
-+    const prop = {
-+      player: propBase.player,
-+      line: propBase.line,
-+      odds: Number(propOdds),
-+      ev: `+${seededNumber(seedBase + 13, 5.4, 13.3).toFixed(1)}%`
-+    };
-+
-+    const rules = autoRulesBySport[sportId].slice(0, 2);
-+    const reason = `Pick automático para ${game.away} vs ${game.home} con filtro EV+.`;
-+
-+    return {
-+      ...game,
-+      principal,
-+      secundaria,
-+      prop,
-+      confidence: game.confidence ?? confidence,
-+      rules,
-+      reason
-+    };
-+  }
-+
-+  function getLongDateEs() {
-+    const now = new Date();
-+    return now.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-+  }
-+
-+  function generatePicksForSport(sportId) {
-+    const data = sportData[sportId];
-+    if (!data) return;
-+    data.games = data.games.map(game => buildAutoPick(game, sportId));
-+  }
-+
-   function renderSport(sportId) {
-     const data = sportData[sportId];
-     if (!data) return;
-     const container = document.getElementById("gamesContainer");
-     const games = data.games;
-     if (!games.length) {
-       container.innerHTML = `<div class="empty-state">🎯 No hay partidos para este deporte hoy.</div>`;
-       return;
-     }
--    let html = `<div class="sport-section"><div class="sport-title">${data.icon} ${data.name} · 27 de abril de 2026</div>
-+    const longDate = getLongDateEs();
-+    let html = `<div class="sport-section"><div class="sport-title">${data.icon} ${data.name} · ${longDate}</div>
-     <div class="scroll-container"><div class="games-horizontal">`;
-     games.forEach(g => {
-       html += `
-         <div class="game-card">
-           <div class="card-header">
-             <span class="league">${data.name}</span>
-             <span>🕒 ${g.time}</span>
-           </div>
-           <div class="matchup">
-             <div class="team"><div class="team-logo">${data.icon}</div><div class="team-name">${g.away}</div><div style="font-size:10px;color:var(--gray)">${g.awayAbb}</div></div>
-             <div class="vs-circle">VS</div>
-             <div class="team"><div class="team-logo">${data.icon}</div><div class="team-name">${g.home}</div><div style="font-size:10px;color:var(--gray)">${g.homeAbb}</div></div>
-           </div>
-           <div class="pick-card">
-             <div class="pick-val">🎯 PRINCIPAL: ${g.principal.pick}</div>
-             <div class="pick-odds">Cuota: ${g.principal.odds} | EV ${g.principal.ev}</div>
-             <div style="margin-top:8px; border-top:0.5px solid var(--bord); padding-top:6px">
-               <div class="pick-val" style="font-size:13px">📊 SECUNDARIA: ${g.secundaria.pick}</div>
-               <div class="pick-odds" style="font-size:11px">Cuota: ${g.secundaria.odds} | EV ${g.secundaria.ev}</div>
-             </div>
-             <div class="prop-item">
-               <div class="prop-player">⭐ PROP ${g.prop.player}</div>
-               <div class="prop-line">${g.prop.line} (${g.prop.odds}) | EV ${g.prop.ev}</div>
-             </div>
-             <div class="ev-badge">Confianza ThIA: ${g.confidence}%</div>
-             <div>${g.rules.map(r => `<span class="rule-pill">${r}</span>`).join('')}</div>
-             <div style="font-size:10px; color:var(--light); margin-top:8px">📌 ${g.reason}</div>
-           </div>
-         </div>
-       `;
-     });
-     html += `</div></div></div>`;
-     container.innerHTML = html;
-   }
- 
--  async function loadSport(sportId) {
-+  let isLoadingSport = false;
-+
-+  async function loadSport(sportId, regenerate = false) {
-     const overlay = document.getElementById("loadingOverlay");
-+    const step = document.getElementById("loadingStep");
-+    const sport = sportData[sportId];
-+
-+    if (!sport) return;
-+    if (isLoadingSport) return;
-+
-+    isLoadingSport = true;
-     overlay.style.display = "flex";
--    document.getElementById("loadingStep").innerText = `Analizando ${sportData[sportId].name}...`;
--    await new Promise(r => setTimeout(r, 400));
--    renderSport(sportId);
--    overlay.style.display = "none";
-+    step.innerText = regenerate
-+      ? `Generando picks automáticos para ${sport.name}...`
-+      : `Analizando ${sport.name}...`;
-+
-+    try {
-+      await new Promise(r => setTimeout(r, 150));
-+      if (regenerate) generatePicksForSport(sportId);
-+      renderSport(sportId);
-+    } catch (error) {
-+      console.error("Error cargando deporte", error);
-+      document.getElementById("gamesContainer").innerHTML = `<div class="empty-state">⚠️ No se pudieron cargar los juegos. Recarga la página.</div>`;
-+    } finally {
-+      overlay.style.display = "none";
-+      isLoadingSport = false;
-+    }
-   }
- 
-   // Eventos tabs
-   const tabs = document.querySelectorAll(".tab");
-   tabs.forEach(tab => {
-     tab.addEventListener("click", () => {
-       const sport = tab.getAttribute("data-sport");
-       if (!sport) return;
-       tabs.forEach(t => t.classList.remove("active"));
-       tab.classList.add("active");
-       document.getElementById("sportSelect").value = sport;
--      loadSport(sport);
-+      loadSport(sport, false);
-     });
-   });
- 
-   document.getElementById("sportSelect").addEventListener("change", (e) => {
-     const sport = e.target.value;
-     tabs.forEach(t => {
-       if (t.getAttribute("data-sport") === sport) t.classList.add("active");
-       else t.classList.remove("active");
-     });
--    loadSport(sport);
-+    loadSport(sport, false);
-   });
- 
-   document.getElementById("generateBtn").addEventListener("click", () => {
-     const currentSport = document.querySelector(".tab.active").getAttribute("data-sport");
--    loadSport(currentSport);
-+    loadSport(currentSport, true);
-   });
- 
--  const hoy = new Date();
--  const fechaStr = hoy.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
--  document.getElementById("dateBadge").innerHTML = `📅 ${fechaStr}`;
-+  function syncDateLabels() {
-+    const now = new Date();
-+    const shortDate = now.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
-+    const longDate = getLongDateEs();
-+    document.getElementById("dateBadge").innerHTML = `📅 ${shortDate}`;
-+    document.getElementById("headerDateText").textContent = `${longDate} — Análisis EV+`;
-+    document.title = `ThIA Sports Multi-Deporte — ${shortDate}`;
-+  }
-+
-+  syncDateLabels();
- 
--  // Cargar fútbol por defecto
--  loadSport("futbol");
-+  // Cargar fútbol por defecto con picks automáticos
-+  loadSport("futbol", true);
- </script>
- </body>
- </html>
-\ No newline at end of file
-                                                  
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThIA Sports | Picks 30 Abril 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #facc15;
+            --dark: #0a0c10;
+            --card: #1a1c23;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .top-bar {
+            background: #11131a;
+            border-bottom: 4px solid var(--gold);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .logo span:first-child { color: var(--gold); }
+        .date { color: #ccc; font-size: 1.05rem; }
+
+        .main-tabs {
+            display: flex;
+            background: #15171c;
+            padding: 1rem;
+            gap: 12px;
+            overflow-x: auto;
+            border-bottom: 1px solid #333;
+        }
+        .main-tab {
+            padding: 12px 26px;
+            border-radius: 50px;
+            background: #1f222a;
+            border: none;
+            color: #aaa;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .main-tab.active {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .sub-tabs {
+            display: flex;
+            background: #1a1c23;
+            padding: 1rem 1.5rem;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .sub-tab {
+            padding: 10px 18px;
+            border-radius: 30px;
+            background: #2a2d35;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .sub-tab.active {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .container {
+            max-width: 1450px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.8rem;
+        }
+        .game-card {
+            background: var(--card);
+            border-radius: 20px;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            padding: 20px;
+            transition: all 0.25s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(250,204,21,0.15);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            color: var(--gold);
+            font-size: 0.95rem;
+        }
+        .partido {
+            font-size: 1.28rem;
+            font-weight: 700;
+            margin: 10px 0 16px;
+            line-height: 1.3;
+        }
+        .principal {
+            color: #67e8f9;
+            font-size: 1.18rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .cuota { color: var(--gold); font-weight: 600; }
+        .secundario {
+            margin-top: 14px;
+            color: #ddd;
+            border-top: 1px solid #333;
+            padding-top: 14px;
+        }
+        .pitcher {
+            margin-top: 14px;
+            color: #facc15;
+            background: #222;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.96rem;
+        }
+        .confidence {
+            background: rgba(250,204,21,0.2);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 0.92rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo"><span>ThIA</span> Sports</div>
+    <div class="date" id="fecha-hoy"></div>
+</div>
+
+<div class="main-tabs">
+    <button class="main-tab active" data-sport="futbol">⚽ Fútbol</button>
+    <button class="main-tab" data-sport="mlb">⚾ MLB</button>
+    <button class="main-tab" data-sport="nba">🏀 NBA</button>
+    <button class="main-tab" data-sport="nhl">🏒 NHL</button>
+</div>
+
+<div class="container">
+    <!-- Sub-tabs para Fútbol -->
+    <div id="subtabs-futbol" class="sub-tabs"></div>
+
+    <div id="content"></div>
+</div>
+
+<script>
+// ==================== DATOS COMPLETOS DEL CONSENSO ====================
+const picksData = {
+  futbol: [
+    {
+      "liga": "UEFA Europa League – Semifinal 1ra Pierna",
+      "partido": "Braga vs SC Freiburg",
+      "hora": "15:00",
+      "principal": "Under 2.5 Goles",
+      "cuota_p": 1.75,
+      "secundario": "Freiburg Doble Oportunidad",
+      "cuota_s": 1.63,
+      "confianza": 76
+    },
+    {
+      "liga": "UEFA Conference League – Semifinal 1ra Pierna",
+      "partido": "Crystal Palace vs Shakhtar Donetsk",
+      "hora": "15:00",
+      "principal": "Crystal Palace ML",
+      "cuota_p": 1.82,
+      "secundario": "Under 2.5 Goles",
+      "cuota_s": 1.80,
+      "confianza": 76
+    },
+    {
+      "liga": "UEFA Conference League – Semifinal 1ra Pierna",
+      "partido": "Rayo Vallecano vs Strasbourg",
+      "hora": "15:00",
+      "principal": "Rayo Vallecano ML",
+      "cuota_p": 1.95,
+      "secundario": "Ambos Equipos Anotan - Sí",
+      "cuota_s": 1.70,
+      "confianza": 72
+    },
+    {
+      "liga": "Copa Libertadores – Fase de Grupos",
+      "partido": "Bolivar vs Fluminense",
+      "hora": "17:00",
+      "principal": "Bolivar ML",
+      "cuota_p": 2.05,
+      "secundario": "Under 2.5 Goles",
+      "cuota_s": 1.92,
+      "confianza": 76
+    },
+    {
+      "liga": "Copa Libertadores – Fase de Grupos",
+      "partido": "Corinthians vs Peñarol",
+      "hora": "19:00",
+      "principal": "Corinthians ML",
+      "cuota_p": 1.70,
+      "secundario": "Under 2.5 Goles",
+      "cuota_s": 1.67,
+      "confianza": 74
+    },
+    {
+      "liga": "Copa Libertadores – Fase de Grupos",
+      "partido": "Independiente Medellín vs Cusco FC",
+      "hora": "21:00",
+      "principal": "Independiente Medellín ML",
+      "cuota_p": 1.70,
+      "secundario": "Under 2.5 Goles",
+      "cuota_s": 1.85,
+      "confianza": 75
+    },
+    {
+      "liga": "Copa Sudamericana – Fase de Grupos",
+      "partido": "RB Bragantino vs River Plate",
+      "hora": "19:30",
+      "principal": "Over 2.5 Goles",
+      "cuota_p": 2.10,
+      "secundario": "River Plate Doble Oportunidad",
+      "cuota_s": 1.72,
+      "confianza": 73
+    }
+  ],
+  mlb: [
+    {
+      "liga": "MLB",
+      "partido": "Pittsburgh Pirates vs St. Louis Cardinals",
+      "hora": "12:35",
+      "principal": "Pittsburgh Pirates -1.5 Run Line",
+      "cuota_p": 1.83,
+      "secundario": "NRFI (Sin Carrera 1era Entrada)",
+      "cuota_s": 1.90,
+      "confianza": 84,
+      "pitchers": "Paul Skenes (PIT) vs Hunter Dobbins (STL)"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Colorado Rockies vs Cincinnati Reds",
+      "hora": "12:40",
+      "principal": "Cincinnati Reds ML",
+      "cuota_p": 1.59,
+      "secundario": "Over 9.0 Runs",
+      "cuota_s": 1.91,
+      "confianza": 79,
+      "pitchers": "Michael Lorenzen vs Andrew Abbott"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Washington Nationals vs New York Mets",
+      "hora": "13:10",
+      "principal": "New York Mets ML",
+      "cuota_p": 1.60,
+      "secundario": "Freddy Peralta Over 6.5 Strikeouts",
+      "cuota_s": 1.82,
+      "confianza": 77,
+      "pitchers": "Freddy Peralta vs Miles Mikolas"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Milwaukee Brewers vs Arizona Diamondbacks",
+      "hora": "13:40",
+      "principal": "Milwaukee Brewers ML",
+      "cuota_p": 1.75,
+      "secundario": "Under 7.5 Runs",
+      "cuota_s": 1.95,
+      "confianza": 78,
+      "pitchers": "Brandon Woodruff vs Michael Soroka"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Toronto Blue Jays vs Minnesota Twins",
+      "hora": "19:40",
+      "principal": "Toronto Blue Jays ML",
+      "cuota_p": 1.90,
+      "secundario": "Kevin Gausman Over 6.5 Strikeouts",
+      "cuota_s": 1.85,
+      "confianza": 79,
+      "pitchers": "Kevin Gausman vs Bailey Ober"
+    },
+    {
+      "liga": "MLB",
+      "partido": "Detroit Tigers vs Atlanta Braves",
+      "hora": "12:15",
+      "principal": "Atlanta Braves ML",
+      "cuota_p": 1.82,
+      "secundario": "Under 7.5 Runs",
+      "cuota_s": 1.90,
+      "confianza": 74,
+      "pitchers": "Framber Valdez vs Bryce Elder"
+    }
+  ],
+  nba: [
+    {
+      "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
+      "partido": "Atlanta Hawks vs New York Knicks",
+      "hora": "19:00",
+      "principal": "Under 219.5 Puntos",
+      "cuota_p": 1.90,
+      "secundario": "Atlanta Hawks +5.5",
+      "cuota_s": 1.90,
+      "confianza": 73
+    },
+    {
+      "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
+      "partido": "Philadelphia 76ers vs Boston Celtics",
+      "hora": "20:00",
+      "principal": "Under 217.5 Puntos",
+      "cuota_p": 1.90,
+      "secundario": "Philadelphia 76ers ML",
+      "cuota_s": 2.35,
+      "confianza": 74
+    },
+    {
+      "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
+      "partido": "Minnesota Timberwolves vs Denver Nuggets",
+      "hora": "21:30",
+      "principal": "Under 214.5 Puntos",
+      "cuota_p": 1.88,
+      "secundario": "Denver Nuggets ML",
+      "cuota_s": 2.30,
+      "confianza": 71
+    }
+  ],
+  nhl: [
+    {
+      "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
+      "partido": "Minnesota Wild vs Dallas Stars",
+      "hora": "19:30",
+      "principal": "Under 5.5 Goles",
+      "cuota_p": 1.92,
+      "secundario": "Minnesota Wild ML",
+      "cuota_s": 1.81,
+      "confianza": 82
+    },
+    {
+      "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
+      "partido": "Edmonton Oilers vs Anaheim Ducks",
+      "hora": "22:00",
+      "principal": "Over 7.0 Goles",
+      "cuota_p": 1.91,
+      "secundario": "Anaheim Ducks ML",
+      "cuota_s": 2.10,
+      "confianza": 72
+    }
+  ]
+};
+
+// ==================== FUNCIONES ====================
+function renderGames(sport) {
+    const container = document.getElementById('content');
+    let html = '';
+
+    if (sport === "futbol") {
+        // Agrupar por liga
+        const ligas = {};
+        picksData.futbol.forEach(game => {
+            if (!ligas[game.liga]) ligas[game.liga] = [];
+            ligas[game.liga].push(game);
+        });
+
+        // Crear sub-tabs
+        let subHTML = '';
+        Object.keys(ligas).forEach((liga, i) => {
+            subHTML += `<button class="sub-tab ${i === 0 ? 'active' : ''}" data-liga="${liga}">${liga}</button>`;
+        });
+        document.getElementById('subtabs-futbol').innerHTML = subHTML;
+        document.getElementById('subtabs-futbol').style.display = 'flex';
+
+        // Mostrar primera liga
+        html = createLigaHTML(Object.values(ligas)[0]);
+    } else {
+        document.getElementById('subtabs-futbol').style.display = 'none';
+        const games = picksData[sport] || [];
+        html = `<h2 style="color:#facc15; margin-bottom:25px;">${sport.toUpperCase()} Picks - 30 Abril 2026</h2>`;
+        html += createGridHTML(games);
+    }
+
+    container.innerHTML = html;
+}
+
+function createLigaHTML(games) {
+    return `<h2 style="color:#facc15; margin-bottom:20px;">${games[0].liga}</h2>` + createGridHTML(games);
+}
+
+function createGridHTML(games) {
+    let html = '<div class="grid">';
+    games.forEach(game => {
+        const pitcherHTML = game.pitchers ? `<div class="pitcher">🧢 ${game.pitchers}</div>` : '';
+        html += `
+        <div class="game-card">
+            <div class="header">
+                <span>${game.liga}</span>
+                <span>${game.hora}</span>
+            </div>
+            <div class="partido">${game.partido}</div>
+            <div class="principal">🎯 ${game.principal}</div>
+            <div><span class="cuota">Cuota: ${game.cuota_p}</span></div>
+            <div class="secundario">
+                📊 Secundario: ${game.secundario} <span class="cuota">(${game.cuota_s})</span>
+            </div>
+            ${pitcherHTML}
+            <div class="confidence">Confianza ThIA: ${game.confianza}%</div>
+        </div>`;
+    });
+    html += '</div>';
+    return html;
+}
+
+// Eventos Tabs Principales
+document.querySelectorAll('.main-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderGames(tab.getAttribute('data-sport'));
+    });
+});
+
+// Eventos Sub-tabs (Fútbol)
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('sub-tab')) {
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        const ligaName = e.target.getAttribute('data-liga');
+        const ligaGames = picksData.futbol.filter(g => g.liga === ligaName);
+        document.getElementById('content').innerHTML = createLigaHTML(ligaGames);
+    }
+});
+
+// Fecha Actual
+const hoy = new Date();
+document.getElementById('fecha-hoy').innerHTML = 
+    hoy.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+// Cargar por defecto
+renderGames('futbol');
+</script>
+
+</body>
+</html>
