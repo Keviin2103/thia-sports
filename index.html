@@ -3,36 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThIA Sports | Picks 30 Abril 2026</title>
+    <title>ThIA Sports | Picks 2 Mayo 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --gold: #facc15;
-            --gold-light: #fde047;
-            --dark: #0a0c10;
-            --card: #1a1c23;
-            --card-hover: #1f2230;
+            --electric: #00bfff;
+            --electric-light: #33ccff;
+            --electric-glow: rgba(0, 191, 255, 0.4);
+            --electric-bg: rgba(0, 191, 255, 0.12);
+            --dark: #05080c;
+            --card: #0f1218;
+            --card-hover: #131820;
+            --border-subtle: rgba(0, 191, 255, 0.15);
+            --border-medium: rgba(0, 191, 255, 0.35);
             --green: #4ade80;
             --green-bg: rgba(74, 222, 128, 0.12);
-            --yellow-bg: rgba(250, 204, 21, 0.12);
             --orange: #fb923c;
             --orange-bg: rgba(251, 146, 60, 0.12);
-            --blue: #67e8f9;
-            --blue-bg: rgba(103, 232, 249, 0.1);
-            --purple: #c084fc;
-            --purple-bg: rgba(192, 132, 252, 0.1);
             --text-secondary: #a1a1aa;
-            --border-subtle: rgba(250, 204, 21, 0.15);
-            --border-medium: rgba(250, 204, 21, 0.35);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark);
@@ -40,14 +32,13 @@
             min-height: 100vh;
             line-height: 1.5;
             background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(250, 204, 21, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 90%, rgba(103, 232, 249, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 10%, rgba(0, 191, 255, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 90%, rgba(0, 191, 255, 0.03) 0%, transparent 50%);
         }
 
-        /* TOP BAR */
         .top-bar {
-            background: linear-gradient(180deg, #11131a 0%, #0d0f14 100%);
-            border-bottom: 3px solid var(--gold);
+            background: linear-gradient(180deg, #0a0e14 0%, #05080c 100%);
+            border-bottom: 3px solid var(--electric);
             padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
@@ -59,1085 +50,282 @@
             z-index: 100;
             backdrop-filter: blur(10px);
         }
-        .logo {
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .logo .thia {
-            color: var(--gold);
-            text-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
-        }
-        .logo .sports {
-            color: #fff;
-            font-weight: 700;
-        }
-        .date {
-            color: #ccc;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-weight: 500;
-        }
-        .date i {
-            color: var(--gold);
-            margin-right: 6px;
-        }
+        .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1.5px; display: flex; align-items: center; gap: 6px; }
+        .logo .thia { color: var(--electric); text-shadow: 0 0 30px var(--electric-glow); }
+        .logo .sports { color: #fff; font-weight: 700; }
+        .date { color: #ccc; font-size: 1rem; background: rgba(255,255,255,0.04); padding: 8px 18px; border-radius: 30px; font-weight: 500; }
+        .date i { color: var(--electric); margin-right: 6px; }
 
-        /* STATS BAR */
         .stats-bar {
-            display: flex;
-            gap: 16px;
-            padding: 1rem 2rem;
-            background: #11131a;
-            overflow-x: auto;
-            white-space: nowrap;
-            border-bottom: 1px solid #222;
-            flex-wrap: wrap;
+            display: flex; gap: 16px; padding: 1rem 2rem; background: #080b10; overflow-x: auto; white-space: nowrap;
+            border-bottom: 1px solid #1a1e26; flex-wrap: wrap;
         }
         .stat-chip {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #1a1c23;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #ccc;
-            border: 1px solid #2a2d35;
+            display: flex; align-items: center; gap: 8px; background: var(--card); padding: 8px 16px;
+            border-radius: 30px; font-size: 0.9rem; font-weight: 500; color: #ccc; border: 1px solid #1a1e26;
         }
-        .stat-chip i {
-            color: var(--gold);
-        }
-        .stat-chip strong {
-            color: #fff;
-        }
+        .stat-chip i { color: var(--electric); }
+        .stat-chip strong { color: #fff; }
 
-        /* PARLAY SECTION */
-        .parlay-section {
-            max-width: 1480px;
-            margin: 1.5rem auto 0.5rem;
-            padding: 0 1rem;
-        }
-        .parlay-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--gold-light);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .parlay-title i {
-            font-size: 1.3rem;
-        }
-        .parlay-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-        .parlay-card {
-            background: linear-gradient(145deg, #1a1c23 0%, #14161c 100%);
-            border-radius: 16px;
-            border: 2px solid var(--border-medium);
-            padding: 20px 22px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .parlay-card:hover {
-            border-color: var(--gold);
-            box-shadow: 0 12px 35px rgba(250, 204, 21, 0.12);
-            transform: translateY(-3px);
-        }
-        .parlay-card.conservador {
-            border-color: var(--green);
-            background: linear-gradient(145deg, #1a1c23 0%, #111a14 100%);
-        }
-        .parlay-card.balanceado {
-            border-color: var(--gold);
-            background: linear-gradient(145deg, #1a1c23 0%, #1a180e 100%);
-        }
-        .parlay-card.agresivo {
-            border-color: var(--orange);
-            background: linear-gradient(145deg, #1a1c23 0%, #1a1310 100%);
-        }
-        .parlay-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 5px 14px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .conservador .parlay-badge {
-            background: var(--green-bg);
-            color: var(--green);
-        }
-        .balanceado .parlay-badge {
-            background: var(--yellow-bg);
-            color: var(--gold);
-        }
-        .agresivo .parlay-badge {
-            background: var(--orange-bg);
-            color: var(--orange);
-        }
-        .parlay-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #fff;
-        }
-        .parlay-card .parlay-subtitle {
-            font-size: 0.82rem;
-            color: #999;
-            margin-bottom: 14px;
-        }
-        .parlay-legs {
-            list-style: none;
-            margin-bottom: 14px;
-        }
-        .parlay-legs li {
-            padding: 7px 0;
-            border-bottom: 1px solid #2a2d35;
-            font-size: 0.88rem;
-            color: #ddd;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .parlay-legs li:last-child {
-            border-bottom: none;
-        }
-        .parlay-legs .leg-icon {
-            font-size: 0.8rem;
-            width: 20px;
-            text-align: center;
-        }
-        .parlay-metrics {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            padding-top: 10px;
-            border-top: 1px solid #2a2d35;
-        }
-        .parlay-metric {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        .parlay-metric .label {
-            font-size: 0.7rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .parlay-metric .value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-        }
-        .parlay-metric .value.cuota-total {
-            color: var(--gold-light);
-            font-size: 1.3rem;
-        }
-        .parlay-metric .value.ev-positive {
-            color: var(--green);
-        }
-
-        /* MAIN TABS */
         .main-tabs {
-            display: flex;
-            background: #11131a;
-            padding: 0.8rem 1rem;
-            gap: 8px;
-            overflow-x: auto;
-            white-space: nowrap;
-            border-bottom: 1px solid #222;
-            position: sticky;
-            top: 88px;
-            z-index: 99;
+            display: flex; background: #080b10; padding: 0.8rem 1rem; gap: 8px; overflow-x: auto;
+            white-space: nowrap; border-bottom: 1px solid #1a1e26; position: sticky; top: 88px; z-index: 99;
             backdrop-filter: blur(10px);
         }
         .main-tab {
-            padding: 10px 22px;
-            border-radius: 50px;
-            background: #1f222a;
-            border: 1px solid transparent;
-            color: #bbb;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.92rem;
-            transition: all 0.2s ease;
-            white-space: nowrap;
+            padding: 10px 22px; border-radius: 50px; background: #131820; border: 1px solid transparent;
+            color: #bbb; font-weight: 600; cursor: pointer; font-size: 0.92rem; transition: all 0.2s ease; white-space: nowrap;
         }
-        .main-tab:hover {
-            background: #2a2d35;
-            color: #fff;
-        }
-        .main-tab.active {
-            background: var(--gold);
-            color: #000;
-            border-color: var(--gold);
-            box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
-            font-weight: 700;
-        }
+        .main-tab:hover { background: #1e2430; color: #fff; }
+        .main-tab.active { background: var(--electric); color: #000; border-color: var(--electric); box-shadow: 0 4px 20px var(--electric-glow); font-weight: 700; }
+        .main-tab.parlay-tab { background: linear-gradient(135deg, #131820, #0a1220); border: 1px solid var(--electric); }
+        .main-tab.parlay-tab.active { background: var(--electric); color: #000; }
 
-        /* SUB TABS */
         .sub-tabs {
-            display: flex;
-            background: #15171c;
-            padding: 0.8rem 1rem;
-            gap: 8px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #222;
+            display: flex; background: #0c0f14; padding: 0.8rem 1rem; gap: 8px; flex-wrap: wrap;
+            border-bottom: 1px solid #1a1e26;
         }
         .sub-tab {
-            padding: 8px 18px;
-            border-radius: 25px;
-            background: #252830;
-            border: 1px solid transparent;
-            color: #ccc;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            padding: 8px 18px; border-radius: 25px; background: #1a1e28; border: 1px solid transparent;
+            color: #ccc; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease;
         }
-        .sub-tab:hover {
-            background: #333;
-            color: #fff;
-        }
-        .sub-tab.active {
-            background: var(--gold);
-            color: #000;
-            font-weight: 700;
-            border-color: var(--gold);
-        }
+        .sub-tab:hover { background: #252a36; color: #fff; }
+        .sub-tab.active { background: var(--electric); color: #000; font-weight: 700; border-color: var(--electric); }
 
-        /* CONTAINER */
-        .container {
-            max-width: 1480px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .container { max-width: 1480px; margin: 1.5rem auto; padding: 0 1rem; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .section-title { color: var(--electric-light); font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
 
-        .section-title {
-            color: var(--gold-light);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.5rem; }
 
-        /* GRID */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 1.5rem;
-        }
-
-        /* GAME CARD */
         .game-card {
-            background: var(--card);
-            border-radius: 18px;
-            border: 1px solid var(--border-subtle);
-            padding: 20px 22px;
-            transition: all 0.3s ease;
-            position: relative;
-            animation: cardFadeIn 0.5s ease forwards;
-            opacity: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            background: var(--card); border-radius: 18px; border: 1px solid var(--border-subtle);
+            padding: 20px 22px; transition: all 0.3s ease; position: relative;
+            animation: cardFadeIn 0.5s ease forwards; opacity: 0; display: flex; flex-direction: column; gap: 10px;
         }
-        .game-card:nth-child(1) {
-            animation-delay: 0.03s;
-        }
-        .game-card:nth-child(2) {
-            animation-delay: 0.06s;
-        }
-        .game-card:nth-child(3) {
-            animation-delay: 0.09s;
-        }
-        .game-card:nth-child(4) {
-            animation-delay: 0.12s;
-        }
-        .game-card:nth-child(5) {
-            animation-delay: 0.15s;
-        }
-        .game-card:nth-child(6) {
-            animation-delay: 0.18s;
-        }
-        .game-card:nth-child(7) {
-            animation-delay: 0.21s;
-        }
-        .game-card:nth-child(8) {
-            animation-delay: 0.24s;
-        }
-        @keyframes cardFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .game-card:nth-child(1) { animation-delay: 0.03s; }
+        .game-card:nth-child(2) { animation-delay: 0.06s; }
+        .game-card:nth-child(3) { animation-delay: 0.09s; }
+        .game-card:nth-child(4) { animation-delay: 0.12s; }
+        .game-card:nth-child(5) { animation-delay: 0.15s; }
+        .game-card:nth-child(6) { animation-delay: 0.18s; }
+        .game-card:nth-child(7) { animation-delay: 0.21s; }
+        .game-card:nth-child(8) { animation-delay: 0.24s; }
+        @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .game-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-            box-shadow: 0 14px 35px rgba(250, 204, 21, 0.12);
-            background: var(--card-hover);
+            transform: translateY(-5px); border-color: var(--electric);
+            box-shadow: 0 14px 35px var(--electric-glow); background: var(--card-hover);
         }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #999;
-            font-size: 0.85rem;
-        }
-        .card-header .liga-badge {
-            background: rgba(250, 204, 21, 0.1);
-            color: var(--gold-light);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 0.78rem;
-        }
-        .card-header .hora {
-            color: #aaa;
-            font-size: 0.82rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .partido {
-            font-size: 1.2rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: #fff;
-        }
+        .card-header { display: flex; justify-content: space-between; align-items: center; color: #999; font-size: 0.85rem; }
+        .card-header .liga-badge { background: var(--electric-bg); color: var(--electric-light); padding: 4px 10px; border-radius: 12px; font-weight: 500; font-size: 0.78rem; }
+        .card-header .hora { color: #aaa; font-size: 0.82rem; font-weight: 500; display: flex; align-items: center; gap: 5px; }
+        .partido { font-size: 1.2rem; font-weight: 700; line-height: 1.3; color: #fff; }
         .tipo-jugada {
-            display: inline-block;
-            background: var(--blue-bg);
-            color: var(--blue);
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            display: inline-block; background: var(--electric-bg); color: var(--electric-light);
+            padding: 3px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.5px; text-transform: uppercase;
         }
-        .pick-principal {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 10px 14px;
-            border-left: 3px solid var(--gold);
-        }
-        .pick-principal .pick-label {
-            font-size: 0.7rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .pick-principal .pick-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--blue);
-        }
-        .cuota-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-        .cuota-tag {
-            background: #222;
-            padding: 4px 10px;
-            border-radius: 8px;
-            color: var(--gold-light);
-            font-weight: 600;
-        }
-        .secundario-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ccc;
-            font-size: 0.88rem;
-            padding-top: 4px;
-        }
-        .secundario-row .sec-label {
-            color: #888;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-        }
-        .pitcher-info {
-            background: #1f222a;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.82rem;
-            color: #ddd;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .pitcher-info i {
-            color: var(--gold);
-        }
-        .confianza-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 2px;
-        }
-        .confianza-badge {
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-        .confianza-alta {
-            background: var(--green-bg);
-            color: var(--green);
-        }
-        .confianza-media {
-            background: var(--yellow-bg);
-            color: var(--gold-light);
-        }
-        .confianza-baja {
-            background: var(--orange-bg);
-            color: var(--orange);
-        }
-        .ev-badge {
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--green);
-            background: var(--green-bg);
-            padding: 6px 14px;
-            border-radius: 20px;
-        }
-        .ev-negativo {
-            color: #f87171;
-            background: rgba(248, 113, 113, 0.1);
-        }
+        .pick-principal { background: rgba(0,191,255,0.03); border-radius: 10px; padding: 10px 14px; border-left: 3px solid var(--electric); }
+        .pick-principal .pick-label { font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
+        .pick-principal .pick-value { font-size: 1.1rem; font-weight: 700; color: var(--electric-light); }
+        .cuota-row { display: flex; gap: 12px; align-items: center; font-size: 0.9rem; }
+        .cuota-tag { background: #1a1e28; padding: 4px 10px; border-radius: 8px; color: var(--electric-light); font-weight: 600; }
+        .secundario-row { display: flex; align-items: center; gap: 8px; color: #ccc; font-size: 0.88rem; padding-top: 4px; }
+        .secundario-row .sec-label { color: #888; font-size: 0.7rem; text-transform: uppercase; }
+        .pitcher-info { background: #131820; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; color: #ddd; display: flex; align-items: center; gap: 6px; }
+        .pitcher-info i { color: var(--electric); }
+        .confianza-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+        .confianza-badge { padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; }
+        .confianza-alta { background: var(--green-bg); color: var(--green); }
+        .confianza-media { background: rgba(0,191,255,0.15); color: var(--electric-light); }
+        .confianza-baja { background: var(--orange-bg); color: var(--orange); }
+        .ev-badge { font-weight: 700; font-size: 0.85rem; color: var(--green); background: var(--green-bg); padding: 6px 14px; border-radius: 20px; }
+        .ev-negativo { color: #f87171; background: rgba(248,113,113,0.1); }
 
-        /* TOOLTIP */
         .razonamiento-trigger {
-            cursor: help;
-            color: #888;
-            font-size: 0.78rem;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 2px;
-            position: relative;
-            text-decoration: underline dotted;
-            text-underline-offset: 3px;
+            cursor: help; color: #888; font-size: 0.78rem; display: flex; align-items: center; gap: 4px;
+            margin-top: 2px; position: relative; text-decoration: underline dotted; text-underline-offset: 3px;
         }
-        .razonamiento-trigger:hover .tooltip-content {
-            display: block;
-        }
+        .razonamiento-trigger:hover .tooltip-content { display: block; }
         .tooltip-content {
-            display: none;
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f222a;
-            color: #ddd;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 0.78rem;
-            line-height: 1.5;
-            width: 300px;
-            max-width: 90vw;
-            z-index: 200;
-            border: 1px solid var(--border-medium);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            text-decoration: none;
-            font-style: normal;
-            text-align: left;
+            display: none; position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+            background: #1a1e28; color: #ddd; padding: 12px 16px; border-radius: 10px; font-size: 0.78rem;
+            line-height: 1.5; width: 300px; max-width: 90vw; z-index: 200;
+            border: 1px solid var(--border-medium); box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            text-decoration: none; font-style: normal; text-align: left;
         }
         .tooltip-content::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 8px solid transparent;
-            border-top-color: #1f222a;
+            content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            border: 8px solid transparent; border-top-color: #1a1e28;
         }
 
-        /* RESPONSIVE */
+        .parlay-card {
+            background: linear-gradient(145deg, #0f1218 0%, #0a0e14 100%);
+            border-radius: 16px; border: 2px solid var(--electric); padding: 20px 22px;
+            position: relative; overflow: hidden; transition: all 0.3s ease; margin-bottom: 1.2rem;
+        }
+        .parlay-card:hover { box-shadow: 0 12px 35px var(--electric-glow); transform: translateY(-3px); }
+        .parlay-card.conservador { border-color: var(--green); background: linear-gradient(145deg, #0f1218 0%, #0a1a10 100%); }
+        .parlay-card.balanceado { border-color: var(--electric); background: linear-gradient(145deg, #0f1218 0%, #0a1018 100%); }
+        .parlay-card.agresivo { border-color: var(--orange); background: linear-gradient(145deg, #0f1218 0%, #1a100a 100%); }
+        .parlay-badge {
+            position: absolute; top: 16px; right: 16px; font-size: 0.75rem; font-weight: 700;
+            padding: 5px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .conservador .parlay-badge { background: var(--green-bg); color: var(--green); }
+        .balanceado .parlay-badge { background: var(--electric-bg); color: var(--electric-light); }
+        .agresivo .parlay-badge { background: var(--orange-bg); color: var(--orange); }
+        .parlay-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: #fff; }
+        .parlay-card .parlay-subtitle { font-size: 0.82rem; color: #999; margin-bottom: 14px; }
+        .parlay-legs { list-style: none; margin-bottom: 14px; }
+        .parlay-legs li {
+            padding: 7px 0; border-bottom: 1px solid #1a1e26; font-size: 0.88rem; color: #ddd;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .parlay-legs li:last-child { border-bottom: none; }
+        .parlay-legs .leg-icon { font-size: 0.8rem; width: 20px; text-align: center; }
+        .parlay-metrics { display: flex; gap: 16px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid #1a1e26; }
+        .parlay-metric { display: flex; flex-direction: column; gap: 2px; }
+        .parlay-metric .label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+        .parlay-metric .value { font-size: 1.1rem; font-weight: 700; color: #fff; }
+        .parlay-metric .value.cuota-total { color: var(--electric-light); font-size: 1.3rem; }
+        .parlay-metric .value.ev-positive { color: var(--green); }
+
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            .parlay-grid {
-                grid-template-columns: 1fr;
-            }
-            .game-card {
-                padding: 16px 18px;
-            }
-            .partido {
-                font-size: 1.1rem;
-            }
-            .stats-bar {
-                gap: 8px;
-                padding: 0.8rem;
-            }
-            .stat-chip {
-                font-size: 0.78rem;
-                padding: 6px 12px;
-            }
-            .top-bar {
-                padding: 1rem;
-            }
-            .logo {
-                font-size: 1.6rem;
-            }
-            .main-tabs {
-                padding: 0.6rem;
-                gap: 4px;
-                top: 72px;
-            }
-            .main-tab {
-                padding: 8px 16px;
-                font-size: 0.82rem;
-            }
-            .tooltip-content {
-                width: 250px;
-                left: auto;
-                right: 0;
-                transform: none;
-            }
-            .tooltip-content::after {
-                left: auto;
-                right: 20px;
-            }
+            .grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .game-card { padding: 16px 18px; }
+            .partido { font-size: 1.1rem; }
+            .stats-bar { gap: 8px; padding: 0.8rem; }
+            .stat-chip { font-size: 0.78rem; padding: 6px 12px; }
+            .top-bar { padding: 1rem; }
+            .logo { font-size: 1.6rem; }
+            .main-tabs { padding: 0.6rem; gap: 4px; top: 72px; }
+            .main-tab { padding: 8px 16px; font-size: 0.82rem; }
+            .tooltip-content { width: 250px; left: auto; right: 0; transform: none; }
+            .tooltip-content::after { left: auto; right: 20px; }
         }
         @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .parlay-grid {
-                grid-template-columns: 1fr;
-            }
-            .game-card {
-                padding: 14px 16px;
-            }
-            .parlay-card {
-                padding: 16px;
-            }
-            .cuota-row {
-                flex-wrap: wrap;
-                gap: 6px;
-            }
+            .grid { grid-template-columns: 1fr; gap: 1rem; }
+            .game-card { padding: 14px 16px; }
+            .parlay-card { padding: 16px; }
+            .cuota-row { flex-wrap: wrap; gap: 6px; }
         }
-
-        /* SCROLLBAR */
-        ::-webkit-scrollbar {
-            height: 4px;
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { height: 4px; width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #1a1e28; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="logo"><span class="thia">ThIA</span> <span class="sports">Sports</span></div>
-        <div class="date" id="fecha-hoy"><i class="far fa-calendar-alt"></i> </div>
-    </div>
+<div class="top-bar">
+    <div class="logo"><span class="thia">ThIA</span> <span class="sports">Sports</span></div>
+    <div class="date" id="fecha-hoy"><i class="far fa-calendar-alt"></i> </div>
+</div>
 
-    <!-- STATS BAR -->
-    <div class="stats-bar" id="stats-bar">
-        <div class="stat-chip"><i class="fas fa-chart-bar"></i> Total Picks: <strong id="total-picks">0</strong></div>
-        <div class="stat-chip"><i class="fas fa-star"></i> Confianza Promedio: <strong id="avg-confianza">0%</strong></div>
-        <div class="stat-chip"><i class="fas fa-chart-line"></i> EV Promedio: <strong id="avg-ev">0%</strong></div>
-        <div class="stat-chip"><i class="fas fa-fire"></i> Picks +75% Confianza: <strong id="high-conf-count">0</strong></div>
-    </div>
+<div class="stats-bar" id="stats-bar">
+    <div class="stat-chip"><i class="fas fa-chart-bar"></i> Total Picks: <strong id="total-picks">0</strong></div>
+    <div class="stat-chip"><i class="fas fa-star"></i> Confianza Promedio: <strong id="avg-confianza">0%</strong></div>
+    <div class="stat-chip"><i class="fas fa-chart-line"></i> EV Promedio: <strong id="avg-ev">0%</strong></div>
+    <div class="stat-chip"><i class="fas fa-fire"></i> Picks +75%: <strong id="high-conf-count">0</strong></div>
+</div>
 
-    <!-- PARLAY SECTION -->
-    <div class="parlay-section" id="parlay-section">
-        <div class="parlay-title"><i class="fas fa-layer-group"></i> Parlays Recomendados ThIA</div>
-        <div class="parlay-grid" id="parlay-grid"></div>
-    </div>
+<div class="main-tabs">
+    <button class="main-tab active" data-sport="futbol">⚽ Fútbol</button>
+    <button class="main-tab" data-sport="mlb">⚾ MLB</button>
+    <button class="main-tab" data-sport="nba">🏀 NBA</button>
+    <button class="main-tab" data-sport="nhl">🏒 NHL</button>
+    <button class="main-tab parlay-tab" data-sport="parlays"><i class="fas fa-layer-group"></i> Parlays</button>
+</div>
 
-    <!-- MAIN TABS -->
-    <div class="main-tabs">
-        <button class="main-tab active" data-sport="futbol" aria-label="Ver picks de Fútbol">⚽ Fútbol</button>
-        <button class="main-tab" data-sport="mlb" aria-label="Ver picks de MLB">⚾ MLB</button>
-        <button class="main-tab" data-sport="nba" aria-label="Ver picks de NBA">🏀 NBA</button>
-        <button class="main-tab" data-sport="nhl" aria-label="Ver picks de NHL">🏒 NHL</button>
-    </div>
+<div class="sub-tabs" id="subtabs-futbol"></div>
+<div class="container" id="content"></div>
 
-    <!-- SUB TABS (Fútbol) -->
-    <div class="sub-tabs" id="subtabs-futbol"></div>
+<script>
+    // DATOS COMPLETOS
+    const picksData = {
+        futbol: [
+            {"liga":"Premier League","partido":"Newcastle United vs Brighton & Hove Albion","hora":"10:00 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.70,"confianza":72,"tipo_jugada":"Total / BTTS","razonamiento":"Consenso entre las 3 IAs: perfil ofensivo de ambos equipos con Over como pick principal. Newcastle fuerte en casa; Brighton ha perdido 4 de 5 como visitante. Cruce de estilos abiertos con alta probabilidad de goles mutuos. Sharp money respalda el Over.","ev_estimado":"+6.5%"},
+            {"liga":"Premier League","partido":"Brentford vs West Ham United","hora":"10:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.78,"secundario":"Brentford o Empate (1X)","cuota_s":1.48,"confianza":70,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Sin consenso claro entre IAs (Over vs Under), pero el contexto de tensión por descenso de West Ham frena el ritmo ofensivo. Brentford sin ganar en 3, West Ham desesperado. El Under respaldado por promedio bajo de goles en enfrentamientos directos. 1X cubre mayoría de escenarios.","ev_estimado":"+5.5%"},
+            {"liga":"Premier League","partido":"Wolves vs Sunderland","hora":"10:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.72,"secundario":"Sunderland Doble Oportunidad (X2)","cuota_s":1.65,"confianza":74,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Sunderland ha perdido solo 1 de sus últimas 5 visitas. Wolves sin aspiraciones. Fuerte consenso en Under entre IAs. Partido cerrado de baja puntuación esperado. Doble oportunidad visitante con valor dada la solidez de Sunderland fuera de casa.","ev_estimado":"+8.0%"},
+            {"liga":"Premier League","partido":"Arsenal vs Fulham","hora":"12:30 PM VEN","principal":"Arsenal ML","cuota_p":1.55,"secundario":"Arsenal -1.5 Asian Handicap","cuota_s":1.95,"confianza":80,"tipo_jugada":"Moneyline / Asian Handicap","razonamiento":"Consenso total entre las 3 IAs: Arsenal domina en Emirates. Fulham sin presión. Gyökeres en racha. Historial avasallador (invicto en 10 H2H en casa). Línea respaldada por sharp money. Handicap -1.5 con cuota atractiva para un equipo que debe imponerse por diferencia.","ev_estimado":"+8.5%"},
+            {"liga":"LaLiga","partido":"Villarreal CF vs Levante UD","hora":"08:00 AM VEN","principal":"Villarreal ML","cuota_p":1.65,"secundario":"Over 1.5 Goles","cuota_s":1.42,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Consenso en ML local entre todas las IAs. Villarreal con ventaja competitiva clara en casa. Levante vulnerable fuera. Derbi regional con control esperado del local. Over 1.5 como secundario conservador dado que Villarreal suele marcar al menos 2 en estos contextos.","ev_estimado":"+6.0%"},
+            {"liga":"LaLiga","partido":"Valencia CF vs Atlético de Madrid","hora":"10:15 AM VEN","principal":"Atlético de Madrid ML","cuota_p":1.85,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":77,"tipo_jugada":"Moneyline / Total","razonamiento":"Amplio consenso: Atlético y Under. Atlético necesita ganar para asegurar Champions. Valencia débil en casa. Sistema defensivo de Simeone impecable como visitante. H2H reciente: Atlético invicto en últimos 5. Cuota 1.85 para visitante de élite con valor.","ev_estimado":"+8.2%"},
+            {"liga":"LaLiga","partido":"Alavés vs Athletic Club","hora":"12:30 PM VEN","principal":"Athletic Club ML","cuota_p":1.90,"secundario":"Under 2.5 Goles","cuota_s":1.60,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Derbi vasco. Athletic superior y luchando por Europa. Alavés en zona de descenso. Consenso entre IAs en ML visitante y Under. Cuota 1.90 muy atractiva para un equipo que ha dominado este derbi históricamente. Ambiente tenso que limita goles.","ev_estimado":"+7.5%"},
+            {"liga":"LaLiga","partido":"Osasuna vs FC Barcelona","hora":"03:00 PM VEN","principal":"FC Barcelona ML","cuota_p":1.65,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Consenso total: Barcelona ML. 9 victorias consecutivas, líder con 85 pts. Bajas sensibles (Yamal, Christensen, Araujo) pero plantilla profunda. Osasuna invicto 10 partidos en casa: riesgo real, pero Barcelona ha ganado 8 de 9 H2H. Over respaldado por capacidad goleadora visitante.","ev_estimado":"+6.8%"},
+            {"liga":"Bundesliga","partido":"Bayern Munich vs Heidenheim","hora":"09:30 AM VEN","principal":"Bayern Munich Over 2.5 Goles","cuota_p":1.72,"secundario":"Bayern Munich ML","cuota_s":1.40,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Bayern campeón con mejor ataque de la Bundesliga. Heidenheim último (18°, 22 pts). Ganaron 4-0 en diciembre. Over 2.5 con valor seguro ante la peor defensa visitante. ML ajustada al mínimo pero válida por diferencia estructural. Consenso total entre IAs.","ev_estimado":"+12.4%"},
+            {"liga":"Bundesliga","partido":"Bayer Leverkusen vs RB Leipzig","hora":"12:30 PM VEN","principal":"Bayer Leverkusen ML","cuota_p":1.72,"secundario":"Over 2.5 Goles","cuota_s":1.78,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Leverkusen en BayArena con motivación Champions. Leipzig gran rival pero sin ventaja de campo. Historial de duelos directos produce goles. Consenso en ML y Over entre múltiples fuentes.","ev_estimado":"+7.8%"},
+            {"liga":"Bundesliga","partido":"Eintracht Frankfurt vs Hamburgo SV","hora":"09:30 AM VEN","principal":"Eintracht Frankfurt ML","cuota_p":1.68,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Frankfurt en casa con experiencia europea vs Hamburgo recién ascendido. Diferencia de jerarquía clara. Estilo abierto de Frankfurt produce goles. Consenso entre IAs.","ev_estimado":"+7.1%"},
+            {"liga":"Bundesliga","partido":"Union Berlin vs 1. FC Köln","hora":"09:30 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.72,"secundario":"Union Berlin Empate No Apuesta","cuota_s":1.65,"confianza":76,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Duelo directo por la permanencia. Ambos priorizan no perder. Under 2.5 en 8 de sus últimos 10 partidos. Empate sin goles probable. Alta tensión psicológica que puede generar un partido más abierto, pero el Under sigue siendo la entrada más robusta.","ev_estimado":"+7.8%"},
+            {"liga":"Bundesliga","partido":"Hoffenheim vs Stuttgart","hora":"09:30 AM VEN","principal":"Stuttgart ML","cuota_p":1.95,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":72,"tipo_jugada":"Moneyline / Total","razonamiento":"Stuttgart con racha de 4 victorias en 5 partidos. Hoffenheim irregular en casa. Cuota visitante 1.95 con valor. Ambos equipos ofensivos, Over respaldado.","ev_estimado":"+8.5%"},
+            {"liga":"Serie A","partido":"Como vs Napoli","hora":"12:00 PM VEN","principal":"Napoli ML","cuota_p":1.68,"secundario":"Under 2.5 Goles","cuota_s":1.78,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Napoli pelea Champions con el mejor registro visitante de la segunda vuelta. Como limitado en casa. Estilo pragmático de Napoli fuera sugiere partido controlado. Consenso en ML.","ev_estimado":"+8.7%"},
+            {"liga":"Serie A","partido":"Atalanta vs Genoa","hora":"02:45 PM VEN","principal":"Atalanta ML","cuota_p":1.65,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Atalanta casi imbatible en Gewiss Stadium. Promedia 3.1 goles/partido en últimos 10 de local. Genoa salvado sin urgencias. Presión alta local desbordará defensa visitante.","ev_estimado":"+9.3%"},
+            {"liga":"Serie A","partido":"Udinese vs Torino","hora":"09:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.68,"secundario":"Udinese ML","cuota_s":2.30,"confianza":71,"tipo_jugada":"Total / Moneyline","razonamiento":"Partido táctico típico de Serie A. Udinese fuerte en casa con cuota atractiva. Under consistente en enfrentamientos previos. Toro visita sin grandes aspiraciones.","ev_estimado":"+6.0%"},
+            {"liga":"Ligue 1","partido":"Nantes vs Olympique Marseille","hora":"09:00 AM VEN","principal":"Olympique Marseille ML","cuota_p":1.95,"secundario":"Over 2.5 Goles","cuota_s":1.90,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Marsella obligado a ganar por Europa. Nantes sin objetivos. Cuota 1.95 con valor real. Marsella genera ocasiones, partido abierto esperado. Consenso entre fuentes.","ev_estimado":"+9.8%"},
+            {"liga":"Ligue 1","partido":"PSG vs Lorient","hora":"11:00 AM VEN","principal":"PSG Over 2.5 Goles","cuota_p":1.62,"secundario":"PSG -1.5 Asian Handicap","cuota_s":1.70,"confianza":78,"tipo_jugada":"Total / Handicap","razonamiento":"PSG en Parque de los Príncipes contra el peor equipo visitante. ML bajo mínimo, pero Over 2.5 tiene valor (marcan 2+ en 75%+ de partidos en casa). Handicap -1.5 respaldado por diferencia de calidad.","ev_estimado":"+11.3%"},
+            {"liga":"Ligue 1","partido":"Metz vs Monaco","hora":"01:00 PM VEN","principal":"Monaco ML","cuota_p":1.72,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":73,"tipo_jugada":"Moneyline / Total","razonamiento":"Mónaco lucha por el título, Metz en descenso. Historial favorece a Mónaco con goles. Cuota visitante con valor.","ev_estimado":"+6.5%"},
+            {"liga":"Ligue 1","partido":"Nice vs Lens","hora":"03:05 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.65,"secundario":"Nice ML","cuota_s":2.05,"confianza":71,"tipo_jugada":"Total / Moneyline","razonamiento":"Duelo directo por Europa. Niza sólido en casa, Lens cansado. Partido cerrado táctico. Under priorizado. ML local con cuota alta y valor.","ev_estimado":"+7.0%"},
+            {"liga":"MLS","partido":"Toronto FC vs San Jose Earthquakes","hora":"01:00 PM VEN","principal":"Toronto FC ML","cuota_p":1.80,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":72,"tipo_jugada":"Moneyline / Total","razonamiento":"Toronto fuerte en casa. San Jose sufre viaje costa oeste a este. Altitud y clima marcan diferencia. Consenso entre IAs.","ev_estimado":"+5.9%"},
+            {"liga":"MLS","partido":"Inter Miami vs Orlando City SC","hora":"07:15 PM VEN","principal":"Inter Miami ML","cuota_p":1.80,"secundario":"Over 2.5 Goles","cuota_s":1.82,"confianza":71,"tipo_jugada":"Moneyline / Total","razonamiento":"Clásico de Florida. Inter Miami con Messi/Suárez/Busquets. Orlando irregular visitante. Ambiente de derbi produce goles. Factor local determinante.","ev_estimado":"+7.5%"},
+            {"liga":"MLS","partido":"Los Angeles Galaxy vs Vancouver Whitecaps","hora":"10:30 PM VEN","principal":"Los Angeles Galaxy ML","cuota_p":1.70,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Galaxy fuertes en casa. Whitecaps reciben goleadas en California. Historial de resultados abultados. Consenso en ML y Over.","ev_estimado":"+6.4%"},
+            {"liga":"MLS","partido":"Philadelphia Union vs Nashville SC","hora":"07:30 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.68,"secundario":"Philadelphia Union ML","cuota_s":1.90,"confianza":75,"tipo_jugada":"Total / Moneyline","razonamiento":"Dos equipos defensivos. Philadelphia fortín en casa. Nashville propone partidos cerrados. Consenso en Under. ML local con valor.","ev_estimado":"+8.3%"},
+            {"liga":"MLS","partido":"San Diego FC vs Los Angeles FC","hora":"09:30 PM VEN","principal":"Los Angeles FC ML","cuota_p":1.95,"secundario":"Over 2.5 Goles","cuota_s":1.70,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Derbi californiano. LAFC aspirante al título. San Diego expansión con problemas. Calidad visitante debe imponerse. Cuota 1.95 muy atractiva.","ev_estimado":"+8.8%"}
+        ],
+        mlb: [
+            {"liga":"MLB","partido":"New York Yankees vs Baltimore Orioles","hora":"01:35 PM VEN","principal":"New York Yankees ML","cuota_p":1.62,"secundario":"Under 8.0 Runs","cuota_s":1.90,"confianza":76,"tipo_jugada":"Moneyline / Total","pitchers":"Weathers (NYY) vs Bradish (BAL)","razonamiento":"Yankees con mejor lineup AL (Judge/Bellinger/Stanton). Baltimore 6-7 visitante. Yankee Stadium favorece ofensiva local. Historial reciente H2H: 7-3 para Yankees. Weathers (ERA 3.21) sólido. Bradish (ERA 4.20) vulnerable. Promedio combinado carreras últimos 5 juegos: bajo 8.5, permitiendo Under.","ev_estimado":"+7.5%"},
+            {"liga":"MLB","partido":"Minnesota Twins vs Toronto Blue Jays","hora":"02:10 PM VEN","principal":"Minnesota Twins ML","cuota_p":1.72,"secundario":"Under 8.0 Runs","cuota_s":1.88,"confianza":71,"tipo_jugada":"Moneyline / Total","pitchers":"Prielipp (MIN) vs Cease (TOR)","razonamiento":"Twins ganaron 7-1 ayer, momentum local en Target Field. Toronto sin Gausman hoy. Cease (ERA 2.87) de visita, Prielipp (ERA 4.00) en casa. H2H: Twins 3-2. Under respaldado por calidad de SPs y parque neutral.","ev_estimado":"+6.2%"},
+            {"liga":"MLB","partido":"Chicago Cubs vs Arizona Diamondbacks","hora":"02:20 PM VEN","principal":"Cubs ML","cuota_p":1.65,"secundario":"Under 8.5 Runs","cuota_s":1.85,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"Imanaga (CHC) vs Nelson (ARI)","razonamiento":"Imanaga (ERA 3.15) sólido en Wrigley. Nelson (ERA 7.71) máquina de permitir carreras. Diferencia de SPs marcada. H2H reciente equilibrado. Cubs favoritos claros. Under posible si Nelson sale temprano. Promedio combinado carreras últimos 5 juegos: Cubs 4.2, D-backs 3.8.","ev_estimado":"+7.0%"},
+            {"liga":"MLB","partido":"Cincinnati Reds vs Pittsburgh Pirates","hora":"04:05 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.82,"secundario":"Reds ML","cuota_s":1.80,"confianza":74,"tipo_jugada":"Total / Moneyline","pitchers":"Lowder (CIN) vs Mlodzinski (PIT)","razonamiento":"Lowder (ERA 3.18) vs Mlodzinski (ERA 4.13). Ambos equipos con ofensivas capaces. Promedio combinado carreras últimos 5 juegos: superior a 8.5, lo que valida Over. Reds con ligera ventaja ofensiva en casa. Temperatura favorable para béisbol ofensivo.","ev_estimado":"+6.3%"},
+            {"liga":"MLB","partido":"Washington Nationals vs Milwaukee Brewers","hora":"04:05 PM VEN","principal":"Milwaukee Brewers ML","cuota_p":1.72,"secundario":"Under 8.5 Runs","cuota_s":1.90,"confianza":79,"tipo_jugada":"Moneyline / Total","pitchers":"Harrison (MIL) vs Griffin (WSH)","razonamiento":"Brewers vienen de paliza 13-1 con momentum brutal. Harrison (ERA 2.28) dominante. Washington con rotación débil. H2H: Brewers 4-1. Promedio carreras combinadas últimos 5 juegos: Brewers 5.8, Nats 3.2. Viento ligero de frente en Nationals Park, ayudando al Under.","ev_estimado":"+9.1%"},
+            {"liga":"MLB","partido":"Cleveland Guardians vs Athletics","hora":"04:05 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.83,"secundario":"Guardians ML","cuota_s":2.10,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"Cecconi (CLE) vs Lopez (ATH)","razonamiento":"Cecconi (ERA 6.23) y Lopez (ERA 5.84) pésimos SPs. Promedio combinado carreras últimos 5 juegos ampliamente superior a 8.5. Over con valor alto. Guardians como underdog con cuota atractiva por mejor ofensiva.","ev_estimado":"+10.2%"},
+            {"liga":"MLB","partido":"Boston Red Sox vs Houston Astros","hora":"04:10 PM VEN","principal":"Astros ML","cuota_p":1.72,"secundario":"Under 9.0 Runs","cuota_s":1.85,"confianza":76,"tipo_jugada":"Moneyline / Total","pitchers":"Arrighetti (HOU) vs Early (BOS)","razonamiento":"Arrighetti (ERA 2.00) dominante. Early (ERA 2.84) sólido. Duelo de buenos SPs en Fenway. H2H: Astros 3-2. Promedio combinado carreras últimos 5 juegos: ambos bajo 4.0. Under 9.0 valorado con estos abridores.","ev_estimado":"+7.8%"},
+            {"liga":"MLB","partido":"Miami Marlins vs Philadelphia Phillies","hora":"04:10 PM VEN","principal":"Philadelphia Phillies ML","cuota_p":1.78,"secundario":"Under 8.5 Runs","cuota_s":1.83,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"Painter (PHI) vs Meyer (MIA)","razonamiento":"Phillies lineup explosivo (Schwarber/Harper/Stott). Meyer inconsistente. H2H: Phillies 6-1 en últimos 7. LoanDepot Park pitcher-friendly ayuda al Under. Promedio carreras combinadas últimos 5 juegos: Phillies 5.0, Marlins 3.4. Viento de frente 12mph desde el mar.","ev_estimado":"+7.8%"},
+            {"liga":"MLB","partido":"Tampa Bay Rays vs San Francisco Giants","hora":"06:10 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.80,"secundario":"Rays ML","cuota_s":1.85,"confianza":81,"tipo_jugada":"Total / Moneyline","pitchers":"Roupp (SF) vs Jax (TB)","razonamiento":"Roupp (ERA 2.55) es un as. Jax (ERA 6.35) vulnerable pero Rays en casa. Duelo desigual de SPs frena ofensivas. Under 7.5 prioridad absoluta. Rays ML con cautela por Jax. Promedio combinado carreras últimos 5 juegos no invalida Under dado que Roupp es dominante.","ev_estimado":"+9.0%"},
+            {"liga":"MLB","partido":"Detroit Tigers vs Texas Rangers","hora":"07:15 PM VEN","principal":"Rangers ML","cuota_p":1.67,"secundario":"Over 7.5 Runs","cuota_s":1.82,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"Rocker (TEX) vs Montero (DET)","razonamiento":"Rangers mejor roster global. Rocker y Montero jóvenes con inconsistencia. H2H: Rangers ganaron serie anterior. Over por varianza de SPs jóvenes. Temperatura cálida en Detroit (22°C) favorece ofensiva.","ev_estimado":"+6.2%"},
+            {"liga":"MLB","partido":"St. Louis Cardinals vs Los Angeles Dodgers","hora":"07:15 PM VEN","principal":"Los Angeles Dodgers ML","cuota_p":1.80,"secundario":"Under 8.5 Runs","cuota_s":1.90,"confianza":75,"tipo_jugada":"Moneyline / Total","pitchers":"Sasaki (LAD) vs McGreevy (STL)","razonamiento":"Dodgers equipo más profundo MLB. Sasaki inconsistente (ERA 6.35) pero Cardinals barrieron semana pasada: Dodgers necesitan ajuste. Lineup top-3 NL. Busch Stadium neutral. Under respaldado por parque.","ev_estimado":"+8.5%"},
+            {"liga":"MLB","partido":"Colorado Rockies vs Atlanta Braves","hora":"08:10 PM VEN","principal":"Over 11.5 Runs","cuota_p":1.88,"secundario":"Braves ML","cuota_s":1.58,"confianza":80,"tipo_jugada":"Total / Moneyline","pitchers":"Sale (ATL) vs TBD (COL)","razonamiento":"Regla Coors Field activada. Park factor inflacionario 15-20%. Rockies no confirman SP, probable bullpen day. Braves mejor lineup NL (Acuña/Olson/Riley). Over 11.5 histórico en estas condiciones con 64% de acierto. Sale es élite pero Coors castiga incluso a ases. Temperatura 18°C con viento ligero de salida.","ev_estimado":"+11.7%"},
+            {"liga":"MLB","partido":"San Diego Padres vs Chicago White Sox","hora":"08:40 PM VEN","principal":"San Diego Padres ML","cuota_p":1.58,"secundario":"Under 8.5 Runs","cuota_s":1.88,"confianza":80,"tipo_jugada":"Moneyline / Total","pitchers":"King (SD) vs Burke (CWS)","razonamiento":"Padres en Petco (pitcher-friendly). King (ERA 2.41) élite. White Sox peor equipo AL. H2H: Padres dominan. Promedio carreras combinadas últimos 5 juegos: Padres 3.6, White Sox 2.8. Parque y calidad de SP local respaldan Under.","ev_estimado":"+9.4%"},
+            {"liga":"MLB","partido":"Los Angeles Angels vs New York Mets","hora":"09:38 PM VEN","principal":"New York Mets ML","cuota_p":1.62,"secundario":"Under 9.0 Runs","cuota_s":1.77,"confianza":76,"tipo_jugada":"Moneyline / Total","pitchers":"McLean (NYM) vs Detmers (LAA)","razonamiento":"Urena (SIERA 5.16, wOBA .443 a zurdos) abre por Angels: métricas pésimas. Mets lineup top-3 NL con Soto en racha (OPS 1.147 vs RHP). H2H: Mets 4-1. McLean (ERA 2.55) sólido, Under posible si controla ofensiva de Angels.","ev_estimado":"+8.9%"},
+            {"liga":"MLB","partido":"Seattle Mariners vs Kansas City Royals","hora":"09:40 PM VEN","principal":"Mariners ML","cuota_p":1.59,"secundario":"Under 7.5 Runs","cuota_s":1.85,"confianza":80,"tipo_jugada":"Moneyline / Total","pitchers":"Hancock (SEA) vs Lugo (KC)","razonamiento":"Hancock (ERA 2.86) sólido en casa. Lugo (ERA 2.63) competente pero Mariners mejor roster. Parque pitcher-friendly. H2H: Mariners 3-2. Promedio combinado carreras últimos 5 juegos bajo 7.0. Temperatura fresca en Seattle (14°C).","ev_estimado":"+6.8%"}
+        ],
+        nba: [
+            {"liga":"NBA Playoffs","partido":"Boston Celtics vs Philadelphia 76ers","hora":"07:30 PM VEN","principal":"Philadelphia 76ers +7.5","cuota_p":1.91,"secundario":"Under 206.5 Puntos","cuota_s":1.91,"confianza":74,"tipo_jugada":"Spread / Total","razonamiento":"Game 7 en Boston. 76ers remontaron de 1-3. Ganaron 2 de 3 en TD Garden esta serie. Embiid dominante (26pts/8ast G5-G6). Jaylen Brown solo 18pts y 5 TO en G6. Línea se movió de -9.5 a -7.5: sharp money en PHI. Under: BOS bajo 100pts en las 3 victorias de PHI. G7 máxima intensidad defensiva. No aplica regla de visitante favorito -2.5 con ventaja (Celtics favoritos, no aplica). Under respaldado por defensas top-5 en playoffs.","ev_estimado":"+10.2%"}
+        ],
+        nhl: [
+            {"liga":"NHL Playoffs","partido":"Carolina Hurricanes vs Philadelphia Flyers","hora":"08:00 PM VEN","principal":"Under 5.5 Goals","cuota_p":1.83,"secundario":"Hurricanes ML","cuota_s":1.55,"confianza":72,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 1 segunda ronda. CAR barrió 4-0 primera ronda con máximo descanso. PHI desgastado tras 7 juegos. Modelo da 64.9% win prob a CAR. Under: todos los juegos de la serie han sido under 5.5, duelos de arqueros élite. Regla de precaución con Under en Game 6-7 no aplica (Game 1). Hurricanes deben imponer ritmo en casa.","ev_estimado":"+10.1%"}
+        ]
+    };
 
-    <!-- CONTENT -->
-    <div class="container" id="content"></div>
+    // Ordenar por hora
+    function parseTimeToMinutes(timeStr) {
+        const parts = timeStr.split(' ');
+        const timePart = parts[0];
+        const ampm = parts[1];
+        const [hourStr, minuteStr] = timePart.split(':');
+        let hour = parseInt(hourStr);
+        const minute = parseInt(minuteStr);
+        if (ampm === 'PM' && hour !== 12) hour += 12;
+        if (ampm === 'AM' && hour === 12) hour = 0;
+        return hour * 60 + minute;
+    }
+    for (let sport in picksData) {
+        picksData[sport].sort((a, b) => parseTimeToMinutes(a.hora) - parseTimeToMinutes(b.hora));
+    }
 
-    <script>
-        // ==================== DATOS COMPLETOS ====================
-        const picksData = {
-            futbol: [
-                {
-                    "liga": "Copa Libertadores",
-                    "partido": "Bolívar vs Fluminense",
-                    "hora": "7:00 PM VEN",
-                    "principal": "Bolívar ML",
-                    "cuota_p": 2.05,
-                    "secundario": "Under 2.5 Goles",
-                    "cuota_s": 1.90,
-                    "confianza": 77,
-                    "tipo_jugada": "Moneyline / Total",
-                    "razonamiento": "Factor altitud (3,640 m) subestimado por el mercado. Bolívar >70% efectividad local en Libertadores. Fluminense no aclimatado sufre caída rendimiento 15-22%. Cuota 2.05 infravalorada. Under: ritmo lento en altura, visitante colapsa en segundo tiempo.",
-                    "ev_estimado": "+10.8%"
-                },
-                {
-                    "liga": "Copa Libertadores",
-                    "partido": "Corinthians vs Peñarol",
-                    "hora": "9:00 PM VEN",
-                    "principal": "Corinthians ML",
-                    "cuota_p": 1.65,
-                    "secundario": "Under 2.5 Goles",
-                    "cuota_s": 1.72,
-                    "confianza": 78,
-                    "tipo_jugada": "Moneyline / Total",
-                    "razonamiento": "Corinthians invicto en fase de grupos, Neo Química Arena fortaleza. Peñarol sin victorias en certamen y pobre fuera. Motivación máxima local. Under: Peñarol bloque bajo de visitante, pocos goles históricamente.",
-                    "ev_estimado": "+7.5%"
-                },
-                {
-                    "liga": "Copa Libertadores",
-                    "partido": "Independiente Medellín vs Cusco FC",
-                    "hora": "11:00 PM VEN",
-                    "principal": "Independiente Medellín ML",
-                    "cuota_p": 1.70,
-                    "secundario": "Under 2.5 Goles",
-                    "cuota_s": 1.85,
-                    "confianza": 75,
-                    "tipo_jugada": "Moneyline / Total",
-                    "razonamiento": "Mismatch estructural: Cusco 0 puntos, ofensiva nula fuera. DIM urgencia, Atanasio Girardot energizante. Calidad local muy superior. Under porque Cusco no amenaza fuera de Perú.",
-                    "ev_estimado": "+6.8%"
-                },
-                {
-                    "liga": "Premier League",
-                    "partido": "Leeds United vs Burnley",
-                    "hora": "3:00 PM VEN",
-                    "principal": "Leeds United ML",
-                    "cuota_p": 1.68,
-                    "secundario": "Under 2.5 Goles",
-                    "cuota_s": 1.82,
-                    "confianza": 76,
-                    "tipo_jugada": "Moneyline / Total",
-                    "razonamiento": "Leeds fuerte en Elland Road, Burnley casi descendido. Sharp money en Leeds. Burnley 1 gol en últimos 3, partido de bajo ritmo y máxima tensión.",
-                    "ev_estimado": "+7.4%"
-                },
-                {
-                    "liga": "La Liga",
-                    "partido": "Girona vs Mallorca",
-                    "hora": "4:00 PM VEN",
-                    "principal": "Under 2.5 Goles",
-                    "cuota_p": 1.75,
-                    "secundario": "Mallorca +0.5 Asian Handicap",
-                    "cuota_s": 1.65,
-                    "confianza": 74,
-                    "tipo_jugada": "Total / Asian Handicap",
-                    "razonamiento": "Mallorca ultradefensivo fuera. Girona sufre ante bloques bajos. Historial H2H bajo scoring. Sharp money en Under. +0.5 protege en empate sin goles.",
-                    "ev_estimado": "+8.2%"
-                },
-                {
-                    "liga": "Serie A",
-                    "partido": "Pisa vs Lecce",
-                    "hora": "3:45 PM VEN",
-                    "principal": "Under 2.5 Goles",
-                    "cuota_p": 1.70,
-                    "secundario": "Lecce Empate No Apuesta",
-                    "cuota_s": 1.68,
-                    "confianza": 73,
-                    "tipo_jugada": "Total / Empate No Apuesta",
-                    "razonamiento": "Batalla por permanencia: Pisa 1 gol en 5, Lecce 2 en 6. Arena Garibaldi factor leve. Sharp money en Under. DNB Lecce ofrece seguridad extra en partido tenso.",
-                    "ev_estimado": "+6.9%"
-                },
-                {
-                    "liga": "Copa Sudamericana",
-                    "partido": "RB Bragantino vs River Plate",
-                    "hora": "7:30 PM VEN",
-                    "principal": "Over 2.5 Goles",
-                    "cuota_p": 2.10,
-                    "secundario": "River Plate Doble Oportunidad",
-                    "cuota_s": 1.72,
-                    "confianza": 72,
-                    "tipo_jugada": "Total / Doble Oportunidad",
-                    "razonamiento": "Ambos de estilos ofensivos. Modelos proyectan 2.8+ goles. Value en Over. River X2 por mayor plantel incluso de visita.",
-                    "ev_estimado": "+8.5%"
-                },
-                {
-                    "liga": "Copa Libertadores",
-                    "partido": "Independiente Rivadavia vs Deportivo La Guaira",
-                    "hora": "1:00 AM VEN",
-                    "principal": "Independiente Rivadavia -1.0 Asian Handicap",
-                    "cuota_p": 2.00,
-                    "secundario": "Over 2.5 Goles",
-                    "cuota_s": 1.96,
-                    "confianza": 70,
-                    "tipo_jugada": "Handicap / Total",
-                    "razonamiento": "Local fuerte en altura de Mendoza (3 victorias seguidas). La Guaira debutante en condiciones geográficas adversas. AH -1.0 con protección. Over probable por diferencia de calidad.",
-                    "ev_estimado": "+11.3%"
-                }
-            ],
-            mlb: [
-                {
-                    "liga": "MLB",
-                    "partido": "New York Yankees vs Baltimore Orioles",
-                    "hora": "7:05 PM VEN",
-                    "principal": "New York Yankees ML",
-                    "cuota_p": 1.74,
-                    "secundario": "Under 8.5 Runs",
-                    "cuota_s": 1.82,
-                    "confianza": 78,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "Will Warren (NYY, 2.59 ERA) vs Cade Povich (BAL, 5.02 ERA)",
-                    "razonamiento": "Warren élite (no más de 2 CL en 6 salidas). Povich con historial negativo ante Yankees. BAL 6-7 fuera, NYY línea ofensiva superior. Under por control de Warren.",
-                    "ev_estimado": "+7.2%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Colorado Rockies vs Atlanta Braves",
-                    "hora": "8:40 PM VEN",
-                    "principal": "Over 10.5 Runs",
-                    "cuota_p": 1.85,
-                    "secundario": "Atlanta Braves ML",
-                    "cuota_s": 1.55,
-                    "confianza": 80,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Grant Holmes (ATL, 3.62 ERA) vs José Quintana (COL, 4.91 ERA)",
-                    "razonamiento": "Coors Field infla ofensiva. Rotación COL colectiva >5.50 ERA. Holmes sólido pero el parque castiga. Over seguro con ambos ataques. Braves ML por lineup superior.",
-                    "ev_estimado": "+10.2%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Los Angeles Angels vs New York Mets",
-                    "hora": "9:38 PM VEN",
-                    "principal": "Over 8.5 Runs",
-                    "cuota_p": 1.83,
-                    "secundario": "Los Angeles Angels ML",
-                    "cuota_s": 1.90,
-                    "confianza": 75,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Walbert Urena (LAA, SIERA 5.16) vs Christian Scott (NYM, 6.75 ERA)",
-                    "razonamiento": "Ambos abridores muy vulnerables. Urena vapuleado, Scott solo 1.1 IP en 2026. Lineups ofensivos. Over casi seguro. Angels ML con valor: Scott peor preparado.",
-                    "ev_estimado": "+8.2%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Milwaukee Brewers vs Washington Nationals",
-                    "hora": "6:45 PM VEN",
-                    "principal": "Milwaukee Brewers ML",
-                    "cuota_p": 1.72,
-                    "secundario": "Under 8.5 Runs",
-                    "cuota_s": 1.88,
-                    "confianza": 74,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "Jacob Misiorowski (MIL, prospecto élite) vs Jake Irvin (WSH, 5.10 ERA)",
-                    "razonamiento": "Consenso en Brewers: rotación élite MIL, Irvin vulnerable. Brewers vienen de paliza 13-1. Under porque pitcheo MIL maniatará a Washington.",
-                    "ev_estimado": "+7.2%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "St. Louis Cardinals vs Los Angeles Dodgers",
-                    "hora": "8:15 PM VEN",
-                    "principal": "Los Angeles Dodgers ML",
-                    "cuota_p": 1.78,
-                    "secundario": "Under 8.5 Runs",
-                    "cuota_s": 1.90,
-                    "confianza": 73,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "Matthew Liberatore (STL, 4.75 ERA) vs Emmet Sheehan (LAD, 2-0, 28 K)",
-                    "razonamiento": "Sheehan dominante, Liberatore inconsistente. Dodgers plantel más profundo. Busch Stadium pitcher-friendly, suma al Under.",
-                    "ev_estimado": "+6.8%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Pittsburgh Pirates vs Cincinnati Reds",
-                    "hora": "6:45 PM VEN",
-                    "principal": "Pittsburgh Pirates ML",
-                    "cuota_p": 1.68,
-                    "secundario": "Under 7.5 Runs",
-                    "cuota_s": 1.90,
-                    "confianza": 80,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "Mitch Keller (PIT, 4.10 ERA) vs Brady Singer (CIN, 3.50 ERA)",
-                    "razonamiento": "Máximo consenso. PNC Park pitcher-friendly. Keller superior en casa, Singer moderado. Sharp money firme. Under: ambos lineups inconsistentes.",
-                    "ev_estimado": "+8.1%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Arizona Diamondbacks vs Chicago Cubs",
-                    "hora": "1:20 PM VEN",
-                    "principal": "Chicago Cubs ML",
-                    "cuota_p": 1.62,
-                    "secundario": "Under 7.5 Runs",
-                    "cuota_s": 1.88,
-                    "confianza": 72,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "Zac Gallen (ARI) vs Colin Rea (CHC)",
-                    "razonamiento": "Rea efectivo en Wrigley. Cubs momentum ofensivo. Gallen sólido pero visitante vulnerable. Under con buenos abridores.",
-                    "ev_estimado": "+8.1%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Texas Rangers vs Detroit Tigers",
-                    "hora": "5:40 PM VEN",
-                    "principal": "Texas Rangers ML",
-                    "cuota_p": 1.83,
-                    "secundario": "Over 7.5 Runs",
-                    "cuota_s": 1.80,
-                    "confianza": 73,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "MacKenzie Gore (TEX, 4.35 ERA) vs Jack Flaherty (DET, 5.33 ERA)",
-                    "razonamiento": "Flaherty ERA alto, Tigers 3-7 últimos 10 en casa. Gore decente, Rangers ligeramente superiores. Over: ambos abridores permiten contacto.",
-                    "ev_estimado": "+6.9%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Philadelphia Phillies vs Miami Marlins",
-                    "hora": "7:10 PM VEN",
-                    "principal": "Philadelphia Phillies -1.5 Run Line",
-                    "cuota_p": 2.46,
-                    "secundario": "Under 7.5 Runs",
-                    "cuota_s": 1.85,
-                    "confianza": 78,
-                    "tipo_jugada": "Run Line / Total",
-                    "pitchers": "Zack Wheeler (PHI, 3.60 ERA) vs Eury Pérez (MIA, 4.60 ERA)",
-                    "razonamiento": "Wheeler élite, Pérez inconsistente. LoanDepot Park pitcher-friendly. Phillies ofensiva limitada pero suficiente para cubrir RL.",
-                    "ev_estimado": "+9.8%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "San Francisco Giants vs Tampa Bay Rays",
-                    "hora": "7:10 PM VEN",
-                    "principal": "Under 7.5 Runs",
-                    "cuota_p": 1.78,
-                    "secundario": "Tampa Bay Rays ML",
-                    "cuota_s": 1.95,
-                    "confianza": 76,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Robbie Ray (SF) vs Shane McClanahan (TB)",
-                    "razonamiento": "Duelo de pitcheo de élite. Tropicana Field pitcher-friendly. Ambos abridores en gran momento. Under priorizado.",
-                    "ev_estimado": "+7.8%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Houston Astros vs Boston Red Sox",
-                    "hora": "7:10 PM VEN",
-                    "principal": "Over 9.5 Runs",
-                    "cuota_p": 1.82,
-                    "secundario": "Boston Red Sox ML",
-                    "cuota_s": 1.87,
-                    "confianza": 74,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Mike Burrows (HOU, 6.25 ERA) vs Jake Bennett (BOS, debut MLB)",
-                    "razonamiento": "Burrows malísimo, Bennett debutante (varianza). Fenway Park ofensivo. Over respaldado por pésimo pitcheo.",
-                    "ev_estimado": "+8.9%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Toronto Blue Jays vs Minnesota Twins",
-                    "hora": "7:40 PM VEN",
-                    "principal": "Under 7.5 Runs",
-                    "cuota_p": 1.82,
-                    "secundario": "Toronto Blue Jays ML",
-                    "cuota_s": 1.95,
-                    "confianza": 73,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Bowden Francis (TOR) vs David Festa (MIN)",
-                    "razonamiento": "Target Field, frío, viento entrando 15 mph suprime HR. Ambos abridores sólidos. Under.",
-                    "ev_estimado": "+6.8%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Cleveland Guardians vs Athletics",
-                    "hora": "9:40 PM VEN",
-                    "principal": "Under 7.5 Runs",
-                    "cuota_p": 1.85,
-                    "secundario": "Athletics ML",
-                    "cuota_s": 1.95,
-                    "confianza": 72,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Joey Cantillo (CLE, 3.26 ERA) vs J.T. Ginn (ATH, 3.24 ERA)",
-                    "razonamiento": "Duelo de abridores sólidos. Sutter Health Park neutral. Guardians mal como visitantes. Under claro.",
-                    "ev_estimado": "+7.1%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Chicago White Sox vs San Diego Padres",
-                    "hora": "9:40 PM VEN",
-                    "principal": "San Diego Padres ML",
-                    "cuota_p": 1.72,
-                    "secundario": "Under 7.5 Runs",
-                    "cuota_s": 1.88,
-                    "confianza": 71,
-                    "tipo_jugada": "Moneyline / Total",
-                    "pitchers": "Noah Schultz (CWS, 3.52 ERA) vs German Márquez (SD, 3-1)",
-                    "razonamiento": "Márquez experiencia, Schultz prospecto. Petco Park pitcher-friendly. Padres ligeros favoritos en casa.",
-                    "ev_estimado": "+5.8%"
-                },
-                {
-                    "liga": "MLB",
-                    "partido": "Kansas City Royals vs Seattle Mariners",
-                    "hora": "9:45 PM VEN",
-                    "principal": "Under 7.0 Runs",
-                    "cuota_p": 2.00,
-                    "secundario": "Seattle Mariners ML",
-                    "cuota_s": 1.65,
-                    "confianza": 77,
-                    "tipo_jugada": "Total / Moneyline",
-                    "pitchers": "Cole Ragans (KC, 5.00 ERA) vs Bryan Woo (SEA, 3.86 ERA)",
-                    "razonamiento": "T-Mobile Park #1 supresor de HR. Woo sólido, Ragans con altos ponches pero inconsistente. Under 7.0 con gran valor.",
-                    "ev_estimado": "+8.6%"
-                }
-            ],
-            nba: [
-                {
-                    "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
-                    "partido": "Orlando Magic vs Detroit Pistons (ORL 3-2)",
-                    "hora": "7:00 PM VEN",
-                    "principal": "Under 209.5 Puntos",
-                    "cuota_p": 1.91,
-                    "secundario": "Detroit Pistons -3.5 Spread",
-                    "cuota_s": 1.91,
-                    "confianza": 78,
-                    "tipo_jugada": "Total / Spread",
-                    "razonamiento": "Game 6 eliminación. Wagner OUT limita ofensiva Magic. Pistons #1 seed ajustan defensa. Ritmo bajo histórico en juegos de cierre. Sharp money en Under.",
-                    "ev_estimado": "+11.3%"
-                },
-                {
-                    "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
-                    "partido": "Toronto Raptors vs Cleveland Cavaliers (CLE 3-2)",
-                    "hora": "7:30 PM VEN",
-                    "principal": "Under 219.5 Puntos",
-                    "cuota_p": 1.90,
-                    "secundario": "Toronto Raptors ML",
-                    "cuota_s": 2.45,
-                    "confianza": 72,
-                    "tipo_jugada": "Total / Moneyline",
-                    "razonamiento": "Raptors en casa sobrevivencia, pero Ingram y Quickley fuera. Cavs ajustarán defensa para cerrar. Under priorizado. Raptors ML como sorpresa: modelos dan 52% en casa y cuota 2.45 ofrece gran valor.",
-                    "ev_estimado": "+13.5%"
-                },
-                {
-                    "liga": "NBA Playoffs 2026 – 1ra Ronda Game 6",
-                    "partido": "Los Angeles Lakers vs Houston Rockets (LAL 3-2)",
-                    "hora": "9:30 PM VEN",
-                    "principal": "Houston Rockets ML",
-                    "cuota_p": 1.70,
-                    "secundario": "Under 212.5 Puntos",
-                    "cuota_s": 1.85,
-                    "confianza": 80,
-                    "tipo_jugada": "Moneyline / Total",
-                    "razonamiento": "Rockets en casa forzando Game 7, históricamente difícil cerrar de visita. Defensa de VanVleet ralentiza el pace. Under coincidente en todas las fuentes.",
-                    "ev_estimado": "+9.7%"
-                }
-            ],
-            nhl: [
-                {
-                    "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
-                    "partido": "Tampa Bay Lightning vs Montreal Canadiens (MTL 3-2)",
-                    "hora": "7:00 PM VEN",
-                    "principal": "Under 5.5 Goles",
-                    "cuota_p": 1.90,
-                    "secundario": "Montreal Canadiens ML",
-                    "cuota_s": 1.95,
-                    "confianza": 80,
-                    "tipo_jugada": "Total / Moneyline",
-                    "razonamiento": "Centre Bell, cierre de serie: 5/6 partidos Under. Arqueros élite. MTL en casa buscando sellar con sistema defensivo que anula a Tampa. Value en MTL ML.",
-                    "ev_estimado": "+10.8%"
-                },
-                {
-                    "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
-                    "partido": "Boston Bruins vs Buffalo Sabres (BUF 3-2)",
-                    "hora": "7:30 PM VEN",
-                    "principal": "Buffalo Sabres ML",
-                    "cuota_p": 1.85,
-                    "secundario": "Over 5.5 Goles",
-                    "cuota_s": 2.20,
-                    "confianza": 78,
-                    "tipo_jugada": "Moneyline / Total",
-                    "razonamiento": "Sabres dominaron la serie (Games 3-4). Bruins forzaron OT en G5 pero frágiles. Sabres cerrarán con ofensiva explosiva. Over porque Bruins abrirán juego.",
-                    "ev_estimado": "+8.9%"
-                },
-                {
-                    "liga": "NHL Playoffs 2026 – 1ra Ronda Game 6",
-                    "partido": "Utah Mammoth vs Vegas Golden Knights (VGK 3-2)",
-                    "hora": "10:00 PM VEN",
-                    "principal": "Under 5.5 Goles",
-                    "cuota_p": 1.91,
-                    "secundario": "Vegas Golden Knights ML",
-                    "cuota_s": 1.87,
-                    "confianza": 80,
-                    "tipo_jugada": "Total / Moneyline",
-                    "razonamiento": "Game 6 cierre, defensas al máximo. Vegas experiencia. Línea bajando por sharp money. Under claro. VGK ML respaldado por las fuentes.",
-                    "ev_estimado": "+7.6%"
-                }
-            ]
-        };
+    function getConfianzaClass(conf) {
+        if (conf >= 77) return 'confianza-alta';
+        if (conf >= 73) return 'confianza-media';
+        return 'confianza-baja';
+    }
+    function getEVClass(evStr) {
+        const val = parseFloat(evStr.replace('+','').replace('%',''));
+        return val >= 8 ? 'ev-badge' : 'ev-badge ev-negativo';
+    }
 
-        // ==================== FUNCIONES ====================
-
-        function getConfianzaClass(confianza) {
-            if (confianza >= 77) return 'confianza-alta';
-            if (confianza >= 73) return 'confianza-media';
-            return 'confianza-baja';
-        }
-
-        function getEVClass(evStr) {
-            const val = parseFloat(evStr.replace('+', '').replace('%', ''));
-            return val >= 8 ? 'ev-badge' : 'ev-badge ev-negativo';
-        }
-
-        function createGameCardHTML(game) {
-            const pitcherHTML = game.pitchers ?
-                `<div class="pitcher-info"><i class="fas fa-baseball-ball"></i> ${game.pitchers}</div>` : '';
-            const confianzaClass = getConfianzaClass(game.confianza);
-            const evClass = getEVClass(game.ev_estimado);
-
-            return `
+    function createGameCardHTML(game) {
+        const pitcherHTML = game.pitchers ? `<div class="pitcher-info"><i class="fas fa-baseball-ball"></i> ${game.pitchers}</div>` : '';
+        const confianzaClass = getConfianzaClass(game.confianza);
+        const evClass = getEVClass(game.ev_estimado);
+        return `
         <div class="game-card">
             <div class="card-header">
                 <span class="liga-badge">${game.liga}</span>
@@ -1145,266 +333,178 @@
             </div>
             <div class="partido">${game.partido}</div>
             <span class="tipo-jugada">${game.tipo_jugada}</span>
-
             <div class="pick-principal">
                 <div class="pick-label">🎯 Pick Principal</div>
                 <div class="pick-value">${game.principal}</div>
-                <div class="cuota-row">
-                    <span class="cuota-tag">Cuota: ${game.cuota_p}</span>
-                </div>
+                <div class="cuota-row"><span class="cuota-tag">Cuota: ${game.cuota_p}</span></div>
             </div>
-
             <div class="secundario-row">
                 <span class="sec-label">📊 Secundario:</span> ${game.secundario}
                 <span class="cuota-tag">${game.cuota_s}</span>
             </div>
-
             ${pitcherHTML}
-
             <div class="confianza-row">
                 <span class="confianza-badge ${confianzaClass}">Confianza: ${game.confianza}%</span>
                 <span class="${evClass}">EV: ${game.ev_estimado}</span>
             </div>
-
             <div class="razonamiento-trigger">
                 <i class="fas fa-lightbulb"></i> Ver razonamiento ThIA
                 <span class="tooltip-content">${game.razonamiento}</span>
             </div>
         </div>`;
+    }
+
+    function createGridHTML(games) {
+        return '<div class="grid">' + games.map(g => createGameCardHTML(g)).join('') + '</div>';
+    }
+
+    function updateStatsBar(games) {
+        if (!games || games.length === 0) {
+            document.getElementById('total-picks').textContent = '0';
+            document.getElementById('avg-confianza').textContent = '0%';
+            document.getElementById('avg-ev').textContent = '0%';
+            document.getElementById('high-conf-count').textContent = '0';
+            return;
         }
+        const total = games.length;
+        const avgConf = Math.round(games.reduce((s,g) => s + g.confianza, 0) / total);
+        const avgEV = (games.reduce((s,g) => s + parseFloat(g.ev_estimado.replace('+','').replace('%','')), 0) / total).toFixed(1);
+        const highConf = games.filter(g => g.confianza >= 75).length;
+        document.getElementById('total-picks').textContent = total;
+        document.getElementById('avg-confianza').textContent = avgConf + '%';
+        document.getElementById('avg-ev').textContent = '+' + avgEV + '%';
+        document.getElementById('high-conf-count').textContent = highConf;
+    }
 
-        function createGridHTML(games) {
-            let html = '<div class="grid">';
-            games.forEach(game => {
-                html += createGameCardHTML(game);
-            });
-            html += '</div>';
-            return html;
+    function generateParlays(games) {
+        if (!games || games.length < 3) return [];
+        const allPicks = games.map(g => ({...g, cuota: g.cuota_p, pick: g.principal, ev: parseFloat(g.ev_estimado.replace('+','').replace('%',''))}));
+        const sorted = [...allPicks].sort((a,b) => b.confianza - a.confianza);
+        const parlays = [];
+
+        const conservador = sorted.filter(g => g.confianza >= 78).slice(0,3);
+        if (conservador.length >= 3) {
+            const cuotaTotal = conservador.reduce((p,g) => p * g.cuota, 1).toFixed(2);
+            const confProm = Math.round(conservador.reduce((s,g) => s + g.confianza, 0)/conservador.length);
+            const evTotal = conservador.reduce((s,g) => s + g.ev, 0).toFixed(1);
+            parlays.push({ tipo:'conservador', nombre:'Conservador', icono:'🛡️', descripcion:'Alta seguridad', picks:conservador, cuotaTotal, confProm, evTotal:'+'+evTotal+'%', legs: conservador.map(g => ({...g})) });
         }
-
-        function updateStatsBar(games) {
-            const total = games.length;
-            const avgConf = total > 0 ? Math.round(games.reduce((s, g) => s + g.confianza, 0) / total) : 0;
-            const avgEV = total > 0 ? (games.reduce((s, g) => s + parseFloat(g.ev_estimado.replace('+', '')
-                .replace('%', '')), 0) / total).toFixed(1) : 0;
-            const highConf = games.filter(g => g.confianza >= 75).length;
-
-            document.getElementById('total-picks').textContent = total;
-            document.getElementById('avg-confianza').textContent = avgConf + '%';
-            document.getElementById('avg-ev').textContent = '+' + avgEV + '%';
-            document.getElementById('high-conf-count').textContent = highConf;
+        const balanceado = sorted.filter(g => g.confianza >= 74).slice(0,4);
+        if (balanceado.length >= 4) {
+            const cuotaTotal = balanceado.reduce((p,g) => p * g.cuota, 1).toFixed(2);
+            const confProm = Math.round(balanceado.reduce((s,g) => s + g.confianza, 0)/balanceado.length);
+            const evTotal = balanceado.reduce((s,g) => s + g.ev, 0).toFixed(1);
+            parlays.push({ tipo:'balanceado', nombre:'Balanceado', icono:'⚖️', descripcion:'Equilibrio riesgo-recompensa', picks:balanceado, cuotaTotal, confProm, evTotal:'+'+evTotal+'%', legs: balanceado.map(g => ({...g})) });
         }
-
-        function generateParlays(games) {
-            // Filtrar solo picks principales con cuota razonable
-            const allPicks = games.map(g => ({
-                ...g,
-                cuota: g.cuota_p,
-                pick: g.principal,
-                ev: parseFloat(g.ev_estimado.replace('+', '').replace('%', ''))
-            }));
-
-            // Ordenar por confianza
-            const sorted = [...allPicks].sort((a, b) => b.confianza - a.confianza);
-
-            // Parlay Conservador: 3 picks de confianza >= 78
-            const conservador = sorted.filter(g => g.confianza >= 78).slice(0, 3);
-
-            // Parlay Balanceado: 4 picks de confianza >= 74, mezclando deportes
-            const balanceado = sorted.filter(g => g.confianza >= 74).slice(0, 4);
-
-            // Parlay Agresivo: 3 picks con EV >= 10 o cuota >= 2.0
-            const agresivo = allPicks
-                .filter(g => g.ev >= 9 || g.cuota >= 2.0)
-                .sort((a, b) => b.ev - a.ev)
-                .slice(0, 3);
-
-            const parlays = [];
-
-            if (conservador.length >= 3) {
-                const cuotaTotal = conservador.reduce((p, g) => p * g.cuota, 1).toFixed(2);
-                const confProm = Math.round(conservador.reduce((s, g) => s + g.confianza, 0) / conservador.length);
-                const evTotal = conservador.reduce((s, g) => s + g.ev, 0).toFixed(1);
-                parlays.push({
-                    tipo: 'conservador',
-                    nombre: 'Conservador',
-                    icono: '🛡️',
-                    descripcion: 'Alta seguridad, picks de élite',
-                    picks: conservador,
-                    cuotaTotal,
-                    confProm,
-                    evTotal: '+' + evTotal + '%',
-                    legs: conservador.map(g => ({ pick: g.pick, partido: g.partido, cuota: g.cuota,
-                        confianza: g.confianza }))
-                });
-            }
-
-            if (balanceado.length >= 4) {
-                const cuotaTotal = balanceado.reduce((p, g) => p * g.cuota, 1).toFixed(2);
-                const confProm = Math.round(balanceado.reduce((s, g) => s + g.confianza, 0) / balanceado.length);
-                const evTotal = balanceado.reduce((s, g) => s + g.ev, 0).toFixed(1);
-                parlays.push({
-                    tipo: 'balanceado',
-                    nombre: 'Balanceado',
-                    icono: '⚖️',
-                    descripcion: 'Equilibrio riesgo-recompensa',
-                    picks: balanceado,
-                    cuotaTotal,
-                    confProm,
-                    evTotal: '+' + evTotal + '%',
-                    legs: balanceado.map(g => ({ pick: g.pick, partido: g.partido, cuota: g.cuota,
-                        confianza: g.confianza }))
-                });
-            }
-
-            if (agresivo.length >= 3) {
-                const cuotaTotal = agresivo.reduce((p, g) => p * g.cuota, 1).toFixed(2);
-                const confProm = Math.round(agresivo.reduce((s, g) => s + g.confianza, 0) / agresivo.length);
-                const evTotal = agresivo.reduce((s, g) => s + g.ev, 0).toFixed(1);
-                parlays.push({
-                    tipo: 'agresivo',
-                    nombre: 'Agresivo',
-                    icono: '🚀',
-                    descripcion: 'Máximo EV, alto riesgo',
-                    picks: agresivo,
-                    cuotaTotal,
-                    confProm,
-                    evTotal: '+' + evTotal + '%',
-                    legs: agresivo.map(g => ({ pick: g.pick, partido: g.partido, cuota: g.cuota,
-                        confianza: g.confianza }))
-                });
-            }
-
-            return parlays;
+        const agresivo = allPicks.filter(g => g.ev >= 9 || g.cuota >= 2.0).sort((a,b) => b.ev - a.ev).slice(0,3);
+        if (agresivo.length >= 3) {
+            const cuotaTotal = agresivo.reduce((p,g) => p * g.cuota, 1).toFixed(2);
+            const confProm = Math.round(agresivo.reduce((s,g) => s + g.confianza, 0)/agresivo.length);
+            const evTotal = agresivo.reduce((s,g) => s + g.ev, 0).toFixed(1);
+            parlays.push({ tipo:'agresivo', nombre:'Agresivo', icono:'🚀', descripcion:'Máximo EV, alto riesgo', picks:agresivo, cuotaTotal, confProm, evTotal:'+'+evTotal+'%', legs: agresivo.map(g => ({...g})) });
         }
+        return parlays;
+    }
 
-        function renderParlays(games) {
+    function renderParlaysAll() {
+        const container = document.getElementById('content');
+        document.getElementById('subtabs-futbol').style.display = 'none';
+        let html = '<div class="section-title"><i class="fas fa-layer-group"></i> Parlays Recomendados por Deporte</div>';
+        const allGames = [];
+        for (let sport in picksData) {
+            const games = picksData[sport];
+            allGames.push(...games);
             const parlays = generateParlays(games);
-            const container = document.getElementById('parlay-grid');
-            if (parlays.length === 0) {
-                container.innerHTML =
-                    '<p style="color:#888; grid-column:1/-1; text-align:center;">No hay suficientes picks para generar parlays en esta categoría.</p>';
-                return;
-            }
-            let html = '';
+            if (parlays.length === 0) continue;
+            const sportEmoji = { futbol:'⚽', mlb:'⚾', nba:'🏀', nhl:'🏒' }[sport] || '';
+            html += `<h3 style="color:var(--electric-light); margin-top:2rem;">${sportEmoji} ${sport.toUpperCase()}</h3>`;
             parlays.forEach(parlay => {
                 html += `
-            <div class="parlay-card ${parlay.tipo}">
-                <span class="parlay-badge">${parlay.nombre}</span>
-                <h3>${parlay.icono} Parlay ${parlay.nombre}</h3>
-                <p class="parlay-subtitle">${parlay.descripcion} · ${parlay.legs.length} selecciones</p>
-                <ul class="parlay-legs">
-                    ${parlay.legs.map(leg => `
-                        <li>
-                            <span class="leg-icon">✅</span>
-                            <span><strong>${leg.pick}</strong> — ${leg.partido}</span>
-                            <span style="color:#facc15;margin-left:auto;font-weight:600;">${leg.cuota}</span>
-                        </li>
-                    `).join('')}
-                </ul>
-                <div class="parlay-metrics">
-                    <div class="parlay-metric">
-                        <span class="label">Cuota Total</span>
-                        <span class="value cuota-total">${parlay.cuotaTotal}</span>
+                <div class="parlay-card ${parlay.tipo}">
+                    <span class="parlay-badge">${parlay.nombre}</span>
+                    <h3>${parlay.icono} Parlay ${parlay.nombre}</h3>
+                    <p class="parlay-subtitle">${parlay.descripcion} · ${parlay.legs.length} selecciones</p>
+                    <ul class="parlay-legs">
+                        ${parlay.legs.map(leg => `
+                            <li>
+                                <span class="leg-icon">✅</span>
+                                <span><strong>${leg.pick}</strong> — ${leg.partido}</span>
+                                <span style="color:var(--electric-light);margin-left:auto;font-weight:600;">${leg.cuota}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div class="parlay-metrics">
+                        <div class="parlay-metric"><span class="label">Cuota Total</span><span class="value cuota-total">${parlay.cuotaTotal}</span></div>
+                        <div class="parlay-metric"><span class="label">Confianza</span><span class="value">${parlay.confProm}%</span></div>
+                        <div class="parlay-metric"><span class="label">EV Est.</span><span class="value ev-positive">${parlay.evTotal}</span></div>
                     </div>
-                    <div class="parlay-metric">
-                        <span class="label">Confianza Prom.</span>
-                        <span class="value">${parlay.confProm}%</span>
-                    </div>
-                    <div class="parlay-metric">
-                        <span class="label">EV Estimado</span>
-                        <span class="value ev-positive">${parlay.evTotal}</span>
-                    </div>
-                </div>
-            </div>`;
+                </div>`;
             });
-            container.innerHTML = html;
+        }
+        if (html.indexOf('parlay-card') === -1) html += '<p style="color:#888; text-align:center;">No hay suficientes picks para generar parlays.</p>';
+        container.innerHTML = html;
+        updateStatsBar(allGames);
+    }
+
+    function renderGames(sport) {
+        const container = document.getElementById('content');
+        if (sport === 'parlays') {
+            renderParlaysAll();
+            return;
+        }
+        const games = picksData[sport];
+        if (!games || games.length === 0) {
+            container.innerHTML = '<p style="text-align:center;color:#aaa;padding:3rem;">No hay picks para este deporte.</p>';
+            document.getElementById('subtabs-futbol').style.display = 'none';
+            updateStatsBar([]);
+            return;
         }
 
-        function renderGames(sport) {
-            const container = document.getElementById('content');
-            const games = picksData[sport];
-            let html = '';
-
-            if (!games || games.length === 0) {
-                container.innerHTML =
-                    '<p style="text-align:center; color:#aaa; padding:3rem;">No hay picks disponibles para este deporte en esta fecha.</p>';
-                document.getElementById('subtabs-futbol').style.display = 'none';
-                updateStatsBar([]);
-                renderParlays([]);
-                return;
-            }
-
-            if (sport === "futbol") {
-                const ligas = {};
-                games.forEach(game => {
-                    if (!ligas[game.liga]) ligas[game.liga] = [];
-                    ligas[game.liga].push(game);
-                });
-
-                let subHTML = '';
-                Object.keys(ligas).forEach((liga, i) => {
-                    subHTML +=
-                        `<button class="sub-tab ${i === 0 ? 'active' : ''}" data-liga="${liga}">${liga}</button>`;
-                });
-                document.getElementById('subtabs-futbol').innerHTML = subHTML;
-                document.getElementById('subtabs-futbol').style.display = 'flex';
-
-                const firstLigaGames = Object.values(ligas)[0];
-                html = createGridHTML(firstLigaGames);
-                updateStatsBar(firstLigaGames);
-                renderParlays(firstLigaGames);
-            } else {
-                document.getElementById('subtabs-futbol').style.display = 'none';
-                html = `<div class="section-title">${getSportEmoji(sport)} ${sport.toUpperCase()} Picks • 30 Abril 2026</div>`;
-                html += createGridHTML(games);
-                updateStatsBar(games);
-                renderParlays(games);
-            }
-            container.innerHTML = html;
-        }
-
-        function getSportEmoji(sport) {
-            const map = { futbol: '⚽', mlb: '⚾', nba: '🏀', nhl: '🏒' };
-            return map[sport] || '';
-        }
-
-        // Eventos Tabs Principales
-        document.querySelectorAll('.main-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                const sport = tab.getAttribute('data-sport');
-                document.getElementById('content').innerHTML =
-                    '<p style="text-align:center;color:#aaa;padding:2rem;">Cargando picks...</p>';
-                setTimeout(() => renderGames(sport), 100);
+        if (sport === 'futbol') {
+            const ligas = {};
+            games.forEach(game => {
+                if (!ligas[game.liga]) ligas[game.liga] = [];
+                ligas[game.liga].push(game);
             });
+            let subHTML = '';
+            Object.keys(ligas).forEach((liga, i) => {
+                subHTML += `<button class="sub-tab ${i===0?'active':''}" data-liga="${liga}">${liga}</button>`;
+            });
+            document.getElementById('subtabs-futbol').innerHTML = subHTML;
+            document.getElementById('subtabs-futbol').style.display = 'flex';
+            const firstLiga = Object.values(ligas)[0];
+            container.innerHTML = createGridHTML(firstLiga);
+            updateStatsBar(firstLiga);
+        } else {
+            document.getElementById('subtabs-futbol').style.display = 'none';
+            container.innerHTML = `<div class="section-title">${ {futbol:'⚽',mlb:'⚾',nba:'🏀',nhl:'🏒'}[sport]||''} ${sport.toUpperCase()} Picks • 2 Mayo 2026</div>` + createGridHTML(games);
+            updateStatsBar(games);
+        }
+    }
+
+    document.querySelectorAll('.main-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderGames(tab.getAttribute('data-sport'));
         });
+    });
 
-        // Eventos Sub-tabs de Fútbol
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('sub-tab')) {
-                document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-                e.target.classList.add('active');
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('sub-tab')) {
+            document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            const liga = e.target.getAttribute('data-liga');
+            const ligaGames = picksData.futbol.filter(g => g.liga === liga);
+            document.getElementById('content').innerHTML = createGridHTML(ligaGames);
+            updateStatsBar(ligaGames);
+        }
+    });
 
-                const ligaName = e.target.getAttribute('data-liga');
-                const ligaGames = picksData.futbol.filter(g => g.liga === ligaName);
-                document.getElementById('content').innerHTML = createGridHTML(ligaGames);
-                updateStatsBar(ligaGames);
-                renderParlays(ligaGames);
-            }
-        });
+    const hoy = new Date(2026, 4, 2);
+    document.getElementById('fecha-hoy').innerHTML = `<i class="far fa-calendar-alt"></i> ${hoy.toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' })}`;
 
-        // Fecha actual
-        const hoy = new Date();
-        document.getElementById('fecha-hoy').innerHTML =
-            `<i class="far fa-calendar-alt"></i> ${hoy.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}`;
-
-        // Cargar por defecto
-        document.addEventListener('DOMContentLoaded', () => {
-            renderGames('futbol');
-        });
-    </script>
-
+    document.addEventListener('DOMContentLoaded', () => renderGames('futbol'));
+</script>
 </body>
 </html>
