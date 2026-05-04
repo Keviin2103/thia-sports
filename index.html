@@ -21,7 +21,10 @@
             --green-bg: rgba(74, 222, 128, 0.12);
             --orange: #fb923c;
             --orange-bg: rgba(251, 146, 60, 0.12);
-            --text-secondary: #a1a1aa;
+            --gold: #facc15;
+            --gold-bg: rgba(250, 204, 21, 0.12);
+            --pink: #f472b6;
+            --pink-bg: rgba(244, 114, 182, 0.15);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -138,6 +141,8 @@
             content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
             border: 8px solid transparent; border-top-color: #1a1e28;
         }
+
+        /* Parlays */
         .parlay-card {
             background: linear-gradient(145deg, #0f1218 0%, #0a0e14 100%);
             border-radius: 16px; border: 2px solid var(--electric); padding: 20px 22px;
@@ -147,10 +152,18 @@
         .parlay-card.conservador { border-color: var(--green); background: linear-gradient(145deg, #0f1218 0%, #0a1a10 100%); }
         .parlay-card.balanceado { border-color: var(--electric); background: linear-gradient(145deg, #0f1218 0%, #0a1018 100%); }
         .parlay-card.agresivo { border-color: var(--orange); background: linear-gradient(145deg, #0f1218 0%, #1a100a 100%); }
+        .parlay-card.mejorpick { border-color: var(--gold); background: linear-gradient(145deg, #0f1218 0%, #1a180e 100%); }
+        .parlay-card.morocha { border-color: var(--pink); background: linear-gradient(145deg, #0f1218 0%, #1a1018 100%); }
+        .parlay-card.seguro { border-color: var(--green); background: linear-gradient(145deg, #0f1218 0%, #0a1a10 100%); }
+        .parlay-card.millonario { border-color: #c084fc; background: linear-gradient(145deg, #0f1218 0%, #1a1020 100%); }
         .parlay-badge {
             position: absolute; top: 16px; right: 16px; font-size: 0.75rem; font-weight: 700;
             padding: 5px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase;
         }
+        .mejorpick .parlay-badge { background: var(--gold-bg); color: var(--gold); }
+        .morocha .parlay-badge { background: var(--pink-bg); color: var(--pink); }
+        .seguro .parlay-badge { background: var(--green-bg); color: var(--green); }
+        .millonario .parlay-badge { background: rgba(192,132,252,0.15); color: #c084fc; }
         .conservador .parlay-badge { background: var(--green-bg); color: var(--green); }
         .balanceado .parlay-badge { background: var(--electric-bg); color: var(--electric-light); }
         .agresivo .parlay-badge { background: var(--orange-bg); color: var(--orange); }
@@ -222,58 +235,36 @@
 <script>
     const picksData = {
         futbol: [
-            {"liga":"MLS","partido":"New York City FC vs DC United","hora":"03:00 PM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.65,"confianza":72,"tipo_jugada":"Total / BTTS","razonamiento":"NYCFC no ha ganado en sus últimos 2 partidos en casa; DC United ha perdido 3 de 4 visitas. No se cumple con solidez el criterio de favorito local. Ambas IAs coinciden en el perfil ofensivo: ataques rápidos y defensas que conceden. BTTS respaldado por el 70% de los H2H recientes. Sharp money respalda el Over.","ev_estimado":"+6.8%"},
-            {"liga":"MLS","partido":"Austin FC vs St. Louis City SC","hora":"05:30 PM VEN","principal":"Austin FC ML","cuota_p":1.90,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":71,"tipo_jugada":"Moneyline / Total","razonamiento":"Austin ganó 3 de sus últimos 4 en casa. St. Louis ha perdido 4 visitas seguidas. Favorito local con forma sólida. Cuota 1.90 con valor. Over esperado por el estilo ofensivo de Austin y la fragilidad defensiva visitante.","ev_estimado":"+8.1%"},
-            {"liga":"Bundesliga","partido":"St. Pauli vs Mainz 05","hora":"09:30 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.72,"secundario":"Mainz 05 Empate No Apuesta","cuota_s":1.68,"confianza":78,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Partido con máxima tensión por el descenso. Ambos equipos promedian menos de 1 gol/partido en las últimas 5 jornadas. No se asume Under automático por el contexto de descenso, pero los datos ofensivos son muy pobres y el historial H2H reciente muestra 4 de 5 Under. Mainz llega en mejor forma; el Empate No Apuesta cubre ante un local que tampoco gana con frecuencia.","ev_estimado":"+7.5%"},
-            {"liga":"Bundesliga","partido":"Borussia Mönchengladbach vs Borussia Dortmund","hora":"11:30 AM VEN","principal":"Over 3.5 Goles","cuota_p":2.10,"secundario":"Borussia Dortmund ML","cuota_s":2.05,"confianza":72,"tipo_jugada":"Total / Moneyline","razonamiento":"Dos equipos Top 6 con ataques fluidos (>1.8 goles/partido en últimos 5). No aplica Under automático. Over 3.5 con valor por el perfil ofensivo. Dortmund visita con cuota atractiva y ha ganado 4 de los últimos 5 H2H. Se prioriza el Over por los datos combinados de goles.","ev_estimado":"+9.2%"},
-            {"liga":"Bundesliga","partido":"Friburgo vs Wolfsburg","hora":"01:30 PM VEN","principal":"Friburgo ML","cuota_p":1.75,"secundario":"Under 2.5 Goles","cuota_s":1.80,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Friburgo ganó 3 de últimos 4 en casa; Wolfsburg perdió 3 de 4 fuera. El local es favorito sólido con cuota respaldada por forma y H2H favorable (invicto en últimos 3). Under 2.5 consistente con 4 de los últimos 5 partidos del Friburgo como local y 3 H2H consecutivos.","ev_estimado":"+6.5%"},
-            {"liga":"LaLiga","partido":"Celta de Vigo vs Elche CF","hora":"08:00 AM VEN","principal":"Celta de Vigo ML","cuota_p":1.70,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Celta ganó 2 de últimos 3 en casa. Elche sin victorias fuera en 5 partidos. Favorito local sólido. Balaídos es un estadio donde Celta suele marcar; Over posible dado que Elche concede con facilidad fuera (promedio de 2.1 goles en contra como visitante).","ev_estimado":"+6.0%"},
-            {"liga":"LaLiga","partido":"Getafe CF vs Rayo Vallecano","hora":"10:15 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.60,"secundario":"Getafe CF Empate No Apuesta","cuota_s":1.68,"confianza":80,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Derbi madrileño con equipos rocosos. Under 2.5 en 6 de últimos 7 H2H. Ambos equipos priorizan la cohesión defensiva. La tensión del derbi incrementa el rigor, no el descontrol. Getafe ligeramente favorito en casa; el Empate No Apuesta protege en un partido de pocas ocasiones.","ev_estimado":"+8.0%"},
-            {"liga":"LaLiga","partido":"Real Betis vs Real Oviedo","hora":"12:30 PM VEN","principal":"Real Betis ML","cuota_p":1.70,"secundario":"Under 2.5 Goles","cuota_s":1.82,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Betis ha ganado 3 de sus últimos 4 en el Villamarín. Oviedo, recién ascendido, sufre fuera con solo 1 victoria como visitante. Favorito local sólido. Under 2.5 aparece en 4 de los últimos 5 partidos del Betis en casa, reflejando un estilo controlado.","ev_estimado":"+7.3%"},
-            {"liga":"LaLiga","partido":"RCD Espanyol vs Real Madrid","hora":"03:00 PM VEN","principal":"Real Madrid ML","cuota_p":1.65,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Real Madrid pelea por LaLiga. Espanyol en zona baja, sin ganar en casa en 4 jornadas. El visitante ganó 3 de sus últimos 4 partidos fuera. Cuota 1.65 con valor; Over 2.5 respaldado por los 3+ goles que promedia el Madrid como visitante ante equipos de la parte baja.","ev_estimado":"+5.5%"},
-            {"liga":"Premier League","partido":"Bournemouth vs Crystal Palace","hora":"09:00 AM VEN","principal":"Crystal Palace Doble Oportunidad (X2)","cuota_p":1.72,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":76,"tipo_jugada":"Doble Oportunidad / Total","razonamiento":"Bournemouth no gana en casa en 3 partidos; Palace invicto en 4 visitas. No se da el criterio de favorito local. Doble Oportunidad visitante con buena cobertura. Under 2.5 en 4 de los últimos 5 enfrentamientos directos, respaldado por el estilo defensivo de ambos equipos.","ev_estimado":"+7.0%"},
-            {"liga":"Premier League","partido":"Manchester United vs Liverpool","hora":"10:30 AM VEN","principal":"Over 3.5 Goles","cuota_p":2.10,"secundario":"Liverpool ML","cuota_s":1.95,"confianza":72,"tipo_jugada":"Total / Moneyline","razonamiento":"Partido de máxima rivalidad con ambos equipos necesitados (United por puestos europeos, Liverpool por el título). Perfil ofensivo claro: más de 3 goles en 4 de los últimos 5 H2H en Old Trafford. No aplica Under automático. Liverpool visita con mejor forma, pero la cuota del Over ofrece mejor relación riesgo-beneficio como principal.","ev_estimado":"+8.8%"},
-            {"liga":"Premier League","partido":"Aston Villa vs Tottenham","hora":"02:00 PM VEN","principal":"Ambos Equipos Anotan (BTTS)","cuota_p":1.70,"secundario":"Aston Villa ML","cuota_s":1.90,"confianza":72,"tipo_jugada":"BTTS / Moneyline","razonamiento":"Villa ganó 3 de últimos 4 en casa; Tottenham inconsistente fuera. Ambos anotan en 5 de últimos 6 H2H. BTTS es la base más sólida. Villa como favorito local tiene valor, pero el BTTS es el pick principal por la consistencia del dato y la naturaleza abierta de ambos equipos.","ev_estimado":"+6.3%"},
-            {"liga":"Serie A","partido":"Bologna vs Cagliari","hora":"06:30 AM VEN","principal":"Bologna ML","cuota_p":1.75,"secundario":"Under 2.5 Goles","cuota_s":1.62,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Bologna ganó 4 de últimos 5 como local; Cagliari solo 1 victoria fuera. Favorito local con todas las condiciones. Under 2.5 en los 4 partidos más recientes del Bologna en casa y en 5 de 6 H2H, reflejando partidos controlados sin alardes ofensivos.","ev_estimado":"+6.2%"},
-            {"liga":"Serie A","partido":"Sassuolo vs AC Milan","hora":"09:00 AM VEN","principal":"AC Milan ML","cuota_p":1.72,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Sassuolo en zona de descenso, sin ganar en casa en 5 partidos. Milan ganó 3 de 4 visitas. Favorito visitante con forma clara. Over respaldado porque el Sassuolo concede mucho (promedio 2.3 goles en casa) y el Milan tiene el segundo mejor ataque visitante de la Serie A.","ev_estimado":"+7.1%"},
-            {"liga":"Serie A","partido":"Juventus vs Hellas Verona","hora":"12:00 PM VEN","principal":"Juventus -1.0 Asian Handicap","cuota_p":1.85,"secundario":"Under 2.5 Goles","cuota_s":1.70,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Juventus ganó 6 de últimos 7 en casa con solo 4 goles recibidos en ese tramo. Verona, débil fuera, apenas marca. Asian Handicap -1.0 cubre la victoria por un gol (void) y ofrece valor ante un rival limitado. Under 2.5 es consistente: Juventus dejó su portería a cero en 5 de esos 7 partidos.","ev_estimado":"+5.9%"},
-            {"liga":"Serie A","partido":"Inter Milan vs Parma","hora":"02:45 PM VEN","principal":"Inter Milan -1.5 Asian Handicap","cuota_p":1.90,"secundario":"Over 3.5 Goles","cuota_s":2.10,"confianza":81,"tipo_jugada":"Handicap / Total","razonamiento":"Inter arrolla en casa (invicto, 6 victorias consecutivas como local). Parma colista, 5 derrotas seguidas fuera. Diferencia de calidad enorme. Handicap -1.5 con cuota atractiva para un equipo que promedia más de 2.5 goles en casa. Over 3.5 como secundario ante la previsible goleada.","ev_estimado":"+6.8%"},
-            {"liga":"Eredivisie","partido":"FC Volendam vs Heerenveen","hora":"06:15 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.70,"secundario":"Heerenveen ML","cuota_s":2.10,"confianza":71,"tipo_jugada":"Total / Moneyline","razonamiento":"Eredivisie con muchos goles en estos enfrentamientos (promedio de 3.4 goles en últimos 5 H2H). Volendam débil en casa; Heerenveen ligeramente favorito. Over preferido por el estilo abierto de ambos equipos. Heerenveen ML como secundario con cuota atractiva.","ev_estimado":"+5.3%"},
-            {"liga":"Eredivisie","partido":"PEC Zwolle vs Heracles","hora":"08:30 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.75,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.62,"confianza":73,"tipo_jugada":"Total / BTTS","razonamiento":"Dos equipos que encajan mucho. Zwolle y Heracles promedian más de 3 goles por partido en sus duelos directos recientes. Ambos anotaron en los últimos 5 H2H. Over y BTTS con valor consistente.","ev_estimado":"+6.0%"},
-            {"liga":"Eredivisie","partido":"Fortuna Sittard vs Feyenoord","hora":"08:30 AM VEN","principal":"Feyenoord -1.0 Asian Handicap","cuota_p":1.80,"secundario":"Over 3.5 Goles","cuota_s":1.95,"confianza":77,"tipo_jugada":"Handicap / Total","razonamiento":"Feyenoord sublíder, mejor ataque de la liga (promedio 2.6 goles fuera). Fortuna equipo débil en casa. Handicap -1.0 y Over 3.5 son opciones sólidas vista la diferencia de calidad y los resultados recientes entre ambos (goleadas de Feyenoord en 3 de últimos 4 H2H).","ev_estimado":"+7.4%"},
-            {"liga":"Eredivisie","partido":"Sparta Rotterdam vs Go Ahead Eagles","hora":"10:45 AM VEN","principal":"Ambos Equipos Anotan (BTTS)","cuota_p":1.65,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":72,"tipo_jugada":"BTTS / Total","razonamiento":"Partido de mitad de tabla con equipos que intercambian golpes. Ambos anotaron en 4 de últimos 5 H2H. BTTS como principal; Over 2.5 como complemento natural. No hay suficiente desequilibrio para apostar a un ganador claro.","ev_estimado":"+5.8%"},
-            {"liga":"Eredivisie","partido":"AZ Alkmaar vs Twente","hora":"10:45 AM VEN","principal":"AZ Alkmaar ML","cuota_p":1.85,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":73,"tipo_jugada":"Moneyline / Total","razonamiento":"AZ ganó 3 de últimos 4 en casa. Twente irregular fuera con solo 1 victoria en sus últimas 5 visitas. Favorito local con criterio cumplido. Over probable por el estilo ofensivo del AZ como local (promedio 2.1 goles).","ev_estimado":"+6.6%"},
-            {"liga":"Primeira Liga","partido":"Casa Pia AC vs Tondela","hora":"10:30 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.65,"secundario":"Casa Pia AC Empate No Apuesta","cuota_s":1.72,"confianza":74,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Duelo de equipos con pocos goles en la parte baja. Under 2.5 en 8 de sus últimos 10 partidos. Casa Pia no pierde en sus últimos 3 como local. Empate No Apuesta ofrece seguridad en un partido que se prevé cerrado y de pocas ocasiones.","ev_estimado":"+6.4%"},
-            {"liga":"Primeira Liga","partido":"SC Braga vs Estoril","hora":"01:00 PM VEN","principal":"SC Braga -1.0 Asian Handicap","cuota_p":1.78,"secundario":"Over 2.5 Goles","cuota_s":1.70,"confianza":79,"tipo_jugada":"Handicap / Total","razonamiento":"Braga 4° clasificado, muy fuerte en casa (3 victorias en últimos 4, 9 goles a favor). Estoril sufre fuera (4 derrotas en 5 visitas). Asian Handicap -1.0 ofrece seguridad; Over 2.5 en los últimos 5 H2H y encaja con la dinámica goleadora local.","ev_estimado":"+7.0%"},
-            {"liga":"Primeira Liga","partido":"Rio Ave vs Gil Vicente FC","hora":"03:30 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.62,"secundario":"Gil Vicente FC Doble Oportunidad (X2)","cuota_s":1.75,"confianza":75,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Rio Ave y Gil Vicente equipos de perfil bajo. Under 2.5 muy probable dado que ambos promedian menos de 2 goles totales en sus partidos. Gil Vicente ha puntuado en 3 de 4 visitas; Doble Oportunidad visitante como secundario.","ev_estimado":"+5.8%"}
+            {"liga":"Premier League","partido":"Chelsea vs Nottingham Forest","hora":"10:00 AM VEN","principal":"Ambos Equipos Anotan (BTTS)","cuota_p":1.70,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":74,"tipo_jugada":"BTTS / Total","razonamiento":"Chelsea ha perdido 5 partidos seguidos en Premier y no gana en Stamford Bridge desde marzo. Forest anotó en 10 de sus últimos 11 partidos. Ambos anotaron en 4 de los últimos 5 H2H. Stamford Bridge ya no es un fortín; Forest llega con confianza ofensiva. BTTS es la jugada de valor principal. Over 2.5 como secundario lógico.","ev_estimado":"+9.8%"},
+            {"liga":"Premier League","partido":"Everton vs Manchester City","hora":"03:00 PM VEN","principal":"Manchester City -1.0 Asian Handicap","cuota_p":1.95,"secundario":"Over 2.5 Goles","cuota_s":1.78,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"City persigue a Arsenal por el título. Everton en mitad de tabla sin urgencias. Guardiola ajusta en estas fechas y el equipo tiene una marcha más. Hándicap -1.0 con buen valor considerando la diferencia de calidad. Over 2.5 porque City suele imponer su ritmo ofensivo.","ev_estimado":"+7.5%"},
+            {"liga":"LaLiga","partido":"Sevilla FC vs Real Sociedad","hora":"03:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.72,"secundario":"Real Sociedad Doble Oportunidad (X2)","cuota_s":1.65,"confianza":76,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Sevilla en crisis de resultados como local. Real Sociedad equipo sólido, ha puntuado en 4 de sus últimas 5 salidas. Historial H2H muy igualado y con pocos goles. Under 2.5 principal; X2 visitante como secundario con buena cobertura.","ev_estimado":"+8.2%"},
+            {"liga":"Serie A","partido":"Cremonese vs Lazio","hora":"12:30 PM VEN","principal":"Lazio ML","cuota_p":1.85,"secundario":"Over 2.5 Goles","cuota_s":1.90,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Cremonese colista, sin victorias en casa en 2026. Lazio presiona por puestos europeos con plantilla muy superior. H2H favorable a Lazio. Cuota 1.85 con valor para visitante de Champions. Over 2.5 probable por fragilidad defensiva local.","ev_estimado":"+10.5%"},
+            {"liga":"Serie A","partido":"AS Roma vs Fiorentina","hora":"02:45 PM VEN","principal":"AS Roma ML","cuota_p":1.72,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Roma enrachada en el Olímpico con Malen como estrella de la temporada. Fiorentina inconsistente fuera. Roma pelea por puestos Champions. Over 2.5 porque ambos equipos proponen juego ofensivo.","ev_estimado":"+7.1%"},
+            {"liga":"Primeira Liga","partido":"Sporting CP vs Guimarães","hora":"03:15 PM VEN","principal":"Sporting CP -1.0 Asian Handicap","cuota_p":1.70,"secundario":"Over 2.5 Goles","cuota_s":1.72,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Sporting lidera con autoridad en Alvalade. Guimarães sufre en visitas a los grandes. Diferencia de calidad notable. Hándicap -1.0 con valor. Over 2.5 respaldado por el poder ofensivo local.","ev_estimado":"+6.8%"}
         ],
         mlb: [
-            {"liga":"MLB","partido":"Toronto Blue Jays vs Minnesota Twins","hora":"12:45 PM VEN","principal":"Under 8.5 Runs","cuota_p":1.82,"secundario":"Twins ML","cuota_s":1.95,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"Trey Yesavage (TOR) vs Joe Ryan (MIN)","razonamiento":"Yesavage debuta con 0.00 ERA en Triple-A; Ryan (3.76 ERA) sólido. Duelo de pitcheo joven con control. Promedio combinado de carreras en últimos 5 juegos por debajo de 8.0. No se recomienda pick que dependa exclusivamente de un debutante, por eso el ML de Twins va como secundario y el Under es principal.","ev_estimado":"+6.1%"},
-            {"liga":"MLB","partido":"Houston Astros vs Boston Red Sox","hora":"01:35 PM VEN","principal":"Over 9.5 Runs","cuota_p":1.87,"secundario":"Red Sox ML","cuota_s":1.85,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"Cody Bolton (HOU) vs Ranger Suárez (BOS)","razonamiento":"Bolton (5.79 ERA) muy vulnerable; Suárez (3.09 ERA) más fiable pero con altibajos recientes. Fenway Park con viento favorable al bateo. Promedio combinado de carreras en últimos 5 juegos de ambos supera las 10.0. Over 9.5 es la jugada principal.","ev_estimado":"+5.5%"},
-            {"liga":"MLB","partido":"Cincinnati Reds vs Pittsburgh Pirates","hora":"01:35 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.95,"secundario":"Reds ML","cuota_s":1.75,"confianza":78,"tipo_jugada":"Total / Moneyline","pitchers":"Chase Burns (CIN) vs Braxton Ashcraft (PIT)","razonamiento":"Burns (2.65 ERA) y Ashcraft (3.71 ERA) son abridores de calidad. PNC Park es pitcher-friendly. Promedio combinado de carreras en últimos 5 juegos de ambos equipos está por debajo de 7.5. Under 7.5 no viola la regla crítica. Reds ligeros favoritos por ofensiva.","ev_estimado":"+8.0%"},
-            {"liga":"MLB","partido":"Milwaukee Brewers vs Washington Nationals","hora":"01:40 PM VEN","principal":"Brewers ML","cuota_p":1.72,"secundario":"Over 8.5 Runs","cuota_s":1.80,"confianza":71,"tipo_jugada":"Moneyline / Total","pitchers":"Por determinar (MIL) vs Zack Littell (WSH)","razonamiento":"Littell (0-4, 7.85 ERA) es el peor abridor confirmado del día. Brewers no confirman aún su pitcher, pero su ofensiva es top-10 y vienen de ganar con autoridad. Se indica expresamente que el pitcher local no está confirmado. Over condicionado a que el bullpen de Washington también es vulnerable.","ev_estimado":"+5.9%"},
-            {"liga":"MLB","partido":"Philadelphia Phillies vs Miami Marlins","hora":"01:40 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.83,"secundario":"Phillies ML","cuota_s":1.65,"confianza":73,"tipo_jugada":"Total / Moneyline","pitchers":"Jesús Luzardo (PHI) vs Chris Paddack (MIA)","razonamiento":"Luzardo (5.50 ERA) y Paddack (6.11 ERA) son abridores muy vulnerables. Promedio combinado de carreras en últimos 5 juegos supera las 9.0. Over 8.5 es la jugada natural. Phillies ML con cuota aceptable (1.65) y sin desventaja de serie que lo inhabilite.","ev_estimado":"+6.8%"},
-            {"liga":"MLB","partido":"Baltimore Orioles vs New York Yankees","hora":"01:40 PM VEN","principal":"Yankees ML","cuota_p":1.72,"secundario":"Over 8.5 Runs","cuota_s":1.90,"confianza":72,"tipo_jugada":"Moneyline / Total","pitchers":"TBD (BAL) vs TBD (NYY)","razonamiento":"Pitchers no confirmados para este partido. Se indica expresamente. Yankees en gran momento con ofensiva top-3 y dominio en la serie. Over condicionado a que los SPs no sean de élite; considerando el Yankee Stadium y el momento ofensivo de ambos, tiene potencial.","ev_estimado":"+7.0%"},
-            {"liga":"MLB","partido":"San Francisco Giants vs Tampa Bay Rays","hora":"01:40 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.82,"secundario":"Giants ML","cuota_s":1.85,"confianza":74,"tipo_jugada":"Total / Moneyline","pitchers":"TBD (SF) vs TBD (TB)","razonamiento":"Pitchers no confirmados expresamente. Oracle Park es pitcher-friendly. Ambos equipos con ofensivas inconsistentes. Under 7.5 es la jugada más robusta, aunque la falta de pitchers confirmados reduce la confianza. Giants ligeros favoritos en casa.","ev_estimado":"+6.5%"},
-            {"liga":"MLB","partido":"Los Angeles Dodgers vs St. Louis Cardinals","hora":"02:15 PM VEN","principal":"Dodgers ML","cuota_p":1.70,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":77,"tipo_jugada":"Moneyline / Total","pitchers":"Justin Wrobleski (LAD) vs Dustin May (STL)","razonamiento":"Wrobleski (1.50 ERA) dominante; May (5.28 ERA) inconsistente. Dodgers con ventaja clara de pitcheo y ofensiva top-3 NL. Wrobleski no es debutante y tiene track récord. Over condicionado al lado de May, que puede conceder carreras temprano.","ev_estimado":"+7.2%"},
-            {"liga":"MLB","partido":"Atlanta Braves vs Colorado Rockies","hora":"03:10 PM VEN","principal":"Over 11.5 Runs","cuota_p":1.74,"secundario":"Braves ML","cuota_s":1.62,"confianza":82,"tipo_jugada":"Total / Moneyline","pitchers":"Spencer Strider (ATL) vs Kyle Freeland (COL)","razonamiento":"Strider regresa de lesión (0-0), pero Coors Field es determinante. La regla de no recomendar picks que dependan exclusivamente de un pitcher debutante/regreso aplica parcialmente, por eso el Over es principal. Freeland sufre en casa. Over 11.5 es un clásico de la altura con rotaciones vulnerables. Braves ML por ofensiva superior.","ev_estimado":"+11.5%"},
-            {"liga":"MLB","partido":"Cleveland Guardians vs Athletics","hora":"04:05 PM VEN","principal":"Guardians ML","cuota_p":1.75,"secundario":"Under 8.5 Runs","cuota_s":1.78,"confianza":75,"tipo_jugada":"Moneyline / Total","pitchers":"Parker Messick (CLE) vs Aaron Civale (ATH)","razonamiento":"Messick (1.73 ERA) es el pitcher más en forma de la rotación. Civale (3.23 ERA) sólido. Duelo de pitcheo de calidad. Guardians con ventaja de local y mejor bullpen. Under respaldado por ambos SPs.","ev_estimado":"+7.8%"},
-            {"liga":"MLB","partido":"New York Mets vs Los Angeles Angels","hora":"04:07 PM VEN","principal":"Mets ML","cuota_p":1.72,"secundario":"Over 8.5 Runs","cuota_s":1.80,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"Grant Holmes (NYM) vs Jack Kochanowicz (LAA)","razonamiento":"Holmes (1.75 ERA) intratable; Kochanowicz (3.09 ERA) buena racha. Mets en casa con ventaja clara de pitcheo. Over condicionado a si Kochanowicz cede ante una ofensiva top-10. H2H reciente: Mets ganaron la serie anterior.","ev_estimado":"+6.2%"},
-            {"liga":"MLB","partido":"Chicago White Sox vs San Diego Padres","hora":"04:10 PM VEN","principal":"Padres ML","cuota_p":1.60,"secundario":"Under 7.5 Runs","cuota_s":1.88,"confianza":79,"tipo_jugada":"Moneyline / Total","pitchers":"Anthony Kay (CWS) vs Griffin Canning (SD)","razonamiento":"Kay (6.12 ERA) mal momento; Canning debuta (0-0). Padres con ofensiva top-10 y ventaja clara en casa. Cuota 1.60 aceptable. Under 7.5 tiene valor porque el lineup de White Sox es el peor de la liga y Petco Park es pitcher-friendly.","ev_estimado":"+5.2%"},
-            {"liga":"MLB","partido":"Kansas City Royals vs Seattle Mariners","hora":"04:10 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.82,"secundario":"Mariners ML","cuota_s":1.78,"confianza":76,"tipo_jugada":"Total / Moneyline","pitchers":"Kris Bubic (KC) vs Luis Castillo (SEA)","razonamiento":"Castillo (6.35 ERA) mal inicio de año, pero Bubic (3.74 ERA) no es mucho mejor. T-Mobile Park suprime ofensivas. Promedio combinado de carreras en últimos 5 juegos por debajo de 7.0. Mariners ligeros favoritos en casa.","ev_estimado":"+6.5%"},
-            {"liga":"MLB","partido":"Texas Rangers vs Detroit Tigers","hora":"07:20 PM VEN","principal":"Over 7.5 Runs","cuota_p":1.78,"secundario":"Rangers ML","cuota_s":1.92,"confianza":71,"tipo_jugada":"Total / Moneyline","pitchers":"Jack Leiter (TEX) vs Tyler Holton (DET)","razonamiento":"Leiter (5.17 ERA) y Holton (5.54 ERA) abridores con problemas. Over 7.5 es la jugada lógica. Rangers con cuota atractiva como visitantes; ganaron la serie anterior y tienen mejor ofensiva.","ev_estimado":"+6.0%"}
+            {"liga":"MLB","partido":"New York Mets vs Colorado Rockies","hora":"05:40 PM VEN","principal":"Mets ML","cuota_p":1.55,"secundario":"Over 8.5 Runs","cuota_s":1.80,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"Holmes (NYM) vs TBD (COL)","razonamiento":"Holmes (1.75 ERA) líder de efectividad. Rockies no confirman abridor. Mets ofensiva top-10 en últimos 7 días. Cuota 1.55 dentro de rango aceptable. Over condicionado a bullpen de Rockies, que es vulnerable.","ev_estimado":"+8.5%"},
+            {"liga":"MLB","partido":"Boston Red Sox vs Detroit Tigers","hora":"06:40 PM VEN","principal":"Red Sox ML","cuota_p":1.74,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"Suárez (BOS) vs Holton (DET)","razonamiento":"Suárez (3.09 ERA) sólido. Holton es opener por lesión de Mize (5.54 ERA). Red Sox ofensiva despierta en Fenway. Over 8.5 respaldado por debilidad del pitcheo abridor de Detroit.","ev_estimado":"+6.9%"},
+            {"liga":"MLB","partido":"Philadelphia Phillies vs Miami Marlins","hora":"06:40 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.83,"secundario":"Phillies ML","cuota_s":1.68,"confianza":73,"tipo_jugada":"Total / Moneyline","pitchers":"Luzardo (PHI) vs Paddack (MIA)","razonamiento":"Luzardo (5.50 ERA) y Paddack (6.11 ERA) muy vulnerables. Promedio combinado de carreras en últimos 5 juegos supera 9.0. Over 8.5 es la jugada natural. Phillies ML secundario por mejor ofensiva.","ev_estimado":"+6.8%"},
+            {"liga":"MLB","partido":"Baltimore Orioles vs New York Yankees","hora":"07:05 PM VEN","principal":"Yankees ML","cuota_p":1.60,"secundario":"Over 8.5 Runs","cuota_s":1.86,"confianza":80,"tipo_jugada":"Moneyline / Total","pitchers":"Gibson (BAL) vs Warren (NYY)","razonamiento":"Warren (3-0, 2.59 ERA) intratable en casa. Gibson inconsistente. Yankees barrieron serie anterior a Orioles. No hay desventaja de serie ni récord negativo histórico del pitcher local contra el rival. Cuota 1.60 válida como principal. Over 8.5 por poder ofensivo.","ev_estimado":"+11.2%"},
+            {"liga":"MLB","partido":"Chicago Cubs vs Cincinnati Reds","hora":"07:40 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.88,"secundario":"Cubs ML","cuota_s":1.72,"confianza":77,"tipo_jugada":"Total / Moneyline","pitchers":"Boyd (CHC) vs Burns (CIN)","razonamiento":"Burns (2.65 ERA) es el as de Cincinnati. Boyd inconsistente (7.00 ERA) pero Wrigley Field pitcher-friendly. Promedio combinado de carreras en últimos 5 juegos por debajo de 7.5. Under priorizado. Cubs ligeros favoritos en casa.","ev_estimado":"+6.5%"},
+            {"liga":"MLB","partido":"Cleveland Guardians vs Kansas City Royals","hora":"07:40 PM VEN","principal":"Guardians ML","cuota_p":1.64,"secundario":"Under 8.5 Runs","cuota_s":1.78,"confianza":76,"tipo_jugada":"Moneyline / Total","pitchers":"Messick (CLE) vs Bubic (KC)","razonamiento":"Messick (3-0, 1.73 ERA) en gran forma. Bubic (3.74 ERA) sólido pero inferior. Guardians con mejor bullpen y ofensiva. Under respaldado por calidad de abridores y parque neutral.","ev_estimado":"+9.5%"},
+            {"liga":"MLB","partido":"Milwaukee Brewers vs St. Louis Cardinals","hora":"07:45 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.82,"secundario":"Brewers ML","cuota_s":1.78,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"Henderson (MIL) vs May (STL)","razonamiento":"Henderson debuta en Grandes Ligas. Regla: no recomendar picks que dependan exclusivamente de un debutante. Por ello, el Over 8.5 es principal por la incertidumbre de ambos pitchers (May 5.28 ERA). Brewers ML secundario respaldado por mejor ofensiva.","ev_estimado":"+6.8%"},
+            {"liga":"MLB","partido":"Los Angeles Dodgers vs Houston Astros","hora":"08:10 PM VEN","principal":"Dodgers ML","cuota_p":1.60,"secundario":"Under 8.5 Runs","cuota_s":1.82,"confianza":79,"tipo_jugada":"Moneyline / Total","pitchers":"Wrobleski (LAD) vs Bolton (HOU)","razonamiento":"Wrobleski (4-0, 1.50 ERA) dominio absoluto. Bolton (0-1, 5.79 ERA) vulnerable. Dodgers en Chavez Ravine con ofensiva top-5. Under respaldado por Wrobleski. ML con cuota aceptable y sin desventaja de serie.","ev_estimado":"+8.8%"},
+            {"liga":"MLB","partido":"Chicago White Sox vs Los Angeles Angels","hora":"09:38 PM VEN","principal":"Angels ML","cuota_p":2.10,"secundario":"Over 8.5 Runs","cuota_s":1.80,"confianza":71,"tipo_jugada":"Moneyline / Total","pitchers":"Kay (CWS) vs Kochanowicz (LAA)","razonamiento":"Kay (6.12 ERA) mal momento. Kochanowicz (3.09 ERA) buena racha. Angels underdog con valor. Over 8.5 por debilidad de Kay y ofensiva de White Sox capaz de castigar.","ev_estimado":"+10.0%"},
+            {"liga":"MLB","partido":"Atlanta Braves vs Seattle Mariners","hora":"09:40 PM VEN","principal":"Braves ML","cuota_p":1.82,"secundario":"Over 7.5 Runs","cuota_s":1.85,"confianza":73,"tipo_jugada":"Moneyline / Total","pitchers":"Strider (ATL) vs Castillo (SEA)","razonamiento":"Strider regresa de lesión (0-0 en 2026). Castillo (6.35 ERA) mal inicio. Incertidumbre con Strider, pero Braves ofensiva top-3. Over 7.5 en T-Mobile Park con Castillo vulnerable.","ev_estimado":"+6.0%"},
+            {"liga":"MLB","partido":"San Diego Padres vs San Francisco Giants","hora":"09:45 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.85,"secundario":"Padres ML","cuota_s":1.65,"confianza":75,"tipo_jugada":"Total / Moneyline","pitchers":"Canning (SD) vs Mahle (SF)","razonamiento":"Canning debuta en 2026. Regla: no picks dependientes exclusivamente de debutante. Under 7.5 priorizado por PETCO Park pitcher-friendly y Mahle con potencial de control. Padres ML secundario respaldado por ofensiva top-10.","ev_estimado":"+5.5%"}
         ],
         nba: [
-            {"liga":"NBA Playoffs - Game 7","partido":"Detroit Pistons vs Orlando Magic","hora":"03:30 PM VEN","principal":"Under 209.5 Puntos","cuota_p":1.91,"secundario":"Orlando Magic ML","cuota_s":2.05,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 7 en Detroit. Regla: evitar spread local entre -3.5 y -5.5 si el local es favorito. Ambos equipos con defensas top-10 en playoffs. Under priorizado en juegos de eliminación. Magic ML con valor: han defendido mejor como visitantes en la serie. No se aplica la regla del visitante favorito (Pistons son favoritos).","ev_estimado":"+8.8%"},
-            {"liga":"NBA Playoffs - Game 7","partido":"Cleveland Cavaliers vs Toronto Raptors","hora":"07:30 PM VEN","principal":"Under 215.5 Puntos","cuota_p":1.91,"secundario":"Cavaliers ML","cuota_s":1.85,"confianza":79,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 7 en Cleveland. Cavaliers favoritos por -4.5, evitamos el spread por regla. Under respaldado: ambos equipos bajan el ritmo en juegos decisivos y las defensas se imponen. Cavs ML aceptable con cuota 1.85. No se aplica la regla del visitante favorito (Cavs son favoritos).","ev_estimado":"+8.0%"}
+            {"liga":"NBA Playoffs – Game 1","partido":"New York Knicks vs Philadelphia 76ers","hora":"08:00 PM VEN","principal":"Under 212.0 Puntos","cuota_p":1.91,"secundario":"Knicks ML","cuota_s":1.55,"confianza":82,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 1 de la serie. 76ers vienen de desgaste físico y emocional brutal tras Game 7 en Boston con solo 1 día de descanso. Knicks frescos y con defensa top-5. Under priorizado por fatiga visitante y ajustes defensivos de playoffs. Knicks ML con cuota aceptable.","ev_estimado":"+9.2%"},
+            {"liga":"NBA Playoffs – Game 1","partido":"San Antonio Spurs vs Minnesota Timberwolves","hora":"09:30 PM VEN","principal":"Spurs -5.5 Spread","cuota_p":1.91,"secundario":"Over 218.5 Puntos","cuota_s":1.91,"confianza":78,"tipo_jugada":"Spread / Total","razonamiento":"Spurs con Wembanyama dominante en casa. Wolves vienen de serie intensa contra Nuggets. San Antonio con descanso y juego interior superior. Línea bajó de -6.5 a -5.5 con sharp money en Spurs. Over 218.5 porque Spurs juegan a alto ritmo en el AT&T Center.","ev_estimado":"+7.8%"}
         ],
         nhl: [
-            {"liga":"NHL Playoffs - Game 7","partido":"Tampa Bay Lightning vs Montreal Canadiens","hora":"06:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.91,"secundario":"Lightning ML","cuota_s":1.80,"confianza":82,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 7 en Tampa. Duelo de arqueros élite. Todos los partidos de la serie bajo 5.5. Regla de precaución con Under si el visitante promedia >3.2 goles: Montreal promedia 2.1 en la serie, por lo que no se activa la restricción. Lightning ML con experiencia y localía.","ev_estimado":"+9.5%"},
-            {"liga":"NHL Playoffs - Game 7","partido":"Colorado Avalanche vs Minnesota Wild","hora":"09:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.87,"secundario":"Avalanche ML","cuota_s":1.95,"confianza":81,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 7 en Denver. Avalanche favoritos. Wild son duros defensivamente. Regla de precaución con Under: Minnesota promedia 2.4 goles en la serie, no activa la restricción de >3.2. MacKinnon y Makar marcan diferencia en casa, pero el Under en juegos de eliminación es tendencia prioritaria.","ev_estimado":"+8.2%"}
+            {"liga":"NHL Playoffs – Game 2","partido":"Carolina Hurricanes vs Philadelphia Flyers","hora":"07:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.83,"secundario":"Hurricanes ML","cuota_s":1.55,"confianza":84,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 2. Canes lideran 1-0, 4-0 en últimos 5 juegos. Defensa élite con Slavin y Orlov. Flyers solo 1 gol en Game 1. Andersen en modo playoff (1.98 GAA). Under 5.5 priorizado. Hurricanes ML para asegurar el 2-0 en casa.","ev_estimado":"+11.0%"},
+            {"liga":"NHL Playoffs – Game 2","partido":"Vegas Golden Knights vs Anaheim Ducks","hora":"09:30 PM VEN","principal":"Over 6.0 Goles","cuota_p":1.95,"secundario":"Golden Knights ML","cuota_s":1.60,"confianza":78,"tipo_jugada":"Total / Moneyline","razonamiento":"Serie 1-0 para Vegas. Ducks con baja sensible de Gudas en defensa. Ambos equipos con estilos ofensivos. Modelos proyectan 6.6 goles totales. Golden Knights ML para asegurar el 2-0.","ev_estimado":"+8.5%"}
         ]
     };
 
-    // Ordenar por hora
     function parseTimeToMinutes(timeStr) {
         const parts = timeStr.split(' ');
         const timePart = parts[0];
@@ -354,73 +345,181 @@
         document.getElementById('high-conf-count').textContent = highConf;
     }
 
-    function generateParlays(games) {
+    function getAllPicks() {
+        return Object.values(picksData).flat();
+    }
+
+    function generateSpecialParlays() {
+        const all = getAllPicks().map(g => ({
+            ...g,
+            cuota: g.cuota_p,
+            pick: g.principal,
+            ev: parseFloat(g.ev_estimado.replace('+','').replace('%',''))
+        })).sort((a,b) => b.confianza - a.confianza);
+
+        const specials = [];
+
+        // 1. Mejor Pick del Día (single, highest confidence, tie-break highest EV)
+        const best = all[0];
+        specials.push({
+            id: 'mejorpick',
+            tipo: 'mejorpick',
+            nombre: '🌟 Mejor Pick del Día',
+            descripcion: 'Pick más confiable del día',
+            legs: [best],
+            cuotaTotal: best.cuota.toFixed(2),
+            confProm: best.confianza,
+            evTotal: '+' + best.ev.toFixed(1) + '%'
+        });
+
+        // 2. La Morocha (2 picks, high confidence, from different sports if possible)
+        const highConf = all.filter(g => g.confianza >= 78);
+        const morochaLegs = [];
+        const used = new Set();
+        for (let g of highConf) {
+            if (morochaLegs.length >= 2) break;
+            const sport = g.liga?.split(' ')[0] || g.liga;
+            if (!used.has(sport) || morochaLegs.length === 1) {
+                morochaLegs.push(g);
+                used.add(sport);
+            }
+        }
+        if (morochaLegs.length >= 2) {
+            const cuotaT = morochaLegs.reduce((p,g) => p * g.cuota, 1);
+            const confP = Math.round(morochaLegs.reduce((s,g) => s + g.confianza, 0) / morochaLegs.length);
+            const evT = morochaLegs.reduce((s,g) => s + g.ev, 0);
+            specials.push({
+                id: 'morocha',
+                tipo: 'morocha',
+                nombre: '💎 La Morocha',
+                descripcion: 'Parlay de 2 picks de alta confianza',
+                legs: morochaLegs,
+                cuotaTotal: cuotaT.toFixed(2),
+                confProm: confP,
+                evTotal: '+' + evT.toFixed(1) + '%'
+            });
+        }
+
+        // 3. Parley Seguro (4 picks, high confidence >= 77)
+        const seguroLegs = all.filter(g => g.confianza >= 77).slice(0,4);
+        if (seguroLegs.length >= 4) {
+            const cuotaT = seguroLegs.reduce((p,g) => p * g.cuota, 1);
+            const confP = Math.round(seguroLegs.reduce((s,g) => s + g.confianza, 0) / seguroLegs.length);
+            const evT = seguroLegs.reduce((s,g) => s + g.ev, 0);
+            specials.push({
+                id: 'seguro',
+                tipo: 'seguro',
+                nombre: '🔒 Parley Seguro (4 picks)',
+                descripcion: '4 selecciones de alta seguridad',
+                legs: seguroLegs,
+                cuotaTotal: cuotaT.toFixed(2),
+                confProm: confP,
+                evTotal: '+' + evT.toFixed(1) + '%'
+            });
+        }
+
+        // 4. Millonario (5-6 picks, highest EV, ignoring confidence)
+        const byEV = [...all].sort((a,b) => b.ev - a.ev);
+        const milloLengs = byEV.slice(0, 5); // 5 picks
+        if (milloLengs.length >= 5) {
+            const cuotaT = milloLengs.reduce((p,g) => p * g.cuota, 1);
+            const confP = Math.round(milloLengs.reduce((s,g) => s + g.confianza, 0) / milloLengs.length);
+            const evT = milloLengs.reduce((s,g) => s + g.ev, 0);
+            specials.push({
+                id: 'millonario',
+                tipo: 'millonario',
+                nombre: '💰 Millonario (5 picks)',
+                descripcion: 'Parlay de máximo EV, alto riesgo',
+                legs: milloLengs,
+                cuotaTotal: cuotaT.toFixed(2),
+                confProm: confP,
+                evTotal: '+' + evT.toFixed(1) + '%'
+            });
+        }
+
+        return specials;
+    }
+
+    function renderParlayCard(parlay) {
+        return `
+        <div class="parlay-card ${parlay.tipo}">
+            <span class="parlay-badge">${parlay.nombre.split(' ')[0]}</span>
+            <h3>${parlay.nombre}</h3>
+            <p class="parlay-subtitle">${parlay.descripcion} · ${parlay.legs.length} selecciones</p>
+            <ul class="parlay-legs">
+                ${parlay.legs.map(leg => `
+                    <li>
+                        <span class="leg-icon">✅</span>
+                        <span><strong>${leg.pick}</strong> — ${leg.partido}</span>
+                        <span style="color:var(--electric-light);margin-left:auto;font-weight:600;">${leg.cuota?.toFixed?.(2) || leg.cuota_p || leg.cuota}</span>
+                    </li>
+                `).join('')}
+            </ul>
+            <div class="parlay-metrics">
+                <div class="parlay-metric"><span class="label">Cuota Total</span><span class="value cuota-total">${parlay.cuotaTotal || (parlay.legs.reduce((p,g)=>p*(g.cuota||g.cuota_p),1).toFixed(2))}</span></div>
+                <div class="parlay-metric"><span class="label">Confianza</span><span class="value">${parlay.confProm || Math.round(parlay.legs.reduce((s,g)=>s+g.confianza,0)/parlay.legs.length)}%</span></div>
+                <div class="parlay-metric"><span class="label">EV Est.</span><span class="value ev-positive">${parlay.evTotal || ('+' + parlay.legs.reduce((s,g)=>s+parseFloat(g.ev_estimado.replace('+','').replace('%','')),0).toFixed(1)+'%')}</span></div>
+            </div>
+        </div>`;
+    }
+
+    function renderParlaysAll() {
+        const container = document.getElementById('content');
+        document.getElementById('subtabs-futbol').style.display = 'none';
+
+        let html = '<div class="section-title"><i class="fas fa-layer-group"></i> Parlays Destacados del Día</div>';
+
+        // Special parlays first
+        const specials = generateSpecialParlays();
+        specials.forEach(p => {
+            html += renderParlayCard(p);
+        });
+
+        // Then per-sport automatic parlays
+        html += '<h2 style="color:var(--electric-light); margin-top:2.5rem;">Parlays por Deporte</h2>';
+        for (let sport in picksData) {
+            const games = picksData[sport];
+            const parlays = generateAutoParlays(games);
+            if (parlays.length === 0) continue;
+            const sportEmoji = { futbol:'⚽', mlb:'⚾', nba:'🏀', nhl:'🏒' }[sport] || '';
+            html += `<h3 style="color:var(--electric-light); margin-top:1.8rem;">${sportEmoji} ${sport.toUpperCase()}</h3>`;
+            parlays.forEach(p => {
+                html += renderParlayCard(p);
+            });
+        }
+
+        container.innerHTML = html;
+        updateStatsBar(getAllPicks());
+    }
+
+    function generateAutoParlays(games) {
         if (!games || games.length < 3) return [];
         const allPicks = games.map(g => ({...g, cuota: g.cuota_p, pick: g.principal, ev: parseFloat(g.ev_estimado.replace('+','').replace('%',''))}));
         const sorted = [...allPicks].sort((a,b) => b.confianza - a.confianza);
         const parlays = [];
+
         const conservador = sorted.filter(g => g.confianza >= 78).slice(0,3);
         if (conservador.length >= 3) {
             const cuotaTotal = conservador.reduce((p,g) => p * g.cuota, 1).toFixed(2);
             const confProm = Math.round(conservador.reduce((s,g) => s + g.confianza, 0)/conservador.length);
             const evTotal = conservador.reduce((s,g) => s + g.ev, 0).toFixed(1);
-            parlays.push({ tipo:'conservador', nombre:'Conservador', icono:'🛡️', descripcion:'Alta seguridad', picks:conservador, cuotaTotal, confProm, evTotal:'+'+evTotal+'%', legs: conservador.map(g => ({...g})) });
+            parlays.push({ tipo:'conservador', nombre:'🛡️ Conservador', descripcion:'Alta seguridad', legs: conservador, cuotaTotal, confProm, evTotal:'+'+evTotal+'%' });
         }
         const balanceado = sorted.filter(g => g.confianza >= 74).slice(0,4);
         if (balanceado.length >= 4) {
             const cuotaTotal = balanceado.reduce((p,g) => p * g.cuota, 1).toFixed(2);
             const confProm = Math.round(balanceado.reduce((s,g) => s + g.confianza, 0)/balanceado.length);
             const evTotal = balanceado.reduce((s,g) => s + g.ev, 0).toFixed(1);
-            parlays.push({ tipo:'balanceado', nombre:'Balanceado', icono:'⚖️', descripcion:'Equilibrio riesgo-recompensa', picks:balanceado, cuotaTotal, confProm, evTotal:'+'+evTotal+'%', legs: balanceado.map(g => ({...g})) });
+            parlays.push({ tipo:'balanceado', nombre:'⚖️ Balanceado', descripcion:'Equilibrio riesgo-recompensa', legs: balanceado, cuotaTotal, confProm, evTotal:'+'+evTotal+'%' });
         }
         const agresivo = allPicks.filter(g => g.ev >= 9 || g.cuota >= 2.0).sort((a,b) => b.ev - a.ev).slice(0,3);
         if (agresivo.length >= 3) {
             const cuotaTotal = agresivo.reduce((p,g) => p * g.cuota, 1).toFixed(2);
             const confProm = Math.round(agresivo.reduce((s,g) => s + g.confianza, 0)/agresivo.length);
             const evTotal = agresivo.reduce((s,g) => s + g.ev, 0).toFixed(1);
-            parlays.push({ tipo:'agresivo', nombre:'Agresivo', icono:'🚀', descripcion:'Máximo EV, alto riesgo', picks:agresivo, cuotaTotal, confProm, evTotal:'+'+evTotal+'%', legs: agresivo.map(g => ({...g})) });
+            parlays.push({ tipo:'agresivo', nombre:'🚀 Agresivo', descripcion:'Máximo EV, alto riesgo', legs: agresivo, cuotaTotal, confProm, evTotal:'+'+evTotal+'%' });
         }
         return parlays;
-    }
-
-    function renderParlaysAll() {
-        const container = document.getElementById('content');
-        document.getElementById('subtabs-futbol').style.display = 'none';
-        let html = '<div class="section-title"><i class="fas fa-layer-group"></i> Parlays Recomendados por Deporte</div>';
-        const allGames = [];
-        for (let sport in picksData) {
-            const games = picksData[sport];
-            allGames.push(...games);
-            const parlays = generateParlays(games);
-            if (parlays.length === 0) continue;
-            const sportEmoji = { futbol:'⚽', mlb:'⚾', nba:'🏀', nhl:'🏒' }[sport] || '';
-            html += `<h3 style="color:var(--electric-light); margin-top:2rem;">${sportEmoji} ${sport.toUpperCase()}</h3>`;
-            parlays.forEach(parlay => {
-                html += `
-                <div class="parlay-card ${parlay.tipo}">
-                    <span class="parlay-badge">${parlay.nombre}</span>
-                    <h3>${parlay.icono} Parlay ${parlay.nombre}</h3>
-                    <p class="parlay-subtitle">${parlay.descripcion} · ${parlay.legs.length} selecciones</p>
-                    <ul class="parlay-legs">
-                        ${parlay.legs.map(leg => `
-                            <li>
-                                <span class="leg-icon">✅</span>
-                                <span><strong>${leg.pick}</strong> — ${leg.partido}</span>
-                                <span style="color:var(--electric-light);margin-left:auto;font-weight:600;">${leg.cuota}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
-                    <div class="parlay-metrics">
-                        <div class="parlay-metric"><span class="label">Cuota Total</span><span class="value cuota-total">${parlay.cuotaTotal}</span></div>
-                        <div class="parlay-metric"><span class="label">Confianza</span><span class="value">${parlay.confProm}%</span></div>
-                        <div class="parlay-metric"><span class="label">EV Est.</span><span class="value ev-positive">${parlay.evTotal}</span></div>
-                    </div>
-                </div>`;
-            });
-        }
-        if (html.indexOf('parlay-card') === -1) html += '<p style="color:#888; text-align:center;">No hay suficientes picks para generar parlays.</p>';
-        container.innerHTML = html;
-        updateStatsBar(allGames);
     }
 
     function renderGames(sport) {
@@ -477,7 +576,7 @@
         }
     });
 
-    const hoy = new Date(2026, 4, 3); // 3 de mayo de 2026
+    const hoy = new Date(2026, 4, 3);
     document.getElementById('fecha-hoy').innerHTML = `<i class="far fa-calendar-alt"></i> ${hoy.toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' })}`;
     document.addEventListener('DOMContentLoaded', () => renderGames('futbol'));
 </script>
