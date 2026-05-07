@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThIA Sports | Picks 6 Mayo 2026</title>
+    <title>ThIA Sports | Picks 7 Mayo 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -231,48 +231,39 @@
 <div class="container" id="content"></div>
 
 <script>
-    // ⚡ Datos completos para el 6 de mayo de 2026
     const picksData = {
         futbol: [
-            {"liga":"Champions League","partido":"PSG vs Bayern Munich","hora":"03:00 PM VEN","principal":"Bayern Munich ML","cuota_p":1.95,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":77,"tipo_jugada":"Moneyline / Total","razonamiento":"Consenso entre las 3 IAs en Bayern o Over. Grok y Perplexti dan Bayern ML; Deepsek prioriza Over. Mbappé y Kane garantizan peligro constante. Historial reciente con Over. Bayern, favorito del mercado, tiene cuota atractiva para robar el Parque de los Príncipes.","ev_estimado":"+7.2%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Palestino vs Montevideo City Torque","hora":"06:00 PM VEN","principal":"Palestino ML","cuota_p":1.85,"secundario":"Under 2.5 Goles","cuota_s":1.62,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Palestino hace valer su localía en Chile. City Torque limitado fuera de Uruguay. Perplexti, Deepsek y Grok esperan partido cerrado con pocos goles. Victoria local y under respaldados por las fuentes.","ev_estimado":"+6.4%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Vasco Da Gama vs Audax Italiano","hora":"06:00 PM VEN","principal":"Vasco Da Gama -1.0 Asian Handicap","cuota_p":1.72,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":78,"tipo_jugada":"Handicap / Total","razonamiento":"Vasco fuerte en São Januário. Audax Italiano limitado. Deepsek y Perplexti confían en victoria local con goles. El handicap -1.0 cubre la victoria por la mínima.","ev_estimado":"+6.8%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Estudiantes de La Plata vs Cusco FC","hora":"06:00 PM VEN","principal":"Estudiantes de La Plata ML","cuota_p":1.65,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":80,"tipo_jugada":"Moneyline / Total","razonamiento":"Estudiantes es una aplanadora en el Único. Cusco viaja con bajas sensibles desde la altura. Perplexti, Deepsek y Grok coinciden en victoria local clara. Over por dominio esperado.","ev_estimado":"+7.5%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Bolívar vs Deportivo La Guaira","hora":"06:00 PM VEN","principal":"Bolívar ML","cuota_p":2.05,"secundario":"Over 2.5 Goles","cuota_s":2.20,"confianza":84,"tipo_jugada":"Moneyline / Total","razonamiento":"Altura del Hernando Siles (3.640 m), factor decisivo. Bolívar imbatible en casa en Libertadores. Deepsek, Perplexti y Grok ven victoria local. Cuota >2.00 para el local es valor extremo.","ev_estimado":"+14.8%"},
-            {"liga":"CONMEBOL Copa Sudamericana","partido":"Atlético Mineiro vs Juventud","hora":"06:00 PM VEN","principal":"Atlético Mineiro ML","cuota_p":1.50,"secundario":"Under 2.5 Goles","cuota_s":1.78,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Galo Mineiro muy superior en casa. Juventud limitado fuera de Brasil. Deepsek y Grok ven victoria local con partido controlado.","ev_estimado":"+5.5%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Tigre vs Macara","hora":"08:00 PM VEN","principal":"Tigre ML","cuota_p":1.65,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":72,"tipo_jugada":"Moneyline / Total","razonamiento":"Tigre fuerte en casa. Macará propone partidos abiertos. Perplexti prioriza Under, Deepsek y Grok ven al local con goles. Se elige Tigre ML y Over por intensidad ofensiva.","ev_estimado":"+8.1%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Olimpia vs Barracas Central","hora":"08:00 PM VEN","principal":"Olimpia ML","cuota_p":1.80,"secundario":"Over 2.5 Goles","cuota_s":1.82,"confianza":77,"tipo_jugada":"Moneyline / Total","razonamiento":"Olimpia es el gigante de Paraguay y muy poderoso en Asunción. Barracas de menor jerarquía. Victoria local esperada con dominio físico.","ev_estimado":"+7.0%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Racing Club vs Botafogo","hora":"08:30 PM VEN","principal":"Racing Club ML","cuota_p":2.20,"secundario":"Under 2.5 Goles","cuota_s":1.58,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Racing muy fuerte en el Cilindro. Botafogo sufre en Argentina. Deepsek y Perplexti ven al local con valor. Partido tenso, probablemente definido por un gol.","ev_estimado":"+12.5%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Fluminense vs Independiente Rivadavia","hora":"08:30 PM VEN","principal":"Fluminense -1.0 Asian Handicap","cuota_p":1.68,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":83,"tipo_jugada":"Handicap / Total","razonamiento":"Fluminense en el Maracaná es ampliamente superior. Rivadavia, equipo de ascenso argentino, sufre en Brasil. Consenso en victoria local con goles.","ev_estimado":"+6.2%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Corinthians vs Independiente Santa Fe","hora":"08:30 PM VEN","principal":"Corinthians ML","cuota_p":1.62,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":81,"tipo_jugada":"Moneyline / Total","razonamiento":"Corinthians es un reloj en la Neo Química Arena. Santa Fe limitado. Deepsek y Perplexti esperan victoria local y partido cerrado.","ev_estimado":"+5.9%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"América de Cali vs Alianza Atletico","hora":"10:00 PM VEN","principal":"América de Cali ML","cuota_p":1.78,"secundario":"Over 2.5 Goles","cuota_s":1.90,"confianza":79,"tipo_jugada":"Moneyline / Total","razonamiento":"América de Cali fuerte en el Pascual Guerrero. Alianza Atlético históricamente débil como visitante. Deepsek y Perplexti ven victoria local con goles.","ev_estimado":"+7.3%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Nacional vs Deportes Tolima","hora":"10:00 PM VEN","principal":"Nacional ML","cuota_p":1.70,"secundario":"Under 2.5 Goles","cuota_s":1.62,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Nacional fuerte en el Gran Parque Central. Tolima tosco fuera de Colombia. Victoria local y partido cerrado previstos por Deepsek y Perplexti.","ev_estimado":"+6.5%"},
-            {"liga":"CONMEBOL Copa Libertadores","partido":"Cruzeiro vs Universidad Católica","hora":"10:00 PM VEN","principal":"Cruzeiro -1.0 Asian Handicap","cuota_p":1.75,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Cruzeiro vuelve a la élite con gran equipo. Universidad Católica no es rival en el Mineirão. Handicap -1.0 seguro ante dominio brasileño.","ev_estimado":"+7.0%"}
+            {"liga":"UEFA Europa League","partido":"Aston Villa vs Nottingham Forest","hora":"04:00 PM VEN","principal":"Aston Villa ML","cuota_p":1.65,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.80,"confianza":80,"tipo_jugada":"Moneyline / BTTS","razonamiento":"Semifinal vuelta (ida 1-0 Forest). Villa obligado a remontar en casa, donde ganó 4 de sus últimos 5. Forest ha anotado en 10 de 11 salidas. Consenso en ML local (Grok y Perplexti también lo ven). BTTS cubre la necesidad visitante de marcar y ofrece buen colchón.","ev_estimado":"+9.0%"},
+            {"liga":"UEFA Europa League","partido":"Friburgo vs Braga","hora":"04:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.67,"secundario":"Friburgo Empate No Apuesta","cuota_s":1.62,"confianza":75,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Vuelta con empate 1-1. Friburgo defenderá el 0-0 y su estilo táctico produce pocos goles en Europa. Perplexti y Deepsek coinciden en Under. Consenso parcial en el lado local; el DNB cubre el posible empate.","ev_estimado":"+7.8%"},
+            {"liga":"UEFA Conference League","partido":"Estrasburgo vs Rayo Vallecano","hora":"04:00 PM VEN","principal":"Rayo Vallecano Doble Oportunidad (X2)","cuota_p":1.68,"secundario":"Under 2.5 Goles","cuota_s":1.72,"confianza":78,"tipo_jugada":"Doble Oportunidad / Total","razonamiento":"Semifinal (ida 0-0). Estrasburgo no gana en sus últimos 3 partidos como local. Rayo rocoso fuera de casa. Ambos análisis (Perplexti y Deepsek) respaldan a Rayo sin perder y partido cerrado.","ev_estimado":"+8.5%"},
+            {"liga":"UEFA Conference League","partido":"Crystal Palace vs Shakhtar Donetsk","hora":"04:00 PM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.75,"confianza":72,"tipo_jugada":"Total / BTTS","razonamiento":"Ida 3-1 para Palace, Shakhtar debe atacar. Se espera partido roto con espacios. Deepsek prioriza Over/BTTS, Perplexti ve victoria local. Sin consenso claro en ganador, se prefieren los goles.","ev_estimado":"+8.1%"},
+            {"liga":"CONMEBOL Copa Libertadores","partido":"Peñarol vs CA Platense","hora":"07:00 PM VEN","principal":"Peñarol ML","cuota_p":1.65,"secundario":"Under 2.5 Goles","cuota_s":1.65,"confianza":80,"tipo_jugada":"Moneyline / Total","razonamiento":"Peñarol es fuerte en el Campeón del Siglo. Platense débil como visitante. Consenso absoluto entre Grok, Perplexti y Deepsek en ML local y Under. Cuota por debajo de 1.85, no aplica restricción de sesgo.","ev_estimado":"+6.8%"},
+            {"liga":"CONMEBOL Copa Libertadores","partido":"LDU Quito vs Mirassol SP","hora":"07:00 PM VEN","principal":"LDU Quito -1.0 Asian Handicap","cuota_p":1.78,"secundario":"Over 2.5 Goles","cuota_s":1.90,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Altura de Quito (2.850m). LDU casi imbatible en casa; Mirassol es equipo de ascenso brasileño sin experiencia previa en altitud en esta Libertadores. Perplexti y Deepsek confirman victoria local amplia. Handicap -1.0 seguro.","ev_estimado":"+10.2%"},
+            {"liga":"CONMEBOL Copa Sudamericana","partido":"Sao Paulo vs O'Higgins","hora":"07:00 PM VEN","principal":"Sao Paulo -1.0 Asian Handicap","cuota_p":1.60,"secundario":"Under 2.5 Goles","cuota_s":1.78,"confianza":78,"tipo_jugada":"Handicap / Total","razonamiento":"Sao Paulo fuerte en el Morumbi. O'Higgins de bajo perfil. Mayoría (Grok, Perplexti) ve Under; Deepsek ve Over. Se toma AH -1.0 por valor, con Under secundario más respaldado.","ev_estimado":"+6.9%"},
+            {"liga":"CONMEBOL Copa Sudamericana","partido":"Millonarios vs Boston River","hora":"07:00 PM VEN","principal":"Millonarios ML","cuota_p":1.68,"secundario":"Under 2.5 Goles","cuota_s":1.60,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Altura de Bogotá (2.640m). Boston River uruguayo sin experiencia en altitud en esta Sudamericana. Perplexti y Deepsek esperan victoria local con pocos goles. No aplica restricción de adaptación a altura.","ev_estimado":"+7.2%"},
+            {"liga":"CONMEBOL Copa Libertadores","partido":"Flamengo vs Independiente Medellín","hora":"09:30 PM VEN","principal":"Flamengo -1.5 Asian Handicap","cuota_p":1.72,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Flamengo aplanadora en el Maracaná. Medellín limitado. Las 3 IAs coinciden en victoria con goles. ML bajo 1.45, el AH -1.5 ofrece mejor valor.","ev_estimado":"+7.5%"},
+            {"liga":"CONMEBOL Copa Sudamericana","partido":"River Plate vs Carabobo","hora":"09:30 PM VEN","principal":"River Plate -1.5 Asian Handicap","cuota_p":1.62,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":82,"tipo_jugada":"Handicap / Total","razonamiento":"River en el Monumental con diferencia de jerarquía abismal. Las 3 IAs ven goleada. ML bajo 1.40, el AH -1.5 da valor.","ev_estimado":"+6.2%"},
+            {"liga":"CONMEBOL Copa Sudamericana","partido":"RB Bragantino vs Blooming","hora":"09:30 PM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"RB Bragantino ML","cuota_s":1.65,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Bragantino ofensivo en casa. Blooming débil fuera de la altura. Perplexti y Deepsek confirman victoria con goles. Over ligeramente priorizado sobre el ML.","ev_estimado":"+8.3%"},
+            {"liga":"CONMEBOL Copa Libertadores","partido":"Cerro Porteño vs Junior","hora":"11:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.75,"secundario":"Cerro Porteño Empate No Apuesta","cuota_s":1.55,"confianza":70,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Regla de sesgo local activada: cuota del local 1.85 (≥1.85) y Junior tiene experiencia copera. Se reduce confianza al 70%. Perplexti ve Under y cautela local; Deepsek ve Over y ML. Prevalece el partido cerrado y precaución.","ev_estimado":"+7.5%"}
         ],
         mlb: [
-            {"liga":"MLB","partido":"Tampa Bay Rays vs Toronto Blue Jays","hora":"01:10 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.82,"secundario":"Rays ML","cuota_s":1.75,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"McClanahan (TB) vs Corbin (TOR)","razonamiento":"Duelo de abridores de calidad. McClanahan es un as en Tropicana Field. Corbin mantiene efectividad aceptable. Parque y pitchers invitan al under. Rays ligeros favoritos, aunque Grok discrepa con Blue Jays.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"St. Louis Cardinals vs Milwaukee Brewers","hora":"01:15 PM VEN","principal":"Brewers ML","cuota_p":1.80,"secundario":"Over 7.5 Runs","cuota_s":1.75,"confianza":72,"tipo_jugada":"Moneyline / Total","pitchers":"Pallante (STL) vs Sproat (MIL)","razonamiento":"Sproat debutante en Grandes Ligas. Pallante inconsistente. Consenso en Brewers ML. Over por incertidumbre de ambos pitchers.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Houston Astros vs Los Angeles Dodgers","hora":"02:10 PM VEN","principal":"Dodgers ML","cuota_p":1.72,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"McCullers Jr. (HOU) vs Glasnow (LAD)","razonamiento":"Glasnow dominante. McCullers viene de lesión. Dodgers con ofensiva top 5. Consenso absoluto entre las 3 IAs en Dodgers ML. Over porque ambos abridores pueden conceder carreras.","ev_estimado":"+8.0%"},
-            {"liga":"MLB","partido":"San Francisco Giants vs San Diego Padres","hora":"03:45 PM VEN","principal":"Padres ML","cuota_p":1.78,"secundario":"Under 7.5 Runs","cuota_s":1.82,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"Houser (SF) vs Waldron (SD)","razonamiento":"Houser efectividad >5.00. Waldron nudillista inconsistente. Oracle Park pitcher-friendly. Padres con mejor ofensiva. Deepsek y Perplexti coinciden en Padres y Under.","ev_estimado":"+6.5%"},
-            {"liga":"MLB","partido":"Los Angeles Angels vs Chicago White Sox","hora":"04:07 PM VEN","principal":"White Sox ML","cuota_p":1.88,"secundario":"Under 8.5 Runs","cuota_s":1.78,"confianza":65,"tipo_jugada":"Moneyline / Total","pitchers":"Ureña (LAA) vs Schultz (CWS)","razonamiento":"Schultz zurdo con proyección. Ureña vulnerable. White Sox deberían ganar. Confianza media por inconsistencia de ambos pitchers.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Seattle Mariners vs Atlanta Braves","hora":"04:10 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.80,"secundario":"Braves ML","cuota_s":1.82,"confianza":73,"tipo_jugada":"Total / Moneyline","pitchers":"Woo (SEA) vs Holmes (ATL)","razonamiento":"Woo y Holmes en buen momento. T-Mobile Park suprime cuadrangulares. Deepsek y Perplexti priorizan Under 7.5. Braves ligeros favoritos por ofensiva top 3.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Detroit Tigers vs Boston Red Sox","hora":"06:40 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.82,"secundario":"Red Sox ML","cuota_s":1.75,"confianza":68,"tipo_jugada":"Total / Moneyline","pitchers":"Flaherty (DET) vs Gray (BOS)","razonamiento":"Flaherty efectividad >5.00. Gray veterano sólido. Ofensiva de Boston top 3. Perplexti ve Tigers, Deepsek ve Red Sox. Over es el punto medio por debilidad del pitcheo abridor.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Philadelphia Phillies vs Athletics","hora":"06:40 PM VEN","principal":"Phillies ML","cuota_p":1.65,"secundario":"Over 8.0 Runs","cuota_s":1.75,"confianza":80,"tipo_jugada":"Moneyline / Total","pitchers":"Wheeler (PHI) vs Springs (ATH)","razonamiento":"Wheeler es un as. Springs efectividad 5.50. Phillies ofensiva top 10. Perplexti, Deepsek y Grok dan a Phillies como uno de los mejores picks del día. Over por inconsistencia de Springs.","ev_estimado":"+9.0%"},
-            {"liga":"MLB","partido":"Miami Marlins vs Baltimore Orioles","hora":"06:45 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.76,"secundario":"Orioles ML","cuota_s":1.85,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"Pérez (MIA) vs Young (BAL)","razonamiento":"Pérez y Young, jóvenes con buenos brazos. LoanDepot Park pitcher-friendly. Deepsek y Perplexti priorizan Under. Orioles con ofensiva ligeramente superior.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Washington Nationals vs Minnesota Twins","hora":"06:45 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.80,"secundario":"Twins ML","cuota_s":1.78,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"Mikolas (WSH) vs Ober (MIN)","razonamiento":"Mikolas efectividad 5.00. Ober inconsistente. Ambos equipos batean mejor que sus récords. Deepsek y Perplexti esperan Over y Twins visitantes fuertes.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"New York Yankees vs Texas Rangers","hora":"07:05 PM VEN","principal":"Yankees ML","cuota_p":1.72,"secundario":"Under 8.0 Runs","cuota_s":1.90,"confianza":75,"tipo_jugada":"Moneyline / Total","pitchers":"Warren (NYY) vs Eovaldi (TEX)","razonamiento":"Warren (2.59 ERA) revelación. Eovaldi veterano. Yankees ofensiva top 3. Consenso total en Yankees ML. Under por calidad de abridores.","ev_estimado":"+7.0%"},
-            {"liga":"MLB","partido":"Chicago Cubs vs Cincinnati Reds","hora":"07:40 PM VEN","principal":"Under 8.5 Runs","cuota_p":1.78,"secundario":"Cubs ML","cuota_s":1.68,"confianza":68,"tipo_jugada":"Total / Moneyline","pitchers":"Rea (CHC) vs Singer (CIN)","razonamiento":"Rea sólido. Singer (6.37 ERA) inconsistente. Perplexti prioriza Under, Deepsek ve Cubs y Over. Sin consenso claro, el Under es la opción más segura en Wrigley.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Kansas City Royals vs Cleveland Guardians","hora":"07:40 PM VEN","principal":"Guardians ML","cuota_p":1.85,"secundario":"Under 8.5 Runs","cuota_s":1.78,"confianza":72,"tipo_jugada":"Moneyline / Total","pitchers":"Ragans (KC) vs Cantillo (CLE)","razonamiento":"Ragans efectividad 5.00. Cantillo (2.97 ERA) lanzando bien. Guardians mejor ofensiva. Deepsek y Perplexti ven Guardians ML. Under por pitcheo.","ev_estimado":"N/A"},
-            {"liga":"MLB","partido":"Colorado Rockies vs New York Mets","hora":"09:20 PM VEN","principal":"Over 11.5 Runs","cuota_p":1.72,"secundario":"Mets ML","cuota_s":1.70,"confianza":80,"tipo_jugada":"Total / Moneyline","pitchers":"Lorenzen (COL) vs Peralta (NYM)","razonamiento":"Coors Field. Lorenzen (6.20 ERA) muy vulnerable. Peralta sólido pero sufre en altura. Perplexti, Deepsek y Grok coinciden en Mets ML y Over extremo. Over 11.5 priorizado por factor altura.","ev_estimado":"+9.0%"},
-            {"liga":"MLB","partido":"Arizona Diamondbacks vs Pittsburgh Pirates","hora":"09:40 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.85,"secundario":"Pirates ML","cuota_s":1.78,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"Soroka (ARI) vs Skenes (PIT)","razonamiento":"Skenes fenómeno generacional. Soroka revivido. Duelo de pitcheo élite. Deepsek y Perplexti esperan Under. Pirates ML con Skenes como valor.","ev_estimado":"N/A"}
+            {"liga":"MLB","partido":"New York Yankees vs Texas Rangers","hora":"12:35 PM VEN","principal":"New York Yankees ML","cuota_p":1.70,"secundario":"Under 8.0 Runs","cuota_s":1.90,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"Blackburn (NYY) vs Gore (TEX)","razonamiento":"Yankees ofensiva top 3. Blackburn (veterano, no debutante) sólido en casa. Gore inconsistente. Consenso total en ML (Grok, Perplexti, Deepsek). Under secundario por mayoría.","ev_estimado":"+7.1%"},
+            {"liga":"MLB","partido":"Washington Nationals vs Minnesota Twins","hora":"01:05 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.82,"secundario":"Minnesota Twins ML","cuota_s":1.78,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"Irvin (WSH) vs Woods Richardson (MIN)","razonamiento":"Ambos abridores vulnerables (Irvin 4.85 ERA, Woods Richardson 6.30). Perplexti y Deepsek ven Twins ML pero difieren en total. Over principal por pésimo pitcheo.","ev_estimado":"+6.5%"},
+            {"liga":"MLB","partido":"Kansas City Royals vs Cleveland Guardians","hora":"02:10 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.80,"secundario":"Guardians ML","cuota_s":1.85,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"Lugo (KC) vs Cecconi (CLE)","razonamiento":"Cecconi (0-4, 6.23 ERA) pésimo abridor. Deepsek y Perplexti discrepan en ganador; el Over es el punto de consenso ante la fragilidad del pitcheo de Guardians.","ev_estimado":"+7.8%"},
+            {"liga":"MLB","partido":"Chicago Cubs vs Cincinnati Reds","hora":"02:20 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.85,"secundario":"Cubs ML","cuota_s":1.68,"confianza":80,"tipo_jugada":"Total / Moneyline","pitchers":"Imanaga (CHC) vs Lowder (CIN)","razonamiento":"Duelo de abridores de calidad (Imanaga 3.15 ERA, Lowder 3.18). Consenso absoluto entre Grok, Perplexti y Deepsek en Under y Cubs ML.","ev_estimado":"+7.5%"},
+            {"liga":"MLB","partido":"Colorado Rockies vs New York Mets","hora":"03:10 PM VEN","principal":"Over 11.5 Runs","cuota_p":1.72,"secundario":"Mets ML","cuota_s":1.70,"confianza":80,"tipo_jugada":"Total / Moneyline","pitchers":"Quintana (COL) vs Scott (NYM)","razonamiento":"Coors Field. Quintana (4.91 ERA) y Scott (debutante con 6.75 ERA previa). Consenso en Mets y Over. Scott <10 GS aplica límite de confianza 75% en ML, pero Over principal se mantiene fuerte.","ev_estimado":"+9.8%"},
+            {"liga":"MLB","partido":"Arizona Diamondbacks vs Pittsburgh Pirates","hora":"03:40 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.80,"secundario":"Diamondbacks ML","cuota_s":1.82,"confianza":74,"tipo_jugada":"Total / Moneyline","pitchers":"Gallen (ARI) vs Keller (PIT)","razonamiento":"Gallen (3.14 ERA) as de Arizona, Keller (4.13 ERA) dominante en parque neutral. Consenso en Under entre Perplexti y Deepsek; Grok prefiere Pirates ML. D-backs ML por localía.","ev_estimado":"+7.0%"},
+            {"liga":"MLB","partido":"Miami Marlins vs Baltimore Orioles","hora":"06:40 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.78,"secundario":"Orioles ML","cuota_s":1.85,"confianza":76,"tipo_jugada":"Total / Moneyline","pitchers":"Meyer (MIA) vs Povich (BAL)","razonamiento":"Ambos brazos jóvenes y talentosos. LoanDepot Park pitcher-friendly. Perplexti y Deepsek coinciden en Under y Orioles ML.","ev_estimado":"+6.8%"},
+            {"liga":"MLB","partido":"Philadelphia Phillies vs Athletics","hora":"06:40 PM VEN","principal":"Over 8.0 Runs","cuota_p":1.78,"secundario":"Phillies ML","cuota_s":1.70,"confianza":70,"tipo_jugada":"Moneyline / Total","pitchers":"Painter (PHI) vs Ginn (ATH)","razonamiento":"Painter (1-2, 5.25 ERA) inconsistente con <10 GS en su carrera; se limita confianza ML al 75%. Perplexti y Deepsek ven Over, que es el principal. Phillies ML secundario.","ev_estimado":"+6.2%"},
+            {"liga":"MLB","partido":"Boston Red Sox vs Tampa Bay Rays","hora":"07:10 PM VEN","principal":"Over 9.0 Runs","cuota_p":1.82,"secundario":"Red Sox ML","cuota_s":1.75,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"Bennett (BOS) vs Jax (TB)","razonamiento":"Jax (6.35 ERA) muy vulnerable. Bennett novato, potencial. Fenway Park. Deepsek y Perplexti discrepan en ganador, pero el Over es el punto medio.","ev_estimado":"+7.4%"},
+            {"liga":"MLB","partido":"San Diego Padres vs St. Louis Cardinals","hora":"10:10 PM VEN","principal":"Padres -1.5 Run Line","cuota_p":2.00,"secundario":"Under 7.5 Runs","cuota_s":1.82,"confianza":80,"tipo_jugada":"Run Line / Total","pitchers":"King (SD) vs Liberatore (STL)","razonamiento":"King (2.41 ERA) es un as. Liberatore muy bateable. PETCO Park pitcher-friendly. Deepsek y Perplexti ven Padres amplio y Under.","ev_estimado":"+9.2%"}
         ],
         nba: [
-            {"liga":"NBA Playoffs - Game 2","partido":"New York Knicks vs Philadelphia 76ers","hora":"07:00 PM VEN","principal":"Knicks ML","cuota_p":1.65,"secundario":"Under 214.5 Puntos","cuota_s":1.91,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Knicks ganaron Game 1 por paliza. 76ers agotados tras Game 7 anterior. Consenso total en Knicks ML. Under priorizado por Deepsek. Defensa local debe mantener ritmo bajo.","ev_estimado":"+8.0%"},
-            {"liga":"NBA Playoffs - Game 2","partido":"Minnesota Timberwolves vs San Antonio Spurs","hora":"09:30 PM VEN","principal":"Timberwolves ML","cuota_p":1.72,"secundario":"Under 212.0 Puntos","cuota_s":1.91,"confianza":80,"tipo_jugada":"Moneyline / Total","razonamiento":"Serie caracterizada por dominio defensivo. Game 1 bajo de puntos. Minnesota en casa aprieta más. Perplexti, Deepsek y Grok ven victoria local y pocos puntos.","ev_estimado":"+8.5%"}
+            {"liga":"NBA Playoffs","partido":"Detroit Pistons vs Cleveland Cavaliers","hora":"07:00 PM VEN","principal":"Under 214.0 Puntos","cuota_p":1.91,"secundario":"Cavaliers ML","cuota_s":1.72,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 2 (Cavs 1-0). Pistons agotados tras Game 7 anterior. Defensa top 5 de Cleveland. Consenso en Under y Cavaliers ML.","ev_estimado":"+8.0%"},
+            {"liga":"NBA Playoffs","partido":"Oklahoma City Thunder vs Los Angeles Lakers","hora":"09:30 PM VEN","principal":"Under 218.5 Puntos","cuota_p":1.91,"secundario":"Thunder ML","cuota_s":1.72,"confianza":76,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 2 (Lakers 1-0). Se espera ajuste defensivo. Grok y Deepsek coinciden en Under; Perplexti y Grok en Thunder. No aplica regla de favorito inflado.","ev_estimado":"+7.8%"}
         ],
         nhl: [
-            {"liga":"NHL Playoffs - Game 3","partido":"Buffalo Sabres vs Montreal Canadiens","hora":"07:00 PM VEN","principal":"Under 5.5 Goals","cuota_p":1.91,"secundario":"Sabres ML","cuota_s":1.80,"confianza":72,"tipo_jugada":"Total / Moneyline","razonamiento":"Serie defensiva. Deepsek y Perplexti priorizan Under. Grok ve Canadiens. Sin consenso en ganador, el Under es el pick más sólido por el estilo de la serie.","ev_estimado":"N/A"},
-            {"liga":"NHL Playoffs - Game 3","partido":"Vegas Golden Knights vs Anaheim Ducks","hora":"09:30 PM VEN","principal":"Under 5.5 Goals","cuota_p":1.95,"secundario":"Golden Knights ML","cuota_s":1.62,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Serie 2-0 para Vegas con partidos de 1-0 y 2-0. Dominio defensivo absoluto. Deepsek y Grok priorizan el Under. Cuota 1.95 con valor fantástico.","ev_estimado":"+9.0%"}
+            {"liga":"NHL Playoffs","partido":"Philadelphia Flyers vs Carolina Hurricanes","hora":"08:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.83,"secundario":"Hurricanes ML","cuota_s":1.75,"confianza":82,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 5 (Canes 3-1). Carolina mejor defensa de playoffs. Partido de cierre con pocos goles. Consenso total entre las 3 IAs en Under y Hurricanes ML.","ev_estimado":"+9.1%"}
         ]
     };
 
@@ -298,7 +289,7 @@
         return 'confianza-baja';
     }
     function getEVClass(evStr) {
-        if (evStr === "N/A") return 'ev-badge ev-negativo';
+        if (!evStr || evStr === "N/A") return 'ev-badge ev-negativo';
         const val = parseFloat(evStr.replace('+','').replace('%',''));
         return !isNaN(val) && val >= 8 ? 'ev-badge' : 'ev-badge ev-negativo';
     }
@@ -307,7 +298,7 @@
         const pitcherHTML = game.pitchers ? `<div class="pitcher-info"><i class="fas fa-baseball-ball"></i> ${game.pitchers}</div>` : '';
         const confianzaClass = getConfianzaClass(game.confianza);
         const evClass = getEVClass(game.ev_estimado);
-        const evDisplay = game.ev_estimado && game.ev_estimado !== "N/A" ? game.ev_estimado : "N/A";
+        const evDisplay = game.ev_estimado || "N/A";
         return `
         <div class="game-card">
             <div class="card-header">
@@ -351,7 +342,7 @@
         }
         const total = games.length;
         const avgConf = Math.round(games.reduce((s,g) => s + g.confianza, 0) / total);
-        const evVals = games.map(g => parseFloat((g.ev_estimado || '').replace('+','').replace('%',''))).filter(v => !isNaN(v));
+        const evVals = games.map(g => parseFloat((g.ev_estimado||'').replace('+','').replace('%',''))).filter(v => !isNaN(v));
         const avgEV = evVals.length > 0 ? (evVals.reduce((s,v) => s + v, 0) / evVals.length).toFixed(1) : '0.0';
         const highConf = games.filter(g => g.confianza >= 75).length;
         document.getElementById('total-picks').textContent = total;
@@ -369,16 +360,16 @@
             ...g,
             cuota: g.cuota_p,
             pick: g.principal,
-            ev: parseFloat((g.ev_estimado || '0').replace('+','').replace('%','')) || 0
+            ev: parseFloat((g.ev_estimado||'0').replace('+','').replace('%','')) || 0
         })).sort((a,b) => b.confianza - a.confianza);
         const specials = [];
 
         const best = all[0];
         specials.push({
-            id: 'mejorpick', tipo: 'mejorpick', nombre: '🌟 Mejor Pick del Día',
-            descripcion: 'Pick más confiable del día', legs: [best],
-            cuotaTotal: best.cuota.toFixed(2), confProm: best.confianza,
-            evTotal: '+' + best.ev.toFixed(1) + '%'
+            id:'mejorpick', tipo:'mejorpick', nombre:'🌟 Mejor Pick del Día',
+            descripcion:'Pick más confiable del día', legs:[best],
+            cuotaTotal:best.cuota.toFixed(2), confProm:best.confianza,
+            evTotal:'+' + best.ev.toFixed(1) + '%'
         });
 
         const highConf = all.filter(g => g.confianza >= 78);
@@ -386,31 +377,31 @@
         const used = new Set();
         for (let g of highConf) {
             if (morochaLegs.length >= 2) break;
-            const sport = g.liga?.includes('MLB') ? 'MLB' : g.liga?.includes('NBA') ? 'NBA' : g.liga?.includes('NHL') ? 'NHL' : 'futbol';
-            if (!used.has(sport) || morochaLegs.length === 1) { morochaLegs.push(g); used.add(sport); }
+            const sport = g.liga?.includes('MLB')?'MLB':g.liga?.includes('NBA')?'NBA':g.liga?.includes('NHL')?'NHL':'futbol';
+            if (!used.has(sport) || morochaLegs.length===1) { morochaLegs.push(g); used.add(sport); }
         }
         if (morochaLegs.length >= 2) {
-            const cuotaT = morochaLegs.reduce((p,g) => p * g.cuota, 1);
-            const confP = Math.round(morochaLegs.reduce((s,g) => s + g.confianza, 0) / morochaLegs.length);
-            const evT = morochaLegs.reduce((s,g) => s + g.ev, 0);
-            specials.push({ id: 'morocha', tipo: 'morocha', nombre: '💎 La Morocha', descripcion: 'Parlay de 2 picks de alta confianza', legs: morochaLegs, cuotaTotal: cuotaT.toFixed(2), confProm: confP, evTotal: '+' + evT.toFixed(1) + '%' });
+            const cuotaT = morochaLegs.reduce((p,g)=>p*g.cuota,1);
+            const confP = Math.round(morochaLegs.reduce((s,g)=>s+g.confianza,0)/morochaLegs.length);
+            const evT = morochaLegs.reduce((s,g)=>s+g.ev,0);
+            specials.push({ id:'morocha', tipo:'morocha', nombre:'💎 La Morocha', descripcion:'Parlay de 2 picks de alta confianza', legs:morochaLegs, cuotaTotal:cuotaT.toFixed(2), confProm:confP, evTotal:'+'+evT.toFixed(1)+'%' });
         }
 
         const seguroLegs = all.filter(g => g.confianza >= 77).slice(0,4);
         if (seguroLegs.length >= 4) {
-            const cuotaT = seguroLegs.reduce((p,g) => p * g.cuota, 1);
-            const confP = Math.round(seguroLegs.reduce((s,g) => s + g.confianza, 0) / seguroLegs.length);
-            const evT = seguroLegs.reduce((s,g) => s + g.ev, 0);
-            specials.push({ id: 'seguro', tipo: 'seguro', nombre: '🔒 Parley Seguro (4 picks)', descripcion: '4 selecciones de alta seguridad', legs: seguroLegs, cuotaTotal: cuotaT.toFixed(2), confProm: confP, evTotal: '+' + evT.toFixed(1) + '%' });
+            const cuotaT = seguroLegs.reduce((p,g)=>p*g.cuota,1);
+            const confP = Math.round(seguroLegs.reduce((s,g)=>s+g.confianza,0)/seguroLegs.length);
+            const evT = seguroLegs.reduce((s,g)=>s+g.ev,0);
+            specials.push({ id:'seguro', tipo:'seguro', nombre:'🔒 Parley Seguro (4 picks)', descripcion:'4 selecciones de alta seguridad', legs:seguroLegs, cuotaTotal:cuotaT.toFixed(2), confProm:confP, evTotal:'+'+evT.toFixed(1)+'%' });
         }
 
-        const byEV = [...all].sort((a,b) => b.ev - a.ev);
+        const byEV = [...all].sort((a,b)=>b.ev-a.ev);
         const milloLengs = byEV.slice(0,5);
         if (milloLengs.length >= 5) {
-            const cuotaT = milloLengs.reduce((p,g) => p * g.cuota, 1);
-            const confP = Math.round(milloLengs.reduce((s,g) => s + g.confianza, 0) / milloLengs.length);
-            const evT = milloLengs.reduce((s,g) => s + g.ev, 0);
-            specials.push({ id: 'millonario', tipo: 'millonario', nombre: '💰 Millonario (5 picks)', descripcion: 'Parlay de máximo EV, alto riesgo', legs: milloLengs, cuotaTotal: cuotaT.toFixed(2), confProm: confP, evTotal: '+' + evT.toFixed(1) + '%' });
+            const cuotaT = milloLengs.reduce((p,g)=>p*g.cuota,1);
+            const confP = Math.round(milloLengs.reduce((s,g)=>s+g.confianza,0)/milloLengs.length);
+            const evT = milloLengs.reduce((s,g)=>s+g.ev,0);
+            specials.push({ id:'millonario', tipo:'millonario', nombre:'💰 Millonario (5 picks)', descripcion:'Parlay de máximo EV, alto riesgo', legs:milloLengs, cuotaTotal:cuotaT.toFixed(2), confProm:confP, evTotal:'+'+evT.toFixed(1)+'%' });
         }
         return specials;
     }
@@ -440,23 +431,23 @@
 
     function generateAutoParlays(games) {
         if (!games || games.length < 3) return [];
-        const allPicks = games.map(g => ({...g, cuota: g.cuota_p, pick: g.principal, ev: parseFloat((g.ev_estimado || '0').replace('+','').replace('%','')) || 0}));
-        const sorted = [...allPicks].sort((a,b) => b.confianza - a.confianza);
+        const allPicks = games.map(g => ({...g, cuota: g.cuota_p, pick: g.principal, ev: parseFloat((g.ev_estimado||'0').replace('+','').replace('%','')) || 0}));
+        const sorted = [...allPicks].sort((a,b)=>b.confianza-a.confianza);
         const parlays = [];
-        const conservador = sorted.filter(g => g.confianza >= 78).slice(0,3);
-        if (conservador.length >= 3) {
-            const cuotaTotal = conservador.reduce((p,g) => p * g.cuota, 1).toFixed(2);
-            parlays.push({ tipo:'conservador', nombre:'🛡️ Conservador', descripcion:'Alta seguridad', legs: conservador, cuotaTotal, confProm: Math.round(conservador.reduce((s,g)=>s+g.confianza,0)/3), evTotal:'+' + conservador.reduce((s,g)=>s+g.ev,0).toFixed(1)+'%' });
+        const conservador = sorted.filter(g=>g.confianza>=78).slice(0,3);
+        if (conservador.length>=3) {
+            const cuotaTotal = conservador.reduce((p,g)=>p*g.cuota,1).toFixed(2);
+            parlays.push({ tipo:'conservador', nombre:'🛡️ Conservador', descripcion:'Alta seguridad', legs:conservador, cuotaTotal, confProm:Math.round(conservador.reduce((s,g)=>s+g.confianza,0)/3), evTotal:'+'+conservador.reduce((s,g)=>s+g.ev,0).toFixed(1)+'%' });
         }
-        const balanceado = sorted.filter(g => g.confianza >= 74).slice(0,4);
-        if (balanceado.length >= 4) {
-            const cuotaTotal = balanceado.reduce((p,g) => p * g.cuota, 1).toFixed(2);
-            parlays.push({ tipo:'balanceado', nombre:'⚖️ Balanceado', descripcion:'Equilibrio riesgo-recompensa', legs: balanceado, cuotaTotal, confProm: Math.round(balanceado.reduce((s,g)=>s+g.confianza,0)/4), evTotal:'+' + balanceado.reduce((s,g)=>s+g.ev,0).toFixed(1)+'%' });
+        const balanceado = sorted.filter(g=>g.confianza>=74).slice(0,4);
+        if (balanceado.length>=4) {
+            const cuotaTotal = balanceado.reduce((p,g)=>p*g.cuota,1).toFixed(2);
+            parlays.push({ tipo:'balanceado', nombre:'⚖️ Balanceado', descripcion:'Equilibrio riesgo-recompensa', legs:balanceado, cuotaTotal, confProm:Math.round(balanceado.reduce((s,g)=>s+g.confianza,0)/4), evTotal:'+'+balanceado.reduce((s,g)=>s+g.ev,0).toFixed(1)+'%' });
         }
-        const agresivo = allPicks.filter(g => g.ev >= 9 || g.cuota >= 2.0).sort((a,b) => b.ev - a.ev).slice(0,3);
-        if (agresivo.length >= 3) {
-            const cuotaTotal = agresivo.reduce((p,g) => p * g.cuota, 1).toFixed(2);
-            parlays.push({ tipo:'agresivo', nombre:'🚀 Agresivo', descripcion:'Máximo EV, alto riesgo', legs: agresivo, cuotaTotal, confProm: Math.round(agresivo.reduce((s,g)=>s+g.confianza,0)/3), evTotal:'+' + agresivo.reduce((s,g)=>s+g.ev,0).toFixed(1)+'%' });
+        const agresivo = allPicks.filter(g=>g.ev>=9||g.cuota>=2.0).sort((a,b)=>b.ev-a.ev).slice(0,3);
+        if (agresivo.length>=3) {
+            const cuotaTotal = agresivo.reduce((p,g)=>p*g.cuota,1).toFixed(2);
+            parlays.push({ tipo:'agresivo', nombre:'🚀 Agresivo', descripcion:'Máximo EV, alto riesgo', legs:agresivo, cuotaTotal, confProm:Math.round(agresivo.reduce((s,g)=>s+g.confianza,0)/3), evTotal:'+'+agresivo.reduce((s,g)=>s+g.ev,0).toFixed(1)+'%' });
         }
         return parlays;
     }
@@ -470,7 +461,7 @@
         for (let sport in picksData) {
             const games = picksData[sport];
             const parlays = generateAutoParlays(games);
-            if (parlays.length === 0) continue;
+            if (parlays.length===0) continue;
             const emoji = { futbol:'⚽', mlb:'⚾', nba:'🏀', nhl:'🏒' }[sport] || '';
             html += `<h3 style="color:var(--electric-light); margin-top:1.8rem;">${emoji} ${sport.toUpperCase()}</h3>`;
             parlays.forEach(p => html += renderParlayCard(p));
@@ -483,7 +474,7 @@
         const container = document.getElementById('content');
         if (sport === 'parlays') { renderParlaysAll(); return; }
         const games = picksData[sport];
-        if (!games || games.length === 0) {
+        if (!games || games.length===0) {
             container.innerHTML = '<p style="text-align:center;color:#aaa;padding:3rem;">No hay picks para este deporte.</p>';
             document.getElementById('subtabs-futbol').style.display = 'none';
             updateStatsBar([]);
@@ -507,7 +498,7 @@
         } else {
             document.getElementById('subtabs-futbol').style.display = 'none';
             const emoji = { mlb:'⚾', nba:'🏀', nhl:'🏒' }[sport] || '';
-            container.innerHTML = `<div class="section-title">${emoji} ${sport.toUpperCase()} Picks • 6 Mayo 2026</div>` + createGridHTML(games);
+            container.innerHTML = `<div class="section-title">${emoji} ${sport.toUpperCase()} Picks • 7 Mayo 2026</div>` + createGridHTML(games);
             updateStatsBar(games);
         }
     }
@@ -530,7 +521,7 @@
         }
     });
 
-    const hoy = new Date(2026, 4, 6);
+    const hoy = new Date(2026, 4, 7); // 7 de mayo de 2026
     document.getElementById('fecha-hoy').innerHTML = `<i class="far fa-calendar-alt"></i> ${hoy.toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' })}`;
     document.addEventListener('DOMContentLoaded', () => renderGames('futbol'));
 </script>
