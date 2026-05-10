@@ -18,191 +18,161 @@
             --border-subtle: rgba(0, 191, 255, 0.15);
             --border-medium: rgba(0, 191, 255, 0.35);
             --green: #4ade80;
-            --green-bg: rgba(74, 222, 128, 0.12);
+            --green-bg: rgba(74,222,128,0.12);
             --orange: #fb923c;
-            --orange-bg: rgba(251, 146, 60, 0.12);
+            --orange-bg: rgba(251,146,60,0.12);
             --gold: #facc15;
-            --gold-bg: rgba(250, 204, 21, 0.12);
+            --gold-bg: rgba(250,204,21,0.12);
             --pink: #f472b6;
-            --pink-bg: rgba(244, 114, 182, 0.15);
+            --pink-bg: rgba(244,114,182,0.15);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark);
-            color: #fff;
-            min-height: 100vh;
-            line-height: 1.5;
-            background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(0, 191, 255, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 90%, rgba(0, 191, 255, 0.03) 0%, transparent 50%);
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height:100vh;line-height:1.5;
+            background-image:radial-gradient(ellipse at 20% 10%,rgba(0,191,255,0.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 90%,rgba(0,191,255,0.03) 0%,transparent 50%);
         }
-        .top-bar {
-            background: linear-gradient(180deg, #0a0e14 0%, #05080c 100%);
-            border-bottom: 3px solid var(--electric);
-            padding: 1.2rem 2rem;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        .top-bar{
+            background:linear-gradient(180deg,#0a0e14 0%,#05080c 100%);border-bottom:3px solid var(--electric);
+            padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+            position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);
         }
-        .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1.5px; display: flex; align-items: center; gap: 6px; }
-        .logo .thia { color: var(--electric); text-shadow: 0 0 30px var(--electric-glow); }
-        .logo .sports { color: #fff; font-weight: 700; }
-        .date { color: #ccc; font-size: 1rem; background: rgba(255,255,255,0.04); padding: 8px 18px; border-radius: 30px; font-weight: 500; }
-        .date i { color: var(--electric); margin-right: 6px; }
-        .stats-bar {
-            display: flex; gap: 16px; padding: 1rem 2rem; background: #080b10; overflow-x: auto; white-space: nowrap;
-            border-bottom: 1px solid #1a1e26; flex-wrap: wrap;
+        .logo{font-size:2.2rem;font-weight:900;letter-spacing:-1.5px;display:flex;align-items:center;gap:6px}
+        .logo .thia{color:var(--electric);text-shadow:0 0 30px var(--electric-glow)}
+        .logo .sports{color:#fff;font-weight:700}
+        .date{color:#ccc;font-size:1rem;background:rgba(255,255,255,0.04);padding:8px 18px;border-radius:30px;font-weight:500}
+        .date i{color:var(--electric);margin-right:6px}
+        .stats-bar{
+            display:flex;gap:16px;padding:1rem 2rem;background:#080b10;overflow-x:auto;white-space:nowrap;
+            border-bottom:1px solid #1a1e26;flex-wrap:wrap;
         }
-        .stat-chip {
-            display: flex; align-items: center; gap: 8px; background: var(--card); padding: 8px 16px;
-            border-radius: 30px; font-size: 0.9rem; font-weight: 500; color: #ccc; border: 1px solid #1a1e26;
+        .stat-chip{
+            display:flex;align-items:center;gap:8px;background:var(--card);padding:8px 16px;
+            border-radius:30px;font-size:0.9rem;font-weight:500;color:#ccc;border:1px solid #1a1e26;
         }
-        .stat-chip i { color: var(--electric); }
-        .stat-chip strong { color: #fff; }
-        .main-tabs {
-            display: flex; background: #080b10; padding: 0.8rem 1rem; gap: 8px; overflow-x: auto;
-            white-space: nowrap; border-bottom: 1px solid #1a1e26; position: sticky; top: 88px; z-index: 99;
-            backdrop-filter: blur(10px);
+        .stat-chip i{color:var(--electric)}
+        .stat-chip strong{color:#fff}
+        .main-tabs{
+            display:flex;background:#080b10;padding:0.8rem 1rem;gap:8px;overflow-x:auto;
+            white-space:nowrap;border-bottom:1px solid #1a1e26;position:sticky;top:88px;z-index:99;backdrop-filter:blur(10px);
         }
-        .main-tab {
-            padding: 10px 22px; border-radius: 50px; background: #131820; border: 1px solid transparent;
-            color: #bbb; font-weight: 600; cursor: pointer; font-size: 0.92rem; transition: all 0.2s ease; white-space: nowrap;
+        .main-tab{
+            padding:10px 22px;border-radius:50px;background:#131820;border:1px solid transparent;
+            color:#bbb;font-weight:600;cursor:pointer;font-size:0.92rem;transition:all 0.2s ease;white-space:nowrap;
         }
-        .main-tab:hover { background: #1e2430; color: #fff; }
-        .main-tab.active { background: var(--electric); color: #000; border-color: var(--electric); box-shadow: 0 4px 20px var(--electric-glow); font-weight: 700; }
-        .main-tab.parlay-tab { background: linear-gradient(135deg, #131820, #0a1220); border: 1px solid var(--electric); }
-        .main-tab.parlay-tab.active { background: var(--electric); color: #000; }
-        .sub-tabs {
-            display: flex; background: #0c0f14; padding: 0.8rem 1rem; gap: 8px; flex-wrap: wrap;
-            border-bottom: 1px solid #1a1e26;
+        .main-tab:hover{background:#1e2430;color:#fff}
+        .main-tab.active{background:var(--electric);color:#000;border-color:var(--electric);box-shadow:0 4px 20px var(--electric-glow);font-weight:700}
+        .main-tab.parlay-tab{background:linear-gradient(135deg,#131820,#0a1220);border:1px solid var(--electric)}
+        .main-tab.parlay-tab.active{background:var(--electric);color:#000}
+        .sub-tabs{display:flex;background:#0c0f14;padding:0.8rem 1rem;gap:8px;flex-wrap:wrap;border-bottom:1px solid #1a1e26}
+        .sub-tab{
+            padding:8px 18px;border-radius:25px;background:#1a1e28;border:1px solid transparent;
+            color:#ccc;cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.2s ease;
         }
-        .sub-tab {
-            padding: 8px 18px; border-radius: 25px; background: #1a1e28; border: 1px solid transparent;
-            color: #ccc; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease;
+        .sub-tab:hover{background:#252a36;color:#fff}
+        .sub-tab.active{background:var(--electric);color:#000;font-weight:700;border-color:var(--electric)}
+        .container{max-width:1480px;margin:1.5rem auto;padding:0 1rem;animation:fadeIn 0.4s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .section-title{color:var(--electric-light);font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.5rem}
+        .game-card{
+            background:var(--card);border-radius:18px;border:1px solid var(--border-subtle);
+            padding:20px 22px;transition:all 0.3s ease;position:relative;animation:cardFadeIn 0.5s ease forwards;opacity:0;display:flex;flex-direction:column;gap:10px;
         }
-        .sub-tab:hover { background: #252a36; color: #fff; }
-        .sub-tab.active { background: var(--electric); color: #000; font-weight: 700; border-color: var(--electric); }
-        .container { max-width: 1480px; margin: 1.5rem auto; padding: 0 1rem; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .section-title { color: var(--electric-light); font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.5rem; }
-        .game-card {
-            background: var(--card); border-radius: 18px; border: 1px solid var(--border-subtle);
-            padding: 20px 22px; transition: all 0.3s ease; position: relative;
-            animation: cardFadeIn 0.5s ease forwards; opacity: 0; display: flex; flex-direction: column; gap: 10px;
+        @keyframes cardFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .game-card:nth-child(1){animation-delay:0.03s}
+        .game-card:nth-child(2){animation-delay:0.06s}
+        .game-card:nth-child(3){animation-delay:0.09s}
+        .game-card:nth-child(4){animation-delay:0.12s}
+        .game-card:nth-child(5){animation-delay:0.15s}
+        .game-card:nth-child(6){animation-delay:0.18s}
+        .game-card:nth-child(7){animation-delay:0.21s}
+        .game-card:nth-child(8){animation-delay:0.24s}
+        .game-card:hover{transform:translateY(-5px);border-color:var(--electric);box-shadow:0 14px 35px var(--electric-glow);background:var(--card-hover)}
+        .card-header{display:flex;justify-content:space-between;align-items:center;color:#999;font-size:0.85rem}
+        .card-header .liga-badge{background:var(--electric-bg);color:var(--electric-light);padding:4px 10px;border-radius:12px;font-weight:500;font-size:0.78rem}
+        .card-header .hora{color:#aaa;font-size:0.82rem;font-weight:500;display:flex;align-items:center;gap:5px}
+        .partido{font-size:1.2rem;font-weight:700;line-height:1.3;color:#fff}
+        .tipo-jugada{display:inline-block;background:var(--electric-bg);color:var(--electric-light);padding:3px 10px;border-radius:10px;font-size:0.7rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+        .pick-principal{background:rgba(0,191,255,0.03);border-radius:10px;padding:10px 14px;border-left:3px solid var(--electric)}
+        .pick-principal .pick-label{font-size:0.7rem;color:#999;text-transform:uppercase;letter-spacing:0.5px}
+        .pick-principal .pick-value{font-size:1.1rem;font-weight:700;color:var(--electric-light)}
+        .cuota-row{display:flex;gap:12px;align-items:center;font-size:0.9rem}
+        .cuota-tag{background:#1a1e28;padding:4px 10px;border-radius:8px;color:var(--electric-light);font-weight:600}
+        .secundario-row{display:flex;align-items:center;gap:8px;color:#ccc;font-size:0.88rem;padding-top:4px}
+        .secundario-row .sec-label{color:#888;font-size:0.7rem;text-transform:uppercase}
+        .pitcher-info{background:#131820;padding:8px 12px;border-radius:8px;font-size:0.82rem;color:#ddd;display:flex;align-items:center;gap:6px}
+        .pitcher-info i{color:var(--electric)}
+        .confianza-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:2px}
+        .confianza-badge{padding:6px 16px;border-radius:20px;font-weight:700;font-size:0.85rem}
+        .confianza-alta{background:var(--green-bg);color:var(--green)}
+        .confianza-media{background:rgba(0,191,255,0.15);color:var(--electric-light)}
+        .confianza-baja{background:var(--orange-bg);color:var(--orange)}
+        .ev-badge{font-weight:700;font-size:0.85rem;color:var(--green);background:var(--green-bg);padding:6px 14px;border-radius:20px}
+        .ev-negativo{color:#f87171;background:rgba(248,113,113,0.1)}
+        .razonamiento-trigger{
+            cursor:help;color:#888;font-size:0.78rem;display:flex;align-items:center;gap:4px;margin-top:2px;position:relative;text-decoration:underline dotted;text-underline-offset:3px;
         }
-        @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .game-card:nth-child(1) { animation-delay: 0.03s; }
-        .game-card:nth-child(2) { animation-delay: 0.06s; }
-        .game-card:nth-child(3) { animation-delay: 0.09s; }
-        .game-card:nth-child(4) { animation-delay: 0.12s; }
-        .game-card:nth-child(5) { animation-delay: 0.15s; }
-        .game-card:nth-child(6) { animation-delay: 0.18s; }
-        .game-card:nth-child(7) { animation-delay: 0.21s; }
-        .game-card:nth-child(8) { animation-delay: 0.24s; }
-        .game-card:hover {
-            transform: translateY(-5px); border-color: var(--electric);
-            box-shadow: 0 14px 35px var(--electric-glow); background: var(--card-hover);
+        .razonamiento-trigger:hover .tooltip-content{display:block}
+        .tooltip-content{
+            display:none;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:#1a1e28;color:#ddd;padding:12px 16px;border-radius:10px;font-size:0.78rem;line-height:1.5;width:300px;max-width:90vw;z-index:200;border:1px solid var(--border-medium);box-shadow:0 10px 30px rgba(0,0,0,0.6);text-decoration:none;font-style:normal;text-align:left;
         }
-        .card-header { display: flex; justify-content: space-between; align-items: center; color: #999; font-size: 0.85rem; }
-        .card-header .liga-badge { background: var(--electric-bg); color: var(--electric-light); padding: 4px 10px; border-radius: 12px; font-weight: 500; font-size: 0.78rem; }
-        .card-header .hora { color: #aaa; font-size: 0.82rem; font-weight: 500; display: flex; align-items: center; gap: 5px; }
-        .partido { font-size: 1.2rem; font-weight: 700; line-height: 1.3; color: #fff; }
-        .tipo-jugada { display: inline-block; background: var(--electric-bg); color: var(--electric-light); padding: 3px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
-        .pick-principal { background: rgba(0,191,255,0.03); border-radius: 10px; padding: 10px 14px; border-left: 3px solid var(--electric); }
-        .pick-principal .pick-label { font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
-        .pick-principal .pick-value { font-size: 1.1rem; font-weight: 700; color: var(--electric-light); }
-        .cuota-row { display: flex; gap: 12px; align-items: center; font-size: 0.9rem; }
-        .cuota-tag { background: #1a1e28; padding: 4px 10px; border-radius: 8px; color: var(--electric-light); font-weight: 600; }
-        .secundario-row { display: flex; align-items: center; gap: 8px; color: #ccc; font-size: 0.88rem; padding-top: 4px; }
-        .secundario-row .sec-label { color: #888; font-size: 0.7rem; text-transform: uppercase; }
-        .pitcher-info { background: #131820; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; color: #ddd; display: flex; align-items: center; gap: 6px; }
-        .pitcher-info i { color: var(--electric); }
-        .confianza-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
-        .confianza-badge { padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; }
-        .confianza-alta { background: var(--green-bg); color: var(--green); }
-        .confianza-media { background: rgba(0,191,255,0.15); color: var(--electric-light); }
-        .confianza-baja { background: var(--orange-bg); color: var(--orange); }
-        .ev-badge { font-weight: 700; font-size: 0.85rem; color: var(--green); background: var(--green-bg); padding: 6px 14px; border-radius: 20px; }
-        .ev-negativo { color: #f87171; background: rgba(248,113,113,0.1); }
-        .razonamiento-trigger {
-            cursor: help; color: #888; font-size: 0.78rem; display: flex; align-items: center; gap: 4px;
-            margin-top: 2px; position: relative; text-decoration: underline dotted; text-underline-offset: 3px;
+        .tooltip-content::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#1a1e28}
+        .parlay-card{
+            background:linear-gradient(145deg,#0f1218 0%,#0a0e14 100%);border-radius:16px;border:2px solid var(--electric);padding:20px 22px;position:relative;overflow:hidden;transition:all 0.3s ease;margin-bottom:1.2rem;
         }
-        .razonamiento-trigger:hover .tooltip-content { display: block; }
-        .tooltip-content {
-            display: none; position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-            background: #1a1e28; color: #ddd; padding: 12px 16px; border-radius: 10px; font-size: 0.78rem;
-            line-height: 1.5; width: 300px; max-width: 90vw; z-index: 200;
-            border: 1px solid var(--border-medium); box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            text-decoration: none; font-style: normal; text-align: left;
+        .parlay-card:hover{box-shadow:0 12px 35px var(--electric-glow);transform:translateY(-3px)}
+        .parlay-card.conservador{border-color:var(--green);background:linear-gradient(145deg,#0f1218 0%,#0a1a10 100%)}
+        .parlay-card.balanceado{border-color:var(--electric);background:linear-gradient(145deg,#0f1218 0%,#0a1018 100%)}
+        .parlay-card.agresivo{border-color:var(--orange);background:linear-gradient(145deg,#0f1218 0%,#1a100a 100%)}
+        .parlay-card.mejorpick{border-color:var(--gold);background:linear-gradient(145deg,#0f1218 0%,#1a180e 100%)}
+        .parlay-card.morocha{border-color:var(--pink);background:linear-gradient(145deg,#0f1218 0%,#1a1018 100%)}
+        .parlay-card.seguro{border-color:var(--green);background:linear-gradient(145deg,#0f1218 0%,#0a1a10 100%)}
+        .parlay-card.millonario{border-color:#c084fc;background:linear-gradient(145deg,#0f1218 0%,#1a1020 100%)}
+        .parlay-badge{
+            position:absolute;top:16px;right:16px;font-size:0.75rem;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:0.5px;text-transform:uppercase;
         }
-        .tooltip-content::after {
-            content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            border: 8px solid transparent; border-top-color: #1a1e28;
-        }
-        .parlay-card {
-            background: linear-gradient(145deg, #0f1218 0%, #0a0e14 100%);
-            border-radius: 16px; border: 2px solid var(--electric); padding: 20px 22px;
-            position: relative; overflow: hidden; transition: all 0.3s ease; margin-bottom: 1.2rem;
-        }
-        .parlay-card:hover { box-shadow: 0 12px 35px var(--electric-glow); transform: translateY(-3px); }
-        .parlay-card.conservador { border-color: var(--green); background: linear-gradient(145deg, #0f1218 0%, #0a1a10 100%); }
-        .parlay-card.balanceado { border-color: var(--electric); background: linear-gradient(145deg, #0f1218 0%, #0a1018 100%); }
-        .parlay-card.agresivo { border-color: var(--orange); background: linear-gradient(145deg, #0f1218 0%, #1a100a 100%); }
-        .parlay-card.mejorpick { border-color: var(--gold); background: linear-gradient(145deg, #0f1218 0%, #1a180e 100%); }
-        .parlay-card.morocha { border-color: var(--pink); background: linear-gradient(145deg, #0f1218 0%, #1a1018 100%); }
-        .parlay-card.seguro { border-color: var(--green); background: linear-gradient(145deg, #0f1218 0%, #0a1a10 100%); }
-        .parlay-card.millonario { border-color: #c084fc; background: linear-gradient(145deg, #0f1218 0%, #1a1020 100%); }
-        .parlay-badge {
-            position: absolute; top: 16px; right: 16px; font-size: 0.75rem; font-weight: 700;
-            padding: 5px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase;
-        }
-        .mejorpick .parlay-badge { background: var(--gold-bg); color: var(--gold); }
-        .morocha .parlay-badge { background: var(--pink-bg); color: var(--pink); }
-        .seguro .parlay-badge { background: var(--green-bg); color: var(--green); }
-        .millonario .parlay-badge { background: rgba(192,132,252,0.15); color: #c084fc; }
-        .conservador .parlay-badge { background: var(--green-bg); color: var(--green); }
-        .balanceado .parlay-badge { background: var(--electric-bg); color: var(--electric-light); }
-        .agresivo .parlay-badge { background: var(--orange-bg); color: var(--orange); }
-        .parlay-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: #fff; }
-        .parlay-subtitle { font-size: 0.82rem; color: #999; margin-bottom: 14px; }
-        .parlay-legs { list-style: none; margin-bottom: 14px; }
-        .parlay-legs li {
-            padding: 7px 0; border-bottom: 1px solid #1a1e26; font-size: 0.88rem; color: #ddd;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .parlay-legs li:last-child { border-bottom: none; }
-        .leg-icon { font-size: 0.8rem; width: 20px; text-align: center; }
-        .parlay-metrics { display: flex; gap: 16px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid #1a1e26; }
-        .parlay-metric { display: flex; flex-direction: column; gap: 2px; }
-        .parlay-metric .label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
-        .parlay-metric .value { font-size: 1.1rem; font-weight: 700; color: #fff; }
-        .cuota-total { color: var(--electric-light); font-size: 1.3rem; }
-        .ev-positive { color: var(--green); }
+        .mejorpick .parlay-badge{background:var(--gold-bg);color:var(--gold)}
+        .morocha .parlay-badge{background:var(--pink-bg);color:var(--pink)}
+        .seguro .parlay-badge{background:var(--green-bg);color:var(--green)}
+        .millonario .parlay-badge{background:rgba(192,132,252,0.15);color:#c084fc}
+        .conservador .parlay-badge{background:var(--green-bg);color:var(--green)}
+        .balanceado .parlay-badge{background:var(--electric-bg);color:var(--electric-light)}
+        .agresivo .parlay-badge{background:var(--orange-bg);color:var(--orange)}
+        .parlay-card h3{font-size:1.15rem;font-weight:700;margin-bottom:4px;color:#fff}
+        .parlay-subtitle{font-size:0.82rem;color:#999;margin-bottom:14px}
+        .parlay-legs{list-style:none;margin-bottom:14px}
+        .parlay-legs li{padding:7px 0;border-bottom:1px solid #1a1e26;font-size:0.88rem;color:#ddd;display:flex;align-items:center;gap:8px}
+        .parlay-legs li:last-child{border-bottom:none}
+        .leg-icon{font-size:0.8rem;width:20px;text-align:center}
+        .parlay-metrics{display:flex;gap:16px;flex-wrap:wrap;padding-top:10px;border-top:1px solid #1a1e26}
+        .parlay-metric{display:flex;flex-direction:column;gap:2px}
+        .parlay-metric .label{font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:0.5px}
+        .parlay-metric .value{font-size:1.1rem;font-weight:700;color:#fff}
+        .cuota-total{color:var(--electric-light);font-size:1.3rem}
+        .ev-positive{color:var(--green)}
 
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; gap: 1.2rem; }
-            .game-card { padding: 16px 18px; }
-            .partido { font-size: 1.1rem; }
-            .stats-bar { gap: 8px; padding: 0.8rem; }
-            .stat-chip { font-size: 0.78rem; padding: 6px 12px; }
-            .top-bar { padding: 1rem; }
-            .logo { font-size: 1.6rem; }
-            .main-tabs { padding: 0.6rem; gap: 4px; top: 72px; }
-            .main-tab { padding: 8px 16px; font-size: 0.82rem; }
-            .tooltip-content { width: 250px; left: auto; right: 0; transform: none; }
-            .tooltip-content::after { left: auto; right: 20px; }
+        @media(max-width:768px){
+            .grid{grid-template-columns:1fr;gap:1.2rem}
+            .game-card{padding:16px 18px}
+            .partido{font-size:1.1rem}
+            .stats-bar{gap:8px;padding:0.8rem}
+            .stat-chip{font-size:0.78rem;padding:6px 12px}
+            .top-bar{padding:1rem}
+            .logo{font-size:1.6rem}
+            .main-tabs{padding:0.6rem;gap:4px;top:72px}
+            .main-tab{padding:8px 16px;font-size:0.82rem}
+            .tooltip-content{width:250px;left:auto;right:0;transform:none}
+            .tooltip-content::after{left:auto;right:20px}
         }
-        @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; gap: 1rem; }
-            .game-card { padding: 14px 16px; }
-            .parlay-card { padding: 16px; }
-            .cuota-row { flex-wrap: wrap; gap: 6px; }
+        @media(max-width:480px){
+            .grid{grid-template-columns:1fr;gap:1rem}
+            .game-card{padding:14px 16px}
+            .parlay-card{padding:16px}
+            .cuota-row{flex-wrap:wrap;gap:6px}
         }
-        ::-webkit-scrollbar { height: 4px; width: 4px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #1a1e28; border-radius: 4px; }
+        ::-webkit-scrollbar{height:4px;width:4px}
+        ::-webkit-scrollbar-track{background:#000}
+        ::-webkit-scrollbar-thumb{background:#1a1e28;border-radius:4px}
     </style>
 </head>
 <body>
@@ -231,60 +201,76 @@
 <div class="container" id="content"></div>
 
 <script>
-    // Datos completos para el 10 de mayo de 2026 (segundo futbol extendido)
+    // Datos completos para el 10 de mayo de 2026
     const picksData = {
         futbol: [
-            {"liga":"Liga FUTVE","partido":"Deportivo La Guaira vs Portuguesa FC","hora":"04:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.60,"secundario":"Deportivo La Guaira ML","cuota_s":1.80,"confianza":72,"tipo_jugada":"Total / Moneyline","razonamiento":"Ambas fuentes coinciden en partido de pocos goles y ventaja local. La Guaira invicto en casa pero con poco gol. Portuguesa débil fuera. Under priorizado.","ev_estimado":"+5.5%"},
-            {"liga":"Liga FUTVE","partido":"Universidad Central FC vs Puerto Cabello","hora":"08:00 PM VEN","principal":"Puerto Cabello Doble Oportunidad (X2)","cuota_p":1.70,"secundario":"Under 2.5 Goles","cuota_s":1.65,"confianza":70,"tipo_jugada":"Doble Oportunidad / Total","razonamiento":"Consenso en que Puerto Cabello es el lado más fiable. UCV recién ascendido sufre en casa. X2 cubre empate. Bajo scoring esperado.","ev_estimado":"+6.0%"},
-            {"liga":"Liga FUTVE","partido":"Deportivo Táchira vs Carabobo FC","hora":"08:30 PM VEN","principal":"Deportivo Táchira ML","cuota_p":1.80,"secundario":"Over 2.0 Goles","cuota_s":1.50,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Ambos análisis dan a Táchira como claro favorito en casa. Altura de San Cristóbal y localía fuerte. Se espera victoria local con al menos un par de goles.","ev_estimado":"+7.8%"},
-            {"liga":"Premier League","partido":"Fulham vs Bournemouth","hora":"10:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.72,"secundario":"Fulham Empate No Apuesta","cuota_s":1.65,"confianza":74,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Consenso en Under. Fulham sólido en casa, Bournemouth bajó ritmo. Enfrentamientos directos cerrados. DNB local seguridad ante empate.","ev_estimado":"+6.5%"},
-            {"liga":"Premier League","partido":"Brighton vs Wolves","hora":"10:00 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.85,"secundario":"Brighton ML","cuota_s":1.90,"confianza":70,"tipo_jugada":"Total / Moneyline","razonamiento":"Sin consenso claro en el total. Deepsek apuesta por Over y BTTS; Perplexity por Brighton y Under. Por estilo ofensivo de ambos y defensas vulnerables, Over principal con valor, Brighton favorito en casa.","ev_estimado":"+7.0%"},
-            {"liga":"Premier League","partido":"Sunderland vs Manchester United","hora":"10:00 AM VEN","principal":"Manchester United ML","cuota_p":1.80,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":72,"tipo_jugada":"Moneyline / Total","razonamiento":"Ambas fuentes coinciden en victoria del United. Discrepancia en total, prevalece Under por partidos cerrados de Sunderland ante grandes.","ev_estimado":"+10.5%"},
-            {"liga":"Premier League","partido":"Manchester City vs Brentford","hora":"12:30 PM VEN","principal":"Manchester City -1.0 Asian Handicap","cuota_p":1.62,"secundario":"Over 3.5 Goles","cuota_s":1.95,"confianza":82,"tipo_jugada":"Handicap / Total","razonamiento":"Consenso absoluto en victoria amplia del City. Brentford sin urgencias. Handicap -1.0 seguro. Over alto probable.","ev_estimado":"+6.0%"},
-            {"liga":"Premier League","partido":"Liverpool vs Chelsea","hora":"07:30 AM VEN","principal":"Over 3.5 Goles","cuota_p":2.05,"secundario":"Liverpool ML","cuota_s":1.75,"confianza":70,"tipo_jugada":"Total / Moneyline","razonamiento":"Deepsek ve Over y Liverpool; Perplexity ve Under y Liverpool DNB. Sin consenso total, prevalece Over por poder ofensivo de ambos y fragilidad defensiva del Chelsea. Liverpool ligero favorito.","ev_estimado":"+8.2%"},
-            {"liga":"Serie A","partido":"Cagliari vs Udinese","hora":"09:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.58,"secundario":"Udinese Empate No Apuesta","cuota_s":1.75,"confianza":78,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Consenso en Under 2.5. Duelo por la permanencia, pocas ocasiones. DNB invertido: Deepsek prefiere Udinese, Perplexity a Cagliari; se elige Udinese por ligera superioridad.","ev_estimado":"+6.8%"},
-            {"liga":"Serie A","partido":"Lazio vs Inter Milan","hora":"12:00 PM VEN","principal":"Inter Milan ML","cuota_p":1.85,"secundario":"Under 2.5 Goles","cuota_s":1.62,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Consenso en victoria del Inter y Under. Inter es superior, aunque con posibles rotaciones. Cuota 1.85 con valor.","ev_estimado":"+9.0%"},
-            {"liga":"Serie A","partido":"Lecce vs Juventus","hora":"02:45 PM VEN","principal":"Juventus ML","cuota_p":1.72,"secundario":"Under 2.5 Goles","cuota_s":1.55,"confianza":80,"tipo_jugada":"Moneyline / Total","razonamiento":"Consenso total: victoria de la Juve y pocos goles. Juventus sólida y efectiva, Lecce limitado.","ev_estimado":"+6.5%"},
-            {"liga":"Bundesliga","partido":"RB Leipzig vs St. Pauli","hora":"09:30 AM VEN","principal":"RB Leipzig ML","cuota_p":1.65,"secundario":"Over 3.5 Goles","cuota_s":2.25,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Ambas fuentes ven victoria de Leipzig y Over. St. Pauli débil fuera, Leipzig apisonadora en casa.","ev_estimado":"+5.8%"},
-            {"liga":"Bundesliga","partido":"Wolfsburg vs Bayern Munich","hora":"12:30 PM VEN","principal":"Bayern Munich ML","cuota_p":1.70,"secundario":"Over 3.5 Goles","cuota_s":1.85,"confianza":79,"tipo_jugada":"Moneyline / Total","razonamiento":"Bayern intratable en Bundesliga, consenso en victoria visitante y goles. Cuota 1.70 atractiva.","ev_estimado":"+7.0%"},
-            {"liga":"LaLiga","partido":"Elche CF vs Alavés","hora":"08:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.62,"secundario":"Alavés Doble Oportunidad (X2)","cuota_s":1.68,"confianza":74,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Consenso en Under 2.5. DNB opuestos: Elche (Deepsek) y Alavés (Perplexti). Se elige X2 visitante por mayor valor y partido muy cerrado.","ev_estimado":"+6.2%"},
-            {"liga":"LaLiga","partido":"Sevilla FC vs RCD Espanyol","hora":"10:15 AM VEN","principal":"Sevilla FC ML","cuota_p":1.70,"secundario":"Under 2.5 Goles","cuota_s":1.65,"confianza":79,"tipo_jugada":"Moneyline / Total","razonamiento":"Ambos análisis dan a Sevilla como claro favorito en el Pizjuán. Espanyol débil fuera. Under por control local.","ev_estimado":"+6.8%"},
-            {"liga":"LaLiga","partido":"Atlético de Madrid vs Celta de Vigo","hora":"12:30 PM VEN","principal":"Atlético de Madrid ML","cuota_p":1.72,"secundario":"Under 2.5 Goles","cuota_s":1.58,"confianza":84,"tipo_jugada":"Moneyline / Total","razonamiento":"Consenso absoluto: triunfo local y pocos goles. Atlético fiable en el Metropolitano, Celta blando fuera.","ev_estimado":"+6.1%"},
-            {"liga":"LaLiga","partido":"Real Sociedad vs Real Betis","hora":"03:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.62,"secundario":"Real Sociedad ML","cuota_s":2.00,"confianza":76,"tipo_jugada":"Total / Moneyline","razonamiento":"Consenso en Under 2.5. La Real es sólida en casa, Betis sufre fuera. Cuota local atractiva.","ev_estimado":"+7.2%"},
-            {"liga":"MLS","partido":"Toronto FC vs Inter Miami","hora":"01:00 PM VEN","principal":"Ambos Equipos Anotan (BTTS)","cuota_p":1.58,"secundario":"Inter Miami ML","cuota_s":2.20,"confianza":76,"tipo_jugada":"BTTS / Moneyline","razonamiento":"Consenso en BTTS y valor en Miami. Toronto fuerte en casa, pero Miami con estrellas. Partido abierto.","ev_estimado":"+5.0%"},
-            {"liga":"MLS","partido":"Chicago Fire vs New York Red Bulls","hora":"02:30 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.68,"secundario":"New York Red Bulls ML","cuota_s":2.40,"confianza":70,"tipo_jugada":"Total / Moneyline","razonamiento":"Deepsek ve Under y Red Bulls; Perplexity prefiere Red Bulls DNB y Under. Pocos goles esperados, Red Bulls intensos.","ev_estimado":"+6.0%"},
-            {"liga":"MLS","partido":"CF Montréal vs Orlando City SC","hora":"04:30 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.65,"secundario":"Montréal Empate No Apuesta","cuota_s":1.90,"confianza":72,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Deepsek prefiere DNB Montréal y Under; Perplexity Orlando DNB y Under. Partido cerrado, Under es principal. DNB local por fortaleza en casa.","ev_estimado":"+7.5%"},
-            {"liga":"MLS","partido":"New England Revolution vs Philadelphia Union","hora":"07:30 PM VEN","principal":"New England Revolution ML","cuota_p":2.00,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":73,"tipo_jugada":"Moneyline / Total","razonamiento":"Deepsek ve valor en New England; Perplexity prefiere Union DNB. Cuota local 2.00 atractiva. Over posible.","ev_estimado":"+9.8%"},
-            {"liga":"MLS","partido":"Charlotte FC vs FC Cincinnati","hora":"07:30 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.68,"secundario":"FC Cincinnati Doble Oportunidad (X2)","cuota_s":1.72,"confianza":74,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Consenso en Under y lado visitante. Cincinnati más regular, partido cerrado.","ev_estimado":"+6.3%"},
-            {"liga":"MLS","partido":"Atlanta United vs Los Angeles Galaxy","hora":"07:30 PM VEN","principal":"Atlanta United ML","cuota_p":1.85,"secundario":"Over 3.5 Goles","cuota_s":2.40,"confianza":77,"tipo_jugada":"Moneyline / Total","razonamiento":"Deepsek ve al Atlanta favorito y Over; Perplexity Atlanta DNB. Mercedes-Benz Stadium fortaleza. Over alto valor.","ev_estimado":"+7.8%"},
-            {"liga":"MLS","partido":"Nashville SC vs DC United","hora":"09:15 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.62,"secundario":"Nashville SC ML","cuota_s":1.95,"confianza":78,"tipo_jugada":"Total / Moneyline","razonamiento":"Ambas fuentes destacan a Nashville defensivo en casa. DC United sin gol. Under principal, victoria local probable.","ev_estimado":"+6.2%"}
+            {"liga":"Premier League","partido":"Burnley vs Aston Villa","hora":"09:00 AM VEN","principal":"Aston Villa ML","cuota_p":1.85,"secundario":"Under 2.5 Goles","cuota_s":1.75,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Burnley descendido, Villa busca Champions. Consenso total de las 3 IAs. Cuota con valor. Under por control visitante.","ev_estimado":"+7.2%"},
+            {"liga":"Premier League","partido":"Crystal Palace vs Everton","hora":"09:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.65,"secundario":"Crystal Palace DNB","cuota_s":1.72,"confianza":78,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Palace sólido en casa, Everton lucha por no descender. Historial de pocos goles. Las 3 IAs coinciden en Under. DNB local por seguridad ante empate.","ev_estimado":"+6.8%"},
+            {"liga":"Premier League","partido":"Nottingham Forest vs Newcastle United","hora":"09:00 AM VEN","principal":"Newcastle United ML","cuota_p":2.00,"secundario":"Over 2.5 Goles","cuota_s":1.90,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Newcastle superior y necesita ganar. Forest con bajas defensivas. Deepsek destaca cuota 2.05 como valor. Over por ataque visitante.","ev_estimado":"+11.2%"},
+            {"liga":"Premier League","partido":"West Ham United vs Arsenal","hora":"11:30 AM VEN","principal":"Arsenal -1.0 Asian Handicap","cuota_p":1.80,"secundario":"Over 2.5 Goles","cuota_s":1.72,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Arsenal herido tras Champions, debe ganar. West Ham 4 derrotas seguidas. AH -1.0 da mejor valor que ML puro. Over esperado.","ev_estimado":"+7.5%"},
+            {"liga":"Serie A","partido":"Hellas Verona vs Como","hora":"06:30 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.62,"secundario":"Hellas Verona DNB","cuota_s":1.72,"confianza":79,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Duelo directo por la salvación. Ambos equipos evitan errores. Verona ligeramente favorito. Under típico de Serie A.","ev_estimado":"+6.0%"},
+            {"liga":"Pro League","partido":"KAA Gent vs RSC Anderlecht","hora":"07:30 AM VEN","principal":"Anderlecht X2","cuota_p":1.68,"secundario":"Under 2.5 Goles","cuota_s":1.70,"confianza":75,"tipo_jugada":"Doble Oportunidad / Total","razonamiento":"Clásico belga. Anderlecht superior y pelea el título. Gent impredecible. X2 visitante y pocos goles.","ev_estimado":"+6.5%"},
+            {"liga":"LaLiga","partido":"Mallorca vs Villarreal","hora":"08:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.60,"secundario":"Villarreal X2","cuota_s":1.55,"confianza":80,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Mallorca rocoso en casa, poco gol. Villarreal juega bien fuera. Historial de partidos cerrados. X2 visitante seguro.","ev_estimado":"+6.5%"},
+            {"liga":"Serie A","partido":"Cremonese vs Pisa","hora":"09:00 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.50,"secundario":"Cremonese DNB","cuota_s":1.80,"confianza":80,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Cremonese colista y Pisa penúltimo. Máxima tensión. Peores ofensivas de la Serie A. Under casi obligado. DNB local por campo.","ev_estimado":"+5.2%"},
+            {"liga":"Serie A","partido":"Fiorentina vs Genoa","hora":"09:00 AM VEN","principal":"Fiorentina ML","cuota_p":1.75,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":77,"tipo_jugada":"Moneyline / Total","razonamiento":"Fiorentina fuerte en casa. Genoa salvado y podría relajarse. Cuota local con valor. Over probable por desequilibrio.","ev_estimado":"+7.0%"},
+            {"liga":"Bundesliga","partido":"Hamburger SV vs SC Freiburg","hora":"09:30 AM VEN","principal":"Under 2.5 Goles","cuota_p":1.65,"secundario":"Freiburg X2","cuota_s":1.55,"confianza":76,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Hamburgo necesita ganar para ascenso, pero Friburgo con oficio de Bundesliga. Partido cerrado. X2 visitante.","ev_estimado":"+6.0%"},
+            {"liga":"Pro League","partido":"Royal Antwerp FC vs RC Sporting Charleroi","hora":"10:00 AM VEN","principal":"Royal Antwerp FC ML","cuota_p":1.70,"secundario":"Under 3.0 Goles","cuota_s":1.68,"confianza":72,"tipo_jugada":"Moneyline / Total","razonamiento":"Antwerp tiene mejor base local. Partido más de control que de ida y vuelta.","ev_estimado":"+6.0%"},
+            {"liga":"LaLiga","partido":"Athletic Club vs Valencia","hora":"10:15 AM VEN","principal":"Athletic Club ML","cuota_p":1.65,"secundario":"Under 2.5 Goles","cuota_s":1.62,"confianza":79,"tipo_jugada":"Moneyline / Total","razonamiento":"Athletic en San Mamés un fortín. Valencia débil fuera. Victoria local esperada. Partido intenso pero pocas ocasiones.","ev_estimado":"+5.8%"},
+            {"liga":"Eredivisie","partido":"AFC Ajax vs FC Utrecht","hora":"10:45 AM VEN","principal":"Ajax -1.5 Asian Handicap","cuota_p":1.72,"secundario":"Over 3.5 Goles","cuota_s":1.90,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Ajax en casa es una máquina, persigue el título. Utrecht inferior. ML 1.40 en el límite, se prefiere hándicap. Over probable.","ev_estimado":"+7.0%"},
+            {"liga":"Eredivisie","partido":"Excelsior vs FC Volendam","hora":"10:45 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Excelsior DNB","cuota_s":1.85,"confianza":70,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Partido más orientado a goles que a control. Excelsior ligero favorito en casa. DNB para cubrir empate.","ev_estimado":"+5.5%"},
+            {"liga":"Eredivisie","partido":"FC Groningen vs NEC Nijmegen","hora":"10:45 AM VEN","principal":"Under 3.0 Goles","cuota_p":1.65,"secundario":"Groningen DNB","cuota_s":1.75,"confianza":66,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"No hay mucho edge en el lado. Mejor ir por total bajo y cobertura local.","ev_estimado":"+4.5%"},
+            {"liga":"Eredivisie","partido":"FC Twente vs Sparta Rotterdam","hora":"10:45 AM VEN","principal":"FC Twente ML","cuota_p":1.75,"secundario":"Over 2.5 Goles","cuota_s":1.85,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Twente tiene mejor contexto para ganar. Sparta irregular. Over por estilo ofensivo local.","ev_estimado":"+6.0%"},
+            {"liga":"Eredivisie","partido":"Feyenoord vs AZ Alkmaar","hora":"10:45 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.72,"secundario":"Feyenoord ML","cuota_s":1.75,"confianza":78,"tipo_jugada":"Total / Moneyline","razonamiento":"Feyenoord en casa favorito. AZ ya en Europa. Partido de goles asegurado. Victoria local.","ev_estimado":"+7.0%"},
+            {"liga":"Eredivisie","partido":"Fortuna Sittard vs PEC Zwolle","hora":"10:45 AM VEN","principal":"Fortuna Sittard DNB","cuota_p":1.72,"secundario":"Under 3.0 Goles","cuota_s":1.68,"confianza":67,"tipo_jugada":"Empate No Apuesta / Total","razonamiento":"Cobertura más segura que ML puro. Partido de pocos goles esperado.","ev_estimado":"+5.0%"},
+            {"liga":"Eredivisie","partido":"Go Ahead Eagles vs PSV Eindhoven","hora":"10:45 AM VEN","principal":"PSV Eindhoven -1.5 Asian Handicap","cuota_p":1.82,"secundario":"Over 3.5 Goles","cuota_s":1.95,"confianza":82,"tipo_jugada":"Handicap / Total","razonamiento":"PSV persigue el título. Diferencia de calidad abismal contra equipo de media tabla. Hándicap -1.5 seguro. Over por potencial goleador.","ev_estimado":"+6.8%"},
+            {"liga":"Eredivisie","partido":"NAC Breda vs SC Heerenveen","hora":"10:45 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Heerenveen DNB","cuota_s":1.85,"confianza":70,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Mejor ángulo en goles que en lado puro. Heerenveen ligeramente superior.","ev_estimado":"+5.5%"},
+            {"liga":"Eredivisie","partido":"SC Telstar vs Heracles Almelo","hora":"10:45 AM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Heracles DNB","cuota_s":1.85,"confianza":69,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Partido propenso a anotaciones. Heracles con ligera ventaja visitante.","ev_estimado":"+5.5%"},
+            {"liga":"Bundesliga","partido":"1. FC Köln vs 1. FC Heidenheim","hora":"11:30 AM VEN","principal":"Under 3.0 Goles","cuota_p":1.60,"secundario":"Köln ML","cuota_s":1.85,"confianza":74,"tipo_jugada":"Total / Moneyline","razonamiento":"Köln necesita ganar para salir del descenso. Heidenheim salvado. Tensión, pocos goles. Victoria local.","ev_estimado":"+6.5%"},
+            {"liga":"Serie A","partido":"Parma vs AS Roma","hora":"12:00 PM VEN","principal":"AS Roma ML","cuota_p":1.85,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":78,"tipo_jugada":"Moneyline / Total","razonamiento":"Roma en racha positiva con Donyell Malen encendido. Parma limitado. Cuota visitante atractiva. Over por poder ofensivo.","ev_estimado":"+8.0%"},
+            {"liga":"LaLiga","partido":"Real Oviedo vs Getafe","hora":"12:30 PM VEN","principal":"Under 2.0 Goles","cuota_p":1.78,"secundario":"Getafe X2","cuota_s":1.60,"confianza":81,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Duelo por no descender. Oviedo y Getafe muy limitados ofensivamente. Under 2.0 cubre 0-0 o 1-0. Getafe experto en rascar fuera.","ev_estimado":"+6.8%"},
+            {"liga":"Pro League","partido":"Royale Union Saint-Gilloise vs KV Mechelen","hora":"12:30 PM VEN","principal":"Union SG ML","cuota_p":1.55,"secundario":"Union SG -1.0","cuota_s":1.80,"confianza":84,"tipo_jugada":"Moneyline / Handicap","razonamiento":"Union Saint-Gilloise es un favorito muy sólido. Victoria y posible goleada.","ev_estimado":"+7.0%"},
+            {"liga":"Liga Portugal Betclic","partido":"AVS - Futebol SAD vs FC Porto","hora":"01:00 PM VEN","principal":"FC Porto -1.0 Asian Handicap","cuota_p":1.68,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Porto superior, persiguiendo el título. AVS equipo de mitad de tabla. Hándicap -1 con valor. Over esperado.","ev_estimado":"+6.0%"},
+            {"liga":"Pro League","partido":"KRC Genk vs KVC Westerlo","hora":"01:15 PM VEN","principal":"KRC Genk ML","cuota_p":1.55,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":83,"tipo_jugada":"Moneyline / Total","razonamiento":"Genk es el lado más fuerte. Victoria esperada y goles.","ev_estimado":"+7.0%"},
+            {"liga":"Bundesliga","partido":"1. FSV Mainz 05 vs 1. FC Union Berlin","hora":"01:30 PM VEN","principal":"Over 2.5 Goles","cuota_p":1.75,"secundario":"Mainz 05 ML","cuota_s":1.95,"confianza":72,"tipo_jugada":"Moneyline / Total","razonamiento":"Mainz fuerte en casa. Union Berlin con cansancio europeo. Over probable por errores defensivos del Union. Victoria local con cuota atractiva.","ev_estimado":"+8.0%"},
+            {"liga":"Serie A","partido":"Milan vs Atalanta","hora":"02:45 PM VEN","principal":"Over 2.5 Goles","cuota_p":1.75,"secundario":"Atalanta X2","cuota_s":1.68,"confianza":76,"tipo_jugada":"Total / Doble Oportunidad","razonamiento":"Partido vibrante en San Siro. Historial de goles (8 de 10 H2H over). Atalanta mejor momento. Over principal.","ev_estimado":"+7.5%"},
+            {"liga":"LaLiga","partido":"FC Barcelona vs Real Madrid","hora":"03:00 PM VEN","principal":"Over 3.5 Goles","cuota_p":2.15,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.72,"confianza":77,"tipo_jugada":"Total / BTTS","razonamiento":"El Clásico más decisivo por LaLiga. Historial reciente con goles. Over 2.5 en los últimos 4 enfrentamientos. BTTS casi seguro.","ev_estimado":"+9.0%"},
+            {"liga":"Ligue 1","partido":"AS Monaco vs Lille","hora":"03:00 PM VEN","principal":"Monaco ML","cuota_p":1.80,"secundario":"Over 2.5 Goles","cuota_s":1.80,"confianza":75,"tipo_jugada":"Moneyline / Total","razonamiento":"Mónaco pelea por el título y es fuerte en casa. Lille pierde fuelle. Victoria ajustada y goles.","ev_estimado":"+6.8%"},
+            {"liga":"Ligue 1","partido":"Angers vs RC Strasbourg","hora":"03:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.65,"secundario":"Strasbourg DNB","cuota_s":1.75,"confianza":66,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Partido de pocos goles por perfil de ambos equipos. Strasbourg ligeramente superior. DNB visitante como seguridad.","ev_estimado":"+5.0%"},
+            {"liga":"Ligue 1","partido":"Auxerre vs Nice","hora":"03:00 PM VEN","principal":"Nice DNB","cuota_p":1.70,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":67,"tipo_jugada":"Empate No Apuesta / Total","razonamiento":"Nice tiene mejor piso. Auxerre irregular. Partido probablemente cerrado.","ev_estimado":"+5.5%"},
+            {"liga":"Ligue 1","partido":"Le Havre vs Olympique de Marseille","hora":"03:00 PM VEN","principal":"Marseille -1.0 Asian Handicap","cuota_p":1.68,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"Marsella pelea por Europa. Le Havre descendido. Victoria clara visitante. Over por fragilidad local.","ev_estimado":"+6.0%"},
+            {"liga":"Ligue 1","partido":"Metz vs Lorient","hora":"03:00 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.58,"secundario":"Metz DNB","cuota_s":1.80,"confianza":78,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Duelo directo por la permanencia. Ambos necesitan puntuar. Partido trabado, pocas ocasiones. Metz ligeramente favorito.","ev_estimado":"+6.0%"},
+            {"liga":"Ligue 1","partido":"Paris Saint-Germain vs Stade Brestois","hora":"03:00 PM VEN","principal":"PSG -1.5 Asian Handicap","cuota_p":1.72,"secundario":"Over 3.5 Goles","cuota_s":1.85,"confianza":80,"tipo_jugada":"Handicap / Total","razonamiento":"PSG en casa contra Brest salvado. Diferencia de calidad enorme. ML 1.40 en el límite, AH -1.5 mejor cuota. Over esperado.","ev_estimado":"+6.5%"},
+            {"liga":"Ligue 1","partido":"Stade Rennais vs Paris FC","hora":"03:00 PM VEN","principal":"Rennes ML","cuota_p":1.85,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":74,"tipo_jugada":"Moneyline / Total","razonamiento":"Rennes favorito en casa. Paris FC lucha por no descender, se encierra bien. Under secundario lógico.","ev_estimado":"+6.2%"},
+            {"liga":"Ligue 1","partido":"Toulouse vs Olympique Lyonnais","hora":"03:00 PM VEN","principal":"Under 3.0 Goles","cuota_p":1.65,"secundario":"Lyon DNB","cuota_s":1.75,"confianza":68,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Juego bastante equilibrado. Más valor en total bajo que en un lado puro.","ev_estimado":"+5.0%"},
+            {"liga":"Liga Portugal Betclic","partido":"FC Alverca vs Estoril Praia","hora":"03:30 PM VEN","principal":"Under 2.5 Goles","cuota_p":1.62,"secundario":"Alverca DNB","cuota_s":1.75,"confianza":75,"tipo_jugada":"Total / Empate No Apuesta","razonamiento":"Duelo de la zona baja. Ambos equipos con dificultades para marcar. Alverca ligero favorito. Partido cerrado.","ev_estimado":"+6.0%"},
+            {"liga":"MLS","partido":"New York City FC vs Columbus Crew","hora":"04:30 PM VEN","principal":"Over 2.5 Goles","cuota_p":1.80,"secundario":"Ambos Equipos Anotan (BTTS)","cuota_s":1.65,"confianza":74,"tipo_jugada":"Total / BTTS","razonamiento":"NYCFC y Columbus son equipos ofensivos. Partido promete goles. Over recomendado.","ev_estimado":"+7.0%"},
+            {"liga":"MLS","partido":"Minnesota United vs Austin FC","hora":"07:00 PM VEN","principal":"Minnesota United ML","cuota_p":1.90,"secundario":"Under 2.5 Goles","cuota_s":1.68,"confianza":73,"tipo_jugada":"Moneyline / Total","razonamiento":"Minnesota fuerte en casa. Austin incómodo fuera. Partido cerrado. Victoria local por la mínima.","ev_estimado":"+6.5%"},
+            {"liga":"MLS","partido":"Los Angeles FC vs Houston Dynamo","hora":"09:00 PM VEN","principal":"LAFC ML","cuota_p":1.70,"secundario":"Over 2.5 Goles","cuota_s":1.75,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"LAFC en casa candidato al título. Houston sufre fuera. Victoria y goles.","ev_estimado":"+6.0%"}
         ],
         mlb: [
-            {"liga":"MLB","partido":"Toronto Blue Jays vs Los Angeles Angels","hora":"03:07 PM VEN","principal":"Blue Jays ML","cuota_p":1.72,"secundario":"Under 8.5 Runs","cuota_s":1.80,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"T. Yesavage (TOR) vs J. Kochanowicz (LAA)","razonamiento":"Yesavage (0.00 ERA) dominio absoluto. Kochanowicz sólido pero Angels ofensiva débil. Consenso en victoria local y pocas carreras.","ev_estimado":"+7.0%"},
-            {"liga":"MLB","partido":"Baltimore Orioles vs Oakland Athletics","hora":"04:05 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.85,"secundario":"Orioles ML","cuota_s":1.70,"confianza":76,"tipo_jugada":"Total / Moneyline","pitchers":"S. Baz (BAL) vs A. Civale (ATH)","razonamiento":"Baz y Civale lanzadores de alta variabilidad. Camden Yards parque de batazos. Consenso en Over y victoria de Orioles.","ev_estimado":"+6.9%"},
-            {"liga":"MLB","partido":"Boston Red Sox vs Tampa Bay Rays","hora":"04:10 PM VEN","principal":"Red Sox ML","cuota_p":1.80,"secundario":"Over 10.5 Runs","cuota_s":2.10,"confianza":70,"tipo_jugada":"Moneyline / Total","pitchers":"P. Tolle (BOS) vs N. Martinez (TB)","razonamiento":"Tolle debutante (riesgo). Martinez veterano inconsistente. Ofensiva de Boston top 3. Perplexity prefiere Rays, Deepsek Red Sox y Over. Se elige Red Sox por localía y over alto en Fenway.","ev_estimado":"+8.0%"},
-            {"liga":"MLB","partido":"Cincinnati Reds vs Houston Astros","hora":"04:10 PM VEN","principal":"Reds ML","cuota_p":1.65,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":75,"tipo_jugada":"Moneyline / Total","pitchers":"C. Burns (CIN) vs S. Arrighetti (HOU)","razonamiento":"Burns (2.65 ERA) futuro as. Arrighetti (2.00 ERA) enrachado. Ambos análisis discrepan en ganador; Deepsek prefiere Reds, Perplexity Astros. Se elige Reds por ofensiva top 10 y localía. Over por calidad de pitchers.","ev_estimado":"+6.0%"},
-            {"liga":"MLB","partido":"Miami Marlins vs Washington Nationals","hora":"04:10 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.80,"secundario":"Nationals ML","cuota_s":1.85,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"J. Junk (MIA) vs Z. Littell (WSH)","razonamiento":"Junk lanzador de ligas menores. Littell (7.85 ERA) pésimo. Over principal. Nacionales ligeros favoritos.","ev_estimado":"+8.0%"},
-            {"liga":"MLB","partido":"Philadelphia Phillies vs Colorado Rockies","hora":"06:05 PM VEN","principal":"Phillies ML","cuota_p":1.72,"secundario":"Over 8.5 Runs","cuota_s":1.80,"confianza":82,"tipo_jugada":"Moneyline / Total","pitchers":"A. Nola (PHI) vs K. Freeland (COL)","razonamiento":"Nola es un as. Freeland fuera de Coors muy débil. Consenso absoluto en victoria de Phillies y over.","ev_estimado":"+7.2%"},
-            {"liga":"MLB","partido":"Cleveland Guardians vs Minnesota Twins","hora":"06:10 PM VEN","principal":"Under 7.0 Runs","cuota_p":1.95,"secundario":"Guardians ML","cuota_s":1.80,"confianza":83,"tipo_jugada":"Total / Moneyline","pitchers":"T. Bibee (CLE) vs J. Ryan (MIN)","razonamiento":"Duelo de ases. Ambos fuentes coinciden en Under y Guardians. Frío en Cleveland favorece pitcheo.","ev_estimado":"+10.0%"},
-            {"liga":"MLB","partido":"Texas Rangers vs Chicago Cubs","hora":"07:05 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.82,"secundario":"Cubs ML","cuota_s":1.82,"confianza":70,"tipo_jugada":"Total / Moneyline","pitchers":"J. Leiter (TEX) vs E. Cabrera (CHC)","razonamiento":"Leiter y Cabrera abridores vulnerables. Ambos análisis ven Over. Cubs ligeros favoritos.","ev_estimado":"+6.6%"},
-            {"liga":"MLB","partido":"Chicago White Sox vs Seattle Mariners","hora":"07:10 PM VEN","principal":"Mariners ML","cuota_p":1.78,"secundario":"Under 7.5 Runs","cuota_s":1.80,"confianza":76,"tipo_jugada":"Moneyline / Total","pitchers":"A. Kay (CWS) vs L. Castillo (SEA)","razonamiento":"Consenso en Mariners ML y Under. Castillo debe imponerse, White Sox ofensiva débil.","ev_estimado":"+6.8%"},
-            {"liga":"MLB","partido":"Kansas City Royals vs Detroit Tigers","hora":"07:10 PM VEN","principal":"Over 8.5 Runs","cuota_p":1.82,"secundario":"Royals ML","cuota_s":1.88,"confianza":69,"tipo_jugada":"Total / Moneyline","pitchers":"M. Wacha (KC) vs B. Smith (DET)","razonamiento":"Ambos abridores inconsistentes. Perplexity prefiere Tigers, Deepsek Royals y Over. Over principal por debilidad de pitchers.","ev_estimado":"+6.4%"},
-            {"liga":"MLB","partido":"Milwaukee Brewers vs New York Yankees","hora":"07:10 PM VEN","principal":"Yankees ML","cuota_p":1.74,"secundario":"Under 8.5 Runs","cuota_s":1.78,"confianza":77,"tipo_jugada":"Moneyline / Total","pitchers":"K. Harrison (MIL) vs C. Schlittler (NYY)","razonamiento":"Schlittler (1.51 ERA) intratable. Harrison sólido pero Yankees ofensiva top. Consenso en victoria visitante y under.","ev_estimado":"+7.8%"},
-            {"liga":"MLB","partido":"Arizona Diamondbacks vs New York Mets","hora":"07:15 PM VEN","principal":"Mets ML","cuota_p":1.74,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"M. Kelly (ARI) vs C. Holmes (NYM)","razonamiento":"Holmes (1.75 ERA) dominante. Kelly inconsistente. Consenso en Mets y over.","ev_estimado":"+8.1%"},
-            {"liga":"MLB","partido":"San Diego Padres vs St. Louis Cardinals","hora":"07:15 PM VEN","principal":"Padres ML","cuota_p":1.70,"secundario":"Under 8.0 Runs","cuota_s":1.82,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"R. Vásquez (SD) vs D. May (STL)","razonamiento":"Vásquez (2.94 ERA) excelente. May inconsistente. Ambos fuentes coinciden en Padres y Under.","ev_estimado":"+7.2%"},
-            {"liga":"MLB","partido":"San Francisco Giants vs Pittsburgh Pirates","hora":"09:05 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.82,"secundario":"Giants ML","cuota_s":1.75,"confianza":76,"tipo_jugada":"Total / Moneyline","pitchers":"L. Roupp (SF) vs B. Ashcraft (PIT)","razonamiento":"Roupp (2.55 ERA) y Ashcraft (3.71 ERA) calidad. Oracle Park pitcher-friendly. Consenso en Under y Giants.","ev_estimado":"+7.6%"},
-            {"liga":"MLB","partido":"Los Angeles Dodgers vs Atlanta Braves","hora":"09:10 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.80,"secundario":"Dodgers ML","cuota_s":1.75,"confianza":78,"tipo_jugada":"Total / Moneyline","pitchers":"B. Snell (LAD) vs S. Strider (ATL)","razonamiento":"Duelo de ases. Snell y Strider élite. Ambos análisis ven Under y Dodgers como ligeros favoritos.","ev_estimado":"+8.8%"}
+            {"liga":"MLB","partido":"Miami Marlins vs Washington Nationals","hora":"12:15 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.85,"secundario":"Marlins ML","cuota_s":1.90,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"S. Alcantara (MIA) vs C. Cavalli (WSH)","razonamiento":"Alcantara es un as en parque pitcher-friendly. Cavalli bateable pero Marlins batean poco. Discrepancia en ganador, Under principal.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Boston Red Sox vs Tampa Bay Rays","hora":"01:35 PM VEN","principal":"Over 9.5 Runs","cuota_p":1.82,"secundario":"Red Sox ML","cuota_s":1.75,"confianza":72,"tipo_jugada":"Total / Moneyline","pitchers":"P. Tolle (BOS) vs N. Martinez (TB)","razonamiento":"Tolle debutante, Martinez veterano inconsistente. Ofensiva de Boston top 3. Over en Fenway lógico. Red Sox ganan.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Baltimore Orioles vs Oakland Athletics","hora":"01:35 PM VEN","principal":"Orioles ML","cuota_p":1.65,"secundario":"Under 8.5 Runs","cuota_s":1.82,"confianza":80,"tipo_jugada":"Moneyline / Total","pitchers":"C. Bassitt (BAL) vs L. Severino (OAK)","razonamiento":"Bassitt sólido, Severino vulnerable. Consenso en Orioles. Under por Bassitt y ofensiva inconsistente de Oakland.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Philadelphia Phillies vs Colorado Rockies","hora":"01:35 PM VEN","principal":"Phillies -1.5 Run Line","cuota_p":1.80,"secundario":"Over 8.5 Runs","cuota_s":1.75,"confianza":82,"tipo_jugada":"Run Line / Total","pitchers":"C. Sanchez (PHI) vs T. Sugano (COL)","razonamiento":"Sánchez élite, Sugano debutante. Rockies débiles fuera de Coors. RL con valor. Over por inconsistencia del pitcher visitante.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Toronto Blue Jays vs Los Angeles Angels","hora":"01:37 PM VEN","principal":"Blue Jays ML","cuota_p":1.60,"secundario":"Under 8.5 Runs","cuota_s":1.82,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"S. Miles (TOR) vs J. Soriano (LAA)","razonamiento":"Miles prometedor, Soriano inconsistente. Angels peor ofensiva liga. Victoria local y pocas carreras.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Cleveland Guardians vs Minnesota Twins","hora":"01:40 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.85,"secundario":"Guardians ML","cuota_s":1.80,"confianza":82,"tipo_jugada":"Total / Moneyline","pitchers":"G. Williams (CLE) vs A. Morris (MIN)","razonamiento":"Williams inconsistent, Morris novato. Progressive Field pitcher-friendly. Under 7.5 sólido. Guardians ligeros favoritos.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Cincinnati Reds vs Houston Astros","hora":"01:40 PM VEN","principal":"Reds ML","cuota_p":1.72,"secundario":"Over 8.5 Runs","cuota_s":1.80,"confianza":76,"tipo_jugada":"Moneyline / Total","pitchers":"A. Abbott (CIN) vs K. Teng (HOU)","razonamiento":"Abbott sólido, Teng desastroso. Reds ofensiva top 10. Consenso en ML y Over.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Chicago White Sox vs Seattle Mariners","hora":"02:10 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.80,"secundario":"Mariners ML","cuota_s":1.75,"confianza":78,"tipo_jugada":"Total / Moneyline","pitchers":"D. Martin (CWS) vs L. Gilbert (SEA)","razonamiento":"Gilbert as visitante. Martin es relleno. White Sox no batean. Consenso en Under. Mariners ML secundario.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Milwaukee Brewers vs New York Yankees","hora":"02:10 PM VEN","principal":"Yankees ML","cuota_p":1.68,"secundario":"Over 8.5 Runs","cuota_s":1.85,"confianza":75,"tipo_jugada":"Moneyline / Total","pitchers":"L. Henderson (MIL) vs C. Rodon (NYY)","razonamiento":"Henderson novato, Rodon en mejora. Yankees ofensiva top. ML visitante. Over por novato en lomita.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Texas Rangers vs Chicago Cubs","hora":"02:35 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.82,"secundario":"Rangers ML","cuota_s":1.90,"confianza":76,"tipo_jugada":"Total / Moneyline","pitchers":"J. deGrom (TEX) vs J. Taillon (CHC)","razonamiento":"deGrom Cy Young, Taillon sólido. Duelo de pitcheo cerrado. Under priorizado. Rangers ligeros favoritos.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"San Francisco Giants vs Pittsburgh Pirates","hora":"04:05 PM VEN","principal":"Under 7.5 Runs","cuota_p":1.75,"secundario":"Giants ML","cuota_s":1.80,"confianza":79,"tipo_jugada":"Total / Moneyline","pitchers":"T. Mahle (SF) vs B. Chandler (PIT)","razonamiento":"Mahle mal, Chandler novato sin experiencia. Oracle Park pitcher-friendly. Under 7.5 el pick. Giants ligeros favoritos.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Los Angeles Dodgers vs Atlanta Braves","hora":"04:10 PM VEN","principal":"Dodgers ML","cuota_p":1.70,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"J. Wrobleski (LAD) vs B. Elder (ATL)","razonamiento":"Wrobleski fenómeno, Elder sólido. Dodgers en casa con ofensiva top 5. Consenso ML. Over por calidad de lineups.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Arizona Diamondbacks vs New York Mets","hora":"04:10 PM VEN","principal":"Mets ML","cuota_p":1.75,"secundario":"Over 8.5 Runs","cuota_s":1.82,"confianza":77,"tipo_jugada":"Moneyline / Total","pitchers":"E. Rodriguez (ARI) vs H. Brazoban (NYM)","razonamiento":"Rodriguez mal momento, Brazoban relevista convertido. Over 8.5 el pick. Mets ganan por mejor ofensiva.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"San Diego Padres vs St. Louis Cardinals","hora":"04:10 PM VEN","principal":"Padres ML","cuota_p":1.68,"secundario":"Under 7.5 Runs","cuota_s":1.80,"confianza":78,"tipo_jugada":"Moneyline / Total","pitchers":"W. Buehler (SD) vs K. Leahy (STL)","razonamiento":"Buehler as, Leahy ligas menores. PETCO Park pitcher-friendly. Padres ganan y pocas carreras.","ev_estimado":"N/A"},
+            {"liga":"MLB","partido":"Kansas City Royals vs Detroit Tigers","hora":"07:20 PM VEN","principal":"Royals ML","cuota_p":1.78,"secundario":"Over 8.5 Runs","cuota_s":1.85,"confianza":74,"tipo_jugada":"Moneyline / Total","pitchers":"N. Cameron (KC) vs B. Hanifee (DET)","razonamiento":"Ambos novatos. Over 8.5 por inexperiencia. Royals ligeros favoritos en casa.","ev_estimado":"N/A"}
         ],
         nba: [
-            {"liga":"NBA Playoffs","partido":"Cleveland Cavaliers vs Detroit Pistons","hora":"03:00 PM VEN","principal":"Under 214.5 Puntos","cuota_p":1.91,"secundario":"Cavaliers ML","cuota_s":1.80,"confianza":72,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 3 (serie 1-1). Perplexity prefiere Pistons, Deepsek da Under y Knicks para otro partido. Ante falta de consenso, Under principal en playoffs. Cavaliers ligeros favoritos en casa.","ev_estimado":"+7.0%"},
-            {"liga":"NBA Playoffs","partido":"Los Angeles Lakers vs Oklahoma City Thunder","hora":"08:30 PM VEN","principal":"Thunder ML","cuota_p":1.72,"secundario":"Under 218.5 Puntos","cuota_s":1.91,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Game 3 (Thunder 2-0). Consenso en Thunder ML. Deepsek prioriza Under por ajuste defensivo. Se respeta ML con Under secundario.","ev_estimado":"+7.8%"},
-            {"liga":"NBA Playoffs","partido":"Philadelphia 76ers vs New York Knicks","hora":"07:00 PM VEN","principal":"Under 214.5 Puntos","cuota_p":1.91,"secundario":"Knicks ML","cuota_s":1.68,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 3 (Knicks 2-0). Deepsek prioriza Under. Knicks defensa sólida, 76ers agotados. Consenso en Under y Knicks.","ev_estimado":"+8.2%"},
-            {"liga":"NBA Playoffs","partido":"Minnesota Timberwolves vs San Antonio Spurs","hora":"09:30 PM VEN","principal":"Under 212.0 Puntos","cuota_p":1.91,"secundario":"Timberwolves ML","cuota_s":1.78,"confianza":79,"tipo_jugada":"Total / Moneyline","razonamento":"Game 3 (Spurs 2-0). Timberwolves favoritos inflados (-400), regla: Under como principal. Deepsek ya lo prioriza. Perplexity también ve Under. Perfecto.","ev_estimado":"+7.5%"}
+            {"liga":"NBA Playoffs","partido":"Philadelphia 76ers vs New York Knicks","hora":"03:30 PM VEN","principal":"Under 214.5 Puntos","cuota_p":1.91,"secundario":"Knicks ML","cuota_s":1.68,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 4 (Knicks 3-0). 76ers al borde de barrida. Defensa élite de Knicks controla. Under priorizado. Knicks ML para cerrar serie.","ev_estimado":"N/A"},
+            {"liga":"NBA Playoffs","partido":"Minnesota Timberwolves vs San Antonio Spurs","hora":"07:30 PM VEN","principal":"Under 212.0 Puntos","cuota_p":1.91,"secundario":"Timberwolves ML","cuota_s":1.78,"confianza":76,"tipo_jugada":"Moneyline / Total","razonamiento":"Game 4 (Spurs 2-1). Minnesota favorito inflado (-400). Regla NBA: Under es principal. Serie de bajo goleo. Wolves deben ganar.","ev_estimado":"N/A"}
         ],
         nhl: [
-            {"liga":"NHL Playoffs","partido":"Philadelphia Flyers vs Carolina Hurricanes","hora":"06:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.83,"secundario":"Hurricanes ML","cuota_s":1.75,"confianza":82,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 6 (Canes 3-2). Ambos análisis coinciden en Under y Hurricanes. Partido de cierre, pocos goles.","ev_estimado":"+9.1%"},
-            {"liga":"NHL Playoffs","partido":"Minnesota Wild vs Colorado Avalanche","hora":"09:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.85,"secundario":"Avalanche ML","cuota_s":1.65,"confianza":80,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 6 (Avs 3-2). Consenso en Under y Avalanche. Duelo de arqueros y defensas, pocos goles.","ev_estimado":"+8.5%"}
+            {"liga":"NHL Playoffs","partido":"Montreal Canadiens vs Buffalo Sabres","hora":"07:00 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.85,"secundario":"Sabres ML","cuota_s":1.82,"confianza":81,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 6 (Sabres 3-2). Canadiens evitan eliminación. Serie de pocos goles. Sabres mejor defensa. Under y Sabres para cerrar.","ev_estimado":"N/A"},
+            {"liga":"NHL Playoffs","partido":"Anaheim Ducks vs Vegas Golden Knights","hora":"09:30 PM VEN","principal":"Under 5.5 Goles","cuota_p":1.91,"secundario":"Golden Knights ML","cuota_s":1.68,"confianza":83,"tipo_jugada":"Total / Moneyline","razonamiento":"Game 6 (Knights 3-2). Serie extremadamente defensiva. Under 5.5 casi un regalo. Knights ML para sentenciar.","ev_estimado":"N/A"}
         ]
     };
 
@@ -363,7 +349,7 @@
         }
         const total = games.length;
         const avgConf = Math.round(games.reduce((s,g) => s + g.confianza, 0) / total);
-        const evVals = games.map(g => parseFloat((g.ev_estimado||'').replace('+','').replace('%',''))).filter(v => !isNaN(v));
+        const evVals = games.map(g => parseFloat((g.ev_estimado||'0').replace('+','').replace('%',''))).filter(v => !isNaN(v));
         const avgEV = evVals.length > 0 ? (evVals.reduce((s,v) => s + v, 0) / evVals.length).toFixed(1) : '0.0';
         const highConf = games.filter(g => g.confianza >= 75).length;
         document.getElementById('total-picks').textContent = total;
